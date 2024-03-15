@@ -22,7 +22,7 @@ struct CakesHubApp: App {
 
     var body: some Scene {
         WindowGroup {
-            EmptyView()
+            RootView()
         }
     }
 }
