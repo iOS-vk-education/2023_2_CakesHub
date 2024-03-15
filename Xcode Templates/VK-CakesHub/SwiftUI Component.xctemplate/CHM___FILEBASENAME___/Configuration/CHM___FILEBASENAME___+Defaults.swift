@@ -37,7 +37,7 @@ private extension MKRImageView.Configuration {
         .basic(
             kind: kind,
             imageSize: imageSize,
-            imageShape: .roundedRectangle(9)
+            imageShape: .roundedRectangle(.cornerRadius)
         )
     }
 }
@@ -49,4 +49,5 @@ private extension MKRImageView.Configuration {
 private extension CGFloat {
 
     static let viewSize: CGFloat = 32
+    static let cornerRadius: CGFloat = 9
 }
