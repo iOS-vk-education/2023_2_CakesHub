@@ -21,7 +21,7 @@ public extension CHM___VARIABLE_productName:identifier___.Configuration {
     static func basic(
         imageKind: MKRImageView.Configuration.ImageKind,
         imageSize: CGSize
-    ) -> Self {
+    ) -> CHM___VARIABLE_productName:identifier___.Configuration {
         modify(.clear) {
             $0.imageConfiguration = .imageConfiguration(imageKind, imageSize)
         }
