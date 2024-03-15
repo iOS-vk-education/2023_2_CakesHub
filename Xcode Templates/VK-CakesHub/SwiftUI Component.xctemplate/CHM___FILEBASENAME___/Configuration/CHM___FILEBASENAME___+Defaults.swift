@@ -33,7 +33,7 @@ public extension CHM___VARIABLE_productName:identifier___.Configuration {
 
 private extension MKRImageView.Configuration {
 
-    static func imageConfiguration(_ kind: MKRImageView.Configuration.ImageKind, _ imageSize: CGSize) -> Self {
+    static func imageConfiguration(_ kind: MKRImageView.Configuration.ImageKind, _ imageSize: CGSize) -> MKRImageView.Configuration {
         .basic(
             kind: kind,
             imageSize: imageSize,
