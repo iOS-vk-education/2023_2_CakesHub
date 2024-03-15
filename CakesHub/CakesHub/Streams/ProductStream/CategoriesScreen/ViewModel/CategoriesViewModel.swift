@@ -17,8 +17,8 @@ protocol CategoriesViewModelProtocol {
 // MARK: - CategoriesViewModel
 
 final class CategoriesViewModel: ObservableObject, ViewModelProtocol {
-    @Published private(set) var firstSections: [CategoryCardModel] = []
-    @Published private(set) var secondSections: [CategoryCardModel] = []
+    @Published private(set) var firstSections: [CategoryCardModel]
+    @Published private(set) var secondSections: [CategoryCardModel]
 
     init(
         firstSections: [CategoryCardModel] = [],

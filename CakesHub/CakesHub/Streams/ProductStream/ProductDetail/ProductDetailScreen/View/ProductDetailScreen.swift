@@ -32,27 +32,6 @@ struct ProductDetailScreen: View {
 
     var body: some View {
         MainBlock
-            .background(Color.bgMainColor)
-            .overlay(alignment: .bottom) {
-                BuyButton
-                    .padding(.bottom, UIDevice.isSe ? 16 : .zero)
-            }
-            .overlay(alignment: .topLeading) {
-                NavigationTabBarView
-            }
-            .onChange(of: selectedPicker) { _, newValue in
-                showSheetView = newValue != nil
-            }
-            .blurredSheet(
-                .init(Color.bgMainColor),
-                show: $showSheetView
-            ) {
-                selectedPicker = nil
-            } content: {
-                SheetView
-                    .presentationDetents([.height(368)])
-            }
-            .navigationBarBackButtonHidden()
             .onBackSwipe {
                 if nav.path.count >= 1 {
                     nav.path.removeLast()
@@ -64,6 +43,10 @@ struct ProductDetailScreen: View {
                         viewModel: .init(data: viewModel.currentProduct.reviewInfo)
                     )
                 }
+            }
+            .navigationDestination(for: ProductModel.self) { product in
+                let vm = ViewModel(data: product)
+                ProductDetailScreen(viewModel: vm)
             }
     }
 }
@@ -79,8 +62,12 @@ private extension ProductDetailScreen {
         }
     }
 
-    func didTapSimilarProductCard(id: UUID) {
+    func didTapLikeSimilarProductCard(id: UUID) {
         print("id: \(id)")
+    }
+
+    func didTapSimilarProductCard(product: ProductModel) {
+        nav.addScreen(screen: product)
     }
 
     func didTapBuyButton() {
@@ -119,6 +106,27 @@ private extension ProductDetailScreen {
             .padding(.top, topPadding)
         }
         .scrollIndicators(.hidden)
+        .background(Color.bgMainColor)
+        .overlay(alignment: .bottom) {
+            BuyButton
+                .padding(.bottom, UIDevice.isSe ? 16 : .zero)
+        }
+        .overlay(alignment: .topLeading) {
+            NavigationTabBarView
+        }
+        .onChange(of: selectedPicker) { _, newValue in
+            showSheetView = newValue != nil
+        }
+        .blurredSheet(
+            .init(Color.bgMainColor),
+            show: $showSheetView
+        ) {
+            selectedPicker = nil
+        } content: {
+            SheetView
+                .presentationDetents([.height(368)])
+        }
+        .navigationBarBackButtonHidden()
     }
 
     var ImagesBlock: some View {
@@ -214,8 +222,26 @@ private extension ProductDetailScreen {
         ScrollView(.horizontal) {
             HStack(spacing: 11) {
                 ForEach(viewModel.currentProduct.similarProducts) { product in
-                    CHMNewProductCard(configuration: product.configuration) {
-                        didTapSimilarProductCard(id: product.id)
+                    CHMNewProductCard(
+                        configuration: .basic(
+                            imageKind: product.images.first?.kind ?? .clear,
+                            imageSize: CGSize(width: 148, height: 184),
+                            productText: .init(
+                                seller: product.sellerName,
+                                productName: product.productName,
+                                productPrice: product.price
+                            ),
+                            productButtonConfiguration: .basic(kind: .favorite()),
+                            starsViewConfiguration: .basic(
+                                kind: .init(rawValue: product.starsCount) ?? .zero,
+                                feedbackCount: product.reviewInfo.feedbackCounter
+                            )
+                        )
+                    ) {
+                        didTapLikeSimilarProductCard(id: product.id)
+                    }
+                    .onTapGesture {
+                        didTapSimilarProductCard(product: product)
                     }
                 }
             }

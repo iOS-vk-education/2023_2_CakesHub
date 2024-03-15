@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct CategoriesView: View {
+    typealias ViewModel = CategoriesViewModel
 
     @State private var selectedTab: CategoriesTab?
     @State private var tabBarProgess: CGFloat = .zero
     @State private var showSearchBar: Bool = false
     @State private var searchText: String = .clear
-    @StateObject var viewModel: CategoriesViewModel
+    @StateObject var viewModel: ViewModel
 
-    init(viewModel: CategoriesViewModel = CategoriesViewModel()) {
+    init(viewModel: ViewModel = ViewModel()) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 

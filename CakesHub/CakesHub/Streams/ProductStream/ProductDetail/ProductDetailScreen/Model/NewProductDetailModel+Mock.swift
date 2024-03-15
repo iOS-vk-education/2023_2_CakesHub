@@ -32,13 +32,7 @@ extension ProductModel: Mockable {
         sellerName: .sellerName,
         description: .previewDescription,
         reviewInfo: .mockData,
-        similarProducts: [
-            .init(configuration: .previewSimilarCard),
-            .init(configuration: .previewSimilarCard),
-            .init(configuration: .previewSimilarCard),
-            .init(configuration: .previewSimilarCard),
-            .init(configuration: .previewSimilarCard),
-        ]
+        similarProducts: .similarProducts
     )
 
     static func emptyCards(id: Int) -> Self {

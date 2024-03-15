@@ -46,13 +46,7 @@ extension [ProductModel] {
             sellerName: .sellerName,
             description: .previewDescription,
             reviewInfo: .mockData,
-            similarProducts: [
-                .init(configuration: .previewSimilarCard),
-                .init(configuration: .previewSimilarCard),
-                .init(configuration: .previewSimilarCard),
-                .init(configuration: .previewSimilarCard),
-                .init(configuration: .previewSimilarCard),
-            ]
+            similarProducts: .similarProducts
         )
     }
 
@@ -74,13 +68,7 @@ extension [ProductModel] {
             sellerName: .sellerName,
             description: .previewDescription,
             reviewInfo: .mockData,
-            similarProducts: [
-                .init(configuration: .previewSimilarCard),
-                .init(configuration: .previewSimilarCard),
-                .init(configuration: .previewSimilarCard),
-                .init(configuration: .previewSimilarCard),
-                .init(configuration: .previewSimilarCard),
-            ]
+            similarProducts: .similarProducts
         )
     }
 
@@ -100,32 +88,29 @@ extension [ProductModel] {
             sellerName: .sellerName,
             description: .previewDescription,
             reviewInfo: .mockData,
-            similarProducts: [
-                .init(configuration: .previewSimilarCard),
-                .init(configuration: .previewSimilarCard),
-                .init(configuration: .previewSimilarCard),
-                .init(configuration: .previewSimilarCard),
-                .init(configuration: .previewSimilarCard),
-            ]
+            similarProducts: .similarProducts
         )
     }
-}
 
-// MARK: - CHMNewProductCard Configuration
-
-private extension CHMNewProductCard.Configuration {
-
-    static let previewSimilarCard = CHMNewProductCard.Configuration.basic(
-        imageKind: .url(.mockProductCard),
-        imageSize: CGSize(width: 148, height: 184),
-        productText: .init(
-            seller: "Mango Boy",
-            productName: "T-Shirt Sailing",
-            productPrice: "10$"
-        ),
-        productButtonConfiguration: .basic(kind: .favorite()),
-        starsViewConfiguration: .basic(kind: .four, feedbackCount: 8)
-    )
+    static let similarProducts: [ProductModel] = (1...20).map {
+        ProductModel(
+            productID: $0,
+            images: [
+                .init(kind: .image(.mockImageCake)),
+                .init(kind: .url(.mockCake3)),
+                .init(kind: .url(.mockProductCard)),
+                .init(kind: .url(.mockCake4)),
+            ],
+            isFavorite: true,
+            pickers: .pickers,
+            productName: .productName,
+            price: .price,
+            sellerName: .sellerName,
+            description: .previewDescription,
+            reviewInfo: .mockData,
+            similarProducts: []
+        )
+    }
 }
 
 // MARK: - Constants

@@ -34,7 +34,7 @@ struct ProductModel: Identifiable, Hashable {
     /// Оценки товара
     var reviewInfo: ProductReviewsModel = .clear
     /// Схожие товары
-    var similarProducts: [SimilarCard] = []
+    var similarProducts: [ProductModel] = []
 }
 
 extension ProductModel {
@@ -42,11 +42,6 @@ extension ProductModel {
     struct ProductImage: Identifiable {
         let id = UUID()
         var kind: ImageKind
-    }
-
-    struct SimilarCard: Identifiable {
-        let id = UUID()
-        var configuration: CHMNewProductCard.Configuration = .clear
     }
 
     var starsCount: Int {
