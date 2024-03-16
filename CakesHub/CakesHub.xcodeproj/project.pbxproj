@@ -334,7 +334,6 @@
 			isa = PBXGroup;
 			children = (
 				E51B327D2B7E5ECB0028E8C7 /* DesignSystemSream */,
-				E51B32812B7E5F200028E8C7 /* ProfileStream */,
 				E51B32802B7E5F090028E8C7 /* ProductStream */,
 				E59AEC762B92B96A00760E61 /* PlaygroundView.swift */,
 			);
@@ -349,13 +348,6 @@
 				E51B32832B7E5F9F0028E8C7 /* MainScreen */,
 			);
 			path = ProductStream;
-			sourceTree = "<group>";
-		};
-		E51B32812B7E5F200028E8C7 /* ProfileStream */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ProfileStream;
 			sourceTree = "<group>";
 		};
 		E51B32822B7E5F540028E8C7 /* Components */ = {
