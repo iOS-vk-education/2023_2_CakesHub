@@ -38,14 +38,6 @@ private extension MKRImageView {
                 PlaceholderView
             }
 
-        case let .image(image):
-            if let image {
-                image
-                    .imageConfiguaration(for: configuration)
-            } else {
-                PlaceholderView
-            }
-
         case let .uiImage(uiImage):
             if let uiImage {
                 Image(uiImage: uiImage)
@@ -106,4 +98,18 @@ private extension Image {
             imageShape: .roundedRectangle(20)
         )
     )
+}
+
+private extension View {
+
+    func clippedShape(_ shape: MKRImageView.Configuration.ImageShape) -> some View {
+        switch shape {
+        case .capsule:
+            return AnyView(self.clipShape(Circle()))
+        case .rectangle:
+            return AnyView(self.clipShape(Rectangle()))
+        case let .roundedRectangle(cornerRadius):
+            return AnyView(self.clipShape(RoundedRectangle(cornerRadius: cornerRadius)))
+        }
+    }
 }

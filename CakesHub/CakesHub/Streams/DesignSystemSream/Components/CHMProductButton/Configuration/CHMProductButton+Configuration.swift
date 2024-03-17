@@ -56,9 +56,9 @@ extension CHMProductButton.Configuration.Kind {
     var iconColor: Color {
         switch self {
         case let .favorite(isSelected):
-            return isSelected ? .bgBasketColor : Color(hexLight: 0x9B9B9B, hexDarK: 0xABB4BD)
+            return isSelected ? CHMColor<IconPalette>.iconRed.color : CHMColor<IconPalette>.iconGray.color
         case .basket:
-            return Color(hexLight: 0xF9F9F9, hexDarK: 0xF6F6F6)
+            return CHMColor<IconPalette>.iconBasket.color
         case let .custom(_, color):
             return color
         }
@@ -67,22 +67,31 @@ extension CHMProductButton.Configuration.Kind {
     var backgroundColor: Color {
         switch self {
         case .basket: 
-            return Color(hexLight: 0xDB3022, hexDarK: 0xEF3651)
+            return CHMColor<BackgroundPalette>.bgBasketColor.color
         case let .favorite(isSelected):
-            return isSelected ? Color(hexLight: 0xFFFFFF, hexDarK: 0x2A2C36) : Color(hexLight: 0xFFFFFF, hexDarK: 0x2A2C36)
+            return CHMColor<BackgroundPalette>.bgFavoriteIcon.color
         case .custom:
-            return Color(hexLight: 0xDB3022, hexDarK: 0xEF3651)
+            return CHMColor<CustomPalette>.bgCustom.color
         }
     }
 
     var shadowColor: Color {
         switch self {
-        case .basket: return Color(hexLight: 0xF9F9F9, hexDarK: 0xEF3651, alpha: 0.5)
-        case let .favorite(isSelected): 
+        case .basket: 
+            return CHMColor<ShadowPalette>.basket.color
+        case let .favorite(isSelected):
             return isSelected
-            ? Color(hexLight: 0x9B9B9B, hexDarK: 0xEF3651, alphaLight: 0.5, alphaDark: 0)
-            : Color(hexLight: 0x9B9B9B, hexDarK: 0x2A2C36, alpha: 0.5)
-        case .custom: return Color(hexLight: 0x9B9B9B, hexDarK: 0x2A2C36, alpha: 0.5)
+            ? CHMColor<ShadowPalette>.favoriteSeletected.color
+            : CHMColor<ShadowPalette>.favoriteUnseletected.color
+        case .custom:
+            return CHMColor<ShadowPalette>.customShadow.color
         }
     }
+}
+
+// MARK: - Colors
+
+private extension CHMColor where Palette == CustomPalette {
+
+    static let bgCustom = CHMColor(hexLight: 0xDB3022, hexDark: 0xEF3651)
 }

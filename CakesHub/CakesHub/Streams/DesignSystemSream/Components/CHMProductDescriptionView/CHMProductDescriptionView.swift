@@ -55,7 +55,7 @@ private extension CHMProductDescriptionView {
         CHMProductButton(
             configuration: modify(.basic(kind: .favorite())) {
                 if favoriteIsSelected {
-                    $0.iconColor = .bgBasketColor
+                    $0.iconColor = CHMColor<IconPalette>.iconRed.color
                 }
             }
         ) {
@@ -109,19 +109,19 @@ private extension Text {
     var titleFont: some View {
         self
             .font(.system(size: 24, weight: .semibold))
-            .foregroundStyle(Color.textPrimary)
+            .foregroundStyle(CHMColor<TextPalette>.textPrimary.color)
     }
 
     var subtitleFont: some View {
         self
             .font(.system(size: 11, weight: .regular))
-            .foregroundStyle(Color.textSecondary)
+            .foregroundStyle(CHMColor<TextPalette>.textSecondary.color)
     }
 
     var descriptionFont: some View {
         self
             .font(.system(size: 14, weight: .regular))
-            .foregroundStyle(Color.textSecondary)
+            .foregroundStyle(CHMColor<TextPalette>.textSecondary.color)
             .lineSpacing(6)
     }
 }

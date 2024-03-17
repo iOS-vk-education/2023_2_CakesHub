@@ -41,7 +41,7 @@ struct CHMPicker: View {
         HStack {
             Text(configuration.text)
                 .font(.system(size: 14, weight: .semibold))
-                .foregroundStyle(Color(hexLight: 0x222222, hexDarK: 0xF6F6F6))
+                .foregroundStyle(CHMColor<TextPalette>.textPrimary.color)
                 .padding(.leading, 12)
                 .lineLimit(1)
 
