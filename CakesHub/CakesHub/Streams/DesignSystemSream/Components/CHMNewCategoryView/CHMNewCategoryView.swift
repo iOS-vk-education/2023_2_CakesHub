@@ -45,7 +45,7 @@ struct CHMNewCategoryView: View {
         }
         .frame(height: 100)
         .background(CHMColor<BackgroundPalette>.bgCommentView.color)
-        .clippedShape(.roundedRectangle(8))
+        .clipShape(.rect(cornerRadius: 8))
     }
 }
 

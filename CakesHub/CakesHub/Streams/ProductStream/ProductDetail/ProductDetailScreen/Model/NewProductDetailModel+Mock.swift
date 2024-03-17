@@ -26,28 +26,17 @@ extension ProductModel: Mockable {
             .init(kind: .url(.mockCake4)),
         ],
         isFavorite: true,
-        pickers: .pickers,
-        productName: .productName,
-        price: .price,
-        sellerName: .sellerName,
-        description: .previewDescription,
+        pickers: Constants.pickers,
+        productName: Constants.productName,
+        price: Constants.price,
+        sellerName: Constants.sellerName,
+        description: Constants.previewDescription,
         reviewInfo: .mockData,
         similarProducts: .similarProducts
     )
 
     static func emptyCards(id: Int) -> Self {
-        ProductModel(
-            productID: id,
-            images: [],
-            isFavorite: true,
-            pickers: .pickers,
-            productName: .clear,
-            price: .clear,
-            sellerName: .clear,
-            description: .clear,
-            reviewInfo: .clear,
-            similarProducts: []
-        )
+        ProductModel(productID: id)
     }
 }
 
@@ -70,19 +59,17 @@ private extension CHMNewProductCard.Configuration {
 
 // MARK: - Constants
 
-private extension String {
+private extension ProductModel {
 
-    static let productName = "H&M"
-    static let price = "$19.99"
-    static let sellerName = "Short black dress"
-    static let previewDescription = """
-    Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.
-    """
-}
-
-private extension [String] {
-
-    static let pickers = ["Size", "Color"]
+    enum Constants {
+        static let productName = "H&M"
+        static let price = "$19.99"
+        static let sellerName = "Short black dress"
+        static let previewDescription = """
+        Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.
+        """
+        static let pickers = ["Size", "Color"]
+    }
 }
 
 #endif

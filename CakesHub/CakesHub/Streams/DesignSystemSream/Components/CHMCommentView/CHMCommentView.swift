@@ -43,7 +43,7 @@ struct CHMCommentView: View {
         }
         .padding(EdgeInsets(top: 23, leading: 24, bottom: 33, trailing: 20))
         .background(CHMColor<BackgroundPalette>.bgCommentView.color)
-        .clippedShape(.roundedRectangle(8))
+        .clipShape(.rect(cornerRadius: 8))
         .overlay(alignment: .topLeading) {
             MKRImageView(configuration: configuration.userImageConfiguration)
                 .offset(x: -16, y: -16)
