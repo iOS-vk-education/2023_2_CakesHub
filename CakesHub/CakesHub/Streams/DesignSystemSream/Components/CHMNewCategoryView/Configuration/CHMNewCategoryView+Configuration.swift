@@ -15,7 +15,7 @@ extension CHMNewCategoryView {
         typealias OwnerViewType = CHMNewCategoryView
 
         /// Configuration of the image view
-        var imageKindConfiguration: ImageKind = .image(nil)
+        var imageKindConfiguration: ImageKind = .uiImage(nil)
         var title: String = .clear
     }
 }

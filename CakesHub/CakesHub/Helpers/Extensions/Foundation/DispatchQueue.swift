@@ -8,10 +8,6 @@
 
 import Foundation
 
-func asyncMain(completion: @escaping CHMVoidBlock) {
-    DispatchQueue.main.async(execute: completion)
-}
-
 func delay(_ delay: Double, closure: @escaping () -> Void) {
     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay, execute: closure)
 }

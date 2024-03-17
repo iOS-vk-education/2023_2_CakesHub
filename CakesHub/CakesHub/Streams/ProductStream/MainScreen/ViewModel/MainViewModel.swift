@@ -72,7 +72,7 @@ extension MainViewModel: MainViewModelProtocol {
 
     func fetchData(completion: CHMVoidBlock? = nil) {
         DispatchQueue.global().asyncAfter(deadline: .now() + 5) {
-            asyncMain {
+            DispatchQueue.main.async {
                 self.sections[0] = .sales(.mockSalesData)
                 self.sections[1] = .news(.mockNewsData)
                 self.sections[2] = .all(.mockAllData)
@@ -94,7 +94,7 @@ extension MainViewModel {
 
     func fetchPreviewData(completion: CHMVoidBlock? = nil) {
         DispatchQueue.global().asyncAfter(deadline: .now() + 5) {
-            asyncMain {
+            DispatchQueue.main.async {
                 self.sections[0] = .sales(.mockSalesData)
                 self.sections[1] = .news(.mockNewsData)
                 self.sections[2] = .all(.mockAllData)
