@@ -20,9 +20,8 @@ extension MKRImageView {
 
 // MARK: - Image Kind
 
-enum ImageKind {
+enum ImageKind: Hashable {
     case url(URL?)
-    case image(Image?)
     case uiImage(UIImage?)
     case clear
 }
@@ -31,23 +30,9 @@ enum ImageKind {
 
 extension MKRImageView.Configuration {
 
-    enum ImageShape {
+    enum ImageShape: Hashable {
         case capsule
         case rectangle
         case roundedRectangle(CGFloat)
-    }
-}
-
-extension View {
-
-    func clippedShape(_ shape: MKRImageView.Configuration.ImageShape) -> some View {
-        switch shape {
-        case .capsule:
-            return AnyView(self.clipShape(Circle()))
-        case .rectangle:
-            return AnyView(self.clipShape(Rectangle()))
-        case let .roundedRectangle(cornerRadius):
-            return AnyView(self.clipShape(RoundedRectangle(cornerRadius: cornerRadius)))
-        }
     }
 }

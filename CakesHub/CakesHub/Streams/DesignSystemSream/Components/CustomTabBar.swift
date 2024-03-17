@@ -37,7 +37,9 @@ private extension CustomTabBarView {
                         .textScale(.secondary)
                 }
                 .frame(maxWidth: .infinity)
-                .foregroundStyle(nav.activeTab == TabBarItem ? Color.iconSelectedColor : Color.iconUnselectedColor)
+                .foregroundStyle(
+                    nav.activeTab == TabBarItem ? Constants.iconSelectedColor : Constants.iconUnselectedColor
+                )
                 .padding(.vertical, 5)
                 .contentShape(.rect)
                 .onTapGesture {
@@ -55,7 +57,7 @@ private extension CustomTabBarView {
                 }
             }
         }
-        .background(Color.bgMainColor)
+        .background(CHMColor<BackgroundPalette>.bgMainColor.color)
     }
 }
 
@@ -85,8 +87,10 @@ private extension View {
     }
 }
 
-private extension Color {
+private extension CustomTabBarView {
 
-    static let iconSelectedColor: Color = .iconRed
-    static let iconUnselectedColor = Color(hexLight: 0x9B9B9B, hexDarK: 0xABB4BD)
+    enum Constants {
+        static let iconSelectedColor: Color = CHMColor<IconPalette>.iconRed.color
+        static let iconUnselectedColor: Color = CHMColor<IconPalette>.iconGray.color
+    }
 }

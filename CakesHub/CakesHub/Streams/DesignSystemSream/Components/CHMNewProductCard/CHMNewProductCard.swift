@@ -81,28 +81,28 @@ private extension CHMNewProductCard {
         VStack(alignment: .leading, spacing: 3) {
             if let seller = configuration.productText.seller {
                 Text(seller)
-                    .style(11, .regular, .sellerTextColor)
+                    .style(11, .regular, Constants.sellerTextColor)
                     .lineLimit(1)
             }
 
             if let productName = configuration.productText.productName {
                 Text(productName)
-                    .style(16, .semibold, .productNameColor)
+                    .style(16, .semibold, Constants.productNameColor)
                     .lineLimit(1)
             }
 
             if let oldPrice = configuration.productText.productOldPrice {
                 HStack(spacing: 4) {
                     Text(oldPrice)
-                        .style(14, .medium, .oldPriceColor)
-                        .strikethrough(true, color: .oldPriceColor)
+                        .style(14, .medium, Constants.oldPriceColor)
+                        .strikethrough(true, color: Constants.oldPriceColor)
 
                     Text(configuration.productText.productPrice)
-                        .style(14, .medium, .newPriceColor)
+                        .style(14, .medium, Constants.newPriceColor)
                 }
             } else {
                 Text(configuration.productText.productPrice)
-                    .style(14, .medium, .productNameColor)
+                    .style(14, .medium, Constants.productNameColor)
             }
         }
     }
@@ -154,10 +154,12 @@ private extension CHMNewProductCard {
 
 // MARK: - Constants
 
-private extension Color {
+private extension CHMNewProductCard {
 
-    static let sellerTextColor = Color(hexLight: 0x9B9B9B, hexDarK: 0xABB4BD)
-    static let oldPriceColor = Color(hexLight: 0x9B9B9B, hexDarK: 0xABB4BD)
-    static let newPriceColor = Color(hexLight: 0xDB3022, hexDarK: 0xFF3E3E)
-    static let productNameColor = Color(hexLight: 0x222222, hexDarK: 0xF6F6F6)
+    enum Constants {
+        static let sellerTextColor: Color = CHMColor<TextPalette>.textSecondary.color
+        static let oldPriceColor: Color = CHMColor<TextPalette>.textSecondary.color
+        static let productNameColor: Color = CHMColor<TextPalette>.textPrimary.color
+        static let newPriceColor: Color = CHMColor<TextPalette>.textWild.color
+    }
 }
