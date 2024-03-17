@@ -7,13 +7,23 @@
 
 import UIKit
 
-// MARK: Preview Images
+
+// MARK: - Local Images
+
+extension UIImage {
+
+    static let category_1 = UIImage(named: "category-1")
+    static let category_2 = UIImage(named: "category-2")
+    static let category_3 = UIImage(named: "category-3")
+}
+
+// MARK: - Preview Images
 
 #if DEBUG
 extension UIImage {
 
-    static let cakeImageMock  = UIImage(named: "cake")
-    static let cake2ImageMock = UIImage(named: "cake2")
-    static let cake3ImageMock = UIImage(named: "cake3")
+    static let mockImageCake  = UIImage(named: "cake")
+    static let mockImageCake2 = UIImage(named: "cake2")
+    static let mockImageCake3 = UIImage(named: "cake3")
 }
 #endif
