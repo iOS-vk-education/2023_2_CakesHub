@@ -23,23 +23,3 @@ extension Image {
     static let bell            = Image("bell")
     static let plusSign        = Image("plusSign")
 }
-
-// MARK: - Local Images
-
-extension Image {
-
-    static let category_1 = Image("category-1")
-    static let category_2 = Image("category-2")
-    static let category_3 = Image("category-3")
-}
-
-// MARK: - Preview Images
-
-#if DEBUG
-extension Image {
-
-    static let mockImageCake  = Image("cake")
-    static let mockImageCake2 = Image("cake2")
-    static let mockImageCake3 = Image("cake3")
-}
-#endif
