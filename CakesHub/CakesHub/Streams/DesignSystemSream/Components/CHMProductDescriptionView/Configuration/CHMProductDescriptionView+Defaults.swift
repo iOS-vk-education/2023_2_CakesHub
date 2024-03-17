@@ -36,10 +36,3 @@ extension CHMProductDescriptionView.Configuration {
         }
     }
 }
-
-// MARK: - Constants
-
-private extension CGFloat {
-
-    static let viewSize: CGFloat = 32
-}

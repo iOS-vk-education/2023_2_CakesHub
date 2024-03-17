@@ -35,10 +35,10 @@ extension View {
     func tabMask(_ progress: CGFloat) -> some View {
         ZStack {
             self
-                .foregroundStyle(Color.textSecondary)
+                .foregroundStyle(CHMColor<TextPalette>.textSecondary.color)
 
             self
-                .foregroundStyle(Color.textPrimary)
+                .foregroundStyle(CHMColor<TextPalette>.textPrimary.color)
                 .mask {
                     GeometryReader {
                         let size = $0.size
@@ -119,28 +119,4 @@ struct RemovebackgroundColor: UIViewRepresentable {
             uiView.superview?.superview?.backgroundColor = .clear
         }
     }
-}
-
-fileprivate struct CheckSheetView: View {
-    @State private var show = true
-    var body: some View {
-        ZStack {
-            Color.pink
-            Button("SHOW") {
-                show.toggle()
-            }
-        }
-        .blurredSheet(
-            .init(.ultraThinMaterial),
-            show: $show) {
-
-            } content: {
-                Text("Seleccted!)")
-                    .presentationDetents([.height(255)])
-            }
-    }
-}
-
-#Preview {
-    CheckSheetView()
 }
