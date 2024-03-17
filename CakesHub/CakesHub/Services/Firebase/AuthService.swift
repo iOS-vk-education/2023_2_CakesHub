@@ -38,11 +38,15 @@ extension AuthService: AuthServiceProtocol {
     func registeUser(with userRequest: RegisterUserRequest, completion: @escaping CHMResultBlock<Bool, APIError>) {
         auth.createUser(withEmail: userRequest.email, password: userRequest.password) { result, error in
             if let error {
-                asyncMain { completion(.failure(.error(error))) }
+                DispatchQueue.main.async {
+                    completion(.failure(.error(error)))
+                }
                 return
             }
             guard let user = result?.user else {
-                asyncMain { completion(.failure(.dataIsNil)) }
+                DispatchQueue.main.async {
+                    completion(.failure(.dataIsNil))
+                }
                 return
             }
             let db = Firestore.firestore()
@@ -53,10 +57,14 @@ extension AuthService: AuthServiceProtocol {
                     "email": userRequest.email
                 ]) { error in
                     if let error {
-                        asyncMain { completion(.failure(.error(error))) }
+                        DispatchQueue.main.async {
+                            completion(.failure(.error(error)))
+                        }
                         return
                     }
-                    asyncMain { completion(.success(true)) }
+                    DispatchQueue.main.async {
+                        completion(.success(true))
+                    }
                 }
         }
     }
@@ -68,14 +76,20 @@ extension AuthService: AuthServiceProtocol {
     func loginUser(with userRequest: LoginUserRequest, completion: @escaping CHMResultBlock<String, APIError>) {
         auth.signIn(withEmail: userRequest.email, password: userRequest.password) { result, error in
             if let error {
-                asyncMain { completion(.failure(.error(error))) }
+                DispatchQueue.main.async {
+                    completion(.failure(.error(error)))
+                }
                 return
             }
             guard let user = result?.user else {
-                asyncMain { completion(.failure(.dataIsNil)) }
+                DispatchQueue.main.async {
+                    completion(.failure(.dataIsNil))
+                }
                 return
             }
-            asyncMain { completion(.success(user.uid)) }
+            DispatchQueue.main.async {
+                completion(.success(user.uid))
+            }
         }
     }
 

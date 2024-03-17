@@ -16,7 +16,7 @@ struct LikeIcon: View {
     var body: some View {
         ZStack {
             Circle()
-                .fill(Color(hexLight: 0xFFFFFF, hexDarK: 0x2A2C36))
+                .fill(CHMColor<BackgroundPalette>.bgFavoriteIcon.color)
 
             Button {
                 isSelected.toggle()
@@ -30,7 +30,7 @@ struct LikeIcon: View {
             }
         }
         .frame(width: 36, height: 36)
-        .shadow(color: Color(hexLight: 0x9B9B9B, hexDarK: 0xEF3651, alphaLight: 0.5, alphaDark: 0), radius: 10)
+        .shadow(color: CHMColor<ShadowPalette>.favoriteSeletected.color, radius: 10)
     }
 }
 

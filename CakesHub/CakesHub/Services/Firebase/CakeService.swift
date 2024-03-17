@@ -110,22 +110,30 @@ extension CakeService: CakeServiceProtocol {
         }
         storageRef.putData(imageData, metadata: nil) { metadata, error in
             if let error {
-                asyncMain { completion(.failure(.error(error))) }
+                DispatchQueue.main.async {
+                    completion(.failure(.error(error)))
+                }
                 return
             }
             guard !metadata.isNil else {
-                asyncMain { completion(.failure(.dataIsNil)) }
+                DispatchQueue.main.async {
+                    completion(.failure(.dataIsNil))
+                }
                 return
             }
 
             storageRef.downloadURL { url, error in
                 if let error {
-                    asyncMain { completion(.failure(.error(error))) }
+                    DispatchQueue.main.async {
+                        completion(.failure(.error(error)))
+                    }
                     return
                 }
 
                 if let imageUrl = url?.absoluteString {
-                    asyncMain { completion(.success(imageUrl)) }
+                    DispatchQueue.main.async {
+                        completion(.success(imageUrl))
+                    }
                 }
             }
         }

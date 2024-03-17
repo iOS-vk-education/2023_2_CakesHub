@@ -33,18 +33,18 @@ struct CHMNewCategoryView: View {
             HStack {
                 Text(configuration.title)
                     .font(.system(size: 18, weight: .semibold))
-                    .foregroundStyle(Color.textPrimary)
+                    .foregroundStyle(CHMColor<TextPalette>.textPrimary.color)
                     .padding(.leading, 23)
                 Spacer()
                 MKRImageView(configuration: .basic(
                     kind: configuration.imageKindConfiguration,
-                    imageSize: CGSize(width: size.width.half, height: size.height),
+                    imageSize: CGSize(width: size.width / 2, height: size.height),
                     imageShape: .rectangle
                 ))
             }
         }
         .frame(height: 100)
-        .background(Color.bgCommentView)
+        .background(CHMColor<BackgroundPalette>.bgCommentView.color)
         .clippedShape(.roundedRectangle(8))
     }
 }
@@ -59,5 +59,5 @@ struct CHMNewCategoryView: View {
         )
     )
     .padding()
-    .background(Color.bgPreview)
+    .background(CHMColor<PreviewPalette>.bgPreview.color)
 }

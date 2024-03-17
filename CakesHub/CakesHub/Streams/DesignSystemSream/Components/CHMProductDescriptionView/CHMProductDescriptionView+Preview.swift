@@ -17,20 +17,13 @@ struct CHMProductDescriptionViewPreview: PreviewProvider {
                     title: "H&M",
                     price: "$19.99",
                     subtitle: "Short black dress",
-                    description: .description,
+                    description: """
+                    Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.
+                    """,
                     starsConfiguration: .basic(kind: .five, feedbackCount: 10)
                 )
             )
             .previewDisplayName("Basic")
         }
     }
-}
-
-// MARK: - Constants
-
-private extension String {
-
-    static let description = """
-    Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.
-    """
 }

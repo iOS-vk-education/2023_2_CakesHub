@@ -22,7 +22,7 @@ struct PlaygroundView: View {
             }
         }
         .frame(maxHeight: .infinity)
-        .background(Color.bgMainColor)
+        .background(CHMColor<BackgroundPalette>.bgMainColor.color)
     }
 }
 

@@ -38,7 +38,7 @@ struct ProductDetailScreen: View {
                 }
             }
             .navigationDestination(for: String.self) { screen in
-                if screen == .ratingReviewsCell {
+                if screen == Constants.ratingReviewsCell {
                     ProductReviewsScreen(
                         viewModel: .init(data: viewModel.currentProduct.reviewInfo)
                     )
@@ -75,7 +75,7 @@ private extension ProductDetailScreen {
     }
 
     func openRatingReviews() {
-        nav.addScreen(screen: String.ratingReviewsCell)
+        nav.addScreen(screen: Constants.ratingReviewsCell)
     }
 
     func openPreviousView() {
@@ -106,7 +106,7 @@ private extension ProductDetailScreen {
             .padding(.top, topPadding)
         }
         .scrollIndicators(.hidden)
-        .background(Color.bgMainColor)
+        .background(CHMColor<BackgroundPalette>.bgMainColor.color)
         .overlay(alignment: .bottom) {
             BuyButton
                 .padding(.bottom, UIDevice.isSe ? 16 : .zero)
@@ -118,7 +118,7 @@ private extension ProductDetailScreen {
             showSheetView = newValue != nil
         }
         .blurredSheet(
-            .init(Color.bgMainColor),
+            .init(CHMColor<BackgroundPalette>.bgMainColor.color),
             show: $showSheetView
         ) {
             selectedPicker = nil
@@ -178,7 +178,7 @@ private extension ProductDetailScreen {
 
     var SimilarProductsBlock: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(String.similarBlockHeaderTitle)
+            Text(Constants.similarBlockHeaderTitle)
                 .font(.system(size: 18, weight: .semibold))
                 .padding(.leading, 16)
 
@@ -194,11 +194,11 @@ private extension ProductDetailScreen {
             Button {
                 openRatingReviews()
             } label: {
-                MoreInfoCell(text: .ratingReviewsCell)
+                MoreInfoCell(text: Constants.ratingReviewsCell)
                     .padding(.horizontal)
             }
             Divider()
-            MoreInfoCell(text: .sellerInfoCell)
+            MoreInfoCell(text: Constants.sellerInfoCell)
                 .padding(.horizontal)
             Divider()
         }
@@ -208,11 +208,11 @@ private extension ProductDetailScreen {
         HStack {
             Text(text)
                 .font(.system(size: 16, weight: .regular))
-                .tint(Color.textPrimary)
+                .tint(CHMColor<TextPalette>.textPrimary.color)
             Spacer()
             Image.chevronRight
                 .renderingMode(.template)
-                .tint(Color.textPrimary)
+                .tint(CHMColor<TextPalette>.textPrimary.color)
                 .frame(width: 16, height: 16)
         }
         .frame(height: 48)
@@ -259,7 +259,7 @@ private extension ProductDetailScreen {
             } label: {
                 Image.chevronLeft
                     .renderingMode(.template)
-                    .tint(.textPrimary)
+                    .tint(CHMColor<TextPalette>.textPrimary.color)
                     .padding(.leading, 8)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
@@ -267,12 +267,12 @@ private extension ProductDetailScreen {
             Text(viewModel.currentProduct.productName)
                 .font(.system(size: 18, weight: .semibold))
                 .lineLimit(1)
-                .tint(.textPrimary)
+                .tint(CHMColor<TextPalette>.textPrimary.color)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.horizontal, 30)
         }
         .padding(.bottom, 8)
-        .background(Color.bgMainColor)
+        .background(CHMColor<BackgroundPalette>.bgMainColor.color)
         .getSize {
             topPadding = $0.height
         }
@@ -282,12 +282,12 @@ private extension ProductDetailScreen {
         Button {
             didTapBuyButton()
         } label: {
-            Text(String.buyButtonTitle)
+            Text(Constants.buyButtonTitle)
                 .font(.system(size: 14, weight: .medium))
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 14)
-        .background(Color.bgRedLint)
+        .background(CHMColor<BackgroundPalette>.bgRed.color)
         .clipShape(.rect(cornerRadius: 25))
         .padding(.horizontal)
         .tint(Color.white)
@@ -296,14 +296,14 @@ private extension ProductDetailScreen {
     var SheetView: some View {
         VStack {
             if let selectedPicker {
-                Text("\(selectedPicker.id)")
-                Text("\(selectedPicker.title)")
+                Text(selectedPicker.id.uuidString)
+                Text(selectedPicker.title)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .overlay(alignment: .top) {
             RoundedRectangle(cornerRadius: 3)
-                .fill(Color(hexLight: 0x9B9B9B, hexDarK: 0xABB4BD))
+                .fill(CHMColor<SeparatorPalette>.divider.color)
                 .frame(width: 60, height: 6)
                 .padding(.top, 14)
         }
@@ -373,10 +373,12 @@ private extension View {
 
 // MARK: - Constants
 
-private extension String {
-
-    static let similarBlockHeaderTitle = "You can also like this"
-    static let ratingReviewsCell = "Rating&Reviews"
-    static let sellerInfoCell = "Seller info"
-    static let buyButtonTitle = "MAKE AN ORDER"
+private extension ProductDetailScreen {
+    
+    enum Constants {
+        static let similarBlockHeaderTitle = "You can also like this"
+        static let ratingReviewsCell = "Rating&Reviews"
+        static let sellerInfoCell = "Seller info"
+        static let buyButtonTitle = "MAKE AN ORDER"
+    }
 }

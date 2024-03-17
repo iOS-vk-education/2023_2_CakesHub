@@ -55,7 +55,7 @@ struct CategoriesView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(Color.bgMainColor)
+        .background(CHMColor<BackgroundPalette>.bgMainColor.color)
         .onAppear(perform: viewModel.fetchSections)
     }
 }
@@ -79,7 +79,7 @@ extension CategoriesView {
             }
             .font(.title2)
             .overlay {
-                Text(String.navigationTitle)
+                Text(Constants.navigationTitle)
                     .font(.title3.bold())
             }
             .foregroundStyle(.primary)
@@ -95,12 +95,12 @@ extension CategoriesView {
         HStack(spacing: 12) {
             Image.magnifier
                 .renderingMode(.template)
-                .foregroundStyle(Color.iconSecondary)
-            TextField(String.searchTitle, text: $searchText)
+                .foregroundStyle(CHMColor<IconPalette>.iconSecondary.color)
+            TextField(Constants.searchTitle, text: $searchText)
         }
         .padding(.vertical, 9)
         .padding(.horizontal, 15)
-        .background(Color.bgSearchBar, in: .capsule)
+        .background(CHMColor<BackgroundPalette>.bgSearchBar.color, in: .capsule)
         .padding(.horizontal)
     }
 
@@ -126,7 +126,7 @@ extension CategoriesView {
                 let size = $0.size
                 let capsuleWidth = size.width / CGFloat(CategoriesTab.allCases.count)
                 Rectangle()
-                    .fill(Color.bgBasketColor)
+                    .fill(CHMColor<BackgroundPalette>.bgBasketColor.color)
                     .frame(width: capsuleWidth, height: 3)
                     .frame(maxHeight: .infinity, alignment: .bottom)
                     .offset(x: tabBarProgess * (size.width - capsuleWidth))
@@ -196,8 +196,10 @@ extension CategoriesView {
 
 // MARK: - Constants
 
-private extension String {
+private extension CategoriesView {
 
-    static let navigationTitle = "Categories"
-    static let searchTitle = "Search"
+    enum Constants {
+        static let navigationTitle = "Categories"
+        static let searchTitle = "Search"
+    }
 }

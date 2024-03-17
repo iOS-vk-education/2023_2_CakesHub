@@ -29,7 +29,7 @@ extension ProductDetailViewModel: NewDetailScreenViewModelProtocol {
 
     func didTapLikeButton(isSelected: Bool, completion: CHMVoidBlock?) {
         DispatchQueue.global().asyncAfter(deadline: .now() + 2) { [weak self] in
-            asyncMain {
+            DispatchQueue.main.async {
                 self?.currentProduct.isFavorite = true
                 self?.currentProduct.description = "NEW TEXT"
                 completion?()

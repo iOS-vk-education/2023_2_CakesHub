@@ -10,9 +10,9 @@ import SwiftUI
 
 struct ShimmeringView: View {
     private let colors = [
-        Color(uiColor: .grayDarkGray),
+        Constants.shimmeringColor,
         Color(uiColor: UIColor.systemGray5),
-        Color(uiColor: .grayDarkGray)
+        Constants.shimmeringColor
     ]
 
     @State private var isAnimating = false
@@ -37,6 +37,17 @@ struct ShimmeringView: View {
     }
 }
 
+// MARK: - Preview
+
 #Preview {
     ShimmeringView()
+}
+
+// MARK: - Constants
+
+private extension ShimmeringView {
+
+    enum Constants {
+        static let shimmeringColor = CHMColor<BackgroundPalette>.bgShimmering.color
+    }
 }
