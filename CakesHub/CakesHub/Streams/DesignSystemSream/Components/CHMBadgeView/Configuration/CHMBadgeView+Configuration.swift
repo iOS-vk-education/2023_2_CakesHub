@@ -34,21 +34,8 @@ extension CHMBadgeView.Configuration.Kind {
 
     var backgroundColor: Color {
         switch self {
-        case .dark: return .darkColor
-        case .red: return .redColor
+        case .dark: return CHMColor<BackgroundPalette>.bgDark.color
+        case .red: return CHMColor<BackgroundPalette>.bgRed.color
         }
     }
-}
-
-// MARK: - Constants
-
-private extension Color {
-
-    static let lightRedColor = UIColor(hex: 0xDB3022)
-    static let darkRedColor = UIColor(hex: 0xFF3E3E)
-    static let redColor = Color(uiColor: UIColor { $0.userInterfaceStyle == .light ? lightRedColor : darkRedColor } )
-
-    static let darkDarkColor = UIColor(hex: 0x1E1F28)
-    static let lightDardColor = UIColor(hex: 0x222222)
-    static let darkColor = Color(uiColor: UIColor { $0.userInterfaceStyle == .light ? lightDardColor : darkDarkColor })
 }

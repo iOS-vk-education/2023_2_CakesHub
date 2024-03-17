@@ -30,7 +30,7 @@ struct RootView: View {
                 Text("PROFILE")
             }
         }
-        .tint(Color.navigationBackButton)
+        .tint(CHMColor<IconPalette>.navigationBackButton.color)
         .overlay(alignment: .bottom) {
             CustomTabBarView()
                 .offset(y: nav.hideTabBar ? 100 : 0)

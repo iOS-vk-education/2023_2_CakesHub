@@ -35,11 +35,11 @@ struct CHMRatingReviewsView: View {
             VStack {
                 Text(configuration.commontRating)
                     .font(.system(size: 44, weight: .semibold))
-                    .foregroundStyle(Color.textPrimary)
+                    .foregroundStyle(CHMColor<TextPalette>.textPrimary.color)
 
                 Text(configuration.commentCount)
                     .font(.system(size: 14, weight: .regular))
-                    .foregroundStyle(Color.textSecondary)
+                    .foregroundStyle(CHMColor<TextPalette>.textSecondary.color)
             }
 
             RightBlock
@@ -65,7 +65,7 @@ private extension CHMRatingReviewsView {
 
                     GeometryReader { geometry in
                         RoundedRectangle(cornerRadius: 6)
-                            .fill(Color.bgRedLint)
+                            .fill(CHMColor<SeparatorPalette>.redLine.color)
                             .frame(width: geometry.size.width * counter.ration, height: 8)
                             .padding(.trailing, 100)
                             .offset(y: geometry.size.height * 0.25)
@@ -75,7 +75,7 @@ private extension CHMRatingReviewsView {
 
                     Text("\(counter.count)")
                         .font(.system(size: 14, weight: .regular))
-                        .foregroundStyle(Color.textSecondary)
+                        .foregroundStyle(CHMColor<TextPalette>.textSecondary.color)
                 }
                 .frame(maxWidth: .infinity, maxHeight: 14, alignment: .leading)
             }

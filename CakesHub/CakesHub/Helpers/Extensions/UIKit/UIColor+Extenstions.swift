@@ -15,12 +15,4 @@ extension UIColor {
         let blue = CGFloat(hex & 0xFF) / 255.0
         self.init(displayP3Red: red, green: green, blue: blue, alpha: alpha)
     }
-
-    convenience init(hexLight: Int, hexDark: Int, alpha: CGFloat = 1.0) {
-        let lightColor = UIColor(hex: hexLight, alpha: alpha)
-        let darkColor = UIColor(hex: hexDark, alpha: alpha)
-        self.init {
-            $0.userInterfaceStyle == .light ? lightColor : darkColor
-        }
-    }
 }

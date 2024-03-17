@@ -19,8 +19,8 @@ struct ProductReviewsScreen: View, ViewModelable {
 
     var body: some View {
         MainBlock
-            .background(Color.bgMainColor)
-            .navigationTitle(String.navigationTitle)
+            .background(CHMColor<BackgroundPalette>.bgMainColor.color)
+            .navigationTitle(Constants.navigationTitle)
             .toolbarTitleDisplayMode(.large)
     }
 }
@@ -50,15 +50,14 @@ private extension ProductReviewsScreen {
                 twoStarRating: viewModel.data.twoStarsConfiguration,
                 oneStarRating: viewModel.data.oneStarsConfiguration,
                 commonRating: viewModel.data.averageRatingString,
-                commonCount: .sectionTitle(count: viewModel.data.feedbackCounter)
+                commonCount: Constants.sectionTitle(count: viewModel.data.feedbackCounter)
             )
         )
     }
 
     var SectionTitle: some View {
-        Text(String.sectionTitle(count: viewModel.data.countOfComments))
-            .font(.system(size: 24, weight: .semibold))
-            .tint(Color.textPrimary)
+        Text(Constants.sectionTitle(count: viewModel.data.countOfComments))
+            .style(24, .semibold, CHMColor<TextPalette>.textPrimary.color)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.init(top: 37, leading: 16, bottom: 30, trailing: 32))
     }
@@ -121,8 +120,10 @@ fileprivate struct ReviewCell: View {
 
 // MARK: - Constants
 
-private extension String {
+private extension ProductReviewsScreen {
 
-    static func sectionTitle(count: Int) -> String { "\(count) ratings" }
-    static let navigationTitle = "Rating&Reviews"
+    enum Constants {
+        static func sectionTitle(count: Int) -> String { "\(count) ratings" }
+        static let navigationTitle = "Rating&Reviews"
+    }
 }

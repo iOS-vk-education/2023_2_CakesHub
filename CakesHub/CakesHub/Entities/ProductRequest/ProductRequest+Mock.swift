@@ -9,30 +9,23 @@
 import UIKit
 
 #if DEBUG
-
 extension ProductRequest: Mockable {
 
     static let mockData = ProductRequest(
         images: .images([
-            .cakeImageMock,
-            .cake2ImageMock,
-            .cake3ImageMock,
+            .mockImageCake,
+            .mockImageCake2,
+            .mockImageCake3,
         ]),
         badgeText: "NEW",
         pickers: [],
         productName: "Клубничное облако",
-        price: "1250 " + .rub,
-        oldPrice: "1400 " + .rub,
+        price: "1250" + .space + .rub,
+        oldPrice: "1400" + .space + .rub,
         seller: .mockData,
-        description: .description,
+        description: "Нежнейший клубничный мусс со сливками, покрыт шоколадным велюром.",
         similarProducts: [], 
         reviewInfo: .clear
     )
 }
-
-private extension String {
-
-    static let description = "Нежнейший клубничный мусс со сливками, покрыт шоколадным велюром."
-}
-
 #endif
