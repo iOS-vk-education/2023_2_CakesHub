@@ -17,17 +17,9 @@ extension Optional<String> {
     }
 }
 
-extension URL? {
-
-    var toString: String? {
-        guard let self else { return nil }
-        return "\(self)"
-    }
-}
-
 extension [URL?] {
 
     var toStringArray: [String] {
-        compactMap { $0.toString }
+        compactMap { $0?.absoluteString }
     }
 }

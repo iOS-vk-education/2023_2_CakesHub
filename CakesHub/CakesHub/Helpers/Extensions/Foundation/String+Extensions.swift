@@ -24,10 +24,6 @@ extension String {
 
 extension String {
 
-    var toURL: URL? {
-        URL(string: self)
-    }
-
     var toDate: Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"

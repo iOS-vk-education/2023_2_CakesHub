@@ -11,5 +11,5 @@ import Foundation
 /// View controller protocol
 protocol ViewModelable {
     associatedtype ViewModel: ViewModelProtocol
-//    var viewModel: ViewModelType { get set }
+    var viewModel: ViewModel { get }
 }
