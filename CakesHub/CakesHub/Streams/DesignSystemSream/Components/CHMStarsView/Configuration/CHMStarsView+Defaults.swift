@@ -25,11 +25,11 @@ extension CHMStarsView.Configuration {
         modify(.clear) {
             $0.countFillStars = kind.rawValue
             $0.feedbackCount = feedbackCount
-            $0.starWidth = .starWidth
-            $0.padding = .padding
-            $0.foregroundColor = .foregroundColor
-            $0.lineHeigth = .lineHeigth
-            $0.leftPadding = .leftPadding
+            $0.starWidth = Constants.starWidth
+            $0.padding = Constants.padding
+            $0.foregroundColor = Constants.foregroundColor
+            $0.lineHeigth = Constants.lineHeigth
+            $0.leftPadding = Constants.leftPadding
         }
     }
 
@@ -37,25 +37,21 @@ extension CHMStarsView.Configuration {
         modify(.clear) {
             $0.isShimmering = true
             $0.countFillStars = Kind.five.rawValue
-            $0.starWidth = .starWidth
-            $0.padding = .padding
+            $0.starWidth = Constants.starWidth
+            $0.padding = Constants.padding
         }
     }
 }
 
 // MARK: - Constants
 
-private extension CGFloat {
+private extension CHMStarsView.Configuration {
 
-    static let starWidth: CGFloat = 13
-    static let padding: CGFloat = 2
-    static let lineHeigth: CGFloat = 10
-    static let leftPadding: CGFloat = 4
-}
-
-private extension Color {
-
-    static let lightForegroundColor = UIColor(hex: 0x9B9B9B)
-    static let darkForegroundColor = UIColor(hex: 0xABB4BD)
-    static let foregroundColor = Color(uiColor: UIColor { $0.userInterfaceStyle == .light ? lightForegroundColor : darkForegroundColor})
+    enum Constants {
+        static let starWidth: CGFloat = 13
+        static let padding: CGFloat = 2
+        static let lineHeigth: CGFloat = 10
+        static let leftPadding: CGFloat = 4
+        static let foregroundColor = CHMColor<IconPalette>.iconSecondary.color
+    }
 }

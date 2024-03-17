@@ -16,21 +16,15 @@ extension CHMPicker.Configuration {
     /// Basic configuration
     /// - Parameters:
     ///   - text: title of the component
+    ///   - currentState: is selected flag
     /// - Returns: configuration of the view
     static func basic(_ text: String, currentState: Bool = false) -> CHMPicker.Configuration {
         modify(.clear) {
             $0.text = text
-            $0.textColor = .textPrimary
-            $0.selectedBorderColor = .selectedBorderColor
-            $0.unselectedBorderColor = .unselectedBorderColor
-            $0.iconColor = .iconColor
+            $0.textColor = CHMColor<TextPalette>.textPrimary.color
+            $0.selectedBorderColor = CHMColor<SeparatorPalette>.selectedBorder.color
+            $0.unselectedBorderColor = CHMColor<SeparatorPalette>.unselectedBorder.color
+            $0.iconColor = Color(uiColor: UIColor(hex: 0xABB4BD))
         }
     }
-}
-
-private extension Color {
-
-    static let iconColor = Color(uiColor: UIColor(hex: 0xABB4BD))
-    static let selectedBorderColor = Color(hexLight: 0xF01F0E, hexDarK: 0xFF2424)
-    static let unselectedBorderColor = Color(hexLight: 0x9B9B9B, hexDarK: 0xABB4BD)
 }

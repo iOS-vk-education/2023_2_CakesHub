@@ -14,7 +14,7 @@ struct CHMNewProductCard_Previews: PreviewProvider {
             CHMNewProductCard(
                 configuration: .basic(
                     imageKind: .url(.mockProductCard),
-                    imageSize: CGSize(width: .cardWidth, height: .imageHeigth),
+                    imageSize: CGSize(width: Constants.cardWidth, height: Constants.imageHeigth),
                     productText: .init(
                         seller: "Mango Boy",
                         productName: "T-Shirt Sailing",
@@ -26,12 +26,12 @@ struct CHMNewProductCard_Previews: PreviewProvider {
             ) {
                 print("Did tap favorite icon")
             }
-            .frame(width: .cardWidth)
+            .frame(width: Constants.cardWidth)
 
             CHMNewProductCard(
                 configuration: .basic(
                     imageKind: .url(.mockProductCard),
-                    imageSize: CGSize(width: .cardWidth, height: .imageHeigth),
+                    imageSize: CGSize(width: Constants.cardWidth, height: Constants.imageHeigth),
                     productText: .init(
                         seller: "Mango Boy",
                         productName: "T-Shirt Sailing",
@@ -44,15 +44,17 @@ struct CHMNewProductCard_Previews: PreviewProvider {
             ){
                 print("Did tap basket icon")
             }
-            .frame(width: .cardWidth)
+            .frame(width: Constants.cardWidth)
         }
     }
 }
 
 // MARK: - Constants
 
-private extension CGFloat {
+private extension CHMNewProductCard_Previews {
 
-    static let cardWidth: CGFloat = 148
-    static let imageHeigth: CGFloat = 184
+    enum Constants {
+        static let cardWidth: CGFloat = 148
+        static let imageHeigth: CGFloat = 184
+    }
 }
