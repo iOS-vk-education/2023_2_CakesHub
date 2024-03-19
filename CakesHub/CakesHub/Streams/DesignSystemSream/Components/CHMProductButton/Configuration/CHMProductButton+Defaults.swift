@@ -15,19 +15,17 @@ extension CHMProductButton.Configuration {
 
     /// Basic configuration
     /// - Parameters:
-    ///   - imageKind: image kind
-    ///   - imageSize: image size
+    ///   - kind: icon style
     /// - Returns: configuration of the view
     static func basic(
         kind: Kind
     ) -> Self {
         modify(.clear) {
             $0.backgroundColor = kind.backgroundColor
-            $0.iconImage = kind.iconImage
             $0.iconSize = Constants.iconSize
             $0.buttonSize = Constants.buttonSize
-            $0.iconColor = kind.iconColor
             $0.shadowColor = kind.shadowColor
+            $0.kind = kind
         }
     }
 

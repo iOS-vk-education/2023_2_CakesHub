@@ -14,27 +14,21 @@ struct CHMProductButtonPreview: PreviewProvider {
         VStack(spacing: 20) {
             CHMProductButton(
                 configuration: .basic(kind: .basket)
-            ) {
-                print("Button did tap")
+            ) { isSelected in
+                print("isSelected: \(isSelected)")
             }
 
             CHMProductButton(
                 configuration: .basic(kind: .favorite())
-            ) {
-                print("Button did tap")
+            ) { isSelected in
+                print("isSelected: \(isSelected)")
             }
 
             CHMProductButton(
                 configuration: .basic(kind: .favorite(isSelected: true))
-            ) {
-                print("Button did tap")
+            ) { isSelected in
+                print("isSelected: \(isSelected)")
             }
-
-            CHMProductButton(
-                configuration: modify(.basic(kind: .favorite())) {
-                    $0.iconColor = .red
-                }
-            )
 
             CHMProductButton(
                 configuration: .shimmering

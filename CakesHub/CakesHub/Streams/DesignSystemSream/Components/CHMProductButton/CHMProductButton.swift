@@ -21,7 +21,17 @@ let view = CHMProductButton(
 struct CHMProductButton: View {
 
     let configuration: Configuration
-    var didTapButton: CHMVoidBlock?
+    var didTapButton: CHMBoolBlock?
+    @State private var isSelected: Bool
+
+    init(
+        configuration: Configuration,
+        didTapButton: CHMBoolBlock? = nil
+    ) {
+        self.configuration = configuration
+        self.didTapButton = didTapButton
+        self.isSelected = configuration.kind.isSelected
+    }
 
     var body: some View {
         if configuration.isShimmering {
@@ -45,14 +55,17 @@ private extension CHMProductButton {
                 .frame(edge: configuration.buttonSize)
 
             Button {
-                didTapButton?()
+                isSelected.toggle()
+                didTapButton?(isSelected)
             } label: {
-                configuration.iconImage
+                configuration.kind.iconImage(isSelected: isSelected)
                     .renderingMode(.template)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(height: configuration.iconSize)
-                    .foregroundStyle(configuration.iconColor)
+                    .foregroundStyle(
+                        configuration.kind.iconColor(iconIsSelected: isSelected)
+                    )
             }
         }
         .shadow(color: configuration.shadowColor, radius: 10)
@@ -63,6 +76,6 @@ private extension CHMProductButton {
 
 #Preview {
     CHMProductButton(
-        configuration: .basic(kind: .basket)
+        configuration: .basic(kind: .favorite(isSelected: true))
     )
 }

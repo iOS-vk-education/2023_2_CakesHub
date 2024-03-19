@@ -32,7 +32,7 @@ let view = CHMNewProductCard(
 struct CHMNewProductCard: View {
     
     let configuration: Configuration
-    var didTapButton: CHMVoidBlock?
+    var didTapButton: CHMBoolBlock?
 
     var body: some View {
         VStack(alignment: .leading) {

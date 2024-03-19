@@ -159,8 +159,8 @@ extension ProductDetailScreen {
                                 feedbackCount: product.reviewInfo.feedbackCounter
                             )
                         )
-                    ) {
-                        didTapLikeSimilarProductCard(id: product.id)
+                    ) { isSelected in
+                        didTapLikeSimilarProductCard(id: product.id, isSelected: isSelected)
                     }
                     .onTapGesture {
                         didTapSimilarProductCard(product: product)
