@@ -35,7 +35,7 @@ extension CakeService: CakeServiceProtocol {
     /// Getting a list of cakes
     /// - Parameter completion: plenty of cakes
     func getCakesList() async throws -> [ProductRequest] {
-        let snapshot = try await FirestoreCollections.products.collection.getDocuments()
+        let snapshot = try await Firestore.firestore().collection(FirestoreCollections.products.rawValue).getDocuments()
         return snapshot.documents.compactMap {
             var product = ProductRequest(dictionary: $0.data())
             product?.documentID = $0.documentID
@@ -80,7 +80,8 @@ extension CakeService: CakeServiceProtocol {
             var firebaseCakeDocument = cake
             firebaseCakeDocument.images = .strings(images)
             let document = firebaseCakeDocument.dictionaryRepresentation
-            FirestoreCollections.products.collection.addDocument(
+
+            Firestore.firestore().collection(FirestoreCollections.products.rawValue).addDocument(
                 data: document,
                 completion: completion
             )

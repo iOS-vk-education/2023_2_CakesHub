@@ -68,7 +68,7 @@ extension CHMProductButton.Configuration.Kind {
         switch self {
         case .basket: 
             return CHMColor<BackgroundPalette>.bgBasketColor.color
-        case let .favorite(isSelected):
+        case .favorite:
             return CHMColor<BackgroundPalette>.bgFavoriteIcon.color
         case .custom:
             return CHMColor<CustomPalette>.bgCustom.color
