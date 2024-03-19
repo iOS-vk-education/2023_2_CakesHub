@@ -1,5 +1,5 @@
 //
-//  ProductReviewsModelMockData.swift
+//  ProductReviewsModel+Mock.swift
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 04.02.2024.
