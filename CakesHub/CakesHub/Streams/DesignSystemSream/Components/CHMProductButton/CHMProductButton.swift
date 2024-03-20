@@ -23,6 +23,7 @@ struct CHMProductButton: View {
     let configuration: Configuration
     var didTapButton: CHMBoolBlock?
     @State private var isSelected: Bool
+    @State private var highlighted = false
 
     init(
         configuration: Configuration,
@@ -49,15 +50,15 @@ struct CHMProductButton: View {
 private extension CHMProductButton {
 
     var MainView: some View {
-        ZStack {
-            Circle()
-                .fill(configuration.backgroundColor)
-                .frame(edge: configuration.buttonSize)
+        Button {
+            isSelected.toggle()
+            didTapButton?(isSelected)
+        } label: {
+            ZStack {
+                Circle()
+                    .fill(configuration.backgroundColor)
+                    .frame(edge: configuration.buttonSize)
 
-            Button {
-                isSelected.toggle()
-                didTapButton?(isSelected)
-            } label: {
                 configuration.kind.iconImage(isSelected: isSelected)
                     .renderingMode(.template)
                     .resizable()
@@ -66,9 +67,39 @@ private extension CHMProductButton {
                     .foregroundStyle(
                         configuration.kind.iconColor(iconIsSelected: isSelected)
                     )
+                
+                Rectangle()
+                    .fill(.clear)
+                    .frame(
+                        width: configuration.buttonSize * 2,
+                        height: configuration.buttonSize * 2
+                    )
             }
+            .shadow(color: configuration.shadowColor, radius: 10)
         }
-        .shadow(color: configuration.shadowColor, radius: 10)
+//        ZStack {
+//            Circle()
+//                .fill(configuration.backgroundColor)
+//                .frame(edge: configuration.buttonSize)
+//
+//            configuration.kind.iconImage(isSelected: isSelected)
+//                .renderingMode(.template)
+//                .resizable()
+//                .aspectRatio(contentMode: .fit)
+//                .frame(height: configuration.iconSize)
+//                .foregroundStyle(
+//                    configuration.kind.iconColor(iconIsSelected: isSelected)
+//                )
+//        Rectangle()
+//            .fill(.clear)
+//            .frame(width: configuration.buttonSize * 2, height: configuration.buttonSize * 2)
+//            .contentShape(Rectangle())
+//            .onTapGesture {
+//                isSelected.toggle()
+//                didTapButton?(isSelected)
+//            }
+//        }
+//        .shadow(color: configuration.shadowColor, radius: 10)
     }
 }
 

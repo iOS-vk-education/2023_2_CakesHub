@@ -41,28 +41,32 @@ extension MainView {
         switch section {
         case .sales(let sales):
             SectionView(
-                title: "Sale",
-                subtitle: "Super summer sale",
+                title: section.title,
+                subtitle: section.subtitle,
                 buttonTitle: "View all",
                 cards: sales,
                 badgeKind: .red
-            )
+            ) { id, isSelected in
+                didTapFavoriteButton(id: id, section: section, isSelected: isSelected)
+            }
 
         case .news(let news):
             SectionView(
-                title: "New",
-                subtitle: "You’ve never seen it before!",
+                title: section.title,
+                subtitle: section.subtitle,
                 buttonTitle: "View all",
                 cards: news,
                 badgeKind: .dark
-            )
+            ) { id, isSelected in
+                didTapFavoriteButton(id: id, section: section, isSelected: isSelected)
+            }
             .padding(.top, 40)
 
         case .all(let all):
             SectionHeader(
-                title: "All",
-                subtitle: "You can buy it right now!",
-                buttonTitle: ""
+                title: section.title,
+                subtitle: section.subtitle,
+                buttonTitle: .clear
             )
             .padding(.horizontal, Constants.intrinsicHPaddings)
             .padding(.top, 30)
@@ -76,12 +80,18 @@ extension MainView {
         subtitle: String,
         buttonTitle: String,
         cards: [ProductModel],
-        badgeKind: CHMBadgeView.Configuration.Kind
+        badgeKind: CHMBadgeView.Configuration.Kind,
+        complection: @escaping (UUID, Bool) -> Void
     ) -> some View {
         VStack {
             SectionHeader(title: title, subtitle: subtitle, buttonTitle: buttonTitle)
                 .padding(.horizontal, Constants.intrinsicHPaddings)
-            SectionCardsView(cards: cards, badgeKind: badgeKind)
+            SectionCardsView(
+                cards: cards,
+                badgeKind: badgeKind,
+                sectionTitle: title,
+                complection: complection
+            )
         }
     }
 
@@ -115,14 +125,17 @@ extension MainView {
 
     func SectionCardsView(
         cards: [ProductModel],
-        badgeKind: CHMBadgeView.Configuration.Kind
+        badgeKind: CHMBadgeView.Configuration.Kind,
+        sectionTitle: String,
+        complection: @escaping (UUID, Bool) -> Void
     ) -> some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 16) {
                 ForEach(cards) { card in
                     ProductCard(
                         for: card,
-                        badgeConfiguration: .basic(text: card.badgeText, kind: badgeKind)
+                        badgeConfiguration: .basic(text: card.badgeText, kind: badgeKind),
+                        complection: complection
                     )
                 }
             }
@@ -138,7 +151,8 @@ extension MainView {
     @ViewBuilder
     func ProductCard(
         for card: ProductModel,
-        badgeConfiguration: CHMBadgeView.Configuration
+        badgeConfiguration: CHMBadgeView.Configuration,
+        complection: @escaping (UUID, Bool) -> Void
     ) -> some View {
         if viewModel.isShimmering {
             CHMNewProductCard(
@@ -168,7 +182,9 @@ extension MainView {
                         feedbackCount: card.reviewInfo.feedbackCounter
                     )
                 )
-            )
+            ) { isSelected in
+                complection(card.id, isSelected)
+            }
             .onTapGesture {
                 didTapProductCard(card: card)
             }
@@ -188,7 +204,9 @@ extension MainView {
             spacing: Constants.intrinsicHPaddings
         ) {
             ForEach(cards) { card in
-                ProductCard(for: card, badgeConfiguration: .clear)
+                ProductCard(for: card, badgeConfiguration: .clear) { id, isSelected in
+                    didTapFavoriteButton(id: id, section: .all([]), isSelected: isSelected)
+                }
             }
         }
     }

@@ -58,7 +58,11 @@ private extension CHMNewProductCard {
                 configuration: configuration.productButtonConfiguration,
                 didTapButton: didTapButton
             )
-            .offset(y: 18)
+            .background(.red)
+            .offset(
+                x: configuration.isShimmering ? 0 : 18,
+                y: configuration.isShimmering ? 18 : 36
+            )
         }
     }
 
