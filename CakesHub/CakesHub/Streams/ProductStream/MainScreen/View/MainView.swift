@@ -50,10 +50,6 @@ extension MainView {
     /// Нажатие на карточку продукта
     /// - Parameter card: модель торта
     func didTapProductCard(card: ProductModel) {
-        withAnimation {
-            // Скрываем таббар
-            nav.hideTabBar = true
-        }
         nav.addScreen(screen: card)
     }
     
@@ -74,11 +70,6 @@ private extension MainView {
         .navigationDestination(for: ProductModel.self) { card in
             let vm = ProductDetailViewModel(data: card)
             ProductDetailScreen(viewModel: vm)
-        }
-        .onAppear {
-            withAnimation {
-                nav.hideTabBar = false
-            }
         }
     }
 }

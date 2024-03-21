@@ -22,6 +22,7 @@ struct ProductDetailScreen: View {
     @State var selectedPicker: PickersSectionView.PickersItem?
     @State var showSheetView = false
     @State var isPressedLike: Bool = false
+    @State private var openReviewScreen = false
 
     // MARK: Lifecycle
 
@@ -34,18 +35,25 @@ struct ProductDetailScreen: View {
 
     var body: some View {
         MainBlock
-            .onBackSwipe {
-                if nav.path.count >= 1 {
-                    nav.path.removeLast()
-                }
-            }
             .navigationDestination(for: ProductDetailCells.self) { screen in
                 if screen == .ratingReviews {
                     ProductReviewsScreen(
                         viewModel: ProductReviewsViewModel(
                             data: viewModel.currentProduct.reviewInfo
-                        )
+                        ), 
+                        screenIsAppeared: $openReviewScreen
                     )
+                }
+            }
+            .onAppear {
+                withAnimation {
+                    nav.hideTabBar = true
+                }
+            }
+            .onDisappear {
+                withAnimation {
+                    // Прячем таббар только при открытии экрана рейтинга
+                    nav.hideTabBar = openReviewScreen
                 }
             }
     }
@@ -75,6 +83,7 @@ extension ProductDetailScreen {
     }
 
     func openRatingReviews() {
+        openReviewScreen = true
         nav.addScreen(screen: ProductDetailCells.ratingReviews)
     }
 

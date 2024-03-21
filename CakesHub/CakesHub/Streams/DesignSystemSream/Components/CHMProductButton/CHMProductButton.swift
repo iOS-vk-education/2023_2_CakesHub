@@ -41,6 +41,11 @@ struct CHMProductButton: View {
                 .clipShape(.circle)
         } else {
             MainView
+                .contentShape(Circle())
+                .onTapGesture {
+                    isSelected.toggle()
+                    didTapButton?(isSelected)
+                }
         }
     }
 }
@@ -50,56 +55,21 @@ struct CHMProductButton: View {
 private extension CHMProductButton {
 
     var MainView: some View {
-        Button {
-            isSelected.toggle()
-            didTapButton?(isSelected)
-        } label: {
-            ZStack {
-                Circle()
-                    .fill(configuration.backgroundColor)
-                    .frame(edge: configuration.buttonSize)
+        ZStack {
+            Circle()
+                .fill(configuration.backgroundColor)
+                .frame(edge: configuration.buttonSize)
 
-                configuration.kind.iconImage(isSelected: isSelected)
-                    .renderingMode(.template)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: configuration.iconSize)
-                    .foregroundStyle(
-                        configuration.kind.iconColor(iconIsSelected: isSelected)
-                    )
-                
-                Rectangle()
-                    .fill(.clear)
-                    .frame(
-                        width: configuration.buttonSize * 2,
-                        height: configuration.buttonSize * 2
-                    )
-            }
-            .shadow(color: configuration.shadowColor, radius: 10)
+            configuration.kind.iconImage(isSelected: isSelected)
+                .renderingMode(.template)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: configuration.iconSize)
+                .foregroundStyle(
+                    configuration.kind.iconColor(iconIsSelected: isSelected)
+                )
         }
-//        ZStack {
-//            Circle()
-//                .fill(configuration.backgroundColor)
-//                .frame(edge: configuration.buttonSize)
-//
-//            configuration.kind.iconImage(isSelected: isSelected)
-//                .renderingMode(.template)
-//                .resizable()
-//                .aspectRatio(contentMode: .fit)
-//                .frame(height: configuration.iconSize)
-//                .foregroundStyle(
-//                    configuration.kind.iconColor(iconIsSelected: isSelected)
-//                )
-//        Rectangle()
-//            .fill(.clear)
-//            .frame(width: configuration.buttonSize * 2, height: configuration.buttonSize * 2)
-//            .contentShape(Rectangle())
-//            .onTapGesture {
-//                isSelected.toggle()
-//                didTapButton?(isSelected)
-//            }
-//        }
-//        .shadow(color: configuration.shadowColor, radius: 10)
+        .shadow(color: configuration.shadowColor, radius: 10)
     }
 }
 
@@ -110,3 +80,27 @@ private extension CHMProductButton {
         configuration: .basic(kind: .favorite(isSelected: true))
     )
 }
+
+//            ZStack {
+//                Circle()
+//                    .fill(configuration.backgroundColor)
+//                    .frame(edge: configuration.buttonSize)
+//
+//                configuration.kind.iconImage(isSelected: isSelected)
+//                    .renderingMode(.template)
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fit)
+//                    .frame(height: configuration.iconSize)
+//                    .foregroundStyle(
+//                        configuration.kind.iconColor(iconIsSelected: isSelected)
+//                    )
+//
+//                Rectangle()
+//                    .fill(.clear)
+//                    .frame(
+//                        width: configuration.buttonSize * 2,
+//                        height: configuration.buttonSize * 2
+//                    )
+//            }
+//            .shadow(color: configuration.shadowColor, radius: 10)
+//        }

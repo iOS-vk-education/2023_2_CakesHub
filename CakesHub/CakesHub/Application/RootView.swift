@@ -24,16 +24,19 @@ struct RootView: View {
                 CategoriesView(viewModel: .mockData)
             case .bag:
                 Text("BAG")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             case .notifications:
                 Text("NOTIFICATION")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             case .profile:
                 Text("PROFILE")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
         .tint(CHMColor<IconPalette>.navigationBackButton.color)
         .overlay(alignment: .bottom) {
             CustomTabBarView()
-                .offset(y: nav.hideTabBar ? 100 : 0)
+                            .offset(y: nav.hideTabBar ? 100 : 0)
         }
         .environmentObject(nav)
     }
