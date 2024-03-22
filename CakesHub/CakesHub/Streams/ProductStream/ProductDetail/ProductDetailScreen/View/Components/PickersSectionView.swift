@@ -45,17 +45,17 @@ private extension PickersSectionView {
         HStack {
             Text(title)
                 .font(.system(size: 14, weight: .semibold))
-                .tint(Color(hexLight: 0x222222, hexDarK: 0xF6F6F6))
+                .tint(CHMColor<TextPalette>.textPrimary.color)
                 .padding(.leading, 12)
                 .lineLimit(1)
 
-            Image.chevronDown
+            CHMImage.chevronDown
                 .renderingMode(.template)
                 .frame(width: 16, height: 16)
                 .rotationEffect(
                     lastSelectedItem == id ? Angle(degrees: 180) : Angle(degrees: 0)
                 )
-                .foregroundStyle(Color.iconColor)
+                .foregroundStyle(Color(uiColor: UIColor(hex: 0xABB4BD)))
                 .padding(.trailing, 8)
                 .padding(.leading, 16)
         }
@@ -63,7 +63,11 @@ private extension PickersSectionView {
         .background(
             RoundedRectangle(cornerRadius: 8)
                 .stroke(lineWidth: 1)
-                .fill(lastSelectedItem == id ? Color.selectedBorderColor : .unselectedBorderColor)
+                .fill(
+                    lastSelectedItem == id
+                    ? CHMColor<SeparatorPalette>.selectedBorder.color
+                    : CHMColor<SeparatorPalette>.unselectedBorder.color
+                )
         )
     }
 }
@@ -78,13 +82,4 @@ private extension PickersSectionView {
         ].map { .init(title: $0) },
         lastSelected: .constant(nil)
     )
-}
-
-// MARK: - Constants
-
-private extension Color {
-
-    static let iconColor = Color(uiColor: UIColor(hex: 0xABB4BD))
-    static let selectedBorderColor = Color(hexLight: 0xF01F0E, hexDarK: 0xFF2424)
-    static let unselectedBorderColor = Color(hexLight: 0x9B9B9B, hexDarK: 0xABB4BD)
 }
