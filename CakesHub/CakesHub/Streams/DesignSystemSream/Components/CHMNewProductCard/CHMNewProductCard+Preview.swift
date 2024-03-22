@@ -23,8 +23,8 @@ struct CHMNewProductCard_Previews: PreviewProvider {
                     productButtonConfiguration: .basic(kind: .favorite()),
                     starsViewConfiguration: .basic(kind: .four, feedbackCount: 8)
                 )
-            ) {
-                print("Did tap favorite icon")
+            ) { isSelected in
+                print("Did tap favorite icon. isSelected: \(isSelected)")
             }
             .frame(width: Constants.cardWidth)
 
@@ -41,8 +41,8 @@ struct CHMNewProductCard_Previews: PreviewProvider {
                     productButtonConfiguration: .basic(kind: .basket),
                     starsViewConfiguration: .basic(kind: .four, feedbackCount: 12)
                 )
-            ){
-                print("Did tap basket icon")
+            ) { isSelected in
+                print("Did tap favorite icon. isSelected: \(isSelected)")
             }
             .frame(width: Constants.cardWidth)
         }

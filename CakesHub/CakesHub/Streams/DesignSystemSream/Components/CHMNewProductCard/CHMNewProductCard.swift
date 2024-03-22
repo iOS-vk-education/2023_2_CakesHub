@@ -32,7 +32,7 @@ let view = CHMNewProductCard(
 struct CHMNewProductCard: View {
     
     let configuration: Configuration
-    var didTapButton: CHMVoidBlock?
+    var didTapButton: CHMBoolBlock?
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -55,10 +55,12 @@ private extension CHMNewProductCard {
         }
         .overlay(alignment: .bottomTrailing) {
             CHMProductButton(
-                configuration: configuration.productButtonConfiguration,
-                didTapButton: didTapButton
+                configuration: configuration.productButtonConfiguration
             )
-            .offset(y: 18)
+            .offset(
+                x: 0,
+                y: 18
+            )
         }
     }
 
@@ -80,29 +82,50 @@ private extension CHMNewProductCard {
     var TextBlockView: some View {
         VStack(alignment: .leading, spacing: 3) {
             if let seller = configuration.productText.seller {
-                Text(seller)
-                    .style(11, .regular, Constants.sellerTextColor)
-                    .lineLimit(1)
+                CHMText(
+                    text: seller,
+                    size: 11,
+                    weight: .regular,
+                    color: Constants.sellerTextColor
+                )
+                .lineLimit(1)
             }
 
             if let productName = configuration.productText.productName {
-                Text(productName)
-                    .style(16, .semibold, Constants.productNameColor)
-                    .lineLimit(1)
+                CHMText(
+                    text: productName,
+                    size: 16,
+                    weight: .semibold,
+                    color: Constants.productNameColor
+                )
+                .lineLimit(1)
             }
 
             if let oldPrice = configuration.productText.productOldPrice {
                 HStack(spacing: 4) {
-                    Text(oldPrice)
-                        .style(14, .medium, Constants.oldPriceColor)
-                        .strikethrough(true, color: Constants.oldPriceColor)
+                    CHMText(
+                        text: oldPrice,
+                        size: 14,
+                        weight: .medium,
+                        color: Constants.oldPriceColor
+                    )
+                    .strikethrough(true, color: Constants.oldPriceColor)
 
-                    Text(configuration.productText.productPrice)
-                        .style(14, .medium, Constants.newPriceColor)
+                    CHMText(
+                        text: configuration.productText.productPrice,
+                        size: 14,
+                        weight: .medium,
+                        color: Constants.newPriceColor
+                    )
                 }
+
             } else {
-                Text(configuration.productText.productPrice)
-                    .style(14, .medium, Constants.productNameColor)
+                CHMText(
+                    text: configuration.productText.productPrice,
+                    size: 14,
+                    weight: .medium,
+                    color: Constants.productNameColor
+                )
             }
         }
     }

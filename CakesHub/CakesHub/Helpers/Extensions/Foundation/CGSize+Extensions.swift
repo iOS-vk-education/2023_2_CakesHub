@@ -7,13 +7,6 @@
 
 import UIKit
 
-extension CGSize {
-
-    init(edge: CGFloat) {
-        self.init(width: edge, height: edge)
-    }
-}
-
 extension CGSize: Hashable {
 
     public func hash(into hasher: inout Hasher) {

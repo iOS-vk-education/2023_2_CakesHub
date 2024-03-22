@@ -27,15 +27,7 @@ final class ProductDetailViewModel: ViewModelProtocol, ObservableObject {
 
 extension ProductDetailViewModel: NewDetailScreenViewModelProtocol {
 
-    func didTapLikeButton(isSelected: Bool, completion: CHMVoidBlock?) {
-        DispatchQueue.global().asyncAfter(deadline: .now() + 2) { [weak self] in
-            asyncMain {
-                self?.currentProduct.isFavorite = true
-                self?.currentProduct.description = "NEW TEXT"
-                completion?()
-            }
-        }
-    }
+    func didTapLikeButton(isSelected: Bool, completion: CHMVoidBlock?) {}
     
     func didTapBuyButton() {}
 }

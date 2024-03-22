@@ -16,18 +16,16 @@ extension CHMProductButton {
 
         /// Color of the background view
         var backgroundColor: Color = .clear
-        /// Icon image
-        var iconImage: Image = Image("")
         /// Size of the view
         var buttonSize: CGFloat = .zero
         /// Size of the icon
         var iconSize: CGFloat = .zero
-        /// Color of the icon
-        var iconColor: Color = .clear
         /// Color of the shadow
         var shadowColor: Color = .clear
         /// Shimmering flag
         var isShimmering: Bool = false
+        /// Icon kind
+        var kind: Kind = .clear
     }
 }
 
@@ -36,31 +34,43 @@ extension CHMProductButton {
 extension CHMProductButton.Configuration {
     
     /// Kind of the component icon
-    enum Kind {
+    enum Kind: Hashable {
         case favorite(isSelected: Bool = false)
         case basket
-        case custom(Image, Color)
+        case clear
     }
 }
 
 extension CHMProductButton.Configuration.Kind {
 
-    var iconImage: Image {
+    var isSelected: Bool {
         switch self {
-        case .basket: return Image.basketIcon
-        case let .favorite(isSelected): return isSelected ? .favoritePressed : .favoriteBorder
-        case let .custom(image, _): return image
+        case let .favorite(isSelected):
+            return isSelected
+        default:
+            return false
         }
     }
 
-    var iconColor: Color {
+    func iconColor(iconIsSelected: Bool = false) -> Color {
         switch self {
-        case let .favorite(isSelected):
-            return isSelected ? CHMColor<IconPalette>.iconRed.color : CHMColor<IconPalette>.iconGray.color
+        case .favorite:
+            return iconIsSelected ? CHMColor<IconPalette>.iconRed.color : CHMColor<IconPalette>.iconGray.color
         case .basket:
             return CHMColor<IconPalette>.iconBasket.color
-        case let .custom(_, color):
-            return color
+        case .clear:
+            return .clear
+        }
+    }
+
+    func iconImage(isSelected: Bool) -> Image {
+        switch self {
+        case .basket:
+            return CHMImage.basketIcon
+        case .favorite:
+            return isSelected ? CHMImage.favoritePressed : CHMImage.favoriteBorder
+        case .clear:
+            return Image("")
         }
     }
 
@@ -68,10 +78,10 @@ extension CHMProductButton.Configuration.Kind {
         switch self {
         case .basket: 
             return CHMColor<BackgroundPalette>.bgBasketColor.color
-        case let .favorite(isSelected):
+        case .favorite:
             return CHMColor<BackgroundPalette>.bgFavoriteIcon.color
-        case .custom:
-            return CHMColor<CustomPalette>.bgCustom.color
+        case .clear:
+            return .clear
         }
     }
 
@@ -83,15 +93,8 @@ extension CHMProductButton.Configuration.Kind {
             return isSelected
             ? CHMColor<ShadowPalette>.favoriteSeletected.color
             : CHMColor<ShadowPalette>.favoriteUnseletected.color
-        case .custom:
-            return CHMColor<ShadowPalette>.customShadow.color
+        case .clear:
+            return .clear
         }
     }
-}
-
-// MARK: - Colors
-
-private extension CHMColor where Palette == CustomPalette {
-
-    static let bgCustom = CHMColor(hexLight: 0xDB3022, hexDark: 0xEF3651)
 }

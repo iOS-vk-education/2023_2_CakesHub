@@ -45,7 +45,7 @@ struct CHMPicker: View {
                 .padding(.leading, 12)
                 .lineLimit(1)
 
-            Image.chevronDown
+            CHMImage.chevronDown
                 .renderingMode(.template)
                 .frame(edge: 16)
                 .rotationEffect(
