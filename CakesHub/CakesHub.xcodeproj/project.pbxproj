@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		E50E901E2B7E7C0200C370A9 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50E901C2B7E7C0200C370A9 /* MainViewModel.swift */; };
 		E50E901F2B7E7C0200C370A9 /* MainViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50E901D2B7E7C0200C370A9 /* MainViewModel+Mock.swift */; };
-		E510E98B2B7F35E0009604C0 /* Text+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E510E98A2B7F35E0009604C0 /* Text+Extenstions.swift */; };
+		E510E98B2B7F35E0009604C0 /* CHMText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E510E98A2B7F35E0009604C0 /* CHMText.swift */; };
 		E51B326F2B7E5DFC0028E8C7 /* CakesHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B326E2B7E5DFC0028E8C7 /* CakesHubApp.swift */; };
 		E51B32712B7E5DFC0028E8C7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B32702B7E5DFC0028E8C7 /* MainView.swift */; };
 		E51B32732B7E5DFD0028E8C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E51B32722B7E5DFD0028E8C7 /* Assets.xcassets */; };
@@ -65,7 +65,6 @@
 		E51B33152B7E60010028E8C7 /* Image+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33002B7E60010028E8C7 /* Image+Additions.swift */; };
 		E51B33162B7E60010028E8C7 /* UIColor+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33012B7E60010028E8C7 /* UIColor+Extenstions.swift */; };
 		E51B331C2B7E60010028E8C7 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33082B7E60010028E8C7 /* String+Extensions.swift */; };
-		E51B331D2B7E60010028E8C7 /* NSObjectProtocol+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33092B7E60010028E8C7 /* NSObjectProtocol+Extensions.swift */; };
 		E51B331E2B7E60010028E8C7 /* Optional+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B330A2B7E60010028E8C7 /* Optional+Extensions.swift */; };
 		E51B33202B7E60010028E8C7 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B330C2B7E60010028E8C7 /* URL+Extensions.swift */; };
 		E51B33212B7E60010028E8C7 /* Color+Addition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B330E2B7E60010028E8C7 /* Color+Addition.swift */; };
@@ -86,7 +85,6 @@
 		E51B334D2B7E62AF0028E8C7 /* PickersSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33432B7E62AF0028E8C7 /* PickersSectionView.swift */; };
 		E51B33512B7E63090028E8C7 /* ViewModelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B334F2B7E63090028E8C7 /* ViewModelable.swift */; };
 		E51B33522B7E63090028E8C7 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33502B7E63090028E8C7 /* ViewModelProtocol.swift */; };
-		E51B33582B7E63300028E8C7 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33532B7E63300028E8C7 /* DispatchQueue.swift */; };
 		E51B33592B7E63300028E8C7 /* CGFloat+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33542B7E63300028E8C7 /* CGFloat+Extentions.swift */; };
 		E51B335A2B7E63300028E8C7 /* Optional+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33552B7E63300028E8C7 /* Optional+Extenstions.swift */; };
 		E51B335B2B7E63300028E8C7 /* UIDevice+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33562B7E63300028E8C7 /* UIDevice+Extenstions.swift */; };
@@ -99,6 +97,7 @@
 		E55E77A92BA917BD00B463A0 /* ProductReviewsSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E77A82BA917BD00B463A0 /* ProductReviewsSubviews.swift */; };
 		E55E77AC2BA918D200B463A0 /* CategoriesSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E77AB2BA918D200B463A0 /* CategoriesSubviews.swift */; };
 		E55E77AF2BA91B5700B463A0 /* ProductDetailCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E77AE2BA91B5600B463A0 /* ProductDetailCells.swift */; };
+		E56A85112BACCED600E9A387 /* UINavigationController+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A85102BACCED600E9A387 /* UINavigationController+Extenstions.swift */; };
 		E56D0FF72B80CF6500B803EF /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56D0FF62B80CF6500B803EF /* CategoriesView.swift */; };
 		E56D0FF92B80D0A100B803EF /* CategoriesTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56D0FF82B80D0A100B803EF /* CategoriesTab.swift */; };
 		E57C920F2B93C5CB00EC90F5 /* SwiftPrettyPrint in Frameworks */ = {isa = PBXBuildFile; productRef = E57C920E2B93C5CB00EC90F5 /* SwiftPrettyPrint */; };
@@ -114,7 +113,6 @@
 		E59AEC7A2B92B99F00760E61 /* CakeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC792B92B99F00760E61 /* CakeService.swift */; };
 		E59AEC7C2B92BF9F00760E61 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC7B2B92BF9F00760E61 /* Logger.swift */; };
 		E59AEC7F2B92C4A600760E61 /* ProductRequest+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC7E2B92C4A600760E61 /* ProductRequest+Mock.swift */; };
-		E59AEC812B92C65800760E61 /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC802B92C65800760E61 /* UIImage+Additions.swift */; };
 		E5C99DCD2B9A6DA40000A2A9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E5C99DCC2B9A6DA40000A2A9 /* FirebaseAuth */; };
 		E5C99DCF2B9A6DA40000A2A9 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = E5C99DCE2B9A6DA40000A2A9 /* FirebaseDatabase */; };
 		E5C99DD12B9A6DA40000A2A9 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E5C99DD02B9A6DA40000A2A9 /* FirebaseStorage */; };
@@ -129,7 +127,7 @@
 /* Begin PBXFileReference section */
 		E50E901C2B7E7C0200C370A9 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		E50E901D2B7E7C0200C370A9 /* MainViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainViewModel+Mock.swift"; sourceTree = "<group>"; };
-		E510E98A2B7F35E0009604C0 /* Text+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Extenstions.swift"; sourceTree = "<group>"; };
+		E510E98A2B7F35E0009604C0 /* CHMText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHMText.swift; sourceTree = "<group>"; };
 		E51B326B2B7E5DFC0028E8C7 /* CakesHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CakesHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E51B326E2B7E5DFC0028E8C7 /* CakesHubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CakesHubApp.swift; sourceTree = "<group>"; };
 		E51B32702B7E5DFC0028E8C7 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -186,7 +184,6 @@
 		E51B33002B7E60010028E8C7 /* Image+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+Additions.swift"; sourceTree = "<group>"; };
 		E51B33012B7E60010028E8C7 /* UIColor+Extenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extenstions.swift"; sourceTree = "<group>"; };
 		E51B33082B7E60010028E8C7 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
-		E51B33092B7E60010028E8C7 /* NSObjectProtocol+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObjectProtocol+Extensions.swift"; sourceTree = "<group>"; };
 		E51B330A2B7E60010028E8C7 /* Optional+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+Extensions.swift"; sourceTree = "<group>"; };
 		E51B330C2B7E60010028E8C7 /* URL+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		E51B330E2B7E60010028E8C7 /* Color+Addition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Addition.swift"; sourceTree = "<group>"; };
@@ -207,7 +204,6 @@
 		E51B33432B7E62AF0028E8C7 /* PickersSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickersSectionView.swift; sourceTree = "<group>"; };
 		E51B334F2B7E63090028E8C7 /* ViewModelable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelable.swift; sourceTree = "<group>"; };
 		E51B33502B7E63090028E8C7 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
-		E51B33532B7E63300028E8C7 /* DispatchQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
 		E51B33542B7E63300028E8C7 /* CGFloat+Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extentions.swift"; sourceTree = "<group>"; };
 		E51B33552B7E63300028E8C7 /* Optional+Extenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+Extenstions.swift"; sourceTree = "<group>"; };
 		E51B33562B7E63300028E8C7 /* UIDevice+Extenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extenstions.swift"; sourceTree = "<group>"; };
@@ -220,6 +216,7 @@
 		E55E77A82BA917BD00B463A0 /* ProductReviewsSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductReviewsSubviews.swift; sourceTree = "<group>"; };
 		E55E77AB2BA918D200B463A0 /* CategoriesSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesSubviews.swift; sourceTree = "<group>"; };
 		E55E77AE2BA91B5600B463A0 /* ProductDetailCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailCells.swift; sourceTree = "<group>"; };
+		E56A85102BACCED600E9A387 /* UINavigationController+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extenstions.swift"; sourceTree = "<group>"; };
 		E56D0FF62B80CF6500B803EF /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		E56D0FF82B80D0A100B803EF /* CategoriesTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTab.swift; sourceTree = "<group>"; };
 		E59AEC582B92AA2900760E61 /* ProductRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRequest.swift; sourceTree = "<group>"; };
@@ -234,7 +231,6 @@
 		E59AEC792B92B99F00760E61 /* CakeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CakeService.swift; sourceTree = "<group>"; };
 		E59AEC7B2B92BF9F00760E61 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		E59AEC7E2B92C4A600760E61 /* ProductRequest+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductRequest+Mock.swift"; sourceTree = "<group>"; };
-		E59AEC802B92C65800760E61 /* UIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
 		E5C99DD72B9A833F0000A2A9 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		E5E219D32B940FF000BE9ACE /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
 		E5E219D52B9410CE00BE9ACE /* CategoryCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCardModel.swift; sourceTree = "<group>"; };
@@ -356,6 +352,7 @@
 		E51B32822B7E5F540028E8C7 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E510E98A2B7F35E0009604C0 /* CHMText.swift */,
 				E5C99DD72B9A833F0000A2A9 /* CustomTabBar.swift */,
 				E51B32AB2B7E5FEF0028E8C7 /* CHMBadgeView */,
 				E51B329E2B7E5FEF0028E8C7 /* CHMBigBannerView */,
@@ -616,7 +613,7 @@
 			children = (
 				E51B33562B7E63300028E8C7 /* UIDevice+Extenstions.swift */,
 				E51B33012B7E60010028E8C7 /* UIColor+Extenstions.swift */,
-				E59AEC802B92C65800760E61 /* UIImage+Additions.swift */,
+				E56A85102BACCED600E9A387 /* UINavigationController+Extenstions.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -625,11 +622,9 @@
 			isa = PBXGroup;
 			children = (
 				E51B32FB2B7E60010028E8C7 /* CGSize+Extensions.swift */,
-				E51B33532B7E63300028E8C7 /* DispatchQueue.swift */,
 				E51B33552B7E63300028E8C7 /* Optional+Extenstions.swift */,
 				E51B33542B7E63300028E8C7 /* CGFloat+Extentions.swift */,
 				E51B33082B7E60010028E8C7 /* String+Extensions.swift */,
-				E51B33092B7E60010028E8C7 /* NSObjectProtocol+Extensions.swift */,
 				E51B330A2B7E60010028E8C7 /* Optional+Extensions.swift */,
 				E51B330C2B7E60010028E8C7 /* URL+Extensions.swift */,
 			);
@@ -642,7 +637,6 @@
 				E51B33002B7E60010028E8C7 /* Image+Additions.swift */,
 				E51B33572B7E63300028E8C7 /* View+Extentions.swift */,
 				E51B330E2B7E60010028E8C7 /* Color+Addition.swift */,
-				E510E98A2B7F35E0009604C0 /* Text+Extenstions.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -991,7 +985,7 @@
 				E51B32E12B7E5FEF0028E8C7 /* CHMProductDescriptionView+HandlerConfiguration.swift in Sources */,
 				E51B32DE2B7E5FEF0028E8C7 /* CHMBigBannerView+Preview.swift in Sources */,
 				E51B32D52B7E5FEF0028E8C7 /* CHMNewProductCard+Preview.swift in Sources */,
-				E510E98B2B7F35E0009604C0 /* Text+Extenstions.swift in Sources */,
+				E510E98B2B7F35E0009604C0 /* CHMText.swift in Sources */,
 				E51B32CA2B7E5FEF0028E8C7 /* CHMProductButton+Configuration.swift in Sources */,
 				E51B332E2B7E603E0028E8C7 /* Configurable.swift in Sources */,
 				E59AEC7A2B92B99F00760E61 /* CakeService.swift in Sources */,
@@ -1010,7 +1004,6 @@
 				E51B32F62B7E5FEF0028E8C7 /* MKRImageView+Defaults.swift in Sources */,
 				E51B32E72B7E5FEF0028E8C7 /* CHMBadgeView+Preview.swift in Sources */,
 				E51B33522B7E63090028E8C7 /* ViewModelProtocol.swift in Sources */,
-				E51B33582B7E63300028E8C7 /* DispatchQueue.swift in Sources */,
 				E51B32E42B7E5FEF0028E8C7 /* CHMBadgeView+Defaults.swift in Sources */,
 				E5272FBD2B9A9B1900F181A1 /* Navigation.swift in Sources */,
 				E59AEC7C2B92BF9F00760E61 /* Logger.swift in Sources */,
@@ -1041,6 +1034,7 @@
 				E51B33282B7E602A0028E8C7 /* Modifiy.swift in Sources */,
 				E51B32CB2B7E5FEF0028E8C7 /* CHMProductButton+Defaults.swift in Sources */,
 				E5272FBF2B9A9F0100F181A1 /* RootView.swift in Sources */,
+				E56A85112BACCED600E9A387 /* UINavigationController+Extenstions.swift in Sources */,
 				E51B334B2B7E62AF0028E8C7 /* ProductDetailScreen.swift in Sources */,
 				E51B33472B7E62AF0028E8C7 /* ProductReviewsScreen.swift in Sources */,
 				E51B33292B7E602A0028E8C7 /* Typealias.swift in Sources */,
@@ -1070,7 +1064,6 @@
 				E51B32EB2B7E5FEF0028E8C7 /* CHMPicker+Preview.swift in Sources */,
 				E51B334A2B7E62AF0028E8C7 /* NewProductDetailModel+Mock.swift in Sources */,
 				E51B32CF2B7E5FEF0028E8C7 /* CHMCommentView.swift in Sources */,
-				E51B331D2B7E60010028E8C7 /* NSObjectProtocol+Extensions.swift in Sources */,
 				E51B33442B7E62AF0028E8C7 /* ProductReviewsViewModel.swift in Sources */,
 				E51B32CD2B7E5FEF0028E8C7 /* CHMProductButton.swift in Sources */,
 				E51B32F52B7E5FEF0028E8C7 /* MKRImageView+Configuration.swift in Sources */,
@@ -1087,7 +1080,6 @@
 				E55E77A92BA917BD00B463A0 /* ProductReviewsSubviews.swift in Sources */,
 				E51B32E02B7E5FEF0028E8C7 /* CHMProductDescriptionView+Configuration.swift in Sources */,
 				E51B32CC2B7E5FEF0028E8C7 /* CHMProductButton+Preview.swift in Sources */,
-				E59AEC812B92C65800760E61 /* UIImage+Additions.swift in Sources */,
 				E51B32D02B7E5FEF0028E8C7 /* CHMCommentView+Configuration.swift in Sources */,
 				E51B33162B7E60010028E8C7 /* UIColor+Extenstions.swift in Sources */,
 				E51B32DA2B7E5FEF0028E8C7 /* CHMNewCategoryView+Preview.swift in Sources */,
