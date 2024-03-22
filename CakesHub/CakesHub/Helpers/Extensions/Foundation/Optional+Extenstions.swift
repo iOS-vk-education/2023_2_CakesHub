@@ -16,10 +16,3 @@ extension Optional<String> {
         return self.isEmpty ? nil : self
     }
 }
-
-extension [URL?] {
-
-    var toStringArray: [String] {
-        compactMap { $0?.absoluteString }
-    }
-}

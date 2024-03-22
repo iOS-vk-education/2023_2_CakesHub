@@ -38,10 +38,13 @@ extension ProductReviewsScreen {
     }
 
     var SectionTitle: some View {
-        Text(Constants.sectionTitle(count: viewModel.data.countOfComments))
-            .style(24, .semibold, CHMColor<TextPalette>.textPrimary.color)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.init(top: 37, leading: 16, bottom: 30, trailing: 32))
+        CHMText(
+            text: Constants.sectionTitle(count: viewModel.data.countOfComments),
+            size: 24,
+            weight: .semibold
+        )
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.init(top: 37, leading: 16, bottom: 30, trailing: 32))
     }
 
     var ReviewsBlock: some View {
@@ -77,21 +80,30 @@ fileprivate struct ReviewCell: View {
         )
         .offset(x: animateReview ? 0 : reviewSize)
         .overlay {
-            GeometryReader {
-                let size = $0.size
-                let minY = $0.frame(in: .global).minY
-                Color.clear
-                    .onAppear {
-                        reviewSize = size.height
-                    }
-                    .onChange(of: minY) { oldValue, newValue in
-                        if newValue < size.height * 1.4 && !animateReview {
-                            withAnimation(.spring(duration: 0.45)) {
-                                animateReview = true
-                            }
+            AppearanceCalculationsView
+        }
+    }
+}
+
+// MARK: - Helper
+
+private extension ReviewCell {
+
+    var AppearanceCalculationsView: some View {
+        GeometryReader {
+            let size = $0.size
+            let minY = $0.frame(in: .global).minY
+            Color.clear
+                .onAppear {
+                    reviewSize = size.height
+                }
+                .onChange(of: minY) { oldValue, newValue in
+                    if newValue < size.height * 1.4 && !animateReview {
+                        withAnimation(.spring(duration: 0.45)) {
+                            animateReview = true
                         }
                     }
-            }
+                }
         }
     }
 }
@@ -103,4 +115,14 @@ private extension ProductReviewsScreen {
     enum Constants {
         static func sectionTitle(count: Int) -> String { "\(count) ratings" }
     }
+}
+
+// MARK: - Preview
+
+#Preview {
+    ProductReviewsScreen(
+        viewModel: .init(data: .mockData),
+        screenIsAppeared: .constant(true)
+    )
+    .environmentObject(Navigation())
 }

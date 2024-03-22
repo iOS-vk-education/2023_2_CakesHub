@@ -49,7 +49,7 @@ private extension PickersSectionView {
                 .padding(.leading, 12)
                 .lineLimit(1)
 
-            Image.chevronDown
+            CHMImage.chevronDown
                 .renderingMode(.template)
                 .frame(width: 16, height: 16)
                 .rotationEffect(

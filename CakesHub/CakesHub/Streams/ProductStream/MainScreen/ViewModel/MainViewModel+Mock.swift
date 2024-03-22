@@ -96,7 +96,7 @@ extension [ProductModel] {
         ProductModel(
             productID: $0,
             images: [
-                .init(kind: .uiImage(.mockImageCake)),
+                .init(kind: .uiImage(CHMImage.mockImageCake)),
                 .init(kind: .url(.mockCake3)),
                 .init(kind: .url(.mockProductCard)),
                 .init(kind: .url(.mockCake4)),

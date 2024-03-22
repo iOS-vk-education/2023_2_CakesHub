@@ -14,6 +14,8 @@ struct ProductReviewsScreen: View, ViewModelable {
 
     typealias ViewModel = ProductReviewsViewModel
     var viewModel: ViewModel
+    @EnvironmentObject var nav: Navigation
+    @Binding var screenIsAppeared: Bool
 
     // MARK: View
 
@@ -22,13 +24,20 @@ struct ProductReviewsScreen: View, ViewModelable {
             .background(CHMColor<BackgroundPalette>.bgMainColor.color)
             .navigationTitle(Constants.navigationTitle)
             .toolbarTitleDisplayMode(.large)
+            .onDisappear {
+                screenIsAppeared = false
+            }
     }
 }
 
 // MARK: - Preview
 
 #Preview {
-    ProductReviewsScreen(viewModel: .init(data: .mockData))
+    ProductReviewsScreen(
+        viewModel: .init(data: .mockData),
+        screenIsAppeared: .constant(true)
+    )
+    .environmentObject(Navigation())
 }
 
 // MARK: - Constants

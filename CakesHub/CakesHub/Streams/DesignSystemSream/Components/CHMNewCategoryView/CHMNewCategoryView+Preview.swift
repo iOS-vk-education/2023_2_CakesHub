@@ -14,7 +14,7 @@ struct CHMNewCategoryViewPreview: PreviewProvider {
         Group {
             CHMNewCategoryView(
                 configuration: .basic(
-                    imageKind: .uiImage(.category_2),
+                    imageKind: .uiImage(CHMImage.category_2),
                     title: "Clothes"
                 )
             )

@@ -37,13 +37,13 @@ private extension CHMStarsView {
                         ShimmeringView()
                             .frame(edge: configuration.starWidth)
                             .mask {
-                                Image.starFill
+                                CHMImage.starFill
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: configuration.starWidth)
                             }
                     } else {
-                        Image.starFill
+                        CHMImage.starFill
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: configuration.starWidth)
@@ -51,7 +51,7 @@ private extension CHMStarsView {
                 }
 
                 ForEach(0..<5-configuration.countFillStars, id: \.self) { _ in
-                    Image.starOutline
+                    CHMImage.starOutline
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: configuration.starWidth)
@@ -64,10 +64,6 @@ private extension CHMStarsView {
                     .foregroundStyle(configuration.foregroundColor)
             }
         }
-    }
-
-    var ShimmeringBlock: some View {
-        VStack {}
     }
 }
 
