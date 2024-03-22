@@ -56,7 +56,7 @@ private extension CHMRatingReviewsView {
                 HStack {
                     HStack(spacing: 3) {
                         ForEach(0..<5-counter.id, id: \.self) { row in
-                            Image.starFill
+                            CHMImage.starFill
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 13)
