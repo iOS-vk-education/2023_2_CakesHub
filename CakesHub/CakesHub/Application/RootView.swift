@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-/*
- TODO: СДЕЛАТЬ ДЛЯ ЭКРАНА ДЕТАТАЛЕЙ ТОВАРА ПЕРЕДАЧУ ТОЛЬКО ИНДЕКСА ЧТОБЫ МОДЕЛЬКА БЫЛА ИЗ ВСЕГО МАССИВА ДАННЫХ А НЕ ТОЛЬКО ПЕРЕДАЧА СТАТИКИ
- */
-
 struct RootView: View {
 
     @StateObject var nav: Navigation
