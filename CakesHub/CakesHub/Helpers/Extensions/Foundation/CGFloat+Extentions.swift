@@ -7,11 +7,6 @@
 
 import Foundation
 
-extension CGFloat {
-
-    var toString: String { "\(self)" }
-}
-
 // MARK: - Maths
 
 extension CGFloat {
