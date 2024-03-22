@@ -21,7 +21,18 @@ let view = CHMProductButton(
 struct CHMProductButton: View {
 
     let configuration: Configuration
-    var didTapButton: CHMVoidBlock?
+    var didTapButton: CHMBoolBlock?
+    @State private var isSelected: Bool
+    @State private var highlighted = false
+
+    init(
+        configuration: Configuration,
+        didTapButton: CHMBoolBlock? = nil
+    ) {
+        self.configuration = configuration
+        self.didTapButton = didTapButton
+        self.isSelected = configuration.kind.isSelected
+    }
 
     var body: some View {
         if configuration.isShimmering {
@@ -30,6 +41,11 @@ struct CHMProductButton: View {
                 .clipShape(.circle)
         } else {
             MainView
+                .contentShape(Circle())
+                .onTapGesture {
+                    isSelected.toggle()
+                    didTapButton?(isSelected)
+                }
         }
     }
 }
@@ -44,16 +60,14 @@ private extension CHMProductButton {
                 .fill(configuration.backgroundColor)
                 .frame(edge: configuration.buttonSize)
 
-            Button {
-                didTapButton?()
-            } label: {
-                configuration.iconImage
-                    .renderingMode(.template)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: configuration.iconSize)
-                    .foregroundStyle(configuration.iconColor)
-            }
+            configuration.kind.iconImage(isSelected: isSelected)
+                .renderingMode(.template)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: configuration.iconSize)
+                .foregroundStyle(
+                    configuration.kind.iconColor(iconIsSelected: isSelected)
+                )
         }
         .shadow(color: configuration.shadowColor, radius: 10)
     }
@@ -63,6 +77,30 @@ private extension CHMProductButton {
 
 #Preview {
     CHMProductButton(
-        configuration: .basic(kind: .basket)
+        configuration: .basic(kind: .favorite(isSelected: true))
     )
 }
+
+//            ZStack {
+//                Circle()
+//                    .fill(configuration.backgroundColor)
+//                    .frame(edge: configuration.buttonSize)
+//
+//                configuration.kind.iconImage(isSelected: isSelected)
+//                    .renderingMode(.template)
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fit)
+//                    .frame(height: configuration.iconSize)
+//                    .foregroundStyle(
+//                        configuration.kind.iconColor(iconIsSelected: isSelected)
+//                    )
+//
+//                Rectangle()
+//                    .fill(.clear)
+//                    .frame(
+//                        width: configuration.buttonSize * 2,
+//                        height: configuration.buttonSize * 2
+//                    )
+//            }
+//            .shadow(color: configuration.shadowColor, radius: 10)
+//        }

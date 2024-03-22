@@ -27,7 +27,6 @@ import SwiftUI
 struct CHMProductDescriptionView: View {
 
     let configuration: Configuration
-    @State private var favoriteIsSelected = false
     @State private var lastSelectedPickerItem: Int?
 
     var body: some View  {
@@ -49,19 +48,6 @@ struct CHMProductDescriptionView: View {
 // MARK: - Subviews
 
 private extension CHMProductDescriptionView {
-
-    @ViewBuilder
-    var FavoriteIcon: some View {
-        CHMProductButton(
-            configuration: modify(.basic(kind: .favorite())) {
-                if favoriteIsSelected {
-                    $0.iconColor = CHMColor<IconPalette>.iconRed.color
-                }
-            }
-        ) {
-            favoriteIsSelected.toggle()
-        }
-    }
 
     var TextBlock: some View {
         VStack(alignment: .leading) {
