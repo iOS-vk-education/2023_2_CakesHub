@@ -14,36 +14,10 @@ extension CategoriesView {
     var MainViewBlock: some View {
         VStack(spacing: 0) {
             NavigationBarBlock
+
             CustomTabBar
 
-            GeometryReader {
-                let size = $0.size
-
-                ScrollView(.horizontal) {
-                    LazyHStack(spacing: 0) {
-                        FirstSection
-                            .id(CategoriesTab.women)
-                            .containerRelativeFrame(.horizontal)
-
-                        SecondSection
-                            .id(CategoriesTab.men)
-                            .containerRelativeFrame(.horizontal)
-
-                        CategoryContentBlock
-                            .id(CategoriesTab.kids)
-                            .containerRelativeFrame(.horizontal)
-                    }
-                    .scrollTargetLayout()
-                    .offsetX { value in
-                        let progress = -value / (size.width * CGFloat(CategoriesTab.allCases.count - 1))
-                        tabBarProgess = max(min(progress, 1), 0)
-                    }
-                }
-                .scrollPosition(id: $selectedTab)
-                .scrollIndicators(.hidden)
-                .scrollTargetBehavior(.paging)
-                .scrollClipDisabled()
-            }
+            SectionsBlock
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(CHMColor<BackgroundPalette>.bgMainColor.color)
@@ -58,7 +32,7 @@ extension CategoriesView {
                         showSearchBar.toggle()
                     }
                 } label: {
-                    Image.magnifier
+                    CHMImage.magnifier
                         .renderingMode(.template)
                 }
             }
@@ -78,7 +52,7 @@ extension CategoriesView {
 
     var SearchBar: some View {
         HStack(spacing: 12) {
-            Image.magnifier
+            CHMImage.magnifier
                 .renderingMode(.template)
                 .foregroundStyle(CHMColor<IconPalette>.iconSecondary.color)
             TextField(Constants.searchTitle, text: $searchText)
@@ -119,7 +93,38 @@ extension CategoriesView {
         }
     }
 
-    var CategoryContentBlock: some View {
+    var SectionsBlock: some View {
+        GeometryReader {
+            let size = $0.size
+
+            ScrollView(.horizontal) {
+                LazyHStack(spacing: 0) {
+                    WomenSection
+                        .id(CategoriesTab.women)
+                        .containerRelativeFrame(.horizontal)
+
+                    MenSection
+                        .id(CategoriesTab.men)
+                        .containerRelativeFrame(.horizontal)
+
+                    KidsSection
+                        .id(CategoriesTab.kids)
+                        .containerRelativeFrame(.horizontal)
+                }
+                .scrollTargetLayout()
+                .offsetX { value in
+                    let progress = -value / (size.width * CGFloat(CategoriesTab.allCases.count - 1))
+                    tabBarProgess = max(min(progress, 1), 0)
+                }
+            }
+            .scrollPosition(id: $selectedTab)
+            .scrollIndicators(.hidden)
+            .scrollTargetBehavior(.paging)
+            .scrollClipDisabled()
+        }
+    }
+
+    var KidsSection: some View {
         ScrollView {
             LazyVGrid(
                 columns: Array(repeating: GridItem(), count: 2)
@@ -140,7 +145,7 @@ extension CategoriesView {
         }
     }
 
-    var FirstSection: some View {
+    var WomenSection: some View {
         ScrollView {
             LazyVStack(spacing: 16) {
                 ForEach(viewModel.firstSections) { section in
@@ -154,8 +159,7 @@ extension CategoriesView {
         }
     }
 
-    // FIXME: Сделать по умному
-    var SecondSection: some View {
+    var MenSection: some View {
         ScrollView {
             LazyVStack(spacing: 16) {
                 ForEach(viewModel.secondSections) { section in
@@ -166,6 +170,24 @@ extension CategoriesView {
                 }
             }
             .padding(.top)
+        }
+    }
+}
+
+// MARK: - Helpers
+
+private extension CategoriesView {
+
+    @ViewBuilder
+    func offsetX(completion: @escaping (CGFloat) -> Void) -> some View {
+        overlay {
+            GeometryReader {
+                let minX = $0.frame(in: .scrollView(axis: .horizontal)).minX
+
+                Color.clear
+                    .preference(key: OffsetKey.self, value: minX)
+                    .onPreferenceChange(OffsetKey.self, perform: completion)
+            }
         }
     }
 }

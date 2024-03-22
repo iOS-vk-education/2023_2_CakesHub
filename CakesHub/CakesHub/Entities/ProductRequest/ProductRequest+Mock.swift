@@ -13,9 +13,9 @@ extension ProductRequest: Mockable {
 
     static let mockData = ProductRequest(
         images: .images([
-            .mockImageCake,
-            .mockImageCake2,
-            .mockImageCake3,
+            CHMImage.mockImageCake,
+            CHMImage.mockImageCake2,
+            CHMImage.mockImageCake3,
         ]),
         badgeText: "NEW",
         pickers: [],

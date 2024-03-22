@@ -66,9 +66,9 @@ extension CHMProductButton.Configuration.Kind {
     func iconImage(isSelected: Bool) -> Image {
         switch self {
         case .basket:
-            return Image.basketIcon
+            return CHMImage.basketIcon
         case .favorite:
-            return isSelected ? .favoritePressed : .favoriteBorder
+            return isSelected ? CHMImage.favoritePressed : CHMImage.favoriteBorder
         case .clear:
             return Image("")
         }

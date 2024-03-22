@@ -23,9 +23,9 @@ struct LikeIcon: View {
                 didTapIcon?()
             } label: {
                 if isSelected {
-                    Image.favoritePressed
+                    CHMImage.favoritePressed
                 } else {
-                    Image.favoriteBorder
+                    CHMImage.favoriteBorder
                 }
             }
         }

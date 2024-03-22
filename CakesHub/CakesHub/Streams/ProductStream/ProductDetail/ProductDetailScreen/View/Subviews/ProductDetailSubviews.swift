@@ -132,7 +132,7 @@ extension ProductDetailScreen {
                 .font(.system(size: 16, weight: .regular))
                 .tint(CHMColor<TextPalette>.textPrimary.color)
             Spacer()
-            Image.chevronRight
+            CHMImage.chevronRight
                 .renderingMode(.template)
                 .tint(CHMColor<TextPalette>.textPrimary.color)
                 .frame(width: 16, height: 16)
@@ -179,7 +179,7 @@ extension ProductDetailScreen {
                     openPreviousView()
                 }
             } label: {
-                Image.chevronLeft
+                CHMImage.chevronLeft
                     .renderingMode(.template)
                     .tint(CHMColor<TextPalette>.textPrimary.color)
                     .padding(.leading, 8)

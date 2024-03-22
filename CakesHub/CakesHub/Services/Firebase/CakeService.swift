@@ -71,7 +71,7 @@ extension CakeService: CakeServiceProtocol {
                 }
             }
         case let .url(urls):
-            images = urls.toStringArray
+            images = urls.compactMap { $0?.absoluteString }
         default:
             break
         }

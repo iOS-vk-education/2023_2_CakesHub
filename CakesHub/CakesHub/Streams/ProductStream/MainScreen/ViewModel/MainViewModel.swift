@@ -105,18 +105,6 @@ extension MainViewModel: MainViewModelProtocol {
     }
 
     func fetchData(completion: CHMVoidBlock? = nil) {
-        DispatchQueue.global().asyncAfter(deadline: .now() + 0.2) {
-            DispatchQueue.main.async {
-                let sales = Section.sales(.mockSalesData)
-                let news = Section.news(.mockNewsData)
-                let all = Section.all(.mockAllData)
-                self.sections[sales.id] = sales
-                self.sections[news.id] = news
-                self.sections[all.id] = all
-                self.isShimmering = false
-                completion?()
-            }
-        }
     }
 
     func pullToRefresh(completion: CHMVoidBlock? = nil) {
@@ -158,7 +146,7 @@ extension MainViewModel: MainViewModelProtocol {
 extension MainViewModel {
 
     func fetchPreviewData(completion: CHMVoidBlock? = nil) {
-        DispatchQueue.global().asyncAfter(deadline: .now() + 0.2) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 2.2) {
             DispatchQueue.main.async {
                 self.sections[0] = .sales(.mockSalesData)
                 self.sections[1] = .news(.mockNewsData)

@@ -33,8 +33,11 @@ struct ProductReviewsScreen: View, ViewModelable {
 // MARK: - Preview
 
 #Preview {
-    ProductReviewsScreen(viewModel: .init(data: .mockData), screenIsAppeared: .constant(true))
-        .environmentObject(Navigation())
+    ProductReviewsScreen(
+        viewModel: .init(data: .mockData),
+        screenIsAppeared: .constant(true)
+    )
+    .environmentObject(Navigation())
 }
 
 // MARK: - Constants
