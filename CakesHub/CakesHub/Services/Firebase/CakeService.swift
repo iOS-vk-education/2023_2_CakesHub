@@ -35,7 +35,7 @@ extension CakeService: CakeServiceProtocol {
     /// Getting a list of cakes
     /// - Parameter completion: plenty of cakes
     func getCakesList() async throws -> [ProductRequest] {
-        let snapshot = try await FirestoreCollections.products.collection.getDocuments()
+        let snapshot = try await Firestore.firestore().collection(FirestoreCollections.products.rawValue).getDocuments()
         return snapshot.documents.compactMap {
             var product = ProductRequest(dictionary: $0.data())
             product?.documentID = $0.documentID
@@ -71,7 +71,7 @@ extension CakeService: CakeServiceProtocol {
                 }
             }
         case let .url(urls):
-            images = urls.toStringArray
+            images = urls.compactMap { $0?.absoluteString }
         default:
             break
         }
@@ -80,7 +80,8 @@ extension CakeService: CakeServiceProtocol {
             var firebaseCakeDocument = cake
             firebaseCakeDocument.images = .strings(images)
             let document = firebaseCakeDocument.dictionaryRepresentation
-            FirestoreCollections.products.collection.addDocument(
+
+            Firestore.firestore().collection(FirestoreCollections.products.rawValue).addDocument(
                 data: document,
                 completion: completion
             )
@@ -110,22 +111,30 @@ extension CakeService: CakeServiceProtocol {
         }
         storageRef.putData(imageData, metadata: nil) { metadata, error in
             if let error {
-                asyncMain { completion(.failure(.error(error))) }
+                DispatchQueue.main.async {
+                    completion(.failure(.error(error)))
+                }
                 return
             }
             guard !metadata.isNil else {
-                asyncMain { completion(.failure(.dataIsNil)) }
+                DispatchQueue.main.async {
+                    completion(.failure(.dataIsNil))
+                }
                 return
             }
 
             storageRef.downloadURL { url, error in
                 if let error {
-                    asyncMain { completion(.failure(.error(error))) }
+                    DispatchQueue.main.async {
+                        completion(.failure(.error(error)))
+                    }
                     return
                 }
 
                 if let imageUrl = url?.absoluteString {
-                    asyncMain { completion(.success(imageUrl)) }
+                    DispatchQueue.main.async {
+                        completion(.success(imageUrl))
+                    }
                 }
             }
         }

@@ -14,14 +14,3 @@ enum FirestoreCollections: String {
     case users
     case products
 }
-
-extension FirestoreCollections {
-
-    var document: DocumentReference {
-        Firestore.firestore().document(rawValue)
-    }
-
-    var collection: CollectionReference {
-        Firestore.firestore().collection(rawValue)
-    }
-}
