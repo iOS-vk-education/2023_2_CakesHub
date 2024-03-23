@@ -38,13 +38,10 @@ extension ProductReviewsScreen {
     }
 
     var SectionTitle: some View {
-        CHMText(
-            text: Constants.sectionTitle(count: viewModel.data.countOfComments),
-            size: 24,
-            weight: .semibold
-        )
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.init(top: 37, leading: 16, bottom: 30, trailing: 32))
+        Text(Constants.sectionTitle(count: viewModel.data.countOfComments))
+            .style(24, .semibold)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.init(top: 37, leading: 16, bottom: 30, trailing: 32))
     }
 
     var ReviewsBlock: some View {

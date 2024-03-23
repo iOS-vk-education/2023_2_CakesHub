@@ -82,50 +82,31 @@ private extension CHMNewProductCard {
     var TextBlockView: some View {
         VStack(alignment: .leading, spacing: 3) {
             if let seller = configuration.productText.seller {
-                CHMText(
-                    text: seller,
-                    size: 11,
-                    weight: .regular,
-                    color: Constants.sellerTextColor
-                )
-                .lineLimit(1)
+                Text(seller)
+                    .style(11, .regular, Constants.sellerTextColor)
+                    .lineLimit(1)
             }
 
             if let productName = configuration.productText.productName {
-                CHMText(
-                    text: productName,
-                    size: 16,
-                    weight: .semibold,
-                    color: Constants.productNameColor
-                )
-                .lineLimit(1)
+                Text(productName)
+                    .style(16, .semibold, Constants.productNameColor)
+                    .lineLimit(1)
+                    .lineLimit(1)
             }
 
             if let oldPrice = configuration.productText.productOldPrice {
                 HStack(spacing: 4) {
-                    CHMText(
-                        text: oldPrice,
-                        size: 14,
-                        weight: .medium,
-                        color: Constants.oldPriceColor
-                    )
-                    .strikethrough(true, color: Constants.oldPriceColor)
+                    Text(oldPrice)
+                        .style(14, .medium, Constants.oldPriceColor)
+                        .strikethrough(true, color: Constants.oldPriceColor)
 
-                    CHMText(
-                        text: configuration.productText.productPrice,
-                        size: 14,
-                        weight: .medium,
-                        color: Constants.newPriceColor
-                    )
+                    Text(configuration.productText.productPrice)
+                        .style(14, .medium, Constants.newPriceColor)
                 }
 
             } else {
-                CHMText(
-                    text: configuration.productText.productPrice,
-                    size: 14,
-                    weight: .medium,
-                    color: Constants.productNameColor
-                )
+                Text(configuration.productText.productPrice)
+                    .style(14, .medium, Constants.productNameColor)
             }
         }
     }

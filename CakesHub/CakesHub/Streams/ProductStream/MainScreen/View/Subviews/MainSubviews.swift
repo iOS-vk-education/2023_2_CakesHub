@@ -102,23 +102,21 @@ extension MainView {
     ) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
-                CHMText(text: title, size: 34, weight: .bold)
+                Text(title)
+                    .style(34, .bold)
 
                 Spacer()
 
                 Button {
                     didTapSection(sectionTitle: title)
                 } label: {
-                    CHMText(text: buttonTitle, size: 11, weight: .regular)
+                    Text(buttonTitle)
+                        .style(11, .regular)
                 }
             }
 
-            CHMText(
-                text: subtitle, 
-                size: 11,
-                weight: .regular,
-                color: Constants.textSecondary
-            )
+            Text(subtitle)
+                .style(11, .regular, Constants.textSecondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.bottom, 22)
