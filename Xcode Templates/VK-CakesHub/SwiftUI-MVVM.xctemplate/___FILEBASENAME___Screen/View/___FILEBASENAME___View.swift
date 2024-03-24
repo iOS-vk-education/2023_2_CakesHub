@@ -44,13 +44,13 @@ private extension ___VARIABLE_productName:identifier___View {
             MKRImageView(
                 configuration: .basic(
                     kind: viewModel.image,
-                    imageSize: CGSize(edge: .imageSize),
-                    imageShape: .roundedRectangle(.imageCornerRadius)
+                    imageSize: CGSize(edge: Constants.imageSize),
+                    imageShape: .roundedRectangle(Constants.imageCornerRadius)
                 )
             )
 
             Text(viewModel.title)
-                .style(14, .semibold, .textPrimary)
+                .style(14, .semibold, CHMColor<TextPalette>.textPrimary)
         }
     }
 }
@@ -66,9 +66,11 @@ private extension ___VARIABLE_productName:identifier___View {
 // MARK: - Constants
 
 #warning("Добавляйте сюда все необходимые константы")
-private extension CGFloat {
+private extension ___VARIABLE_productName:identifier___View {
 
-    static let imageSize: CGFloat = 200
-    static let imageCornerRadius: CGFloat = 20
+    enum Constants {
+        static let imageSize: CGFloat = 200
+        static let imageCornerRadius: CGFloat = 20
+    }
 }
 

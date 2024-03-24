@@ -14,7 +14,7 @@ extension ___VARIABLE_productName:identifier___ViewModel: Mockable {
 
     #warning("Обновите, добавив недостоющие переменные")
     static let mockData = ___VARIABLE_productName:identifier___ViewModel(
-        title: .mockTitle,
+        title: Constants.mockTitle,
         image: .url(.mockCake2)
     )
 }
@@ -22,9 +22,11 @@ extension ___VARIABLE_productName:identifier___ViewModel: Mockable {
 // MARK: - Constants
 
 #warning("Удалите или замените моковые данные")
-private extension String {
+private extension ___VARIABLE_productName:identifier___ViewModel {
 
-    static let mockTitle = "Просто моковый заголовок из кодогенерации для пример"
+    enum Constants {
+        static let mockTitle = "Просто моковый заголовок из кодогенерации для пример"
+    }
 }
 
 #endif
