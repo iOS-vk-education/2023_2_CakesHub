@@ -44,13 +44,13 @@ private extension ___VARIABLE_productName:identifier___View {
             MKRImageView(
                 configuration: .basic(
                     kind: viewModel.image,
-                    imageSize: CGSize(edge: Constants.imageSize),
+                    imageSize: CGSize(width: Constants.imageSize, height: Constants.imageSize),
                     imageShape: .roundedRectangle(Constants.imageCornerRadius)
                 )
             )
 
             Text(viewModel.title)
-                .style(14, .semibold, CHMColor<TextPalette>.textPrimary)
+                .style(14, .semibold, Constants.textColor)
         }
     }
 }
@@ -71,6 +71,6 @@ private extension ___VARIABLE_productName:identifier___View {
     enum Constants {
         static let imageSize: CGFloat = 200
         static let imageCornerRadius: CGFloat = 20
+        static let textColor: Color = CHMColor<TextPalette>.textPrimary.color
     }
 }
-
