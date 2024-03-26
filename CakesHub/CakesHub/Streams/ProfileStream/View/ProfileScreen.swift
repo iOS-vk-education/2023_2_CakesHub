@@ -61,11 +61,13 @@ private extension ProfileScreen {
                 MKRImageView(
                     configuration: .basic(
                         kind: viewModel.user.userHeaderImage,
-                        imageSize: CGSize(width: 400, height: iscrolling ? 280 + minY : 280),
+                        imageSize: CGSize(
+                            width: geo.size.width,
+                            height: iscrolling ? 280 + minY : 280
+                        ),
                         imageShape: .rectangle
                     )
                 )
-                .frame(height: iscrolling ? 280 + minY : 280)
                 .offset(y: iscrolling ? -minY : 0)
                 .blur(radius: iscrolling ? 0 + minY / 60 : 0)
                 .scaleEffect(iscrolling ? 1 + minY / 2000 : 1)
@@ -106,10 +108,7 @@ private extension ProfileScreen {
                 .padding(.vertical, 18)
             }
         }
-        .clipped()
-        .scaledToFill()
         .frame(height: 400)
-        
     }
 }
 
