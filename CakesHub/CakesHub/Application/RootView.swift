@@ -29,8 +29,7 @@ struct RootView: View {
                 Text("NOTIFICATION")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             case .profile:
-                Text("PROFILE")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                ProfileScreen(viewModel: ProfileViewModel(user: .mockData))
             }
         }
         .tint(CHMColor<IconPalette>.navigationBackButton.color)

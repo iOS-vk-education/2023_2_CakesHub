@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ProfileScreen.swift
 //  CakesHub
 //
 //  Created by Milana Shakhbieva on 22.03.2024.
@@ -19,6 +19,7 @@ struct ProfileScreen: View {
         ScrollView {
             VStack {
                 imageView
+
                 GeometryReader { geo in
                     let minY = geo.frame(in: .global).minY
                     HStack {
@@ -39,7 +40,9 @@ struct ProfileScreen: View {
                 }
                 .offset(y: -36)
                 .zIndex(1)
-                ProductFeedView()
+
+                ProductFeedView(user: viewModel.user)
+                    .padding(.top)
             }
         }
         .ignoresSafeArea()
@@ -57,7 +60,7 @@ private extension ProfileScreen {
             VStack {
                 MKRImageView(
                     configuration: .basic(
-                        kind: viewModel.user.userImage,
+                        kind: viewModel.user.userHeaderImage,
                         imageSize: CGSize(width: 400, height: iscrolling ? 280 + minY : 280),
                         imageShape: .rectangle
                     )
@@ -77,16 +80,21 @@ private extension ProfileScreen {
                         )
                         
                         Circle().stroke(lineWidth: 6)
+                            .fill(Constants.bgColor)
                     }
                     .frame(width: 110, height: 110)
                     .clipShape(Circle())
                     .offset(y: 25)
                     .offset(y: iscrolling ? -minY : 0)
                 }
+
                 Group {
                     VStack(spacing: 6) {
-                        Text("MILANA").bold().font(.title)
-                        Text("Кондитер").font(.callout)
+                        Text(viewModel.user.name.uppercased())
+                            .bold()
+                            .font(.title)
+                        Text(viewModel.user.mail).font(.callout)
+                            .foregroundStyle(Constants.userMailColor)
                             .multilineTextAlignment(.center)
                             .frame(width: geo.size.width)
                             .lineLimit(1)
@@ -97,8 +105,6 @@ private extension ProfileScreen {
                 }
                 .padding(.vertical, 18)
             }
-
-
         }
         .clipped()
         .scaledToFill()
@@ -107,33 +113,38 @@ private extension ProfileScreen {
     }
 }
 
-
-
 fileprivate struct ProductFeedView: View {
-    var body: some View{
-        LazyVGrid(columns: Array(repeating: GridItem(), count: 2), content: {
-            ForEach(0..<25) { item in
+    var user: UserModel
+
+    var body: some View {
+        LazyVGrid(columns: Array(repeating: GridItem(), count: 2)) {
+            ForEach(user.products) { product in
                 CHMNewProductCard(
                     configuration: .basic(
-                        imageKind: .url(.mockProductCard),
+                        imageKind: product.images.first?.kind ?? .clear,
                         imageSize: CGSize(width: 160, height: 184),
                         productText: .init(
-                            seller: "MILANA",
-                            productName: "Women's Day cake",
-                            productPrice: "30$"
+                            seller: product.sellerName,
+                            productName: product.productName,
+                            productPrice: product.price
                         ),
-                        productButtonConfiguration: .basic(kind: .favorite()),
-                        starsViewConfiguration: .basic(kind: .four, feedbackCount: 20000)
+                        productButtonConfiguration: .basic(
+                            kind: .favorite(isSelected: product.isFavorite)
+                        ),
+                        starsViewConfiguration: .basic(
+                            kind: .init(rawValue: product.starsCount) ?? .zero,
+                            feedbackCount: product.reviewInfo.feedbackCounter
+                        )
                     )
                 )
                 .frame(width: 148)
             }
             .padding(.horizontal, 5)
-        })
+        }
     }
 }
 
-struct Cbutton: View {
+fileprivate struct Cbutton: View {
     let iconname: UIImage
     var action: () -> Void
     var body: some View {
@@ -145,10 +156,6 @@ struct Cbutton: View {
                 .frame(width: 23, height: 23)
                 .padding(10)
                 .background(.ultraThinMaterial, in: Circle())
-                .overlay {
-                    Circle().stroke(lineWidth: 1)
-                        .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.black, .gray]), startPoint: .bottomLeading, endPoint: .topTrailing))
-                }
         }
     }
 }
@@ -159,14 +166,13 @@ private extension ProfileScreen {
     
     enum Constants {
         static let textColor = CHMColor<TextPalette>.textPrimary.color
-        static let iconColor = CHMColor<IconPalette>.iconGray.color
+        static let userMailColor = CHMColor<TextPalette>.textPrimary.color
         static let bgColor = CHMColor<BackgroundPalette>.bgMainColor.color
     }
 }
 
-
 // MARK: - Preview
 
 #Preview {
-    ProfileScreen(viewModel: ProfileViewModel(user: .mockData))
+    ProfileScreen(viewModel: .mockData)
 }
