@@ -23,7 +23,7 @@ struct ProfileScreen: View {
                 .navigationDestination(for: ViewModel.Screens.self) { screen in
                     switch screen {
                     case .message:
-                        ChatView(viewModel: .mockData)
+                        fatalError("Экран ещё не создан")
                     case .notifications:
                         fatalError("Экран ещё не создан")
                     case .settings:

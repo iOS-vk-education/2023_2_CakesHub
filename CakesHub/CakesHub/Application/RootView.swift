@@ -18,7 +18,7 @@ struct RootView: View {
 
     var body: some View {
         NavigationStack(path: $nav.path) {
-            VStack(spacing: 0) {
+            ZStack(alignment: .bottom) {
                 MainViewBlock
                 CustomTabBarView()
             }
