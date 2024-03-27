@@ -306,4 +306,5 @@ private extension ProductDetailScreen {
 
 #Preview {
     ProductDetailScreen(viewModel: .mockData)
+        .environmentObject(Navigation())
 }

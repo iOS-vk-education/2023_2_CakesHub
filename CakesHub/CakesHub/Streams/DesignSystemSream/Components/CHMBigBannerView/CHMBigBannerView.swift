@@ -30,9 +30,9 @@ struct CHMBigBannerView: View {
         GeometryReader { proxy in
             MKRImageView(configuration: .basic(
                 kind: configuration.imageKind,
-                imageSize: proxy.size,
                 imageShape: .rectangle)
             )
+            .frame(width: proxy.size.width, height: proxy.size.height)
         }
         .overlay(alignment: .bottomLeading) {
             VStack(alignment: .leading, spacing: 0) {
