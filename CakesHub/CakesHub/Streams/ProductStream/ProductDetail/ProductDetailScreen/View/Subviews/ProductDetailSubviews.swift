@@ -59,10 +59,10 @@ extension ProductDetailScreen {
                         MKRImageView(
                             configuration: .basic(
                                 kind: image.kind,
-                                imageSize: CGSize(width: 275, height: 413),
                                 imageShape: .rectangle
                             )
                         )
+                        .frame(width: 275, height: 413)
                     }
                 }
             }
@@ -147,7 +147,7 @@ extension ProductDetailScreen {
                     CHMNewProductCard(
                         configuration: .basic(
                             imageKind: product.images.first?.kind ?? .clear,
-                            imageSize: CGSize(width: 148, height: 184),
+                            imageHeight: 184,
                             productText: .init(
                                 seller: product.sellerName,
                                 productName: product.productName,
@@ -162,6 +162,7 @@ extension ProductDetailScreen {
                     ) { isSelected in
                         didTapLikeSimilarProductCard(id: product.id, isSelected: isSelected)
                     }
+                    .frame(width: 148)
                     .onTapGesture {
                         didTapSimilarProductCard(product: product)
                     }

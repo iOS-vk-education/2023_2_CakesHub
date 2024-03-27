@@ -46,7 +46,7 @@ private extension CHMNewProductCard.Configuration {
 
     static let previewSimilarCard = CHMNewProductCard.Configuration.basic(
         imageKind: .url(.mockProductCard),
-        imageSize: CGSize(width: 148, height: 184),
+        imageHeight: 184,
         productText: .init(
             seller: "Mango Boy",
             productName: "T-Shirt Sailing",

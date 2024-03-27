@@ -58,6 +58,11 @@ extension MainView {
     func didTapSection(sectionTitle: String) {
         Logger.log(message: sectionTitle)
     }
+    
+    /// Нажатие кнопки баннера
+    func didTapBannerButton() {
+        Logger.log(message: "Нажатие на кнопку баннера")
+    }
 }
 
 // MARK: - UI Components

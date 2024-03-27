@@ -51,7 +51,7 @@ extension CHMColor where Palette == BackgroundPalette {
     static let bgRed = CHMColor(hexLight: 0xDB3022, hexDark: 0xFF3E3E)
     /// Тёмный задний фон. Ex: Бейдж новых продктов
     static let bgDark = CHMColor(hexLight: 0x222222, hexDark: 0x1E1F28)
-    /// Задний фон икноки корзины
+    /// Задний фон икноки корзины, кнопки баннера
     static let bgBasketColor = CHMColor(hexLight: 0xDB3022, hexDark: 0xEF3651)
     /// Задний фон иконки лайка
     static let bgFavoriteIcon = CHMColor(hexLight: 0xFFFFFF, hexDark: 0x2A2C36)
