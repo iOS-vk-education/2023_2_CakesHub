@@ -25,7 +25,7 @@ extension MainView {
                 .background(Constants.bgMainColor)
                 .clipShape(.rect(cornerRadius: 16))
             }
-            .padding(.bottom, 50)
+            .padding(.bottom, 150)
         }
         .ignoresSafeArea()
         .scrollIndicators(.hidden)
@@ -235,7 +235,7 @@ extension MainView {
 #Preview {
     let vm = MainView.ViewModel()
     vm.fetchPreviewData()
-    return MainView(viewModel: vm)
+    return MainView(viewModel: vm, size: CGSize(width: 400, height: 800))
         .environmentObject(Navigation())
 }
 

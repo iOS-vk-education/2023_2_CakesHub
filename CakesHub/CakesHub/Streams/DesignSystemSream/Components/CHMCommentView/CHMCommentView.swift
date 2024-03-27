@@ -46,6 +46,7 @@ struct CHMCommentView: View {
         .clipShape(.rect(cornerRadius: 8))
         .overlay(alignment: .topLeading) {
             MKRImageView(configuration: configuration.userImageConfiguration)
+                .frame(width: 32, height: 32)
                 .offset(x: -16, y: -16)
         }
         .padding([.leading, .top], 16)
@@ -59,9 +60,9 @@ private extension CHMCommentView {
     var StarsBlock: some View {
         HStack {
             CHMStarsView(configuration: configuration.starsConfiguration)
-            
+
             Spacer()
-            
+
             Text(configuration.date)
                 .dateFont
         }

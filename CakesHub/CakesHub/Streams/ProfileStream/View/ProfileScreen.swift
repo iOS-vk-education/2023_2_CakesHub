@@ -8,14 +8,42 @@
 import SwiftUI
 
 struct ProfileScreen: View {
-    
-    @StateObject private var viewModel: ProfileViewModel
-    
-    init(viewModel: ProfileViewModel = ProfileViewModel()) {
+    typealias ViewModel = ProfileViewModel
+
+    @StateObject private var viewModel: ViewModel
+    @EnvironmentObject private var nav: Navigation
+
+    init(viewModel: ViewModel = ViewModel()) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
     
     var body: some View {
+        NavigationStack(path: $nav.path) {
+            MainView
+                .navigationDestination(for: ViewModel.Screens.self) { screen in
+                    switch screen {
+                    case .message:
+                        ChatView(viewModel: .mockData)
+                    case .notifications:
+                        fatalError("Экран ещё не создан")
+                    case .settings:
+                        fatalError("Экран ещё не создан")
+                    }
+                }
+        }
+    }
+}
+
+private extension ProfileScreen {
+
+    func didTapOpenMessageScreen() {
+        nav.addScreen(screen: ViewModel.Screens.message)
+    }
+}
+
+private extension ProfileScreen {
+
+    var MainView: some View {
         ScrollView {
             VStack {
                 imageView
@@ -23,7 +51,10 @@ struct ProfileScreen: View {
                 GeometryReader { geo in
                     let minY = geo.frame(in: .global).minY
                     HStack {
-                        Button(action: {}, label: {
+                        Button {
+                            Logger.log(message: "Нажатие на кнопку `message`")
+                            didTapOpenMessageScreen()
+                        } label: {
                             Label("message", systemImage: "message")
                                 .foregroundStyle(Constants.textColor)
                                 .font(.callout)
@@ -31,7 +62,7 @@ struct ProfileScreen: View {
                                 .foregroundStyle(.black)
                                 .frame(width: 240, height: 45)
                                 .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 30))
-                        })
+                        }
                         Cbutton(iconname: .bell, action: {})
                         Cbutton(iconname: .bell, action: {})
                     }
@@ -48,10 +79,7 @@ struct ProfileScreen: View {
         .ignoresSafeArea()
         .background(Constants.bgColor)
     }
-}
 
-private extension ProfileScreen {
-    
     @ViewBuilder
     var imageView: some View {
         GeometryReader { geo in
@@ -61,12 +89,12 @@ private extension ProfileScreen {
                 MKRImageView(
                     configuration: .basic(
                         kind: viewModel.user.userHeaderImage,
-                        imageSize: CGSize(
-                            width: geo.size.width,
-                            height: iscrolling ? 280 + minY : 280
-                        ),
                         imageShape: .rectangle
                     )
+                )
+                .frame(
+                    width: geo.size.width,
+                    height: iscrolling ? 280 + minY : 280
                 )
                 .offset(y: iscrolling ? -minY : 0)
                 .blur(radius: iscrolling ? 0 + minY / 60 : 0)
@@ -76,11 +104,11 @@ private extension ProfileScreen {
                         MKRImageView(
                             configuration: .basic(
                                 kind: viewModel.user.userImage,
-                                imageSize: CGSize(width: 110, height: 110),
                                 imageShape: .capsule
                             )
                         )
-                        
+                        .frame(width: 110, height: 110)
+
                         Circle().stroke(lineWidth: 6)
                             .fill(Constants.bgColor)
                     }
@@ -114,14 +142,13 @@ private extension ProfileScreen {
 
 fileprivate struct ProductFeedView: View {
     var user: UserModel
-
     var body: some View {
         LazyVGrid(columns: Array(repeating: GridItem(), count: 2)) {
             ForEach(user.products) { product in
                 CHMNewProductCard(
                     configuration: .basic(
                         imageKind: product.images.first?.kind ?? .clear,
-                        imageSize: CGSize(width: 160, height: 184),
+                        imageHeight: 200,
                         productText: .init(
                             seller: product.sellerName,
                             productName: product.productName,
@@ -136,10 +163,10 @@ fileprivate struct ProductFeedView: View {
                         )
                     )
                 )
-                .frame(width: 148)
             }
-            .padding(.horizontal, 5)
         }
+        .padding(.horizontal, 10)
+        .padding(.bottom, 150)
     }
 }
 
@@ -173,5 +200,8 @@ private extension ProfileScreen {
 // MARK: - Preview
 
 #Preview {
-    ProfileScreen(viewModel: .mockData)
+    NavigationStack {
+        ProfileScreen(viewModel: .mockData)
+    }
+    .environmentObject(Navigation())
 }

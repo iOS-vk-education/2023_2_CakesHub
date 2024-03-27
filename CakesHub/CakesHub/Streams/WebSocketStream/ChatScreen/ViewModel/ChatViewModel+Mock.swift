@@ -12,21 +12,9 @@ import Foundation
 
 extension ChatViewModel: Mockable {
 
-    #warning("Обновите, добавив недостоющие переменные")
     static let mockData = ChatViewModel(
-        title: Constants.mockTitle,
-        image: .url(.mockCake2)
+        messages: .mockData
     )
-}
-
-// MARK: - Constants
-
-#warning("Удалите или замените моковые данные")
-private extension ChatViewModel {
-
-    enum Constants {
-        static let mockTitle = "Просто моковый заголовок из кодогенерации для пример"
-    }
 }
 
 #endif

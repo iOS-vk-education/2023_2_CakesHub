@@ -91,11 +91,17 @@
 		E51B335A2B7E63300028E8C7 /* Optional+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33552B7E63300028E8C7 /* Optional+Extenstions.swift */; };
 		E51B335B2B7E63300028E8C7 /* UIDevice+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33562B7E63300028E8C7 /* UIDevice+Extenstions.swift */; };
 		E51B335C2B7E63300028E8C7 /* View+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33572B7E63300028E8C7 /* View+Extentions.swift */; };
+		E51E93D42BB4731200AEB46F /* PlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E93D32BB4731200AEB46F /* PlaygroundView.swift */; };
+		E51E93D62BB475ED00AEB46F /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E93D52BB475ED00AEB46F /* SectionView.swift */; };
 		E5272FBD2B9A9B1900F181A1 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5272FBC2B9A9B1900F181A1 /* Navigation.swift */; };
 		E5272FBF2B9A9F0100F181A1 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5272FBE2B9A9F0100F181A1 /* RootView.swift */; };
 		E52C88802BA709730056FC51 /* MainSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C887F2BA709730056FC51 /* MainSubviews.swift */; };
 		E530C7302B935DCD00658817 /* DictionaryConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E530C72F2B935DCD00658817 /* DictionaryConvertible.swift */; };
 		E53528A32BAF134100A1ADC3 /* Text+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53528A22BAF134100A1ADC3 /* Text+Extenstions.swift */; };
+		E5473DCF2BB3A9C6000C5B0A /* CHMSimpleImage+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5473DC92BB3A9C6000C5B0A /* CHMSimpleImage+Configuration.swift */; };
+		E5473DD02BB3A9C6000C5B0A /* CHMSimpleImage+Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5473DCA2BB3A9C6000C5B0A /* CHMSimpleImage+Defaults.swift */; };
+		E5473DD12BB3A9C6000C5B0A /* CHMSimpleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5473DCC2BB3A9C6000C5B0A /* CHMSimpleImage.swift */; };
+		E5473DD22BB3A9C6000C5B0A /* CHMSimpleImage+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5473DCD2BB3A9C6000C5B0A /* CHMSimpleImage+Preview.swift */; };
 		E55E77A72BA9157B00B463A0 /* ProductDetailSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E77A62BA9157B00B463A0 /* ProductDetailSubviews.swift */; };
 		E55E77A92BA917BD00B463A0 /* ProductReviewsSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E77A82BA917BD00B463A0 /* ProductReviewsSubviews.swift */; };
 		E55E77AC2BA918D200B463A0 /* CategoriesSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E77AB2BA918D200B463A0 /* CategoriesSubviews.swift */; };
@@ -104,6 +110,12 @@
 		E56D0FF72B80CF6500B803EF /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56D0FF62B80CF6500B803EF /* CategoriesView.swift */; };
 		E56D0FF92B80D0A100B803EF /* CategoriesTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56D0FF82B80D0A100B803EF /* CategoriesTab.swift */; };
 		E57C920F2B93C5CB00EC90F5 /* SwiftPrettyPrint in Frameworks */ = {isa = PBXBuildFile; productRef = E57C920E2B93C5CB00EC90F5 /* SwiftPrettyPrint */; };
+		E5989CBC2BB32DF400D8F37E /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5989CB62BB32DF400D8F37E /* ChatView.swift */; };
+		E5989CBD2BB32DF400D8F37E /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5989CB82BB32DF400D8F37E /* ChatViewModel.swift */; };
+		E5989CBE2BB32DF400D8F37E /* ChatViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5989CB92BB32DF400D8F37E /* ChatViewModel+Mock.swift */; };
+		E5989CC02BB331FE00D8F37E /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5989CBF2BB331FE00D8F37E /* ChatMessage.swift */; };
+		E5989CC22BB3324200D8F37E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5989CC12BB3324200D8F37E /* Message.swift */; };
+		E5989CC52BB3333700D8F37E /* MessageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5989CC42BB3333700D8F37E /* MessageBubble.swift */; };
 		E59AEC592B92AA2900760E61 /* ProductRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC582B92AA2900760E61 /* ProductRequest.swift */; };
 		E59AEC5B2B92AE5F00760E61 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E59AEC5A2B92AE5F00760E61 /* GoogleService-Info.plist */; };
 		E59AEC682B92B17200760E61 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC672B92B17200760E61 /* AuthService.swift */; };
@@ -115,6 +127,7 @@
 		E59AEC7A2B92B99F00760E61 /* CakeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC792B92B99F00760E61 /* CakeService.swift */; };
 		E59AEC7C2B92BF9F00760E61 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC7B2B92BF9F00760E61 /* Logger.swift */; };
 		E59AEC7F2B92C4A600760E61 /* ProductRequest+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC7E2B92C4A600760E61 /* ProductRequest+Mock.swift */; };
+		E5ABB4D22BB35BDD00A89009 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ABB4D12BB35BDD00A89009 /* SwiftUIView.swift */; };
 		E5C99DCD2B9A6DA40000A2A9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E5C99DCC2B9A6DA40000A2A9 /* FirebaseAuth */; };
 		E5C99DCF2B9A6DA40000A2A9 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = E5C99DCE2B9A6DA40000A2A9 /* FirebaseDatabase */; };
 		E5C99DD12B9A6DA40000A2A9 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E5C99DD02B9A6DA40000A2A9 /* FirebaseStorage */; };
@@ -213,11 +226,17 @@
 		E51B33552B7E63300028E8C7 /* Optional+Extenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+Extenstions.swift"; sourceTree = "<group>"; };
 		E51B33562B7E63300028E8C7 /* UIDevice+Extenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extenstions.swift"; sourceTree = "<group>"; };
 		E51B33572B7E63300028E8C7 /* View+Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "View+Extentions.swift"; path = "../View+Extentions.swift"; sourceTree = "<group>"; };
+		E51E93D32BB4731200AEB46F /* PlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaygroundView.swift; sourceTree = "<group>"; };
+		E51E93D52BB475ED00AEB46F /* SectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		E5272FBC2B9A9B1900F181A1 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		E5272FBE2B9A9F0100F181A1 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		E52C887F2BA709730056FC51 /* MainSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSubviews.swift; sourceTree = "<group>"; };
 		E530C72F2B935DCD00658817 /* DictionaryConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryConvertible.swift; sourceTree = "<group>"; };
 		E53528A22BAF134100A1ADC3 /* Text+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Extenstions.swift"; sourceTree = "<group>"; };
+		E5473DC92BB3A9C6000C5B0A /* CHMSimpleImage+Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CHMSimpleImage+Configuration.swift"; sourceTree = "<group>"; };
+		E5473DCA2BB3A9C6000C5B0A /* CHMSimpleImage+Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CHMSimpleImage+Defaults.swift"; sourceTree = "<group>"; };
+		E5473DCC2BB3A9C6000C5B0A /* CHMSimpleImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHMSimpleImage.swift; sourceTree = "<group>"; };
+		E5473DCD2BB3A9C6000C5B0A /* CHMSimpleImage+Preview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CHMSimpleImage+Preview.swift"; sourceTree = "<group>"; };
 		E55E77A62BA9157B00B463A0 /* ProductDetailSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailSubviews.swift; sourceTree = "<group>"; };
 		E55E77A82BA917BD00B463A0 /* ProductReviewsSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductReviewsSubviews.swift; sourceTree = "<group>"; };
 		E55E77AB2BA918D200B463A0 /* CategoriesSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesSubviews.swift; sourceTree = "<group>"; };
@@ -225,6 +244,12 @@
 		E56A85102BACCED600E9A387 /* UINavigationController+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extenstions.swift"; sourceTree = "<group>"; };
 		E56D0FF62B80CF6500B803EF /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		E56D0FF82B80D0A100B803EF /* CategoriesTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTab.swift; sourceTree = "<group>"; };
+		E5989CB62BB32DF400D8F37E /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		E5989CB82BB32DF400D8F37E /* ChatViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		E5989CB92BB32DF400D8F37E /* ChatViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatViewModel+Mock.swift"; sourceTree = "<group>"; };
+		E5989CBF2BB331FE00D8F37E /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		E5989CC12BB3324200D8F37E /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		E5989CC42BB3333700D8F37E /* MessageBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubble.swift; sourceTree = "<group>"; };
 		E59AEC582B92AA2900760E61 /* ProductRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRequest.swift; sourceTree = "<group>"; };
 		E59AEC5A2B92AE5F00760E61 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E59AEC672B92B17200760E61 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -236,6 +261,7 @@
 		E59AEC792B92B99F00760E61 /* CakeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CakeService.swift; sourceTree = "<group>"; };
 		E59AEC7B2B92BF9F00760E61 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		E59AEC7E2B92C4A600760E61 /* ProductRequest+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductRequest+Mock.swift"; sourceTree = "<group>"; };
+		E5ABB4D12BB35BDD00A89009 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		E5C99DD72B9A833F0000A2A9 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		E5DC48B42BB322CD000F3EFE /* ProfileViewModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileViewModel+Mock.swift"; sourceTree = "<group>"; };
 		E5E219D32B940FF000BE9ACE /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
@@ -348,8 +374,10 @@
 		E51B327E2B7E5EE30028E8C7 /* Streams */ = {
 			isa = PBXGroup;
 			children = (
+				E51E93D22BB4722C00AEB46F /* UIPlayground */,
 				A332D1652BB2F842007C194D /* ProfileStream */,
 				E51B327D2B7E5ECB0028E8C7 /* DesignSystemSream */,
+				E5989CB22BB32DBA00D8F37E /* WebSocketStream */,
 				E51B32802B7E5F090028E8C7 /* ProductStream */,
 			);
 			path = Streams;
@@ -380,6 +408,7 @@
 				E51B32B82B7E5FEF0028E8C7 /* CHMRatingReviewsView */,
 				E51B32BE2B7E5FEF0028E8C7 /* CHMStarsView */,
 				E51B32C42B7E5FEF0028E8C7 /* MKRImageView */,
+				E5473DCE2BB3A9C6000C5B0A /* CHMSimpleImage */,
 				E51B328A2B7E5FEF0028E8C7 /* Shimmering */,
 			);
 			path = Components;
@@ -782,6 +811,16 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		E51E93D22BB4722C00AEB46F /* UIPlayground */ = {
+			isa = PBXGroup;
+			children = (
+				E51E93D32BB4731200AEB46F /* PlaygroundView.swift */,
+				E5ABB4D12BB35BDD00A89009 /* SwiftUIView.swift */,
+				E51E93D52BB475ED00AEB46F /* SectionView.swift */,
+			);
+			path = UIPlayground;
+			sourceTree = "<group>";
+		};
 		E5272FBB2B9A9B1100F181A1 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -798,6 +837,25 @@
 				E52C887F2BA709730056FC51 /* MainSubviews.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		E5473DCB2BB3A9C6000C5B0A /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				E5473DC92BB3A9C6000C5B0A /* CHMSimpleImage+Configuration.swift */,
+				E5473DCA2BB3A9C6000C5B0A /* CHMSimpleImage+Defaults.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		E5473DCE2BB3A9C6000C5B0A /* CHMSimpleImage */ = {
+			isa = PBXGroup;
+			children = (
+				E5473DCB2BB3A9C6000C5B0A /* Configuration */,
+				E5473DCC2BB3A9C6000C5B0A /* CHMSimpleImage.swift */,
+				E5473DCD2BB3A9C6000C5B0A /* CHMSimpleImage+Preview.swift */,
+			);
+			path = CHMSimpleImage;
 			sourceTree = "<group>";
 		};
 		E55E77A52BA9155900B463A0 /* Subviews */ = {
@@ -859,6 +917,59 @@
 				E5E219D52B9410CE00BE9ACE /* CategoryCardModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E5989CB22BB32DBA00D8F37E /* WebSocketStream */ = {
+			isa = PBXGroup;
+			children = (
+				E5989CBB2BB32DF400D8F37E /* ChatScreen */,
+			);
+			path = WebSocketStream;
+			sourceTree = "<group>";
+		};
+		E5989CB52BB32DF400D8F37E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E5989CBF2BB331FE00D8F37E /* ChatMessage.swift */,
+				E5989CC12BB3324200D8F37E /* Message.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E5989CB72BB32DF400D8F37E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E5989CC32BB3332800D8F37E /* Subviews */,
+				E5989CB62BB32DF400D8F37E /* ChatView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E5989CBA2BB32DF400D8F37E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E5989CB82BB32DF400D8F37E /* ChatViewModel.swift */,
+				E5989CB92BB32DF400D8F37E /* ChatViewModel+Mock.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E5989CBB2BB32DF400D8F37E /* ChatScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E5989CB52BB32DF400D8F37E /* Model */,
+				E5989CBA2BB32DF400D8F37E /* ViewModel */,
+				E5989CB72BB32DF400D8F37E /* View */,
+			);
+			path = ChatScreen;
+			sourceTree = "<group>";
+		};
+		E5989CC32BB3332800D8F37E /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				E5989CC42BB3333700D8F37E /* MessageBubble.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		E59AEC572B92A92C00760E61 /* Entities */ = {
@@ -1029,15 +1140,20 @@
 				E51B32CA2B7E5FEF0028E8C7 /* CHMProductButton+Configuration.swift in Sources */,
 				E51B332E2B7E603E0028E8C7 /* Configurable.swift in Sources */,
 				E59AEC7A2B92B99F00760E61 /* CakeService.swift in Sources */,
+				E5473DCF2BB3A9C6000C5B0A /* CHMSimpleImage+Configuration.swift in Sources */,
 				E51B32712B7E5DFC0028E8C7 /* MainView.swift in Sources */,
 				E56D0FF72B80CF6500B803EF /* CategoriesView.swift in Sources */,
 				E51B32D32B7E5FEF0028E8C7 /* CHMNewProductCard+Defaults.swift in Sources */,
 				E59AEC6E2B92B21200760E61 /* LoginUserRequest.swift in Sources */,
+				E5989CC52BB3333700D8F37E /* MessageBubble.swift in Sources */,
 				E59AEC592B92AA2900760E61 /* ProductRequest.swift in Sources */,
 				E51B32E82B7E5FEF0028E8C7 /* CHMPicker+Defaults.swift in Sources */,
 				E51B32EA2B7E5FEF0028E8C7 /* CHMPicker+HandlerConfiguration.swift in Sources */,
 				A332D16A2BB2F842007C194D /* ProfileScreen.swift in Sources */,
+				E5989CC02BB331FE00D8F37E /* ChatMessage.swift in Sources */,
 				E51B32DD2B7E5FEF0028E8C7 /* CHMBigBannerView.swift in Sources */,
+				E51E93D42BB4731200AEB46F /* PlaygroundView.swift in Sources */,
+				E5989CC22BB3324200D8F37E /* Message.swift in Sources */,
 				E59AEC702B92B22000760E61 /* RegisterUserRequest.swift in Sources */,
 				E51B32F72B7E5FEF0028E8C7 /* MKRImageView+Preview.swift in Sources */,
 				A332D1692BB2F842007C194D /* UserModel.swift in Sources */,
@@ -1070,19 +1186,24 @@
 				E51B32D42B7E5FEF0028E8C7 /* CHMNewProductCard+Configuration.swift in Sources */,
 				E51B32E32B7E5FEF0028E8C7 /* CHMProductDescriptionView+Preview.swift in Sources */,
 				E51B332A2B7E602A0028E8C7 /* SwiftUIPreview.swift in Sources */,
+				E51E93D62BB475ED00AEB46F /* SectionView.swift in Sources */,
+				E5473DD12BB3A9C6000C5B0A /* CHMSimpleImage.swift in Sources */,
 				E51B32D62B7E5FEF0028E8C7 /* CHMNewProductCard.swift in Sources */,
 				E50E901E2B7E7C0200C370A9 /* MainViewModel.swift in Sources */,
 				E530C7302B935DCD00658817 /* DictionaryConvertible.swift in Sources */,
 				E51B32F32B7E5FEF0028E8C7 /* CHMStarsView.swift in Sources */,
+				E5989CBC2BB32DF400D8F37E /* ChatView.swift in Sources */,
 				E51B32E62B7E5FEF0028E8C7 /* CHMBadgeView.swift in Sources */,
 				E51B33282B7E602A0028E8C7 /* Modifiy.swift in Sources */,
 				E51B32CB2B7E5FEF0028E8C7 /* CHMProductButton+Defaults.swift in Sources */,
 				E5272FBF2B9A9F0100F181A1 /* RootView.swift in Sources */,
 				E56A85112BACCED600E9A387 /* UINavigationController+Extenstions.swift in Sources */,
 				E51B334B2B7E62AF0028E8C7 /* ProductDetailScreen.swift in Sources */,
+				E5473DD22BB3A9C6000C5B0A /* CHMSimpleImage+Preview.swift in Sources */,
 				E51B33472B7E62AF0028E8C7 /* ProductReviewsScreen.swift in Sources */,
 				E51B33292B7E602A0028E8C7 /* Typealias.swift in Sources */,
 				E51B32ED2B7E5FEF0028E8C7 /* CHMRatingReviewsView+Configuration.swift in Sources */,
+				E5ABB4D22BB35BDD00A89009 /* SwiftUIView.swift in Sources */,
 				E51B326F2B7E5DFC0028E8C7 /* CakesHubApp.swift in Sources */,
 				E50E901F2B7E7C0200C370A9 /* MainViewModel+Mock.swift in Sources */,
 				E51B32F42B7E5FEF0028E8C7 /* CHMStarsView+Preview.swift in Sources */,
@@ -1097,7 +1218,9 @@
 				E51B33152B7E60010028E8C7 /* Image+Additions.swift in Sources */,
 				E59AEC722B92B25600760E61 /* FirestoreCollections.swift in Sources */,
 				E59AEC682B92B17200760E61 /* AuthService.swift in Sources */,
+				E5989CBE2BB32DF400D8F37E /* ChatViewModel+Mock.swift in Sources */,
 				E51B335A2B7E63300028E8C7 /* Optional+Extenstions.swift in Sources */,
+				E5473DD02BB3A9C6000C5B0A /* CHMSimpleImage+Defaults.swift in Sources */,
 				E5C99DD82B9A833F0000A2A9 /* CustomTabBar.swift in Sources */,
 				E5E219D62B9410CE00BE9ACE /* CategoryCardModel.swift in Sources */,
 				E55E77AC2BA918D200B463A0 /* CategoriesSubviews.swift in Sources */,
@@ -1127,6 +1250,7 @@
 				E51B32D02B7E5FEF0028E8C7 /* CHMCommentView+Configuration.swift in Sources */,
 				E51B33162B7E60010028E8C7 /* UIColor+Extenstions.swift in Sources */,
 				E51B32DA2B7E5FEF0028E8C7 /* CHMNewCategoryView+Preview.swift in Sources */,
+				E5989CBD2BB32DF400D8F37E /* ChatViewModel.swift in Sources */,
 				E51B32DF2B7E5FEF0028E8C7 /* CHMProductDescriptionView+Defaults.swift in Sources */,
 				E51B33212B7E60010028E8C7 /* Color+Addition.swift in Sources */,
 				E51B32D72B7E5FEF0028E8C7 /* CHMNewCategoryView+Configuration.swift in Sources */,

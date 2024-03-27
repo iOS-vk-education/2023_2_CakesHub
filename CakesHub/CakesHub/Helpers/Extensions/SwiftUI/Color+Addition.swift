@@ -112,6 +112,7 @@ extension CHMColor where Palette == ShadowPalette {
     static let favoriteSeletected = CHMColor(hexLight: 0x9B9B9B, hexDark: 0xEF3651, alphaLight: 0.5, alphaDark: 0)
     static let favoriteUnseletected = CHMColor(hexLight: 0x9B9B9B, hexDark: 0x2A2C36, alpha: 0.5)
     static let customShadow = CHMColor(hexLight: 0x9B9B9B, hexDark: 0x2A2C36, alpha: 0.5)
+    static let tabBarShadow = CHMColor(hexLight: 0x000000, hexDark: 0x1A1B20, alphaLight: 0.06)
 }
 
 // MARK: - Preview Colors

@@ -13,13 +13,10 @@ struct MainView: View, ViewModelable {
 
     @EnvironmentObject private var nav: Navigation
     @StateObject var viewModel: ViewModel
-    @State private(set) var size: CGSize = .zero
+    var size: CGSize
 
     var body: some View {
-        NavigationStack(path: $nav.path) {
-            MainBlock
-        }
-        .viewSize(size: $size)
+        MainBlock
         .onAppear(perform: onAppear)
     }
 }
@@ -84,6 +81,6 @@ private extension MainView {
 #Preview {
     let vm = MainView.ViewModel()
     vm.fetchPreviewData()
-    return MainView(viewModel: vm)
+    return MainView(viewModel: vm, size: CGSize(width: 400, height: 800))
         .environmentObject(Navigation())
 }

@@ -15,6 +15,7 @@ struct CustomTabBarView: View {
     
     var body: some View {
         CustomTabBar
+            .shadow(color: CHMColor<ShadowPalette>.tabBarShadow.color, radius: 10)
     }
 }
 
