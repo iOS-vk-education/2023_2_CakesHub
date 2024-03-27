@@ -15,7 +15,7 @@ extension CHMNewProductCard.Configuration {
     /// Basic configuration
     /// - Parameters:
     ///   - imageKind: image kind
-    ///   - imageSize: image size
+    ///   - imageHeight: image height
     ///   - productText: product info
     ///   - badgeViewConfiguration: badge info
     ///   - productButtonConfiguration: product button info
@@ -23,14 +23,15 @@ extension CHMNewProductCard.Configuration {
     /// - Returns: configuration of the view
     static func basic(
         imageKind: ImageKind,
-        imageSize: CGSize,
+        imageHeight: CGFloat,
         productText: ProductText,
         badgeViewConfiguration: CHMBadgeView.Configuration = .clear,
         productButtonConfiguration: CHMProductButton.Configuration = .clear,
         starsViewConfiguration: CHMStarsView.Configuration = .clear
     ) -> Self {
         modify(.clear) {
-            $0.imageConfiguration = .imageConfiguration(imageKind, imageSize)
+            $0.imageConfiguration = .imageConfiguration(imageKind)
+            $0.imageHeight = imageHeight
             $0.badgeViewConfiguration = badgeViewConfiguration
             $0.productText = productText
             $0.productButtonConfiguration = productButtonConfiguration
@@ -38,9 +39,10 @@ extension CHMNewProductCard.Configuration {
         }
     }
 
-    static func shimmering(imageSize: CGSize) -> Self {
+    static func shimmering(imageHeight: CGFloat) -> Self {
         modify(.clear) {
-            $0.imageConfiguration = .shimmering(imageSize: imageSize, imageShape: .roundedRectangle(9))
+            $0.imageConfiguration = .shimmering(imageShape: .roundedRectangle(9))
+            $0.imageHeight = imageHeight
             $0.productButtonConfiguration = .shimmering
             $0.starsViewConfiguration = .shimmering
         }
@@ -51,10 +53,9 @@ extension CHMNewProductCard.Configuration {
 
 private extension MKRImageView.Configuration {
 
-    static func imageConfiguration(_ kind: ImageKind, _ imageSize: CGSize) -> Self {
+    static func imageConfiguration(_ kind: ImageKind) -> Self {
         .basic(
             kind: kind, 
-            imageSize: imageSize,
             imageShape: .roundedRectangle(9)
         )
     }

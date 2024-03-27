@@ -49,6 +49,7 @@ private extension CHMNewProductCard {
 
     var ImageBlock: some View {
         MKRImageView(configuration: configuration.imageConfiguration)
+            .frame(height: configuration.imageHeight)
         .overlay(alignment: .topLeading) {
             CHMBadgeView(configuration: configuration.badgeViewConfiguration)
             .padding([.top, .leading], 8)
@@ -57,10 +58,7 @@ private extension CHMNewProductCard {
             CHMProductButton(
                 configuration: configuration.productButtonConfiguration
             )
-            .offset(
-                x: 0,
-                y: 18
-            )
+            .offset(x: 0, y: 18)
         }
     }
 
@@ -90,7 +88,6 @@ private extension CHMNewProductCard {
             if let productName = configuration.productText.productName {
                 Text(productName)
                     .style(16, .semibold, Constants.productNameColor)
-                    .lineLimit(1)
                     .lineLimit(1)
             }
 
@@ -132,17 +129,9 @@ private extension CHMNewProductCard {
 
 #Preview {
     CHMNewProductCard(
-        configuration: .shimmering(
-            imageSize: CGSize(width: 148, height: 184)
-        )
-    )
-}
-
-#Preview {
-    CHMNewProductCard(
         configuration: .basic(
             imageKind: .url(.mockProductCard),
-            imageSize: CGSize(width: 148, height: 184),
+            imageHeight: 184,
             productText: .init(
                 seller: "Mango Boy",
                 productName: "T-Shirt Sailing",
@@ -152,6 +141,13 @@ private extension CHMNewProductCard {
             productButtonConfiguration: .basic(kind: .favorite()),
             starsViewConfiguration: .basic(kind: .four, feedbackCount: 20000)
         )
+    )
+    .frame(width: 148)
+}
+
+#Preview {
+    CHMNewProductCard(
+        configuration: .shimmering(imageHeight: 184)
     )
     .frame(width: 148)
 }

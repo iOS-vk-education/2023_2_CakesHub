@@ -38,9 +38,9 @@ struct CHMNewCategoryView: View {
                 Spacer()
                 MKRImageView(configuration: .basic(
                     kind: configuration.imageKindConfiguration,
-                    imageSize: CGSize(width: size.width / 2, height: size.height),
                     imageShape: .rectangle
                 ))
+                .frame(width: size.width / 2, height: size.height)
             }
         }
         .frame(height: 100)

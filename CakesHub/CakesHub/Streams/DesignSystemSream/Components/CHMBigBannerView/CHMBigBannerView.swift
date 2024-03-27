@@ -25,28 +25,34 @@ import SwiftUI
 struct CHMBigBannerView: View {
 
     var configuration: Configuration
+    var didTapButton: CHMVoidBlock?
 
     var body: some View {
-        GeometryReader { proxy in
-            MKRImageView(configuration: .basic(
-                kind: configuration.imageKind,
-                imageSize: proxy.size,
-                imageShape: .rectangle)
-            )
-        }
+        MKRImageView(configuration: .basic(
+            kind: configuration.imageKind,
+            imageShape: .rectangle)
+        )
         .overlay(alignment: .bottomLeading) {
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 18) {
                 Text(configuration.bannerTitle)
                     .font(.system(size: 48, weight: .black))
                     .foregroundStyle(.white)
-                    .padding(.leading, 15)
-                    .padding(.bottom, 18)
+
+                Button {
+                    didTapButton?()
+                } label: {
+                    Text(configuration.buttonTitle)
+                        .style(14, .medium, .white)
+                        .frame(width: 160, height: 36)
+                        .background(CHMColor<BackgroundPalette>.bgBasketColor.color)
+                        .clipShape(.rect(cornerRadius: 25))
+                }
             }
+            .padding(.leading, 15)
+            .padding(.bottom, 32)
         }
-        .ignoresSafeArea()
     }
 }
-
 
 // MARK: - Preview
 
@@ -57,6 +63,8 @@ struct CHMBigBannerView: View {
             bannerTitle: "Fashion\nsale",
             buttonTitle: "Check"
         )
-    )
+    ) {
+        print("Tap")
+    }
     .frame(width: 376, height: 536)
 }

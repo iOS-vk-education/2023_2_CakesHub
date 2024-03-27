@@ -10,34 +10,43 @@ import SwiftUI
 struct RootView: View {
 
     @StateObject var nav: Navigation
+    @State private var size: CGSize = .zero
 
     init(nav: Navigation = Navigation()) {
         self._nav = StateObject(wrappedValue: nav)
     }
 
     var body: some View {
-        VStack {
-            switch nav.activeTab {
-            case .house:
-                MainView(viewModel: MainView.ViewModel())
-            case .shop:
-                CategoriesView(viewModel: .mockData)
-            case .bag:
-                Text("BAG")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            case .notifications:
-                Text("NOTIFICATION")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            case .profile:
-                ProfileScreen(viewModel: ProfileViewModel(user: .mockData))
+        NavigationStack(path: $nav.path) {
+            ZStack(alignment: .bottom) {
+                MainViewBlock
+                CustomTabBarView()
             }
         }
         .tint(CHMColor<IconPalette>.navigationBackButton.color)
-        .overlay(alignment: .bottom) {
-            CustomTabBarView()
-                .offset(y: nav.hideTabBar ? 100 : 0)
-        }
         .environmentObject(nav)
+        .viewSize(size: $size)
+    }
+}
+
+private extension RootView {
+
+    @ViewBuilder
+    var MainViewBlock: some View {
+        switch nav.activeTab {
+        case .house:
+            MainView(viewModel: MainView.ViewModel(), size: size)
+        case .shop:
+            CategoriesView(viewModel: .mockData)
+        case .bag:
+            Text("BAG")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        case .notifications:
+            Text("NOTIFICATION")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        case .profile:
+            ProfileScreen(viewModel: ProfileViewModel(user: .mockData))
+        }
     }
 }
 

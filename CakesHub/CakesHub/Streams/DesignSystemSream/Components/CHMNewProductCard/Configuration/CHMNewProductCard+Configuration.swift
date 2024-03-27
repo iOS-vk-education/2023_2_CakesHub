@@ -17,6 +17,8 @@ extension CHMNewProductCard {
         var imageConfiguration: MKRImageView.Configuration = .clear
         /// Configuration of the badge view
         var badgeViewConfiguration: CHMBadgeView.Configuration = .clear
+        /// Height of the image view
+        var imageHeight: CGFloat = .zero
         /// Configuration of the product info
         var productButtonConfiguration: CHMProductButton.Configuration = .clear
         /// Configuration of the product rating
