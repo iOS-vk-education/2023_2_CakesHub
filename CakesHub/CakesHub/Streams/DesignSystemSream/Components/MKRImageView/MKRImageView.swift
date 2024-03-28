@@ -11,6 +11,9 @@ struct MKRImageView: View {
 
     let configuration: Configuration
 
+    @State private var uiImage: UIImage?
+    @State private var fetchedError: (any Error)?
+
     var body: some View {
         if configuration.isShimmering {
             GeometryReader { geo in
@@ -32,17 +35,7 @@ private extension MKRImageView {
             let size = geo.size
             switch configuration.kind {
             case let .url(url):
-                if let url {
-                    AsyncImage(url: url) { image in
-                        image
-                            .imageConfiguaration(for: configuration, size: size)
-
-                    } placeholder: {
-                        ImageShimmeringView(size: size)
-                    }
-                } else {
-                    PlaceholderView(size: size)
-                }
+                CHMAsyncImage(url: url, size: size)
 
             case let .uiImage(uiImage):
                 if let uiImage {
@@ -58,6 +51,37 @@ private extension MKRImageView {
         }
     }
 
+    @ViewBuilder
+    func CHMAsyncImage(url: URL?, size: CGSize) -> some View {
+        if let url {
+            if fetchedError != nil {
+                PlaceholderView(size: size)
+            } else {
+                LoadingImage(size: size)
+                    .task {
+                        do {
+                            uiImage = try await ImageProvider.shared.fetchThumbnail(url: url)
+                        } catch {
+                            fetchedError = error
+                        }
+                    }
+            }
+
+        } else {
+            PlaceholderView(size: size)
+        }
+    }
+
+    @ViewBuilder
+    func LoadingImage(size: CGSize) -> some View {
+        if let uiImage {
+            Image(uiImage: uiImage)
+                .imageConfiguaration(for: configuration, size: size)
+        } else {
+            ImageShimmeringView(size: size)
+        }
+    }
+
     func ImageShimmeringView(size: CGSize) -> some View {
         ShimmeringView()
             .frame(width: size.width, height: size.height)
@@ -66,7 +90,7 @@ private extension MKRImageView {
 
     func PlaceholderView(size: CGSize) -> some View {
         Rectangle()
-            .fill(.pink)
+            .fill(.ultraThinMaterial)
             .frame(width: size.width, height: size.height)
             .clippedShape(configuration.imageShape)
     }
