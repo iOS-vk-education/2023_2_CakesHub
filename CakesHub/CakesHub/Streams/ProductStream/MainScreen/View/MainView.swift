@@ -17,7 +17,7 @@ struct MainView: View, ViewModelable {
 
     var body: some View {
         MainBlock
-        .onAppear(perform: onAppear)
+            .onAppear(perform: onAppear)
     }
 }
 
@@ -69,10 +69,10 @@ private extension MainView {
     @ViewBuilder
     var MainBlock: some View {
         ScrollViewBlock
-        .navigationDestination(for: ProductModel.self) { card in
-            let vm = ProductDetailViewModel(data: card)
-            ProductDetailScreen(viewModel: vm)
-        }
+            .navigationDestination(for: ProductModel.self) { card in
+                let vm = ProductDetailViewModel(data: card)
+                ProductDetailScreen(viewModel: vm)
+            }
     }
 }
 
