@@ -52,6 +52,7 @@ extension ProductReviewsScreen {
         }
         .padding(.leading, 16)
         .padding(.trailing, 32)
+        .padding(.bottom, 50)
     }
 }
 
@@ -117,9 +118,6 @@ private extension ProductReviewsScreen {
 // MARK: - Preview
 
 #Preview {
-    ProductReviewsScreen(
-        viewModel: .init(data: .mockData),
-        screenIsAppeared: .constant(true)
-    )
+    ProductReviewsScreen(viewModel: .init(data: .mockData))
     .environmentObject(Navigation())
 }

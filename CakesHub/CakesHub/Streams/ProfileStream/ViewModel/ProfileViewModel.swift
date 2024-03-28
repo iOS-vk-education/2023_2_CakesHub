@@ -21,6 +21,15 @@ final class ProfileViewModel: ObservableObject, ViewModelProtocol {
     }
 }
 
+extension ProfileViewModel {
+
+    enum Screens {
+        case message
+        case notifications
+        case settings
+    }
+}
+
 // MARK: - Actions
 
 extension ProfileViewModel: ProfileViewModelProtocol {}

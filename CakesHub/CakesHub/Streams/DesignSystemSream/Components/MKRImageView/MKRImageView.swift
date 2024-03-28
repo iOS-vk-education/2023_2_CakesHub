@@ -13,7 +13,11 @@ struct MKRImageView: View {
 
     var body: some View {
         if configuration.isShimmering {
-            ImageShimmeringView
+            GeometryReader { geo in
+                ShimmeringView()
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .clippedShape(configuration.imageShape)
+            }
         } else {
             ImageView
         }
@@ -24,49 +28,46 @@ private extension MKRImageView {
 
     @ViewBuilder
     var ImageView: some View {
-        switch configuration.kind {
-        case let .url(url):
-            if let url {
-                AsyncImage(url: url) { image in
-                    image
-                        .imageConfiguaration(for: configuration)
+        GeometryReader { geo in
+            let size = geo.size
+            switch configuration.kind {
+            case let .url(url):
+                if let url {
+                    AsyncImage(url: url) { image in
+                        image
+                            .imageConfiguaration(for: configuration, size: size)
 
-                } placeholder: {
-                    ImageShimmeringView
+                    } placeholder: {
+                        ImageShimmeringView(size: size)
+                    }
+                } else {
+                    PlaceholderView(size: size)
                 }
-            } else {
-                PlaceholderView
-            }
 
-        case let .uiImage(uiImage):
-            if let uiImage {
-                Image(uiImage: uiImage)
-                    .imageConfiguaration(for: configuration)
-            } else {
-                PlaceholderView
-            }
+            case let .uiImage(uiImage):
+                if let uiImage {
+                    Image(uiImage: uiImage)
+                        .imageConfiguaration(for: configuration, size: size)
+                } else {
+                    PlaceholderView(size: size)
+                }
 
-        case .clear:
-            EmptyView()
+            case .clear:
+                EmptyView()
+            }
         }
     }
 
-    var ImageShimmeringView: some View {
+    func ImageShimmeringView(size: CGSize) -> some View {
         ShimmeringView()
-            .frame(
-                width: configuration.imageSize.width,
-                height: configuration.imageSize.height
-            )
+            .frame(width: size.width, height: size.height)
             .clippedShape(configuration.imageShape)
     }
 
-    var PlaceholderView: some View {
+    func PlaceholderView(size: CGSize) -> some View {
         Rectangle()
             .fill(.pink)
-            .frame(
-                width: configuration.imageSize.width,
-                height: configuration.imageSize.height
-            )
+            .frame(width: size.width, height: size.height)
             .clippedShape(configuration.imageShape)
     }
 }
@@ -75,13 +76,13 @@ private extension MKRImageView {
 
 private extension Image {
 
-    func imageConfiguaration(for configuration: MKRImageView.Configuration) -> some View {
+    func imageConfiguaration(for configuration: MKRImageView.Configuration, size: CGSize) -> some View {
         self
             .resizable()
             .aspectRatio(contentMode: configuration.contentMode)
             .frame(
-                width: configuration.imageSize.width,
-                height: configuration.imageSize.height
+                width: size.width,
+                height: size.height
             )
             .clipped()
             .clippedShape(configuration.imageShape)
@@ -94,10 +95,16 @@ private extension Image {
     MKRImageView(
         configuration: .basic(
             kind: .url(.mockCake1),
-            imageSize: CGSize(width: 200, height: 200),
             imageShape: .roundedRectangle(20)
         )
     )
+}
+
+#Preview {
+    MKRImageView(
+        configuration: .shimmering(imageShape: .roundedRectangle(20))
+    )
+    .frame(width: 200, height: 400)
 }
 
 private extension View {
