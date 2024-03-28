@@ -57,7 +57,7 @@ extension MainView {
                 .offset(y: -minY)
                 .opacity(-minY >= Constants.bannerPadding(size.height) ? 1 : 0)
         }
-        .frame(height: Constants.bannerPadding(size.height) - 20)
+        .frame(height: max(0, Constants.bannerPadding(size.height) - 20))
     }
 
     @ViewBuilder

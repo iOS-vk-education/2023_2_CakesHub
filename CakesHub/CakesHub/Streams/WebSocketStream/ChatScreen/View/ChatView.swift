@@ -29,13 +29,16 @@ struct ChatView: View, ViewModelable {
 
 private extension ChatView {
 
-    func onAppear() {}
+    func onAppear() {
+        viewModel.connectWebSocket()
+        viewModel.setPreviewData(name: "mightyK1ngRichard")
+    }
 }
 
 // MARK: - Preview
 
 #Preview {
-    return ChatView(viewModel: .mockData)
+    return ChatView()
         .environmentObject(Navigation())
 }
 
