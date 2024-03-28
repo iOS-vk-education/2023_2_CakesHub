@@ -61,6 +61,7 @@ private extension MKRImageView {
                     .task {
                         do {
                             uiImage = try await ImageProvider.shared.fetchThumbnail(url: url)
+                            fetchedError = nil
                         } catch {
                             fetchedError = error
                         }
