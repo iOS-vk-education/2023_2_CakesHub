@@ -32,7 +32,7 @@ struct ProfileScreen: View {
                                 .frame(width: 240, height: 45)
                                 .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 30))
                         })
-                        Cbutton(iconname: .bell, action: {})
+                        Cbutton(iconname: UIImage(systemName: "gear")!, action: {})
                         Cbutton(iconname: .bell, action: {})
                     }
                     .frame(maxWidth: .infinity)
