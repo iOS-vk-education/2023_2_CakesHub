@@ -11,7 +11,7 @@ final class ImageProvider {
 
     static let shared = ImageProvider()
 
-    let imageCache = NSCache<NSString, UIImage>()
+    private let imageCache = NSCache<NSString, UIImage>()
 
     private init() {}
 
