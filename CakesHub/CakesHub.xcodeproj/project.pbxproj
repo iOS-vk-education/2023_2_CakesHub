@@ -10,6 +10,8 @@
 		A332D1692BB2F842007C194D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1662BB2F842007C194D /* UserModel.swift */; };
 		A332D16A2BB2F842007C194D /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1672BB2F842007C194D /* ProfileScreen.swift */; };
 		A332D16B2BB2F842007C194D /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1682BB2F842007C194D /* ProfileViewModel.swift */; };
+		A3A03F572BB33A730034C0B1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A03F562BB33A730034C0B1 /* SettingsView.swift */; };
+		A3A03F592BB3430D0034C0B1 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A03F582BB3430D0034C0B1 /* NotificationsView.swift */; };
 		E50E901E2B7E7C0200C370A9 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50E901C2B7E7C0200C370A9 /* MainViewModel.swift */; };
 		E50E901F2B7E7C0200C370A9 /* MainViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50E901D2B7E7C0200C370A9 /* MainViewModel+Mock.swift */; };
 		E51B326F2B7E5DFC0028E8C7 /* CakesHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B326E2B7E5DFC0028E8C7 /* CakesHubApp.swift */; };
@@ -131,6 +133,8 @@
 		A332D1662BB2F842007C194D /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		A332D1672BB2F842007C194D /* ProfileScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		A332D1682BB2F842007C194D /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		A3A03F562BB33A730034C0B1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A3A03F582BB3430D0034C0B1 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		E50E901C2B7E7C0200C370A9 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		E50E901D2B7E7C0200C370A9 /* MainViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainViewModel+Mock.swift"; sourceTree = "<group>"; };
 		E51B326B2B7E5DFC0028E8C7 /* CakesHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CakesHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -266,6 +270,8 @@
 				E5C89A502BB3215900D06BA7 /* Model */,
 				E5C89A4F2BB3214F00D06BA7 /* ViewModel */,
 				E5C89A4E2BB3214A00D06BA7 /* View */,
+				A3A03F562BB33A730034C0B1 /* SettingsView.swift */,
+				A3A03F582BB3430D0034C0B1 /* NotificationsView.swift */,
 			);
 			path = ProfileStream;
 			sourceTree = "<group>";
@@ -1076,6 +1082,8 @@
 				E51B32F32B7E5FEF0028E8C7 /* CHMStarsView.swift in Sources */,
 				E51B32E62B7E5FEF0028E8C7 /* CHMBadgeView.swift in Sources */,
 				E51B33282B7E602A0028E8C7 /* Modifiy.swift in Sources */,
+				A3A03F572BB33A730034C0B1 /* SettingsView.swift in Sources */,
+				A3A03F592BB3430D0034C0B1 /* NotificationsView.swift in Sources */,
 				E51B32CB2B7E5FEF0028E8C7 /* CHMProductButton+Defaults.swift in Sources */,
 				E5272FBF2B9A9F0100F181A1 /* RootView.swift in Sources */,
 				E56A85112BACCED600E9A387 /* UINavigationController+Extenstions.swift in Sources */,

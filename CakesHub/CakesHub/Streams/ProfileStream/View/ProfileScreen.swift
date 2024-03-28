@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProfileScreen: View {
     
+    @State private var navigateToSettings = false
     @StateObject private var viewModel: ProfileViewModel
     
     init(viewModel: ProfileViewModel = ProfileViewModel()) {
@@ -23,7 +24,8 @@ struct ProfileScreen: View {
                 GeometryReader { geo in
                     let minY = geo.frame(in: .global).minY
                     HStack {
-                        Button(action: {}, label: {
+                        Button(action: {
+                        }, label: {
                             Label("message", systemImage: "message")
                                 .foregroundStyle(Constants.textColor)
                                 .font(.callout)
@@ -32,7 +34,10 @@ struct ProfileScreen: View {
                                 .frame(width: 240, height: 45)
                                 .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 30))
                         })
-                        Cbutton(iconname: .bell, action: {})
+                        NavigationLink(destination: SettingssView()) {
+                            Cbutton(iconname: UIImage(systemName: "gear")!, action: {})
+                        };                        
+                    
                         Cbutton(iconname: .bell, action: {})
                     }
                     .frame(maxWidth: .infinity)
@@ -159,6 +164,8 @@ fileprivate struct Cbutton: View {
     }
 }
 
+
+
 // MARK: - Constants
 
 private extension ProfileScreen {
@@ -175,3 +182,5 @@ private extension ProfileScreen {
 #Preview {
     ProfileScreen(viewModel: .mockData)
 }
+
+
