@@ -36,6 +36,7 @@ private extension MessageBubble {
 
                     HStack(alignment: .bottom) {
                         Text(message.message)
+                            .foregroundStyle(.white)
 
                         HStack(spacing: 3) {
                             Text(message.time)

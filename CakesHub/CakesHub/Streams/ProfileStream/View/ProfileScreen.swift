@@ -18,28 +18,41 @@ struct ProfileScreen: View {
     }
     
     var body: some View {
-        NavigationStack(path: $nav.path) {
-            MainView
-                .navigationDestination(for: ViewModel.Screens.self) { screen in
-                    switch screen {
-                    case .message:
-                        ChatView()
-                    case .notifications:
-                        fatalError("Экран ещё не создан")
-                    case .settings:
-                        fatalError("Экран ещё не создан")
-                    }
+        MainView
+            .navigationDestination(for: ViewModel.Screens.self) { screen in
+                switch screen {
+                case .message:
+                    ChatView()
+                case .notifications:
+                    Text("Экран уведомлений")
+                case .settings:
+                    SettingsView()
                 }
-        }
+            }
     }
 }
+
+// MARK: - Actions
 
 private extension ProfileScreen {
 
+    /// Нажатие на кнопку открытия чата
     func didTapOpenMessageScreen() {
         nav.addScreen(screen: ViewModel.Screens.message)
     }
+
+    /// Нажатие на кнопку открытия настроек
+    func didTapOpenSettings() {
+        nav.addScreen(screen: ViewModel.Screens.settings)
+    }
+    
+    /// Нажатие на кнопку открытия уведомлений
+    func didTapOpenNotifications() {
+        nav.addScreen(screen: ViewModel.Screens.notifications)
+    }
 }
+
+// MARK: UI Components
 
 private extension ProfileScreen {
 
@@ -51,10 +64,7 @@ private extension ProfileScreen {
                 GeometryReader { geo in
                     let minY = geo.frame(in: .global).minY
                     HStack {
-                        Button {
-                            Logger.log(message: "Нажатие на кнопку `message`")
-                            didTapOpenMessageScreen()
-                        } label: {
+                        Button(action: didTapOpenMessageScreen, label: {
                             Label("message", systemImage: "message")
                                 .foregroundStyle(Constants.textColor)
                                 .font(.callout)
@@ -62,9 +72,9 @@ private extension ProfileScreen {
                                 .foregroundStyle(.black)
                                 .frame(width: 240, height: 45)
                                 .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 30))
-                        }
-                        Cbutton(iconname: .bell, action: {})
-                        Cbutton(iconname: .bell, action: {})
+                        })
+                        Cbutton(iconname: UIImage(systemName: "gear"), action: didTapOpenSettings)
+                        Cbutton(iconname: .bell, action: didTapOpenNotifications)
                     }
                     .frame(maxWidth: .infinity)
                     .offset(y: max(60 - minY, 0))
@@ -171,13 +181,16 @@ fileprivate struct ProductFeedView: View {
 }
 
 fileprivate struct Cbutton: View {
-    let iconname: UIImage
+    let iconname: UIImage?
     var action: () -> Void
     var body: some View {
         Button {
             action()
         } label: {
-            Image(uiImage: iconname).renderingMode(.template).resizable().scaledToFill()
+            Image(uiImage: iconname ?? UIImage())
+                .renderingMode(.template)
+                .resizable()
+                .scaledToFill()
                 .foregroundStyle(CHMColor<IconPalette>.iconSecondary.color)
                 .frame(width: 23, height: 23)
                 .padding(10)
