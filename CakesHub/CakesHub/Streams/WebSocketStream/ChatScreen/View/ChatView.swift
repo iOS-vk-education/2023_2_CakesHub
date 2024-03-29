@@ -41,4 +41,3 @@ private extension ChatView {
     return ChatView()
         .environmentObject(Navigation())
 }
-
