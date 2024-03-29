@@ -108,28 +108,23 @@ extension MainViewModel: MainViewModelProtocol {
     }
 
     func groupDataBySection() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            var news: [ProductModel] = []
-            var sales: [ProductModel] = []
-            var all: [ProductModel] = []
-            self.rootViewModel.products.forEach { product in
-                if !product.oldPrice.isNil {
-                    sales.append(product)
-                    return
-                } else if product.isNew {
-                    news.append(product)
-                    return
-                }
-                all.append(product)
+        var news: [ProductModel] = []
+        var sales: [ProductModel] = []
+        var all: [ProductModel] = []
+        rootViewModel.products.forEach { product in
+            if !product.oldPrice.isNil {
+                sales.append(product)
+                return
+            } else if product.isNew {
+                news.append(product)
+                return
             }
-
-            DispatchQueue.main.sync {
-                self.sections[0] = .sales(sales)
-                self.sections[1] = .news(news)
-                self.sections[2] = .all(all)
-                self.isShimmering = false
-            }
+            all.append(product)
         }
+        sections[0] = .sales(sales)
+        sections[1] = .news(news)
+        sections[2] = .all(all)
+        isShimmering = false
     }
 
     func pullToRefresh() {}

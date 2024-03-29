@@ -64,6 +64,7 @@ private extension MKRImageView {
                             fetchedError = nil
                         } catch {
                             fetchedError = error
+                            Logger.log(kind: .error, message: error)
                         }
                     }
             }
