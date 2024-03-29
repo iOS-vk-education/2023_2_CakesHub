@@ -270,8 +270,6 @@
 				E5C89A502BB3215900D06BA7 /* Model */,
 				E5C89A4F2BB3214F00D06BA7 /* ViewModel */,
 				E5C89A4E2BB3214A00D06BA7 /* View */,
-				A3A03F562BB33A730034C0B1 /* SettingsView.swift */,
-				A3A03F582BB3430D0034C0B1 /* NotificationsView.swift */,
 			);
 			path = ProfileStream;
 			sourceTree = "<group>";
@@ -917,6 +915,8 @@
 		E5C89A4E2BB3214A00D06BA7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A3A03F562BB33A730034C0B1 /* SettingsView.swift */,
+				A3A03F582BB3430D0034C0B1 /* NotificationsView.swift */,
 				A332D1672BB2F842007C194D /* ProfileScreen.swift */,
 			);
 			path = View;

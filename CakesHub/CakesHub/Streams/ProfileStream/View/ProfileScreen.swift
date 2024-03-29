@@ -64,9 +64,7 @@ private extension ProfileScreen {
                 GeometryReader { geo in
                     let minY = geo.frame(in: .global).minY
                     HStack {
-                        Button {
-                            didTapOpenMessageScreen()
-                        } label: {
+                        Button(action: didTapOpenMessageScreen, label: {
                             Label("message", systemImage: "message")
                                 .foregroundStyle(Constants.textColor)
                                 .font(.callout)
@@ -74,7 +72,7 @@ private extension ProfileScreen {
                                 .foregroundStyle(.black)
                                 .frame(width: 240, height: 45)
                                 .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 30))
-                        }
+                        })
                         Cbutton(iconname: UIImage(systemName: "gear"), action: didTapOpenSettings)
                         Cbutton(iconname: .bell, action: didTapOpenNotifications)
                     }
