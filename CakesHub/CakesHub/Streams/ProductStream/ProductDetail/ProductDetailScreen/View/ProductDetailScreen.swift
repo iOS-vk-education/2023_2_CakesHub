@@ -15,7 +15,8 @@ struct ProductDetailScreen: View {
     typealias ViewModel = ProductDetailViewModel
     @StateObject var viewModel: ViewModel
     @EnvironmentObject var nav: Navigation
-    
+    @EnvironmentObject private var rootViewModel: RootViewModel
+
     // MARK: Properties
 
     @State var topPadding: CGFloat = .zero
@@ -75,6 +76,14 @@ extension ProductDetailScreen {
 
     func openPreviousView() {
         nav.openPreviousScreen()
+    }
+
+    func openSellerInfo() {
+        let userProducts = rootViewModel.products.filter {
+            $0.seller.id == viewModel.currentProduct.seller.id
+        }
+        let seller = viewModel.currentProduct.seller.mapper(products: userProducts)
+        nav.addScreen(screen: seller)
     }
 }
 

@@ -27,7 +27,7 @@ private extension MainView {
 
     func onAppear() {
         viewModel.startViewDidLoad()
-        viewModel.fetchData()
+        viewModel.groupDataBySection()
     }
 }
 
@@ -69,18 +69,12 @@ private extension MainView {
     @ViewBuilder
     var MainBlock: some View {
         ScrollViewBlock
-            .navigationDestination(for: ProductModel.self) { card in
-                let vm = ProductDetailViewModel(data: card)
-                ProductDetailScreen(viewModel: vm)
-            }
     }
 }
 
 // MARK: - Preview
 
 #Preview {
-    let vm = MainView.ViewModel()
-    vm.fetchPreviewData()
-    return MainView(viewModel: vm, size: CGSize(width: 400, height: 800))
+    MainView(viewModel: .mockData, size: CGSize(width: 400, height: 800))
         .environmentObject(Navigation())
 }

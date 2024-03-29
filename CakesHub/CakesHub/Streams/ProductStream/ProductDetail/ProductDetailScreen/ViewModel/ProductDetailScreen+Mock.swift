@@ -26,12 +26,14 @@ extension ProductModel: Mockable {
             .init(kind: .url(.mockCake4)),
         ],
         isFavorite: true,
+        isNew: true,
         pickers: Constants.pickers,
+        seller: .king,
         productName: Constants.productName,
         price: Constants.price,
-        sellerName: Constants.sellerName,
         description: Constants.previewDescription,
         reviewInfo: .mockData,
+        establishmentDate: "2024-03-29T01:32:01+0000",
         similarProducts: .similarProducts
     )
 

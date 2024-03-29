@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UserModel {
+struct UserModel: ClearConfigurationProtocol, Hashable {
     var name: String = .clear
     var surname: String = .clear
     var mail: String = .clear
@@ -15,6 +15,8 @@ struct UserModel {
     var userImage: ImageKind = .clear
     var userHeaderImage: ImageKind = .clear
     var products: [ProductModel] = []
+
+    static let clear: Self = .init()
 }
 
 #if DEBUG
@@ -22,11 +24,11 @@ struct UserModel {
 extension UserModel: Mockable {
     
     static let mockData = UserModel(
-        name: Constants.sellerName,
+        name: "Milana",
         surname: "Shakhbieva",
-        mail: "milanashakhbieva@mail.com",
+        mail: "polyNagibator2004@gmail.com",
         orders: 555,
-        userImage: .uiImage(.bigBanner),
+        userImage: .uiImage(.bestGirl),
         userHeaderImage: .uiImage(.cake2),
         products: Constants.sellerProducts
     )
@@ -37,25 +39,27 @@ extension UserModel: Mockable {
 private extension UserModel {
 
     enum Constants {
-        static let sellerName = "Milana"
-        static let sellerProducts: [ProductModel] = (1...20).map {
+        static let sellerProducts: [ProductModel] = (1...24).map {
             ProductModel(
                 productID: $0,
                 images: [
                     .init(kind: .url(.mockProductCard)),
+                    .init(kind: .url(.mockCake1)),
                     .init(kind: .url(.mockCake2)),
                     .init(kind: .url(.mockCake3)),
                     .init(kind: .url(.mockCake4)),
-                ],
-                isFavorite: true,
+                ].shuffled(),
+                isFavorite: [true, false].randomElement()!,
+                isNew: $0.isMultiple(of: 4),
                 pickers: ["Size", "Color"],
+                seller: .milana,
                 productName: "Торт \($0)",
                 price: "$1\($0).99",
-                sellerName: sellerName,
                 description: """
                 Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.
                 """,
                 reviewInfo: .mockData,
+                establishmentDate: "\($0).03.2024",
                 similarProducts: .similarProducts
             )
         }

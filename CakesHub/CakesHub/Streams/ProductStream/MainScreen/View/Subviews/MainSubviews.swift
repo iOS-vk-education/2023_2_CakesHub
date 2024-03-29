@@ -67,7 +67,7 @@ extension MainView {
             SectionView(
                 title: section.title,
                 subtitle: section.subtitle,
-                buttonTitle: "View all",
+                buttonTitle: Constants.sectionTitle,
                 cards: sales,
                 badgeKind: .red
             ) { id, isSelected in
@@ -78,7 +78,7 @@ extension MainView {
             SectionView(
                 title: section.title,
                 subtitle: section.subtitle,
-                buttonTitle: "View all",
+                buttonTitle: Constants.sectionTitle,
                 cards: news,
                 badgeKind: .dark
             ) { id, isSelected in
@@ -185,23 +185,9 @@ extension MainView {
             )
         } else {
             CHMNewProductCard(
-                configuration: .basic(
-                    imageKind: card.images.first?.kind ?? .clear,
-                    imageHeight: size.height * Constants.fractionHeight,
-                    productText: .init(
-                        seller: card.sellerName,
-                        productName: card.productName,
-                        productPrice: card.price,
-                        productOldPrice: card.oldPrice
-                    ),
-                    badgeViewConfiguration: badgeConfiguration,
-                    productButtonConfiguration: .basic(
-                        kind: .favorite(isSelected: card.isFavorite)
-                    ),
-                    starsViewConfiguration: .basic(
-                        kind: .init(rawValue: card.starsCount) ?? .zero,
-                        feedbackCount: card.reviewInfo.feedbackCounter
-                    )
+                configuration: card.mapperToProductCardConfiguration(
+                    height: size.height * Constants.fractionHeight,
+                    badgeConfiguration: badgeConfiguration
                 )
             ) { isSelected in
                 complection(card.id, isSelected)
@@ -233,9 +219,7 @@ extension MainView {
 // MARK: - Preview
 
 #Preview {
-    let vm = MainView.ViewModel()
-    vm.fetchPreviewData()
-    return MainView(viewModel: vm, size: CGSize(width: 400, height: 800))
+    MainView(viewModel: .mockData, size: CGSize(width: 400, height: 800))
         .environmentObject(Navigation())
 }
 
@@ -246,6 +230,7 @@ private extension MainView {
     enum Constants {
         static let bgMainColor: Color = CHMColor<BackgroundPalette>.bgMainColor.color
         static let textSecondary: Color = CHMColor<TextPalette>.textSecondary.color
+        static let sectionTitle = "View all"
         static let intrinsicHPaddings: CGFloat = 18
         static let fractionWidth: CGFloat = 150/375
         static let fractionHeight: CGFloat = 184/812

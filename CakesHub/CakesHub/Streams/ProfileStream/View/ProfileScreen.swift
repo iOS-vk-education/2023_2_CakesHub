@@ -50,6 +50,16 @@ private extension ProfileScreen {
     func didTapOpenNotifications() {
         nav.addScreen(screen: ViewModel.Screens.notifications)
     }
+    
+    /// Нажали на карточку товара
+    func didTapProductCard(product: ProductModel) {
+        nav.addScreen(screen: product)
+    }
+
+    /// Нажали на лайк карточки товара
+    func didTapLike(for uid: UUID, isSelected: Bool) {
+        Logger.log(message: "Нажали лайк. UUID: \(uid.uuidString) | isSelected: \(isSelected)")
+    }
 }
 
 // MARK: UI Components
@@ -82,8 +92,12 @@ private extension ProfileScreen {
                 .offset(y: -36)
                 .zIndex(1)
 
-                ProductFeedView(user: viewModel.user)
-                    .padding(.top)
+                ProductFeedView(
+                    user: viewModel.user, 
+                    action: didTapProductCard,
+                    didTapButton: didTapLike
+                )
+                .padding(.top)
             }
         }
         .ignoresSafeArea()
@@ -152,27 +166,20 @@ private extension ProfileScreen {
 
 fileprivate struct ProductFeedView: View {
     var user: UserModel
+    var action: CHMGenericBlock<ProductModel>
+    var didTapButton: (UUID, Bool) -> Void
     var body: some View {
         LazyVGrid(columns: Array(repeating: GridItem(), count: 2)) {
             ForEach(user.products) { product in
                 CHMNewProductCard(
-                    configuration: .basic(
-                        imageKind: product.images.first?.kind ?? .clear,
-                        imageHeight: 200,
-                        productText: .init(
-                            seller: product.sellerName,
-                            productName: product.productName,
-                            productPrice: product.price
-                        ),
-                        productButtonConfiguration: .basic(
-                            kind: .favorite(isSelected: product.isFavorite)
-                        ),
-                        starsViewConfiguration: .basic(
-                            kind: .init(rawValue: product.starsCount) ?? .zero,
-                            feedbackCount: product.reviewInfo.feedbackCounter
-                        )
-                    )
-                )
+                    configuration: product.mapperToProductCardConfiguration(height: 200),
+                    didTapButton: { isSelected in
+                        didTapButton(product.id, isSelected)
+                    }
+                ).onTapGesture {
+                    action(product)
+                }
+                .padding(.bottom)
             }
         }
         .padding(.horizontal, 10)

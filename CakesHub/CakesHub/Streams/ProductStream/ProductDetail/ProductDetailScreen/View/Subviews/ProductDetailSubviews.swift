@@ -88,7 +88,7 @@ extension ProductDetailScreen {
             configuration: .basic(
                 title: viewModel.currentProduct.productName,
                 price: viewModel.currentProduct.price,
-                subtitle: viewModel.currentProduct.sellerName,
+                subtitle: viewModel.currentProduct.seller.name,
                 description: viewModel.currentProduct.description,
                 starsConfiguration: .basic(
                     kind: .init(rawValue: viewModel.currentProduct.starsCount) ?? .zero,
@@ -112,16 +112,17 @@ extension ProductDetailScreen {
     var MoreInfoBlock: some View {
         VStack {
             Divider()
-            // FIXME: iOS-17: Применить корректный паттерн роутинга
-            Button {
-                openRatingReviews()
-            } label: {
+            Button(action: openRatingReviews, label: {
                 MoreInfoCell(text: ProductDetailCells.ratingReviews.rawValue)
                     .padding(.horizontal)
-            }
+            })
+
             Divider()
-            MoreInfoCell(text: ProductDetailCells.sellerInfo.rawValue)
-                .padding(.horizontal)
+
+            Button(action: openSellerInfo, label: {
+                MoreInfoCell(text: ProductDetailCells.sellerInfo.rawValue)
+                    .padding(.horizontal)
+            })
             Divider()
         }
     }
@@ -145,20 +146,7 @@ extension ProductDetailScreen {
             HStack(spacing: 11) {
                 ForEach(viewModel.currentProduct.similarProducts) { product in
                     CHMNewProductCard(
-                        configuration: .basic(
-                            imageKind: product.images.first?.kind ?? .clear,
-                            imageHeight: 184,
-                            productText: .init(
-                                seller: product.sellerName,
-                                productName: product.productName,
-                                productPrice: product.price
-                            ),
-                            productButtonConfiguration: .basic(kind: .favorite()),
-                            starsViewConfiguration: .basic(
-                                kind: .init(rawValue: product.starsCount) ?? .zero,
-                                feedbackCount: product.reviewInfo.feedbackCounter
-                            )
-                        )
+                        configuration: product.mapperToProductCardConfiguration(height: 184)
                     ) { isSelected in
                         didTapLikeSimilarProductCard(id: product.id, isSelected: isSelected)
                     }
@@ -275,7 +263,7 @@ private struct ViewPreferenceKey: PreferenceKey {
 }
 
 private extension View {
-
+    
     var makeStyle: some View {
         scrollIndicators(.hidden)
             .background(CHMColor<BackgroundPalette>.bgMainColor.color)

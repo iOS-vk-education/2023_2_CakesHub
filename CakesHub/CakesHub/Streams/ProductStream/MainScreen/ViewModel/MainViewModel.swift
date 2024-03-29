@@ -11,9 +11,9 @@ import SwiftUI
 // MARK: - MainViewModelProtocol
 
 protocol MainViewModelProtocol: AnyObject {
-    func fetchData(completion: CHMVoidBlock?)
+    func groupDataBySection()
     func startViewDidLoad()
-    func pullToRefresh(completion: CHMVoidBlock?)
+    func pullToRefresh()
     func didTapFavoriteButton(id: UUID, section: MainViewModel.Section, isSelected: Bool)
 }
 
@@ -22,9 +22,11 @@ protocol MainViewModelProtocol: AnyObject {
 final class MainViewModel: ObservableObject, ViewModelProtocol {
 
     @Published var sections: [Section] = []
+    var rootViewModel: RootViewModel
     private(set) var isShimmering: Bool = false
 
-    init() {
+    init(rootViewModel: RootViewModel) {
+        self.rootViewModel = rootViewModel
         self.sections.reserveCapacity(3)
     }
 }
@@ -94,6 +96,7 @@ extension MainViewModel.Section {
 extension MainViewModel: MainViewModelProtocol {
 
     func startViewDidLoad() {
+        guard sections.isEmpty else { return }
         isShimmering = true
         let shimmeringCards: [ProductModel] = (0...3).map { .emptyCards(id: $0) }
         let salesSection = Section.sales(shimmeringCards)
@@ -104,21 +107,32 @@ extension MainViewModel: MainViewModelProtocol {
         sections.insert(allSection, at: allSection.id)
     }
 
-    func fetchData(completion: CHMVoidBlock? = nil) {
-        DispatchQueue.global().asyncAfter(deadline: .now() + 2.2) {
-            DispatchQueue.main.async {
-                self.sections[0] = .sales(.mockSalesData)
-                self.sections[1] = .news(.mockNewsData)
-                self.sections[2] = .all(.mockAllData)
+    func groupDataBySection() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            var news: [ProductModel] = []
+            var sales: [ProductModel] = []
+            var all: [ProductModel] = []
+            self.rootViewModel.products.forEach { product in
+                if !product.oldPrice.isNil {
+                    sales.append(product)
+                    return
+                } else if product.isNew {
+                    news.append(product)
+                    return
+                }
+                all.append(product)
+            }
+
+            DispatchQueue.main.sync {
+                self.sections[0] = .sales(sales)
+                self.sections[1] = .news(news)
+                self.sections[2] = .all(all)
                 self.isShimmering = false
-                completion?()
             }
         }
     }
 
-    func pullToRefresh(completion: CHMVoidBlock? = nil) {
-        completion?()
-    }
+    func pullToRefresh() {}
 
     func didTapFavoriteButton(id: UUID, section: Section, isSelected: Bool) {
         #if DEBUG
@@ -148,22 +162,3 @@ extension MainViewModel: MainViewModelProtocol {
         #endif
     }
 }
-
-// MARK: - Preview
-
-#if DEBUG
-extension MainViewModel {
-
-    func fetchPreviewData(completion: CHMVoidBlock? = nil) {
-        DispatchQueue.global().asyncAfter(deadline: .now() + 2.2) {
-            DispatchQueue.main.async {
-                self.sections[0] = .sales(.mockSalesData)
-                self.sections[1] = .news(.mockNewsData)
-                self.sections[2] = .all(.mockAllData)
-                self.isShimmering = false
-                completion?()
-            }
-        }
-    }
-}
-#endif
