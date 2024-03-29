@@ -44,6 +44,7 @@ struct NotificationsView: View {
                         Logger.log(message: newValue)
                     }
                 }
+                .tint(.green)
                 .foregroundStyle(Constants.textColor)
             }
         }
