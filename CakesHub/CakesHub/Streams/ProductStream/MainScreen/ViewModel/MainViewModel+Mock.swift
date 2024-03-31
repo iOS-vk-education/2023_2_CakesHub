@@ -36,8 +36,8 @@ extension ProductModel.SellerInfo {
         name: "mightyK1ngRichard",
         surname: "Permyakov",
         mail: "dimapermyakov55@gmail.com",
-        userImage: .url(URL(string: "https://avatars.githubusercontent.com/u/90796324?v=4")),
-        userHeaderImage: .url(URL(string: "https://www.tapeciarnia.pl/tapety/normalne/49581_anime_girl.jpg"))
+        userImage: .url(.mockKingImage),
+        userHeaderImage: .url(.mockKingHeaderImage)
     )
 
     static let poly = ProductModel.SellerInfo(

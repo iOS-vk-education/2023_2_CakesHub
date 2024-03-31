@@ -22,7 +22,8 @@ struct ProfileScreen: View {
             .navigationDestination(for: ViewModel.Screens.self) { screen in
                 switch screen {
                 case .message:
-                    ChatView()
+                    let vm = ChatViewModel(user: viewModel.user)
+                    ChatView(viewModel: vm)
                 case .notifications:
                     Text("Экран уведомлений")
                 case .settings:

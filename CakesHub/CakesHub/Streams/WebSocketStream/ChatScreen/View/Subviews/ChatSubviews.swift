@@ -50,21 +50,8 @@ extension ChatView {
     var MessagesBlock: some View {
         LazyVStack {
             ForEach(viewModel.messages) { message in
-                switch message.kind {
-                case .bubble:
-                    MessageBubble(message: message)
-                        .padding(.horizontal, 8)
-
-                case .join:
-                    MessageJoinText(
-                        userName: Constants.joinChatMessage(userName: message.userName)
-                    )
-
-                case .quit:
-                    MessageJoinText(
-                        userName: Constants.quitChatMessage(userName: message.userName)
-                    )
-                }
+                MessageBubble(message: message)
+                    .padding(.horizontal, 8)
             }
         }
         .padding(.bottom, 50)
@@ -117,16 +104,6 @@ extension ChatView {
         }
         .padding(.horizontal, 8)
     }
-
-    func MessageJoinText(userName: String) -> some View {
-        Text(userName)
-            .font(.caption)
-            .padding(.horizontal)
-            .padding(.vertical, 6)
-            .background(.black.opacity(0.7), in: .capsule)
-            .multilineTextAlignment(.center)
-            .padding(.horizontal)
-    }
 }
 
 // MARK: - Constants
@@ -156,4 +133,10 @@ private extension ChatView {
             Color(red: 113/255, green: 190/255, blue: 255/255),
         ]
     }
+}
+
+// MARK: - Preview
+
+#Preview {
+    ChatView(viewModel: .mockData)
 }

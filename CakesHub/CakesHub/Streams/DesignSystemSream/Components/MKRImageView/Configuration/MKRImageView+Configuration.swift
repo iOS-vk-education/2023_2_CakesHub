@@ -25,6 +25,20 @@ enum ImageKind: Hashable {
     case clear
 }
 
+extension ImageKind {
+
+    var isClear: Bool {
+        switch self {
+        case let .url(url):
+            return url.isNil
+        case let .uiImage(uiImage):
+            return uiImage.isNil
+        case .clear:
+            return true
+        }
+    }
+}
+
 // MARK: - Image Shape
 
 extension MKRImageView.Configuration {

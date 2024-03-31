@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MessageBubble: View {
     let message: ChatMessage
-    var isYou: Bool { message.isYou }
+    private var isYou: Bool { message.isYou }
 
     var body: some View {
         DefaultMessage
@@ -29,7 +29,7 @@ private extension MessageBubble {
             VStack(alignment: isYou ? .trailing : .leading) {
                 VStack(alignment: .leading, spacing: 2) {
                     if !isYou {
-                        Text(message.userName)
+                        Text(message.user.name)
                             .font(.system(size: 12, weight: .semibold))
                             .foregroundStyle(.mint.gradient)
                     }
@@ -65,16 +65,28 @@ private extension MessageBubble {
         .frame(maxWidth: .infinity, alignment: isYou ? .trailing : .leading)
     }
 
+    @ViewBuilder
     var PersoneAvatar: some View {
-        Circle()
-            .fill(.mint.gradient)
+        if message.user.image.isClear {
+            Circle()
+                .fill(.mint.gradient)
+                .frame(width: 32, height: 32)
+                .overlay {
+                    Text("\(message.user.name.first?.description.uppercased() ?? "😎")")
+                        .foregroundStyle(.white)
+                        .fontWeight(.semibold)
+                        .fontDesign(.rounded)
+                }
+
+        } else {
+            MKRImageView(
+                configuration: .basic(
+                    kind: message.user.image,
+                    imageShape: .capsule
+                )
+            )
             .frame(width: 32, height: 32)
-            .overlay {
-                Text("\(message.userName.first?.description.uppercased() ?? "😎")")
-                    .foregroundStyle(.white)
-                    .fontWeight(.semibold)
-                    .fontDesign(.rounded)
-            }
+        }
     }
 }
 
@@ -106,7 +118,7 @@ private extension Message.State {
             message: .init(
                 isYou: true,
                 message: "Hi! 🤗 You can switch patterns and gradients in the settings.",
-                userName: "mightyK1ngRichard",
+                user: .init(name: "mightyK1ngRichard", image: .url(.mockKingImage)),
                 time: "10:10",
                 state: .received
             )
@@ -116,7 +128,17 @@ private extension Message.State {
             message: .init(
                 isYou: false,
                 message: "Воу рил неплохо",
-                userName: "Пермяков Дмитрий",
+                user: .init(name: "Полиночка", image: .uiImage(nil)),
+                time: "10:10",
+                state: .error
+            )
+        )
+
+        MessageBubble(
+            message: .init(
+                isYou: false,
+                message: "Воу рил неплохо",
+                user: .init(name: "Полиночка", image: .uiImage(.bestGirl)),
                 time: "10:10",
                 state: .error
             )

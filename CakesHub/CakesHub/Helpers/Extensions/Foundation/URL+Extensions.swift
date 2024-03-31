@@ -17,4 +17,7 @@ extension URL {
     static let mockCake4 = URL(string: "https://mykaleidoscope.ru/uploads/posts/2021-09/1632834133_8-mykaleidoscope-ru-p-dekor-dvukhyarusnogo-torta-krasivo-foto-9.jpg")
     static let invalidUrl = URL(string: "invalid://url")
     static let mockUserImage = URL(string: "https://webmg.ru/wp-content/uploads/2022/10/i-321-1.jpeg")
+    static let mockKingImage = URL(string: "https://avatars.githubusercontent.com/u/90796324?v=4")
+    static let mockKingHeaderImage = URL(string: "https://www.tapeciarnia.pl/tapety/normalne/49581_anime_girl.jpg")
+    static let mockMilanaImage = URL(string: "https://sun9-48.userapi.com/impg/oni-EvRr6V8PLK_FYzJ7_hlhoj0HhvTTHEWs4g/sVlbTZyHZZ0.jpg?size=1334x1786&quality=95&sign=a17e711df5bcfd6290be44002f9c3e6e&type=album")
 }

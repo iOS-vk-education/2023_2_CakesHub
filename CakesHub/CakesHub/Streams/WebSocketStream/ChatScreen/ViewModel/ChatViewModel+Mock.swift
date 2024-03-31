@@ -13,7 +13,8 @@ import Foundation
 extension ChatViewModel: Mockable {
 
     static let mockData = ChatViewModel(
-        messages: .mockData
+        messages: .mockData,
+        user: .mockData
     )
 }
 

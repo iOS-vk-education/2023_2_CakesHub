@@ -26,9 +26,9 @@ extension UserModel: Mockable {
     static let mockData = UserModel(
         name: "Milana",
         surname: "Shakhbieva",
-        mail: "polyNagibator2004@gmail.com",
+        mail: "milanashakhbieva@mail.com",
         orders: 555,
-        userImage: .uiImage(.bestGirl),
+        userImage: .url(.mockMilanaImage),
         userHeaderImage: .uiImage(.cake2),
         products: Constants.sellerProducts
     )

@@ -13,7 +13,6 @@ import Foundation
 protocol ChatViewModelProtocol: AnyObject {
     func connectWebSocket(completion: CHMGenericBlock<APIError?>?)
     func sendMessage(message: String)
-    func didTapSignIn(userName: String, completion: @escaping CHMGenericBlock<APIError?>)
 }
 
 // MARK: - ChatViewModel
@@ -21,12 +20,16 @@ protocol ChatViewModelProtocol: AnyObject {
 final class ChatViewModel: ObservableObject, ViewModelProtocol {
     @Published private(set) var messages: [ChatMessage]
     @Published private(set) var lastMessageID: UUID?
-    @Published private(set) var userName: String
+    @Published private(set) var user: UserModel
 
-    init(messages: [ChatMessage] = [], lastMessageID: UUID? = nil, userName: String = .clear) {
+    init(
+        messages: [ChatMessage] = [], 
+        lastMessageID: UUID? = nil,
+        user: UserModel = .clear
+    ) {
         self.messages = messages
         self.lastMessageID = lastMessageID
-        self.userName = userName
+        self.user = user
     }
 }
 
@@ -35,8 +38,7 @@ final class ChatViewModel: ObservableObject, ViewModelProtocol {
 extension ChatViewModel: ChatViewModelProtocol {
 
     /// Create web socket connection with the server
-    func connectWebSocket(completion: CHMGenericBlock<APIError?>? = nil) {
-    }
+    func connectWebSocket(completion: CHMGenericBlock<APIError?>? = nil) {}
 
     /// Sending message to the server
     /// - Parameter message: message data
@@ -44,13 +46,13 @@ extension ChatViewModel: ChatViewModelProtocol {
         let msg = Message(
             id: UUID(),
             kind: .message,
-            userName: userName,
+            user: .init(userName: user.name, userImage: user.userImage.toData),
             dispatchDate: Date(),
             message: message,
             state: .progress
         )
         lastMessageID = msg.id
-        messages.append(msg.mapper(name: userName))
+        messages.append(msg.mapper(name: user.name))
 //        WebSockerManager.shared.send(message: msg)
     }
 
@@ -58,30 +60,9 @@ extension ChatViewModel: ChatViewModelProtocol {
     func quitChat() {
         messages = []
         lastMessageID = nil
-        userName = .clear
 //        WebSockerManager.shared.close()
     }
-
-    /// Did tap sign in button
-    /// - Parameter userName: the entered name
-    func didTapSignIn(userName: String, completion: @escaping CHMGenericBlock<APIError?>) {
-        self.userName = userName
-        connectWebSocket(completion: completion)
-    }
 }
-
-// MARK: - Reducers
-
-#if DEBUG
-extension ChatViewModel {
-
-    func setPreviewData(name: String, messages: [ChatMessage] = .mockData, lastMessage: UUID? = nil) {
-        self.userName = name
-        self.messages = messages
-        self.lastMessageID = lastMessage
-    }
-}
-#endif
 
 // MARK: - Private Methods
 
@@ -89,4 +70,35 @@ private extension ChatViewModel {
 
     /// Getting new message
     func receiveWebSocketData() {}
+}
+
+// MARK: - Helper
+
+private extension ImageKind {
+
+    var toData: Data? {
+        switch self {
+        case .url(let url):
+            guard let url = url else { return nil }
+            do {
+                return try Data(contentsOf: url)
+            } catch {
+                Logger.log(kind: .error, message: error)
+                return nil
+            }
+
+        case .uiImage(let uiImage):
+            guard let uiImage else { return nil }
+            if let pngData = uiImage.pngData() {
+                return pngData
+            }
+            if let jpegData = uiImage.jpegData(compressionQuality: 1.0) {
+                return jpegData
+            }
+            return nil
+
+        case .clear:
+            return nil
+        }
+    }
 }

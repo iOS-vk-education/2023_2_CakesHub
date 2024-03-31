@@ -31,13 +31,12 @@ private extension ChatView {
 
     func onAppear() {
         viewModel.connectWebSocket()
-        viewModel.setPreviewData(name: "mightyK1ngRichard")
     }
 }
 
 // MARK: - Preview
 
 #Preview {
-    return ChatView()
+    ChatView(viewModel: .mockData)
         .environmentObject(Navigation())
 }
