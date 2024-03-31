@@ -30,22 +30,6 @@ struct Message: Codable, Identifiable {
     struct UserChatCellInfo: Hashable, Codable {
         let userName: String
         let userImage: Data?
-
-        enum CodingKeys: String, CodingKey {
-            case userName
-            case userImage
-        }
-
-        init(userName: String, userImage: Data?) {
-            self.userName = userName
-            self.userImage = userImage
-        }
-
-        init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            userName = try container.decode(String.self, forKey: .userName)
-            userImage = try container.decodeIfPresent(Data.self, forKey: .userImage)
-        }
     }
 }
 
