@@ -90,7 +90,8 @@ extension MainView {
             SectionHeader(
                 title: section.title,
                 subtitle: section.subtitle,
-                buttonTitle: .clear
+                buttonTitle: .clear,
+                cards: all
             )
             .padding(.horizontal, Constants.intrinsicHPaddings)
             .padding(.top, 30)
@@ -108,8 +109,13 @@ extension MainView {
         complection: @escaping (UUID, Bool) -> Void
     ) -> some View {
         VStack {
-            SectionHeader(title: title, subtitle: subtitle, buttonTitle: buttonTitle)
-                .padding(.horizontal, Constants.intrinsicHPaddings)
+            SectionHeader(
+                title: title,
+                subtitle: subtitle,
+                buttonTitle: buttonTitle,
+                cards: cards
+            )
+            .padding(.horizontal, Constants.intrinsicHPaddings)
             SectionCardsView(
                 cards: cards,
                 badgeKind: badgeKind,
@@ -122,7 +128,8 @@ extension MainView {
     func SectionHeader(
         title: String,
         subtitle: String,
-        buttonTitle: String
+        buttonTitle: String,
+        cards: [ProductModel]
     ) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
@@ -132,7 +139,7 @@ extension MainView {
                 Spacer()
 
                 Button {
-                    didTapSection(sectionTitle: title)
+                    didTapSection(products: cards)
                 } label: {
                     Text(buttonTitle)
                         .style(11, .regular)

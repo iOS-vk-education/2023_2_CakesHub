@@ -18,6 +18,9 @@ struct MainView: View, ViewModelable {
     var body: some View {
         MainBlock
             .onAppear(perform: onAppear)
+            .navigationDestination(for: [ProductModel].self) { products in
+                AllProductsCategoryView(viewModel: .init(products: products))
+            }
     }
 }
 
@@ -51,9 +54,9 @@ extension MainView {
     }
     
     /// Нажатие на секцию
-    /// - Parameter sectionTitle: заголовок секции
-    func didTapSection(sectionTitle: String) {
-        Logger.log(message: sectionTitle)
+    /// - Parameter products: товары секции
+    func didTapSection(products: [ProductModel]) {
+        nav.addScreen(screen: products)
     }
     
     /// Нажатие кнопки баннера
