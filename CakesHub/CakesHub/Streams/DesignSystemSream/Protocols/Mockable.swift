@@ -7,6 +7,10 @@
 
 import Foundation
 
+#if DEBUG
+
 protocol Mockable {
     static var mockData: Self { get }
 }
+
+#endif

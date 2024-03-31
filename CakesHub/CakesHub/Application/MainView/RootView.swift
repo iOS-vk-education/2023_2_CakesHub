@@ -30,6 +30,8 @@ struct RootView: View {
     }
 }
 
+// MARK: - UI Subviews
+
 private extension RootView {
 
     var MainViewBlock: some View {
@@ -58,8 +60,7 @@ private extension RootView {
             Text("BAG")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         case .notifications:
-            Text("NOTIFICATION")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            NotificationView(viewModel: .mockData)
         case .profile:
             ProfileScreen(
                 viewModel: .init(
