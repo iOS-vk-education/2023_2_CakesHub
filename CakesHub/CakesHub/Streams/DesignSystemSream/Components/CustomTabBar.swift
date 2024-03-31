@@ -12,7 +12,8 @@ struct CustomTabBarView: View {
     @State private var allTabs: [AnimatedTab] = TabBarItem.allCases.compactMap {
         AnimatedTab(TabBarItem: $0)
     }
-    
+    @State private var tabBarColor = CHMColor<BackgroundPalette>.bgMainColor.color
+
     var body: some View {
         CustomTabBar
             .shadow(color: CHMColor<ShadowPalette>.tabBarShadow.color, radius: 10)
@@ -45,6 +46,11 @@ private extension CustomTabBarView {
                 .contentShape(.rect)
                 .onTapGesture {
                     withAnimation(.bouncy, completionCriteria: .logicallyComplete) {
+                        if animatedTab.TabBarItem == .notifications {
+                            tabBarColor = Constants.notificationBgColor
+                        } else if tabBarColor != Constants.defaultBgColor {
+                            tabBarColor = Constants.defaultBgColor
+                        }
                         nav.activeTab = TabBarItem
                         animatedTab.isAnimating = true
                     } completion: {
@@ -58,7 +64,7 @@ private extension CustomTabBarView {
                 }
             }
         }
-        .background(CHMColor<BackgroundPalette>.bgMainColor.color)
+        .background(tabBarColor)
     }
 }
 
@@ -93,5 +99,7 @@ private extension CustomTabBarView {
     enum Constants {
         static let iconSelectedColor: Color = CHMColor<IconPalette>.iconRed.color
         static let iconUnselectedColor: Color = CHMColor<IconPalette>.iconGray.color
+        static let defaultBgColor: Color = CHMColor<BackgroundPalette>.bgMainColor.color
+        static let notificationBgColor: Color = CHMColor<BackgroundPalette>(hexLight: 0xF9F9F9, hexDark: 0x000000).color
     }
 }
