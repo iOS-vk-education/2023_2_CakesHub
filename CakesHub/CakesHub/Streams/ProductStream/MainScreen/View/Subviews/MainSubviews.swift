@@ -14,20 +14,21 @@ extension MainView {
     var ScrollViewBlock: some View {
         ScrollView {
             VStack {
-                ForEach(viewModel.sections, id: \.self.id) { section in
-                    SectionsBlock(section: section)
+                BannerSectionView
+
+                VStack(spacing: 0) {
+                    ForEach(viewModel.sections, id: \.self.id) { section in
+                        SectionsBlock(section: section)
+                    }
                 }
+                .padding(.vertical, 13)
+                .background(Constants.bgMainColor)
+                .clipShape(.rect(cornerRadius: 16))
             }
-            .padding(.vertical, 13)
-            .background(Constants.bgMainColor)
-            .clipShape(.rect(cornerRadius: 16))
-            .padding(.top, Constants.bannerPadding(size.height) - 15)
+            .padding(.bottom, 150)
         }
+        .ignoresSafeArea()
         .scrollIndicators(.hidden)
-        .background(alignment: .top) {
-            CHMBigBannerView(configuration: .mockData)
-                .frame(height: Constants.bannerPadding(size.height))
-        }
         .background(Constants.bgMainColor)
     }
 }
@@ -35,6 +36,29 @@ extension MainView {
 // MARK: - Section
 
 extension MainView {
+
+    var BannerSectionView: some View {
+        GeometryReader { geo in
+            let minY = geo.frame(in: .global).minY
+            let iscrolling = minY > 0
+            CHMBigBannerView(configuration: .mockData, didTapButton: didTapBannerButton)
+            .frame(
+                width: geo.size.width,
+                height: iscrolling
+                ? Constants.bannerPadding(size.height) + minY
+                : Constants.bannerPadding(size.height)
+            )
+            .offset(y: -minY)
+            .blur(radius: iscrolling ? 0 + minY / 60 : 0)
+            .scaleEffect(iscrolling ? 1 + minY / 2000 : 1)
+
+            Constants.bgMainColor
+                .frame(height: Constants.bannerPadding(size.height))
+                .offset(y: -minY)
+                .opacity(-minY >= Constants.bannerPadding(size.height) ? 1 : 0)
+        }
+        .frame(height: Constants.bannerPadding(size.height) - 20)
+    }
 
     @ViewBuilder
     func SectionsBlock(section: MainViewModel.Section) -> some View {
@@ -137,6 +161,7 @@ extension MainView {
                         badgeConfiguration: .basic(text: card.badgeText, kind: badgeKind),
                         complection: complection
                     )
+                    .frame(width: size.width * Constants.fractionWidth)
                 }
             }
             .padding(.horizontal, Constants.intrinsicHPaddings)
@@ -156,17 +181,13 @@ extension MainView {
     ) -> some View {
         if viewModel.isShimmering {
             CHMNewProductCard(
-                configuration: .shimmering(
-                    imageSize: CGSize(width: size.width * Constants.fractionWidth,
-                                      height: size.height * Constants.fractionHeight)
-                )
+                configuration: .shimmering(imageHeight: size.height * Constants.fractionHeight)
             )
         } else {
             CHMNewProductCard(
                 configuration: .basic(
                     imageKind: card.images.first?.kind ?? .clear,
-                    imageSize: CGSize(width: size.width * Constants.fractionWidth,
-                                      height: size.height * Constants.fractionHeight),
+                    imageHeight: size.height * Constants.fractionHeight,
                     productText: .init(
                         seller: card.sellerName,
                         productName: card.productName,
@@ -195,12 +216,8 @@ extension MainView {
     func SectinoAllCardsBlock(
         cards: [ProductModel]
     ) -> some View {
-        let width = size.width * 0.5 - Constants.intrinsicHPaddings
         LazyVGrid(
-            columns: [
-                GridItem(.fixed(width)),
-                GridItem(.fixed(width)),
-            ],
+            columns: Array(repeating:  GridItem(), count: 2),
             spacing: Constants.intrinsicHPaddings
         ) {
             ForEach(cards) { card in
@@ -209,6 +226,7 @@ extension MainView {
                 }
             }
         }
+        .padding(.horizontal)
     }
 }
 
@@ -217,7 +235,7 @@ extension MainView {
 #Preview {
     let vm = MainView.ViewModel()
     vm.fetchPreviewData()
-    return MainView(viewModel: vm)
+    return MainView(viewModel: vm, size: CGSize(width: 400, height: 800))
         .environmentObject(Navigation())
 }
 

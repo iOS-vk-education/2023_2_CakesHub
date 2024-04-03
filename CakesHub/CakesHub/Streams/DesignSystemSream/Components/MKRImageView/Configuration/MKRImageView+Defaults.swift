@@ -13,19 +13,16 @@ extension MKRImageView.Configuration {
 
     static func basic(
         kind: ImageKind,
-        imageSize: CGSize,
         imageShape: ImageShape
     ) -> Self {
         modify(.clear) {
             $0.kind = kind
-            $0.imageSize = imageSize
             $0.imageShape = imageShape
         }
     }
 
-    static func shimmering(imageSize: CGSize, imageShape: ImageShape = .rectangle) -> Self {
+    static func shimmering(imageShape: ImageShape = .rectangle) -> Self {
         modify(.clear) {
-            $0.imageSize = imageSize
             $0.imageShape = imageShape
             $0.isShimmering = true
         }

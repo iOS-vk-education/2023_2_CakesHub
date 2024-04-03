@@ -14,35 +14,34 @@ struct MKRImageView_Previews: PreviewProvider {
             MKRImageView(
                 configuration: .basic(
                     kind: .url(.mockCake2),
-                    imageSize: CGSize(width: 150, height: 150),
                     imageShape: .capsule
                 )
             )
+            .frame(width: 150, height: 150)
             .previewDisplayName("Circle")
 
             MKRImageView(
                 configuration: .basic(
                     kind: .url(.mockCake2),
-                    imageSize: CGSize(width: 150, height: 150),
                     imageShape: .rectangle
                 )
             )
+            .frame(width: 150, height: 150)
             .previewDisplayName("Rectangle")
             
             MKRImageView(
                 configuration: .basic(
                     kind: .url(.mockCake2),
-                    imageSize: CGSize(width: 150, height: 150),
                     imageShape: .roundedRectangle(20)
                 )
             )
+            .frame(width: 150, height: 150)
             .previewDisplayName("RoundedRectangle")
 
             MKRImageView(
-                configuration: .shimmering(
-                    imageSize: CGSize(width: 150, height: 150)
-                )
+                configuration: .shimmering()
             )
+            .frame(width: 150, height: 150)
             .previewDisplayName("Shimmering")
         }
     }

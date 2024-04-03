@@ -105,6 +105,15 @@ extension MainViewModel: MainViewModelProtocol {
     }
 
     func fetchData(completion: CHMVoidBlock? = nil) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 2.2) {
+            DispatchQueue.main.async {
+                self.sections[0] = .sales(.mockSalesData)
+                self.sections[1] = .news(.mockNewsData)
+                self.sections[2] = .all(.mockAllData)
+                self.isShimmering = false
+                completion?()
+            }
+        }
     }
 
     func pullToRefresh(completion: CHMVoidBlock? = nil) {

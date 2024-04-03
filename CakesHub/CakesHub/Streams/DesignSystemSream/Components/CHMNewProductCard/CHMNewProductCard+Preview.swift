@@ -13,8 +13,8 @@ struct CHMNewProductCard_Previews: PreviewProvider {
         VStack(spacing: 20) {
             CHMNewProductCard(
                 configuration: .basic(
-                    imageKind: .url(.mockProductCard),
-                    imageSize: CGSize(width: Constants.cardWidth, height: Constants.imageHeigth),
+                    imageKind: .url(.mockProductCard), 
+                    imageHeight: Constants.imageHeigth,
                     productText: .init(
                         seller: "Mango Boy",
                         productName: "T-Shirt Sailing",
@@ -31,7 +31,7 @@ struct CHMNewProductCard_Previews: PreviewProvider {
             CHMNewProductCard(
                 configuration: .basic(
                     imageKind: .url(.mockProductCard),
-                    imageSize: CGSize(width: Constants.cardWidth, height: Constants.imageHeigth),
+                    imageHeight: Constants.imageHeigth,
                     productText: .init(
                         seller: "Mango Boy",
                         productName: "T-Shirt Sailing",
