@@ -1,88 +1,22 @@
 //
-//  ProfileScreen.swift
+//  ProfileSubviews.swift
 //  CakesHub
 //
-//  Created by Milana Shakhbieva on 22.03.2024.
+//  Created by Milana Shakhbieva on 03.04.2024.
 //
 
 import SwiftUI
 
-struct ProfileScreen: View {
-    typealias ViewModel = ProfileViewModel
-
-    @StateObject private var viewModel: ViewModel
-    @EnvironmentObject private var nav: Navigation
-
-    init(viewModel: ViewModel = ViewModel()) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
-    
-    var body: some View {
-        MainView
-            .navigationDestination(for: ViewModel.Screens.self) { screen in
-                switch screen {
-                case .message:
-                    ChatView()
-                case .notifications:
-                    Text("Экран уведомлений")
-                case .settings:
-                    SettingsView()
-                }
-            }
-    }
-}
-
-// MARK: - Actions
-
-private extension ProfileScreen {
-
-    /// Нажатие на кнопку открытия чата
-    func didTapOpenMessageScreen() {
-        nav.addScreen(screen: ViewModel.Screens.message)
-    }
-
-    /// Нажатие на кнопку открытия настроек
-    func didTapOpenSettings() {
-        nav.addScreen(screen: ViewModel.Screens.settings)
-    }
-    
-    /// Нажатие на кнопку открытия уведомлений
-    func didTapOpenNotifications() {
-        nav.addScreen(screen: ViewModel.Screens.notifications)
-    }
-}
-
-// MARK: UI Components
-
-private extension ProfileScreen {
+extension ProfileScreen {
 
     var MainView: some View {
         ScrollView {
             VStack {
-                imageView
+                ImageBlockView
 
-                GeometryReader { geo in
-                    let minY = geo.frame(in: .global).minY
-                    HStack {
-                        Button(action: didTapOpenMessageScreen, label: {
-                            Label("message", systemImage: "message")
-                                .foregroundStyle(Constants.textColor)
-                                .font(.callout)
-                                .bold()
-                                .foregroundStyle(.black)
-                                .frame(width: 240, height: 45)
-                                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 30))
-                        })
-                        Cbutton(iconname: UIImage(systemName: "gear"), action: didTapOpenSettings)
-                        Cbutton(iconname: .bell, action: didTapOpenNotifications)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .offset(y: max(60 - minY, 0))
-                }
-                .offset(y: -36)
-                .zIndex(1)
+                ButtonsBlockView
 
-                ProductFeedView(user: viewModel.user)
+                ProductsBlockView
                     .padding(.top)
             }
         }
@@ -90,8 +24,32 @@ private extension ProfileScreen {
         .background(Constants.bgColor)
     }
 
+    var ButtonsBlockView: some View {
+        GeometryReader { geo in
+            let minY = geo.frame(in: .global).minY
+            HStack {
+                Button(action: didTapOpenMessageScreen, label: {
+                    Label("message", systemImage: "message")
+                        .foregroundStyle(Constants.textColor)
+                        .font(.callout)
+                        .bold()
+                        .foregroundStyle(.black)
+                        .frame(width: 240, height: 45)
+                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 30))
+                })
+                Cbutton(iconname: Constants.gearButtonImg, action: didTapOpenSettings)
+                Cbutton(iconname: .bell, action: didTapOpenNotifications)
+            }
+            .frame(maxWidth: .infinity)
+            .offset(y: max(60 - minY, 0))
+        }
+        .offset(y: -36)
+        .zIndex(1)
+
+    }
+
     @ViewBuilder
-    var imageView: some View {
+    var ImageBlockView: some View {
         GeometryReader { geo in
             let minY = geo.frame(in: .global).minY
             let iscrolling = minY > 0
@@ -148,13 +106,10 @@ private extension ProfileScreen {
         }
         .frame(height: 400)
     }
-}
 
-fileprivate struct ProductFeedView: View {
-    var user: UserModel
-    var body: some View {
+    var ProductsBlockView: some View {
         LazyVGrid(columns: Array(repeating: GridItem(), count: 2)) {
-            ForEach(user.products) { product in
+            ForEach(viewModel.user.products) { product in
                 CHMNewProductCard(
                     configuration: .basic(
                         imageKind: product.images.first?.kind ?? .clear,
@@ -202,19 +157,19 @@ fileprivate struct Cbutton: View {
 // MARK: - Constants
 
 private extension ProfileScreen {
-    
+
     enum Constants {
         static let textColor = CHMColor<TextPalette>.textPrimary.color
         static let userMailColor = CHMColor<TextPalette>.textPrimary.color
         static let bgColor = CHMColor<BackgroundPalette>.bgMainColor.color
+        static let gearButtonImg = UIImage(systemName: "gear")
     }
 }
+
 
 // MARK: - Preview
 
 #Preview {
-    NavigationStack {
-        ProfileScreen(viewModel: .mockData)
-    }
-    .environmentObject(Navigation())
+    ProfileScreen(viewModel: .mockData)
+        .environmentObject(Navigation())
 }
