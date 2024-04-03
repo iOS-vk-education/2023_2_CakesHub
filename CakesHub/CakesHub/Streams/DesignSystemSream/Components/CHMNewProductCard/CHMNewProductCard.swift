@@ -56,7 +56,8 @@ private extension CHMNewProductCard {
         }
         .overlay(alignment: .bottomTrailing) {
             CHMProductButton(
-                configuration: configuration.productButtonConfiguration
+                configuration: configuration.productButtonConfiguration,
+                didTapButton: didTapButton
             )
             .offset(x: 0, y: 18)
         }
