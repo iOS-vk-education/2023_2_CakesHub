@@ -10,6 +10,7 @@
 		A332D1692BB2F842007C194D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1662BB2F842007C194D /* UserModel.swift */; };
 		A332D16A2BB2F842007C194D /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1672BB2F842007C194D /* ProfileScreen.swift */; };
 		A332D16B2BB2F842007C194D /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1682BB2F842007C194D /* ProfileViewModel.swift */; };
+		A36A44F92BBDAEE100C8BF8F /* ProfileSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36A44F82BBDAEE100C8BF8F /* ProfileSubviews.swift */; };
 		E50E901E2B7E7C0200C370A9 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50E901C2B7E7C0200C370A9 /* MainViewModel.swift */; };
 		E50E901F2B7E7C0200C370A9 /* MainViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50E901D2B7E7C0200C370A9 /* MainViewModel+Mock.swift */; };
 		E51B326F2B7E5DFC0028E8C7 /* CakesHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B326E2B7E5DFC0028E8C7 /* CakesHubApp.swift */; };
@@ -131,6 +132,7 @@
 		A332D1662BB2F842007C194D /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		A332D1672BB2F842007C194D /* ProfileScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		A332D1682BB2F842007C194D /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		A36A44F82BBDAEE100C8BF8F /* ProfileSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSubviews.swift; sourceTree = "<group>"; };
 		E50E901C2B7E7C0200C370A9 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		E50E901D2B7E7C0200C370A9 /* MainViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainViewModel+Mock.swift"; sourceTree = "<group>"; };
 		E51B326B2B7E5DFC0028E8C7 /* CakesHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CakesHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -268,6 +270,14 @@
 				E5C89A4E2BB3214A00D06BA7 /* View */,
 			);
 			path = ProfileStream;
+			sourceTree = "<group>";
+		};
+		A36A44F72BBDAEAC00C8BF8F /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				A36A44F82BBDAEE100C8BF8F /* ProfileSubviews.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		E50E901B2B7E7C0200C370A9 /* ViewModel */ = {
@@ -912,6 +922,7 @@
 			isa = PBXGroup;
 			children = (
 				A332D1672BB2F842007C194D /* ProfileScreen.swift */,
+				A36A44F72BBDAEAC00C8BF8F /* Subviews */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1031,6 +1042,7 @@
 				E59AEC7A2B92B99F00760E61 /* CakeService.swift in Sources */,
 				E51B32712B7E5DFC0028E8C7 /* MainView.swift in Sources */,
 				E56D0FF72B80CF6500B803EF /* CategoriesView.swift in Sources */,
+				A36A44F92BBDAEE100C8BF8F /* ProfileSubviews.swift in Sources */,
 				E51B32D32B7E5FEF0028E8C7 /* CHMNewProductCard+Defaults.swift in Sources */,
 				E59AEC6E2B92B21200760E61 /* LoginUserRequest.swift in Sources */,
 				E59AEC592B92AA2900760E61 /* ProductRequest.swift in Sources */,

@@ -1,54 +1,11 @@
 //
-//  ProfileScreen.swift
+//  ProfileSubviews.swift
 //  CakesHub
 //
-//  Created by Milana Shakhbieva on 22.03.2024.
+//  Created by Milana Shakhbieva on 03.04.2024.
 //
 
 import SwiftUI
-
-struct ProfileScreen: View {
-    
-    @StateObject var viewModel: ProfileViewModel
-    
-    init(viewModel: ProfileViewModel = ProfileViewModel()) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
-    
-    var body: some View {
-        ScrollView {
-            VStack {
-                imageView
-
-                GeometryReader { geo in
-                    let minY = geo.frame(in: .global).minY
-                    HStack {
-                        Button(action: {}, label: {
-                            Label("message", systemImage: "message")
-                                .foregroundStyle(Constants.textColor)
-                                .font(.callout)
-                                .bold()
-                                .foregroundStyle(.black)
-                                .frame(width: 240, height: 45)
-                                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 30))
-                        })
-                        Cbutton(iconname: UIImage(systemName: "gear")!, action: {})
-                        Cbutton(iconname: .bell, action: {})
-                    }
-                    .frame(maxWidth: .infinity)
-                    .offset(y: max(60 - minY, 0))
-                }
-                .offset(y: -36)
-                .zIndex(1)
-
-                ProductFeedView(user: viewModel.user)
-                    .padding(.top)
-            }
-        }
-        .ignoresSafeArea()
-        .background(Constants.bgColor)
-    }
-}
 
 private extension ProfileScreen {
     
@@ -168,10 +125,4 @@ private extension ProfileScreen {
         static let userMailColor = CHMColor<TextPalette>.textPrimary.color
         static let bgColor = CHMColor<BackgroundPalette>.bgMainColor.color
     }
-}
-
-// MARK: - Preview
-
-#Preview {
-    ProfileScreen(viewModel: .mockData)
 }
