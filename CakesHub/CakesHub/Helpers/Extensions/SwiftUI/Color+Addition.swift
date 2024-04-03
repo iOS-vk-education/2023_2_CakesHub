@@ -63,6 +63,8 @@ extension CHMColor where Palette == BackgroundPalette {
     static let bgSearchBar = CHMColor(hexLight: 0xFFFFFF, hexDark: 0x2A2C36)
     /// Цвет шиммера
     static let bgShimmering = CHMColor(hexLight: 0xF3F3F7, hexDark: 0x242429)
+    /// Черный белый фон
+    static let bgPrimary = CHMColor(hexLight: 0xF9F9F9, hexDark: 0x060606)
 }
 
 // MARK: - Text Colors

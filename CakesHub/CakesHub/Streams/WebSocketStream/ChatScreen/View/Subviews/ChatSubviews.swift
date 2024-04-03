@@ -14,7 +14,7 @@ extension ChatView {
 
     var MainView: some View {
         ScrollViewReader { proxy in
-            VStack(spacing: 0) {
+            ZStack(alignment: .bottom) {
                 ScrollView {
                     MessagesBlock
                 }
@@ -29,7 +29,7 @@ extension ChatView {
 
                 TextFieldBlock
                     .padding(.vertical, 6)
-                    .background(Constants.bottomBackgroundColor)
+                    .background(.ultraThinMaterial)
             }
             .frame(maxHeight: .infinity)
             .onChange(of: viewModel.lastMessageID) { _, id in
@@ -118,9 +118,8 @@ private extension ChatView {
         static let paperClip = Image("paperClip")
         static let record = Image("record")
         static let messageBackgroundColor = Color(red: 103/255, green: 77/255, blue: 122/255)
-        static let textFieldBackgroundColor = Color(red: 6/255, green: 6/255, blue: 6/255)
-        static let textFieldStrokeColor = Color(red: 58/255, green: 58/255, blue: 60/255)
-        static let bottomBackgroundColor = Color(red: 28/255, green: 28/255, blue: 29/255)
+        static let textFieldBackgroundColor = CHMColor<BackgroundPalette>.bgPrimary.color
+        static let textFieldStrokeColor = CHMColor<SeparatorPalette>(hexLight: 0xD1D1D1, hexDark: 0x3A3A3C).color
         static let iconColor = Color(red: 127/255, green: 127/255, blue: 127/255)
         static let placeholder = "Message"
         static let paperplane = "paperplane"

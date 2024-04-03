@@ -46,13 +46,20 @@ extension ChatViewModel: ChatViewModelProtocol {
         let msg = Message(
             id: UUID(),
             kind: .message,
-            user: .init(userName: user.name, userImage: user.userImage.toData),
+            userName: user.name,
             dispatchDate: Date(),
             message: message,
             state: .progress
         )
         lastMessageID = msg.id
-        messages.append(msg.mapper(name: user.name))
+//        messages.append(.init(
+//            isYou: false,
+//            message: "Привет! Я лучший продавец тортов! Какой товар вам понравился?",
+//            user: mess,
+//            time: <#T##String#>,
+//            state: <#T##Message.State#>)
+//        )
+        messages.append(msg.mapper(name: user.name, userImage: user.userImage))
 //        WebSockerManager.shared.send(message: msg)
     }
 
@@ -70,35 +77,4 @@ private extension ChatViewModel {
 
     /// Getting new message
     func receiveWebSocketData() {}
-}
-
-// MARK: - Helper
-
-private extension ImageKind {
-
-    var toData: Data? {
-        switch self {
-        case .url(let url):
-            guard let url = url else { return nil }
-            do {
-                return try Data(contentsOf: url)
-            } catch {
-                Logger.log(kind: .error, message: error)
-                return nil
-            }
-
-        case .uiImage(let uiImage):
-            guard let uiImage else { return nil }
-            if let pngData = uiImage.pngData() {
-                return pngData
-            }
-            if let jpegData = uiImage.jpegData(compressionQuality: 1.0) {
-                return jpegData
-            }
-            return nil
-
-        case .clear:
-            return nil
-        }
-    }
 }

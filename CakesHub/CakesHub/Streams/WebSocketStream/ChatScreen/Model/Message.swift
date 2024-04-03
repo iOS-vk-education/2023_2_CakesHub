@@ -10,7 +10,7 @@ import UIKit
 struct Message: Codable, Identifiable {
     var id: UUID
     let kind: MessageKind
-    let user: UserChatCellInfo
+    let userName: String
     let dispatchDate: Date
     let message: String
     var state: State
@@ -26,23 +26,18 @@ struct Message: Codable, Identifiable {
         case received
         case error
     }
-
-    struct UserChatCellInfo: Hashable, Codable {
-        let userName: String
-        let userImage: Data?
-    }
 }
 
 // MARK: - Mapper
 
 extension Message {
 
-    func mapper(name: String) -> ChatMessage {
+    func mapper(name: String, userImage: ImageKind) -> ChatMessage {
         .init(
             id: id,
-            isYou: user.userName == name,
+            isYou: userName == name,
             message: message,
-            user: .init(name: user.userName, image: user.userImage.mapper),
+            user: .init(name: name, image: userImage),
             time: dispatchDate.formattedString(format: "HH:mm"),
             state: state
         )
