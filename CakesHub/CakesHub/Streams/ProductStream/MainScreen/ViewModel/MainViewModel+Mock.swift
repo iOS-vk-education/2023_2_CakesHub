@@ -148,6 +148,7 @@ extension [ProductModel] {
                 .init(kind: .url(.mockProductCard)),
                 .init(kind: .url(.mockCake4)),
             ].shuffled(),
+            badgeText: "NEW",
             isFavorite: $0.isMultiple(of: 2),
             isNew: true,
             pickers: Constants.pickers,

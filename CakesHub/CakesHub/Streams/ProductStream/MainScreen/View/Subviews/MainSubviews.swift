@@ -116,6 +116,7 @@ extension MainView {
                 cards: cards
             )
             .padding(.horizontal, Constants.intrinsicHPaddings)
+
             SectionCardsView(
                 cards: cards,
                 badgeKind: badgeKind,

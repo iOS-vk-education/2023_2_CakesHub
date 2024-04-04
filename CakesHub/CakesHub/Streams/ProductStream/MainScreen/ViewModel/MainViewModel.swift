@@ -21,8 +21,8 @@ protocol MainViewModelProtocol: AnyObject {
 
 final class MainViewModel: ObservableObject, ViewModelProtocol {
 
-    @Published var sections: [Section] = []
-    var rootViewModel: RootViewModel
+    @Published private(set) var sections: [Section] = []
+    private(set) var rootViewModel: RootViewModel
     private(set) var isShimmering: Bool = false
 
     init(rootViewModel: RootViewModel) {
@@ -129,31 +129,5 @@ extension MainViewModel: MainViewModelProtocol {
 
     func pullToRefresh() {}
 
-    func didTapFavoriteButton(id: UUID, section: Section, isSelected: Bool) {
-        #if DEBUG
-        // TODO: Заменить на запросы в сеть. Это для превью
-        switch section {
-        case .news:
-            guard case var .news(cakes) = sections[section.id],
-                  let index = cakes.firstIndex(where: { $0.id == id })
-            else { return }
-            cakes[index].isFavorite = isSelected
-            sections[section.id] = .news(cakes)
-
-        case .sales:
-            guard case var .sales(cakes) = sections[section.id],
-                  let index = cakes.firstIndex(where: { $0.id == id })
-            else { return }
-            cakes[index].isFavorite = isSelected
-            sections[section.id] = .sales(cakes)
-
-        case .all:
-            guard case var .all(cakes) = sections[section.id],
-                  let index = cakes.firstIndex(where: { $0.id == id })
-            else { return }
-            cakes[index].isFavorite = isSelected
-            sections[section.id] = .all(cakes)
-        }
-        #endif
-    }
+    func didTapFavoriteButton(id: UUID, section: Section, isSelected: Bool) {}
 }

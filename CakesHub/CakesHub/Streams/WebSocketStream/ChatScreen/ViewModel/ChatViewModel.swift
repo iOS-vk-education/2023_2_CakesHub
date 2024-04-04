@@ -38,7 +38,15 @@ final class ChatViewModel: ObservableObject, ViewModelProtocol {
 extension ChatViewModel: ChatViewModelProtocol {
 
     /// Create web socket connection with the server
-    func connectWebSocket(completion: CHMGenericBlock<APIError?>? = nil) {}
+    func connectWebSocket(completion: CHMGenericBlock<APIError?>? = nil) {
+        messages.append(.init(
+            isYou: false,
+            message: "Привет! Как дела? Тебе понравился какой-то товар?",
+            user: .init(name: user.name, image: user.userImage),
+            time: "10:12",
+            state: .received)
+        )
+    }
 
     /// Sending message to the server
     /// - Parameter message: message data
@@ -52,13 +60,6 @@ extension ChatViewModel: ChatViewModelProtocol {
             state: .progress
         )
         lastMessageID = msg.id
-//        messages.append(.init(
-//            isYou: false,
-//            message: "Привет! Я лучший продавец тортов! Какой товар вам понравился?",
-//            user: mess,
-//            time: <#T##String#>,
-//            state: <#T##Message.State#>)
-//        )
         messages.append(msg.mapper(name: user.name, userImage: user.userImage))
 //        WebSockerManager.shared.send(message: msg)
     }
