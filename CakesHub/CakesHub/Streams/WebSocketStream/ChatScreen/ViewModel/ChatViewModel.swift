@@ -43,9 +43,9 @@ extension ChatViewModel: ChatViewModelProtocol {
             isYou: false,
             message: "Привет! Как дела? Тебе понравился какой-то товар?",
             user: .init(name: user.name, image: user.userImage),
-            time: "10:12",
-            state: .received)
-        )
+            time: Date.now.formattedString(format: "HH:mm"),
+            state: .received
+        ))
     }
 
     /// Sending message to the server

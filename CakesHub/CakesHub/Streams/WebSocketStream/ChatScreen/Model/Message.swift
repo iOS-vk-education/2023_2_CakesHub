@@ -53,12 +53,3 @@ private extension Data? {
         return .uiImage(UIImage(data: data))
     }
 }
-
-private extension Date {
-
-    func formattedString(format: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        return dateFormatter.string(from: self)
-    }
-}
