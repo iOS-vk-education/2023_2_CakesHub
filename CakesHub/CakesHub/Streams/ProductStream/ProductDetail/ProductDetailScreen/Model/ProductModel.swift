@@ -129,6 +129,7 @@ extension ProductModel.SellerInfo {
 
     func mapper(products: [ProductModel]) -> UserModel {
         .init(
+            id: id,
             name: name,
             surname: surname,
             mail: mail,

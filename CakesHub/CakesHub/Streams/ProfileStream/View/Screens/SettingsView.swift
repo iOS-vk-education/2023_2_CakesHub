@@ -48,6 +48,7 @@ struct SettingsView: View {
                 Label("Support", systemImage: "questionmark.circle")
             }
         }
+        .scrollContentBackground(.hidden)
         .navigationTitle("Настройки")
         .background(Constants.bgColor)
     }

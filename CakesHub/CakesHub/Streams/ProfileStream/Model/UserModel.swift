@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct UserModel: ClearConfigurationProtocol, Hashable {
+    var id: String = .clear
     var name: String = .clear
     var surname: String = .clear
     var mail: String = .clear
@@ -22,14 +23,16 @@ struct UserModel: ClearConfigurationProtocol, Hashable {
 #if DEBUG
 
 extension UserModel: Mockable {
-    
+
+    private static let milana = ProductModel.SellerInfo.milana
     static let mockData = UserModel(
-        name: "Milana",
-        surname: "Shakhbieva",
-        mail: "milanashakhbieva@mail.com",
+        id: milana.id,
+        name: milana.name,
+        surname: milana.surname,
+        mail: milana.mail,
         orders: 555,
-        userImage: .url(.mockMilanaImage),
-        userHeaderImage: .uiImage(.cake2),
+        userImage: milana.userImage,
+        userHeaderImage: milana.userHeaderImage,
         products: Constants.sellerProducts
     )
 }

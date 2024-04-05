@@ -28,6 +28,6 @@ final class ProductDetailViewModel: ViewModelProtocol, ObservableObject {
 extension ProductDetailViewModel: NewDetailScreenViewModelProtocol {
 
     func didTapLikeButton(isSelected: Bool, completion: CHMVoidBlock?) {}
-    
+
     func didTapBuyButton() {}
 }

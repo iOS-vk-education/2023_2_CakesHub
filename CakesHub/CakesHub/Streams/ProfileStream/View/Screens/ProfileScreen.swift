@@ -12,6 +12,7 @@ struct ProfileScreen: View {
 
     @StateObject var viewModel: ViewModel
     @EnvironmentObject private var nav: Navigation
+    @EnvironmentObject var rootViewModel: RootViewModel
 
     init(viewModel: ViewModel = ViewModel()) {
         self._viewModel = StateObject(wrappedValue: viewModel)
@@ -42,6 +43,10 @@ extension ProfileScreen {
         nav.addScreen(screen: ViewModel.Screens.message)
     }
 
+    /// Нажатие на кнопку создания товара
+    func didTapCreateProduct() {
+    }
+
     /// Нажатие на кнопку открытия настроек
     func didTapOpenSettings() {
         nav.addScreen(screen: ViewModel.Screens.settings)
@@ -68,4 +73,5 @@ extension ProfileScreen {
 #Preview {
     ProfileScreen(viewModel: .mockData)
         .environmentObject(Navigation())
+        .environmentObject(RootViewModel(currentUser: .milana))
 }

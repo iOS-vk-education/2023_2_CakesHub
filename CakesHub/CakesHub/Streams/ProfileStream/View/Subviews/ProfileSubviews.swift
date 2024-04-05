@@ -28,17 +28,18 @@ extension ProfileScreen {
         GeometryReader { geo in
             let minY = geo.frame(in: .global).minY
             HStack {
-                Button(action: didTapOpenMessageScreen, label: {
-                    Label("message", systemImage: "message")
-                        .foregroundStyle(Constants.textColor)
-                        .font(.callout)
-                        .bold()
-                        .foregroundStyle(.black)
-                        .frame(width: 240, height: 45)
-                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 30))
-                })
-                Cbutton(iconname: Constants.gearButtonImg, action: didTapOpenSettings)
-                Cbutton(iconname: .bell, action: didTapOpenNotifications)
+                if rootViewModel.currentUser.id == viewModel.user.id {
+                    MessageButton(title: Constants.createProductTitle,
+                                  imgString: Constants.createProductImg,
+                                  action: didTapCreateProduct)
+
+                    Cbutton(iconname: Constants.gearButtonImg, action: didTapOpenSettings)
+                    Cbutton(iconname: .bell, action: didTapOpenNotifications)
+                } else {
+                    MessageButton(title: Constants.writeMessageTitle,
+                                  imgString: Constants.writeMessageImg,
+                                  action: didTapOpenMessageScreen)
+                }
             }
             .frame(maxWidth: .infinity)
             .offset(y: max(60 - minY, 0))
@@ -140,9 +141,28 @@ extension ProfileScreen {
     }
 }
 
+fileprivate struct MessageButton: View {
+    var title: String
+    var imgString: String
+    var action: () -> Void
+
+    var body: some View {
+        Button(action: action, label: {
+            Label(title, systemImage: imgString)
+                .foregroundStyle(CHMColor<TextPalette>.textPrimary.color)
+                .font(.callout)
+                .bold()
+                .foregroundStyle(.black)
+                .frame(width: 240, height: 45)
+                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 30))
+        })
+    }
+}
+
 fileprivate struct Cbutton: View {
     let iconname: UIImage?
     var action: () -> Void
+
     var body: some View {
         Button {
             action()
@@ -168,13 +188,23 @@ private extension ProfileScreen {
         static let userMailColor = CHMColor<TextPalette>.textPrimary.color
         static let bgColor = CHMColor<BackgroundPalette>.bgMainColor.color
         static let gearButtonImg = UIImage(systemName: "gear")
+        static let createProductTitle = "Создать товар"
+        static let createProductImg = "plus.circle"
+        static let writeMessageTitle = "Cообщение"
+        static let writeMessageImg = "message"
     }
 }
-
 
 // MARK: - Preview
 
 #Preview {
     ProfileScreen(viewModel: .mockData)
         .environmentObject(Navigation())
+        .environmentObject(RootViewModel(currentUser: .milana))
+}
+
+#Preview {
+    ProfileScreen(viewModel: .mockData)
+        .environmentObject(Navigation())
+        .environmentObject(RootViewModel(currentUser: .king))
 }
