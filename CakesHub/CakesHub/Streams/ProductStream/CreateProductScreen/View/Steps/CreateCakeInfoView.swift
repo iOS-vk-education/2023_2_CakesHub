@@ -43,7 +43,7 @@ struct CreateCakeInfoView: View {
                 hint: "Название торта",
                 value: $cakeName
             ) {
-                focusedField = .price
+                focusedField = .description
             }
             .fixedSize(horizontal: false, vertical: true)
             .focused($focusedField, equals: .name)
@@ -69,10 +69,29 @@ struct CreateCakeInfoView: View {
         .background(CHMColor<BackgroundPalette>.bgMainColor.color)
         .toolbar {
             ToolbarItem(placement: .keyboard) {
-                Button("Закрыть") {
-                    focusedField = nil
+                HStack {
+                    Button("Закрыть") {
+                        focusedField = nil
+                    }
+                    
+                    Spacer()
+
+                    Button {
+                        switch focusedField {
+                        case .price:
+                            focusedField = .name
+                        case .name:
+                            focusedField = .description
+                        case .description:
+                            focusedField = nil
+                        case .none:
+                            focusedField = nil
+                        }
+                    } label: {
+                        Image(systemName: "checkmark")
+                            .foregroundStyle(CHMColor<IconPalette>.iconRed.color)
+                    }
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
     }
@@ -84,16 +103,17 @@ private extension CreateCakeInfoView {
 
     var PriceBlockView: some View {
         HStack(alignment: .bottom, spacing: 20) {
-            TextField("Цена, \(String.rub)", text: $cakePrice )
-                .keyboardType(.decimalPad)
+            TextField("Цена, $", text: $cakePrice)
+                .keyboardType(.numberPad)
                 .padding(.horizontal)
                 .padding(.vertical, 10)
                 .overlay {
                     RoundedRectangle(cornerRadius: Constants.cornderRadius)
                         .stroke(lineWidth: 0.8)
                 }
+                .submitLabel(.done)
                 .onSubmit {
-                    focusedField = .description
+                    focusedField = .name
                 }
 
             VStack(alignment: .leading, spacing: 5) {

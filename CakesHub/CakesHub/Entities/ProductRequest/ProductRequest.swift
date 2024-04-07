@@ -21,8 +21,8 @@ struct ProductRequest: DictionaryConvertible, ClearConfigurationProtocol {
     var productName: String = .clear
     /// Цена торта
     var price: String = .clear
-    /// Старая цена торта
-    var oldPrice: String?
+    /// Цена торта со скидкой
+    var discountedPrice: String?
     /// Вес торта
     var weight: String?
     /// Имя продовца
@@ -124,7 +124,7 @@ extension ProductRequest {
         let pickers = dictionary["pickers"] as? [String] ?? []
         let productName = dictionary["productName"] as? String ?? .clear
         let price = dictionary["price"] as? String ?? .clear
-        let oldPrice = dictionary["price"] as? String
+        let discountedPrice = dictionary["discountedPrice"] as? String
         let weight = dictionary["weight"] as? String
         var user: UserRequest?
         if let sellerDict = dictionary["seller"] as? [String: Any] {
@@ -143,7 +143,7 @@ extension ProductRequest {
             pickers: pickers,
             productName: productName,
             price: price,
-            oldPrice: oldPrice,
+            discountedPrice: discountedPrice,
             weight: weight,
             seller: user ?? .clear,
             description: description,

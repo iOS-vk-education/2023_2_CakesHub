@@ -9,7 +9,9 @@ import SwiftUI
 
 // MARK: - ProfileViewModelProtocol
 
-protocol ProfileViewModelProtocol: AnyObject {}
+protocol ProfileViewModelProtocol: AnyObject {
+    func updateUserProducts(products: [ProductModel])
+}
 
 // MARK: - ProfileViewModelProtocol
 
@@ -33,4 +35,9 @@ extension ProfileViewModel {
 
 // MARK: - Actions
 
-extension ProfileViewModel: ProfileViewModelProtocol {}
+extension ProfileViewModel: ProfileViewModelProtocol {
+
+    func updateUserProducts(products: [ProductModel]) {
+        user.products = products
+    }
+}

@@ -112,7 +112,7 @@ extension MainViewModel: MainViewModelProtocol {
         var sales: [ProductModel] = []
         var all: [ProductModel] = []
         rootViewModel.products.forEach { product in
-            if !product.oldPrice.isNil {
+            if !product.discountedPrice.isNil {
                 sales.append(product)
                 return
             } else if product.isNew {

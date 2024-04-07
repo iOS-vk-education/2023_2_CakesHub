@@ -18,6 +18,8 @@ extension CHMProductDescriptionView {
         var title: String = .clear
         /// Product price
         var price: String = .clear
+        /// Product discounted price
+        var discountedPrice: String?
         /// Product subtitle
         var subtitle: String = .clear
         /// Product description

@@ -50,17 +50,30 @@ struct CHMProductDescriptionView: View {
 private extension CHMProductDescriptionView {
 
     var TextBlock: some View {
-        VStack(alignment: .leading) {
-            HStack(alignment: .top) {
+        HStack(alignment: .top) {
+            VStack(alignment: .leading, spacing: 5) {
                 Text(configuration.title)
                     .titleFont
-                Spacer()
+
+                Text(configuration.subtitle)
+                    .subtitleFont
+            }
+
+            Spacer()
+
+            if let discountedPrice = configuration.discountedPrice {
+                VStack(alignment: .trailing) {
+                    Text(discountedPrice)
+                        .style(24, .semibold, CHMColor<TextPalette>.textWild.color)
+
+                    Text(configuration.price)
+                        .style(16, .semibold, CHMColor<TextPalette>.textSecondary.color)
+                        .strikethrough(true, color: CHMColor<TextPalette>.textSecondary.color)
+                }
+            } else {
                 Text(configuration.price)
                     .titleFont
             }
-
-            Text(configuration.subtitle)
-                .subtitleFont
         }
     }
 
@@ -79,8 +92,9 @@ private extension CHMProductDescriptionView {
 #Preview {
     CHMProductDescriptionView(
         configuration: .basic(
-            title: "H&M",
+            title: "Просто очень большой текст кототйы не влезает",
             price: "$19.99",
+            discountedPrice: "$12.22",
             subtitle: "Short black dress",
             description: "Просто описание",
             starsConfiguration: .basic(kind: .five, feedbackCount: 10)

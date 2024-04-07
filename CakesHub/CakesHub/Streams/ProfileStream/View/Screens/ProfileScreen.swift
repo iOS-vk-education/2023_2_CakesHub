@@ -30,7 +30,7 @@ struct ProfileScreen: View {
                 case .settings:
                     SettingsView()
                 case .createProduct:
-                    let vc = CreateProductViewModel()
+                    let vc = CreateProductViewModel(rootViewModel: rootViewModel, profileViewModel: viewModel)
                     CreateProductView(viewModel: vc)
                 }
             }

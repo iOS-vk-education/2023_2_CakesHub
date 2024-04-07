@@ -109,7 +109,7 @@ extension [ProductModel] {
             seller: .poly,
             productName: Constants.productName,
             price: "$\($0).99",
-            oldPrice: "$\($0).99",
+            discountedPrice: "$\($0 - 10).99",
             description: Constants.previewDescription,
             reviewInfo: .mockData,
             establishmentDate: "2024-03-\($0)T01:32:01+0000",

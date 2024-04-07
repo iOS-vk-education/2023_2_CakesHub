@@ -27,10 +27,10 @@ struct ProductModel: Identifiable, Hashable {
     var seller: SellerInfo = .clear
     /// Название торта
     var productName: String = .clear
-    /// Цена торта
+    /// Цена торта без скидки
     var price: String = .clear
-    /// Старая цена торта
-    var oldPrice: String?
+    /// Цена со скидкой
+    var discountedPrice: String?
     /// Описание товара
     var description: String = .clear
     /// Оценки товара
@@ -79,7 +79,7 @@ extension ProductModel {
                 seller: seller.name,
                 productName: productName,
                 productPrice: price,
-                productOldPrice: oldPrice
+                productDiscountedPrice: discountedPrice
             ),
             badgeViewConfiguration: badgeConfiguration,
             productButtonConfiguration: .basic(
@@ -102,7 +102,7 @@ extension ProductModel {
                 seller: seller.name,
                 productName: productName,
                 productPrice: price,
-                productOldPrice: oldPrice
+                productDiscountedPrice: discountedPrice
             ),
             badgeViewConfiguration: calculatedBadgeConfiguration,
             productButtonConfiguration: .basic(
@@ -116,7 +116,7 @@ extension ProductModel {
     }
 
     private var calculatedBadgeConfiguration: CHMBadgeView.Configuration {
-        if !oldPrice.isNil {
+        if !discountedPrice.isNil {
             return .basic(text: badgeText, kind: .red)
         } else if isNew {
             return .basic(text: badgeText, kind: .dark)

@@ -36,7 +36,7 @@ extension CHMNewProductCard.Configuration {
         var seller: String?
         var productName: String?
         var productPrice: String = .clear
-        var productOldPrice: String?
+        var productDiscountedPrice: String?
 
         static let clear = Self()
     }

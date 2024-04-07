@@ -92,14 +92,14 @@ private extension CHMNewProductCard {
                     .lineLimit(1)
             }
 
-            if let oldPrice = configuration.productText.productOldPrice {
+            if let discountedPrice = configuration.productText.productDiscountedPrice {
                 HStack(spacing: 4) {
-                    Text(oldPrice)
+                    Text(configuration.productText.productPrice)
                         .style(14, .medium, Constants.oldPriceColor)
                         .strikethrough(true, color: Constants.oldPriceColor)
 
-                    Text(configuration.productText.productPrice)
-                        .style(14, .medium, Constants.newPriceColor)
+                    Text(discountedPrice)
+                        .style(14, .medium, Constants.discountedPriceColor)
                 }
 
             } else {
@@ -136,8 +136,8 @@ private extension CHMNewProductCard {
             productText: .init(
                 seller: "Mango Boy",
                 productName: "T-Shirt Sailing",
-                productPrice: "10$",
-                productOldPrice: "22$"
+                productPrice: "22$",
+                productDiscountedPrice: "10$"
             ),
             productButtonConfiguration: .basic(kind: .favorite()),
             starsViewConfiguration: .basic(kind: .four, feedbackCount: 20000)
@@ -161,6 +161,6 @@ private extension CHMNewProductCard {
         static let sellerTextColor: Color = CHMColor<TextPalette>.textSecondary.color
         static let oldPriceColor: Color = CHMColor<TextPalette>.textSecondary.color
         static let productNameColor: Color = CHMColor<TextPalette>.textPrimary.color
-        static let newPriceColor: Color = CHMColor<TextPalette>.textWild.color
+        static let discountedPriceColor: Color = CHMColor<TextPalette>.textWild.color
     }
 }

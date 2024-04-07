@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-private let totalCount = 3
-
 extension CreateProductView {
 
     var MainView: some View {
@@ -40,6 +38,8 @@ extension CreateProductView {
                 && currentPage == 1
             ) || (
                 currentPage == 2 && !selectedPhotosData.isEmpty
+            ) || (
+                currentPage == 3
             )
             NextButton
                 .padding(.bottom)
@@ -53,6 +53,8 @@ extension CreateProductView {
                 didCloseProductInfoSreen()
             } else if currentPage == 2 {
                 didCloseProductImagesScreen()
+            } else if currentPage == 3 {
+                didCloseResultScreen()
             }
         }, label: {
             Image(systemName: "chevron.right")
@@ -73,10 +75,17 @@ extension CreateProductView {
                 .stroke(Constants.textColor.opacity(0.06), lineWidth: 4)
 
             Circle()
-                .trim(from: 0, to: CGFloat(currentPage) / CGFloat(totalCount))
+                .trim(from: 0, to: CGFloat(currentPage) / CGFloat(viewModel.totalCount))
                 .stroke(Constants.circleColor.gradient, lineWidth: 4)
                 .rotationEffect(.init(degrees: -90))
         }
+    }
+
+    @ViewBuilder
+    var AlertButtons: some View {
+        Button("Создать", action: didTapCreateProduct)
+        Button("Отмена", role: .cancel, action: didTapCancelProduct)
+        Button("Удалить", role: .destructive, action: didTapDeleteProduct)
     }
 }
 

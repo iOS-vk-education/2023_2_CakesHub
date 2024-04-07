@@ -87,7 +87,8 @@ extension ProductDetailScreen {
         CHMProductDescriptionView(
             configuration: .basic(
                 title: viewModel.currentProduct.productName,
-                price: viewModel.currentProduct.price,
+                price: viewModel.currentProduct.price, 
+                discountedPrice: viewModel.currentProduct.discountedPrice,
                 subtitle: viewModel.currentProduct.seller.name,
                 description: viewModel.currentProduct.description,
                 starsConfiguration: .basic(

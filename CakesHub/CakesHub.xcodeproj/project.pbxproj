@@ -383,8 +383,8 @@
 		E51366252BC2138B00B12304 /* Steps */ = {
 			isa = PBXGroup;
 			children = (
-				E51366272BC2143900B12304 /* AddProductImages.swift */,
 				E5DE858A2BC0D92B0013445A /* CreateCakeInfoView.swift */,
+				E51366272BC2143900B12304 /* AddProductImages.swift */,
 				E51366292BC21D1A00B12304 /* ProductResultScreen.swift */,
 			);
 			path = Steps;

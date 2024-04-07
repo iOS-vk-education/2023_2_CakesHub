@@ -15,12 +15,17 @@ extension CHMProductDescriptionView.Configuration {
 
     /// Basic configuration
     /// - Parameters:
-    ///   - imageKind: image kind
-    ///   - imageSize: image size
+    ///   - title: product name
+    ///   - price: product price
+    ///   - subtitle: product seller
+    ///   - description: product description
+    ///   - innerHPadding: horizontal paddings
+    ///   - starsConfiguration: stars configuration
     /// - Returns: configuration of the view
     static func basic(
         title: String,
         price: String,
+        discountedPrice: String? = nil,
         subtitle: String,
         description: String,
         innerHPadding: CGFloat = 16,
@@ -29,6 +34,7 @@ extension CHMProductDescriptionView.Configuration {
         modify(.clear) {
             $0.title = title
             $0.price = price
+            $0.discountedPrice = discountedPrice
             $0.subtitle = subtitle
             $0.description = description
             $0.innerHPadding = innerHPadding

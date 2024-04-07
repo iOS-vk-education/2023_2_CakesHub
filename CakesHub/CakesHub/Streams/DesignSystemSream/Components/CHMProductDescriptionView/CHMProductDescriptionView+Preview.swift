@@ -15,7 +15,8 @@ struct CHMProductDescriptionViewPreview: PreviewProvider {
             CHMProductDescriptionView(
                 configuration: .basic(
                     title: "H&M",
-                    price: "$19.99",
+                    price: "$19.99", 
+                    discountedPrice: "$12.22",
                     subtitle: "Short black dress",
                     description: """
                     Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.

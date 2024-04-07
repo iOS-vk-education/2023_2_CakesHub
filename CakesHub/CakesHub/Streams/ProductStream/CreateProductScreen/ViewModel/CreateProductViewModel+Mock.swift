@@ -12,7 +12,7 @@ import Foundation
 
 extension CreateProductViewModel: Mockable {
 
-    static let mockData = CreateProductViewModel()
+    static let mockData = CreateProductViewModel(rootViewModel: .mockData)
 }
 
 // MARK: - Constants

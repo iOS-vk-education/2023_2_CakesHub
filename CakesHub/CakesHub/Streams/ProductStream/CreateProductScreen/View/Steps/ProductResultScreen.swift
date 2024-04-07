@@ -19,7 +19,8 @@ struct ProductResultScreen: View {
             CHMProductDescriptionView(
                 configuration: .basic(
                     title: viewModel.productName,
-                    price: "$\(viewModel.productPrice)",
+                    price: "$\(viewModel.productPrice)", 
+                    discountedPrice: viewModel.productDiscountedPrice.isEmpty ? nil : "$\(viewModel.productDiscountedPrice)",
                     subtitle: rootViewModel.currentUser.name,
                     description: viewModel.productDescription,
                     starsConfiguration: .basic(kind: .zero, feedbackCount: 0)
