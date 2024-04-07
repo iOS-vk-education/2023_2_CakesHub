@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 05.04.2024.
+//  Copyright 2024 © VKxBMSTU Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -27,7 +28,7 @@ extension CreateProductView {
                 .transition(.scale)
             } else if currentPage == 3 {
                 ProductResultScreen(backAction: didTapBackButton)
-                .transition(.scale)
+                    .transition(.scale)
             }
         }
         .overlay(alignment: .bottom) {
@@ -45,6 +46,7 @@ extension CreateProductView {
                 .padding(.bottom)
                 .disabled(!isEnable)
         }
+        .background(Constants.bgColor)
     }
 
     var NextButton: some View {
@@ -105,5 +107,8 @@ private extension CreateProductView {
         static let textColor = CHMColor<TextPalette>.textPrimary.color
         static let circleColor = CHMColor<IconPalette>.iconRed.color
         static let iconColor = CHMColor<IconPalette>.iconRed.color
+        static let bgColor = LinearGradient(colors: [.blue.opacity(0.6), .cyan],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing)
     }
 }

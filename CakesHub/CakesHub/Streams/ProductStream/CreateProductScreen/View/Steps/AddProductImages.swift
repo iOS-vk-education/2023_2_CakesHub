@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 07.04.2024.
+//  Copyright 2024 © VKxBMSTU Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -46,7 +47,6 @@ struct AddProductImages: View {
 
             Spacer()
         }
-        .background(CHMColor<BackgroundPalette>.bgMainColor.color)
         .onAppear {
             selectedPhotosData = viewModel.productImages
         }
@@ -79,6 +79,7 @@ private extension AddProductImages {
         ) {
             SelectButton
         }
+        .foregroundStyle(.red)
         .onChange(of: selectedItems) { oldValue, newValue in
             if oldValue.count > newValue.count {
                 oldValue.forEach { item in
@@ -103,7 +104,7 @@ private extension AddProductImages {
             }
         }
         .photosPickerStyle(.compact)
-        .frame(height: 100)
+        .frame(height: 150)
         .photosPickerDisabledCapabilities([.selectionActions])
         .photosPickerAccessoryVisibility(.hidden)
     }
@@ -119,6 +120,15 @@ private extension AddProductImages {
     }
 }
 
+// MARK: - Preview
+
 #Preview {
     AddProductImages(selectedPhotosData: .constant([])) {}
+        .environmentObject(CreateProductViewModel.mockData)
+}
+
+#Preview {
+    CreateProductView(viewModel: .mockData)
+        .environmentObject(Navigation())
+        .environmentObject(RootViewModel())
 }
