@@ -14,7 +14,12 @@ struct CreateProductView: View, ViewModelable {
     @EnvironmentObject private var nav: Navigation
     @StateObject var viewModel: ViewModel
 
-    @AppStorage("com.vk.currentPage.CreateProductView") var currentPage = 1
+    @AppStorage(ViewModel.Keys.currentPage) var currentPage = 1
+    @AppStorage(ViewModel.Keys.productName) var cakeName: String = .clear
+    @AppStorage(ViewModel.Keys.productDescription) var cakeDescription: String = .clear
+    @AppStorage(ViewModel.Keys.productPrice) var cakePrice: String = .clear
+    @AppStorage(ViewModel.Keys.productDiscountedPrice) var cakeDiscountedPrice: String = .clear
+    @State var selectedPhotosData: [Data] = []
 
     init(viewModel: ViewModel = ViewModel()) {
         self._viewModel = StateObject(wrappedValue: viewModel)
@@ -22,6 +27,7 @@ struct CreateProductView: View, ViewModelable {
 
     var body: some View {
         MainView
+            .environmentObject(viewModel)
             .onAppear(perform: onAppear)
     }
 }
@@ -31,6 +37,32 @@ struct CreateProductView: View, ViewModelable {
 private extension CreateProductView {
 
     func onAppear() {
+    }
+}
+
+// MARK: - Actions
+
+extension CreateProductView {
+
+    func didCloseProductInfoSreen() {
+        viewModel.productName = cakeName
+        viewModel.productDescription = cakeDescription
+        withAnimation {
+            currentPage += 1
+        }
+    }
+
+    func didTapBackButton() {
+        withAnimation {
+            currentPage -= 1
+        }
+    }
+
+    func didCloseProductImagesScreen() {
+        viewModel.productImages = selectedPhotosData
+        withAnimation {
+            currentPage += 1
+        }
     }
 }
 

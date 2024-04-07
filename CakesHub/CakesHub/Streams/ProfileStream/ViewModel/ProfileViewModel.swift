@@ -27,6 +27,7 @@ extension ProfileViewModel {
         case message
         case notifications
         case settings
+        case createProduct
     }
 }
 

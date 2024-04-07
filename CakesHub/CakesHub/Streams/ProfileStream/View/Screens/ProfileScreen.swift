@@ -29,6 +29,9 @@ struct ProfileScreen: View {
                     Text("Экран уведомлений")
                 case .settings:
                     SettingsView()
+                case .createProduct:
+                    let vc = CreateProductViewModel()
+                    CreateProductView(viewModel: vc)
                 }
             }
     }
@@ -45,6 +48,7 @@ extension ProfileScreen {
 
     /// Нажатие на кнопку создания товара
     func didTapCreateProduct() {
+        nav.addScreen(screen: ViewModel.Screens.createProduct)
     }
 
     /// Нажатие на кнопку открытия настроек

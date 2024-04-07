@@ -12,16 +12,11 @@ import Foundation
 
 extension CreateProductViewModel: Mockable {
 
-    #warning("Обновите, добавив недостоющие переменные")
-    static let mockData = CreateProductViewModel(
-        title: Constants.mockTitle,
-        image: .url(.mockCake2)
-    )
+    static let mockData = CreateProductViewModel()
 }
 
 // MARK: - Constants
 
-#warning("Удалите или замените моковые данные")
 private extension CreateProductViewModel {
 
     enum Constants {
