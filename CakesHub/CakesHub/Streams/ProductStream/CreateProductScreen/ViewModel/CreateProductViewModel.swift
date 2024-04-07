@@ -27,7 +27,7 @@ final class CreateProductViewModel: ObservableObject, ViewModelProtocol {
         self.productDescription = UserDefaults.standard.value(forKey: Keys.productDescription) as? String ?? .clear
         self.productPrice = UserDefaults.standard.value(forKey: Keys.productPrice) as? String ?? .clear
         self.productDiscountedPrice = UserDefaults.standard.value(forKey: Keys.productDiscountedPrice) as? String ?? .clear
-        self.productImages = []
+        self.productImages = UserDefaults.standard.array(forKey: Keys.productImages) as? [Data] ?? []
     }
 }
 
@@ -41,9 +41,16 @@ extension CreateProductViewModel {
         static let productDescription = "com.vk.CreateProductViewModel.cakeDescription"
         static let productPrice = "com.vk.CreateProductViewModel.cakePrice"
         static let productDiscountedPrice = "com.vk.CreateProductViewModel.cakeDiscountedPrice"
+        static let productImages = "com.vk.CreateProductViewModel.cakeImages"
     }
 }
 
 // MARK: - Actions
 
-extension CreateProductViewModel: CreateProductViewModelProtocol {}
+extension CreateProductViewModel: CreateProductViewModelProtocol {
+
+    func saveSelectedImages(imagesData: [Data]) {
+        productImages = imagesData
+        UserDefaults.standard.set(imagesData, forKey: Keys.productImages)
+    }
+}

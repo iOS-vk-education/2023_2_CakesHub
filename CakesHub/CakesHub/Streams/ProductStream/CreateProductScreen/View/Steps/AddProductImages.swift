@@ -47,6 +47,9 @@ struct AddProductImages: View {
             Spacer()
         }
         .background(CHMColor<BackgroundPalette>.bgMainColor.color)
+        .onAppear {
+            selectedPhotosData = viewModel.productImages
+        }
     }
 }
 

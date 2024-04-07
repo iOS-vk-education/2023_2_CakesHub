@@ -50,7 +50,7 @@ struct CreateCakeInfoView: View {
 
             LimitedTextField(
                 config: .init(
-                    limit: 500,
+                    limit: 900,
                     tint: CHMColor<TextPalette>.textPrimary.color,
                     autoResizes: false,
                     borderConfig: .init(radius: Constants.cornderRadius)

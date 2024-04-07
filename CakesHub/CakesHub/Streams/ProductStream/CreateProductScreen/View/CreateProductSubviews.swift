@@ -28,12 +28,7 @@ extension CreateProductView {
                 )
                 .transition(.scale)
             } else if currentPage == 3 {
-                OnBoardingView(
-                    image: Image(uiImage: CHMImage.mockImageCake3!),
-                    title: "Step 3"
-                ) {
-                    withAnimation(.easeInOut) { currentPage -= 1 }
-                }
+                ProductResultScreen(backAction: didTapBackButton)
                 .transition(.scale)
             }
         }
@@ -90,6 +85,7 @@ extension CreateProductView {
 #Preview {
     CreateProductView(viewModel: .mockData)
         .environmentObject(Navigation())
+        .environmentObject(RootViewModel())
 }
 
 // MARK: - Constants

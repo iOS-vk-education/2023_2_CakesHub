@@ -14,7 +14,7 @@ struct CreateProductView: View, ViewModelable {
     @EnvironmentObject private var nav: Navigation
     @StateObject var viewModel: ViewModel
 
-    @AppStorage(ViewModel.Keys.currentPage) var currentPage = 1
+    @AppStorage(ViewModel.Keys.currentPage) var currentPage = 0
     @AppStorage(ViewModel.Keys.productName) var cakeName: String = .clear
     @AppStorage(ViewModel.Keys.productDescription) var cakeDescription: String = .clear
     @AppStorage(ViewModel.Keys.productPrice) var cakePrice: String = .clear
@@ -59,7 +59,7 @@ extension CreateProductView {
     }
 
     func didCloseProductImagesScreen() {
-        viewModel.productImages = selectedPhotosData
+        viewModel.saveSelectedImages(imagesData: selectedPhotosData)
         withAnimation {
             currentPage += 1
         }
@@ -71,4 +71,5 @@ extension CreateProductView {
 #Preview {
     CreateProductView(viewModel: .mockData)
         .environmentObject(Navigation())
+        .environmentObject(RootViewModel())
 }

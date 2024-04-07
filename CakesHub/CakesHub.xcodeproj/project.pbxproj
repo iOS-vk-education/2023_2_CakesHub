@@ -21,6 +21,7 @@
 		E51366232BC2119700B12304 /* RunnerBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E513661C2BC2119700B12304 /* RunnerBanner.swift */; };
 		E51366242BC2119700B12304 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E513661D2BC2119700B12304 /* SectionView.swift */; };
 		E51366282BC2143900B12304 /* AddProductImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51366272BC2143900B12304 /* AddProductImages.swift */; };
+		E513662A2BC21D1A00B12304 /* ProductResultScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51366292BC21D1A00B12304 /* ProductResultScreen.swift */; };
 		E51B326F2B7E5DFC0028E8C7 /* CakesHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B326E2B7E5DFC0028E8C7 /* CakesHubApp.swift */; };
 		E51B32712B7E5DFC0028E8C7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B32702B7E5DFC0028E8C7 /* MainView.swift */; };
 		E51B32732B7E5DFD0028E8C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E51B32722B7E5DFD0028E8C7 /* Assets.xcassets */; };
@@ -180,6 +181,7 @@
 		E513661C2BC2119700B12304 /* RunnerBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunnerBanner.swift; sourceTree = "<group>"; };
 		E513661D2BC2119700B12304 /* SectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		E51366272BC2143900B12304 /* AddProductImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductImages.swift; sourceTree = "<group>"; };
+		E51366292BC21D1A00B12304 /* ProductResultScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductResultScreen.swift; sourceTree = "<group>"; };
 		E51B326B2B7E5DFC0028E8C7 /* CakesHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CakesHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E51B326E2B7E5DFC0028E8C7 /* CakesHubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CakesHubApp.swift; sourceTree = "<group>"; };
 		E51B32702B7E5DFC0028E8C7 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -378,13 +380,14 @@
 			path = UIPlayground;
 			sourceTree = "<group>";
 		};
-		E51366252BC2138B00B12304 /* Subviews */ = {
+		E51366252BC2138B00B12304 /* Steps */ = {
 			isa = PBXGroup;
 			children = (
 				E51366272BC2143900B12304 /* AddProductImages.swift */,
 				E5DE858A2BC0D92B0013445A /* CreateCakeInfoView.swift */,
+				E51366292BC21D1A00B12304 /* ProductResultScreen.swift */,
 			);
-			path = Subviews;
+			path = Steps;
 			sourceTree = "<group>";
 		};
 		E51B32622B7E5DFC0028E8C7 = {
@@ -1220,7 +1223,7 @@
 			children = (
 				E5DE815F2BBFDC650012BD8E /* CreateProductSubviews.swift */,
 				E5DE81562BBFDC360012BD8E /* CreateProductView.swift */,
-				E51366252BC2138B00B12304 /* Subviews */,
+				E51366252BC2138B00B12304 /* Steps */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1451,6 +1454,7 @@
 				E51B334A2B7E62AF0028E8C7 /* ProductDetailScreen+Mock.swift in Sources */,
 				E51B32CF2B7E5FEF0028E8C7 /* CHMCommentView.swift in Sources */,
 				E52CDD082BB6460E009C08B9 /* ChatMessage.swift in Sources */,
+				E513662A2BC21D1A00B12304 /* ProductResultScreen.swift in Sources */,
 				E5DE858B2BC0D92B0013445A /* CreateCakeInfoView.swift in Sources */,
 				E51B33442B7E62AF0028E8C7 /* ProductReviewsViewModel.swift in Sources */,
 				E51366202BC2119700B12304 /* ImagePickerView.swift in Sources */,
