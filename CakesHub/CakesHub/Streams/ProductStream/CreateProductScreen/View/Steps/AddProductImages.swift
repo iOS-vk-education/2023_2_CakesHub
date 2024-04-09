@@ -34,6 +34,7 @@ struct AddProductImages: View {
                         if let uiImage = UIImage(data: data) {
                             Image(uiImage: uiImage)
                                 .resizable()
+                                .aspectRatio(contentMode: .fill)
                                 .frame(width: 200, height: 200)
                                 .clipShape(.rect(cornerRadius: 16))
                         }
@@ -84,7 +85,8 @@ private extension AddProductImages {
             if oldValue.count > newValue.count {
                 oldValue.forEach { item in
                     Task {
-                        if !newValue.contains(item), let data = try? await item.loadTransferable(type: Data.self) {
+                        if !newValue.contains(item), 
+                            let data = try? await item.loadTransferable(type: Data.self) {
                             if let index = selectedPhotosData.firstIndex(where: { $0 == data }) {
                                 selectedPhotosData.remove(at: index)
                             }
