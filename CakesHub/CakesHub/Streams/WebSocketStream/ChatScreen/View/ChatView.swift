@@ -15,7 +15,7 @@ struct ChatView: View, ViewModelable {
     @StateObject var viewModel: ViewModel
     @State var messageText: String = .clear
 
-    init(viewModel: ViewModel = ViewModel()) {
+    init(viewModel: ViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -30,7 +30,9 @@ struct ChatView: View, ViewModelable {
 private extension ChatView {
 
     func onAppear() {
-        viewModel.connectWebSocket()
+        viewModel.connectWebSocket {
+            nav.openPreviousScreen()
+        }
     }
 }
 

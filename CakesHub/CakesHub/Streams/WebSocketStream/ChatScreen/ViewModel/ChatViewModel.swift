@@ -11,25 +11,34 @@ import Foundation
 // MARK: - ChatViewModelProtocol
 
 protocol ChatViewModelProtocol: AnyObject {
-    func connectWebSocket(completion: CHMGenericBlock<APIError?>?)
+    func connectWebSocket(completion: @escaping CHMVoidBlock)
     func sendMessage(message: String)
 }
 
 // MARK: - ChatViewModel
 
 final class ChatViewModel: ObservableObject, ViewModelProtocol {
+ 
     @Published private(set) var messages: [ChatMessage]
     @Published private(set) var lastMessageID: UUID?
-    @Published private(set) var user: UserModel
+    @Published private(set) var seller: UserModel
+    private(set) var user: ProductModel.SellerInfo
+    private(set) var wsSocket: WebSockerManagerProtocol?
 
     init(
         messages: [ChatMessage] = [], 
         lastMessageID: UUID? = nil,
-        user: UserModel = .clear
+        seller: UserModel = .clear,
+        user: ProductModel.SellerInfo,
+        wsSocket: WebSockerManagerProtocol = WebSockerManager.shared
     ) {
         self.messages = messages
         self.lastMessageID = lastMessageID
+        self.seller = seller
         self.user = user
+        if self.wsSocket == nil {
+            self.wsSocket = wsSocket
+        }
     }
 }
 
@@ -38,14 +47,37 @@ final class ChatViewModel: ObservableObject, ViewModelProtocol {
 extension ChatViewModel: ChatViewModelProtocol {
 
     /// Create web socket connection with the server
-    func connectWebSocket(completion: CHMGenericBlock<APIError?>? = nil) {
+    func connectWebSocket(completion: @escaping CHMVoidBlock) {
         messages.append(.init(
             isYou: false,
             message: "Привет! Как дела? Тебе понравился какой-то товар?",
-            user: .init(name: user.name, image: user.userImage),
+            user: .init(name: seller.name, image: seller.userImage),
             time: Date.now.formattedString(format: "HH:mm"),
             state: .received
         ))
+        wsSocket?.connection { [weak self] error in
+            guard let self else { return }
+            if let error {
+                Logger.log(kind: .error, message: error)
+                return
+            }
+
+            /// Сообщения для добавления в сессию при успешном соединении.
+            wsSocket?.send(
+                message: .init(
+                    id: UUID(),
+                    kind: .connection,
+                    userName: user.name,
+                    userID: user.id,
+                    receiverID: "",
+                    dispatchDate: Date(),
+                    message: "",
+                    state: .progress
+                )
+            ) { [weak self] in
+                self?.receiveWebSocketData()
+            }
+        }
     }
 
     /// Sending message to the server
@@ -55,20 +87,23 @@ extension ChatViewModel: ChatViewModelProtocol {
             id: UUID(),
             kind: .message,
             userName: user.name,
+            userID: user.id,
+            receiverID: seller.id,
             dispatchDate: Date(),
             message: message,
             state: .progress
         )
         lastMessageID = msg.id
-        messages.append(msg.mapper(name: user.name, userImage: user.userImage))
-//        WebSockerManager.shared.send(message: msg)
+        let chatMsg = msg.mapper(name: user.name, userImage: user.userImage)
+        messages.append(chatMsg)
+        wsSocket?.send(message: msg, completion: {})
     }
 
     /// Quit chat view
     func quitChat() {
         messages = []
         lastMessageID = nil
-//        WebSockerManager.shared.close()
+        wsSocket?.close()
     }
 }
 
@@ -77,5 +112,29 @@ extension ChatViewModel: ChatViewModelProtocol {
 private extension ChatViewModel {
 
     /// Getting new message
-    func receiveWebSocketData() {}
+    func receiveWebSocketData() {
+        wsSocket?.receive { [weak self] message in
+            guard let self, message.kind == .message else { return }
+            let image: ImageKind = message.userID == user.id ? user.userImage : seller.userImage
+            let chatMessage = ChatMessage(
+                id: message.id,
+                isYou: message.userID == user.id,
+                message: message.message,
+                user: .init(name: message.userName, image: image),
+                time: message.dispatchDate.formattedString(format: "HH:mm"),
+                state: message.state
+            )
+            // Если сообщение не найденно, значит добавляем его
+            guard let index = messages.firstIndex(where: { $0.id == chatMessage.id }) else {
+                DispatchQueue.main.async {
+                    self.messages.append(chatMessage)
+                    self.lastMessageID = chatMessage.id
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                self.messages[index] = chatMessage
+            }
+        }
+    }
 }

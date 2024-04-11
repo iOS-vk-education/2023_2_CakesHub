@@ -114,6 +114,8 @@
 		E52CE6E72BBE39E0001F45BB /* Date+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52CE6E62BBE39E0001F45BB /* Date+Extenstions.swift */; };
 		E530C7302B935DCD00658817 /* DictionaryConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E530C72F2B935DCD00658817 /* DictionaryConvertible.swift */; };
 		E53528A32BAF134100A1ADC3 /* Text+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53528A22BAF134100A1ADC3 /* Text+Extenstions.swift */; };
+		E535642F2BC7525A001077DF /* WebSockerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E535642E2BC7525A001077DF /* WebSockerManager.swift */; };
+		E53564312BC75835001077DF /* WebSocketTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53564302BC75835001077DF /* WebSocketTesting.swift */; };
 		E54A3C522BB8FDCC00CBFEEB /* AllProductsCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A3C4C2BB8FDCC00CBFEEB /* AllProductsCategoryView.swift */; };
 		E54A3C532BB8FDCC00CBFEEB /* AllProductsCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A3C4E2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel.swift */; };
 		E54A3C542BB8FDCC00CBFEEB /* AllProductsCategoryViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A3C4F2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel+Mock.swift */; };
@@ -275,6 +277,8 @@
 		E52CE6E62BBE39E0001F45BB /* Date+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extenstions.swift"; sourceTree = "<group>"; };
 		E530C72F2B935DCD00658817 /* DictionaryConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryConvertible.swift; sourceTree = "<group>"; };
 		E53528A22BAF134100A1ADC3 /* Text+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Extenstions.swift"; sourceTree = "<group>"; };
+		E535642E2BC7525A001077DF /* WebSockerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSockerManager.swift; sourceTree = "<group>"; };
+		E53564302BC75835001077DF /* WebSocketTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketTesting.swift; sourceTree = "<group>"; };
 		E54A3C4C2BB8FDCC00CBFEEB /* AllProductsCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllProductsCategoryView.swift; sourceTree = "<group>"; };
 		E54A3C4E2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllProductsCategoryViewModel.swift; sourceTree = "<group>"; };
 		E54A3C4F2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AllProductsCategoryViewModel+Mock.swift"; sourceTree = "<group>"; };
@@ -376,6 +380,7 @@
 				E513661B2BC2119700B12304 /* PlaygroundView.swift */,
 				E513661C2BC2119700B12304 /* RunnerBanner.swift */,
 				E513661D2BC2119700B12304 /* SectionView.swift */,
+				E53564302BC75835001077DF /* WebSocketTesting.swift */,
 			);
 			path = UIPlayground;
 			sourceTree = "<group>";
@@ -963,6 +968,14 @@
 			path = WebSocketStream;
 			sourceTree = "<group>";
 		};
+		E535642D2BC7524B001077DF /* WebSocket */ = {
+			isa = PBXGroup;
+			children = (
+				E535642E2BC7525A001077DF /* WebSockerManager.swift */,
+			);
+			path = WebSocket;
+			sourceTree = "<group>";
+		};
 		E54A3C4B2BB8FDCC00CBFEEB /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1115,6 +1128,7 @@
 		E59AEC652B92B16400760E61 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				E535642D2BC7524B001077DF /* WebSocket */,
 				E59AEC732B92B27200760E61 /* Firebase */,
 				E56512DD2BB6478000860F46 /* ImageProvider.swift */,
 				E59AEC692B92B1D500760E61 /* APIError.swift */,
@@ -1364,6 +1378,7 @@
 				E51B32DD2B7E5FEF0028E8C7 /* CHMBigBannerView.swift in Sources */,
 				E59AEC702B92B22000760E61 /* RegisterUserRequest.swift in Sources */,
 				E5B636642BB6751400B2F076 /* RootViewModel.swift in Sources */,
+				E535642F2BC7525A001077DF /* WebSockerManager.swift in Sources */,
 				E51B32F72B7E5FEF0028E8C7 /* MKRImageView+Preview.swift in Sources */,
 				E51366212BC2119700B12304 /* ImageView.swift in Sources */,
 				E5DE815D2BBFDC360012BD8E /* CreateProductViewModel.swift in Sources */,
@@ -1409,6 +1424,7 @@
 				E51B32F32B7E5FEF0028E8C7 /* CHMStarsView.swift in Sources */,
 				E51B32E62B7E5FEF0028E8C7 /* CHMBadgeView.swift in Sources */,
 				E51B33282B7E602A0028E8C7 /* Modifiy.swift in Sources */,
+				E53564312BC75835001077DF /* WebSocketTesting.swift in Sources */,
 				A3A03F572BB33A730034C0B1 /* SettingsView.swift in Sources */,
 				E52CDD0C2BB6460E009C08B9 /* ChatView.swift in Sources */,
 				A3A03F592BB3430D0034C0B1 /* NotificationsView.swift in Sources */,

@@ -20,6 +20,7 @@ extension Navigation {
     }
 
     func openPreviousScreen() {
+        guard path.count - 1 >= 0 else { return }
         path.removeLast()
     }
 }
