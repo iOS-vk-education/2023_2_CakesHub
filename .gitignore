@@ -91,3 +91,11 @@ fastlane/test_output
 iOSInjectionProject/
 CakesHub/CakesHub/Streams/UIPlayground
 CakesHub/CakesHub/Resources/Preview Content/Preview Assets.xcassets/SecretImages
+Packages
+db.sqlite
+.swiftpm
+.env
+.env.*
+! .env.example
+.vscode
+
