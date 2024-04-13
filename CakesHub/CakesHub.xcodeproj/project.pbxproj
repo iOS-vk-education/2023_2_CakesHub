@@ -125,6 +125,9 @@
 		E55651802BB9AC6400759839 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55651762BB9AC6400759839 /* NotificationViewModel.swift */; };
 		E55651822BB9DFD200759839 /* NotificationViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55651812BB9DFD200759839 /* NotificationViewModel+Mock.swift */; };
 		E55651842BB9E66F00759839 /* NotificationSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55651832BB9E66F00759839 /* NotificationSubviews.swift */; };
+		E55B5EBF2BCA496B00DDDFA4 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EB92BCA496B00DDDFA4 /* AuthView.swift */; };
+		E55B5EC02BCA496B00DDDFA4 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EBB2BCA496B00DDDFA4 /* AuthViewModel.swift */; };
+		E55B5EC12BCA496B00DDDFA4 /* AuthViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EBC2BCA496B00DDDFA4 /* AuthViewModel+Mock.swift */; };
 		E55E77A72BA9157B00B463A0 /* ProductDetailSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E77A62BA9157B00B463A0 /* ProductDetailSubviews.swift */; };
 		E55E77A92BA917BD00B463A0 /* ProductReviewsSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E77A82BA917BD00B463A0 /* ProductReviewsSubviews.swift */; };
 		E55E77AC2BA918D200B463A0 /* CategoriesSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E77AB2BA918D200B463A0 /* CategoriesSubviews.swift */; };
@@ -288,6 +291,9 @@
 		E55651762BB9AC6400759839 /* NotificationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		E55651812BB9DFD200759839 /* NotificationViewModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationViewModel+Mock.swift"; sourceTree = "<group>"; };
 		E55651832BB9E66F00759839 /* NotificationSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSubviews.swift; sourceTree = "<group>"; };
+		E55B5EB92BCA496B00DDDFA4 /* AuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		E55B5EBB2BCA496B00DDDFA4 /* AuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		E55B5EBC2BCA496B00DDDFA4 /* AuthViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthViewModel+Mock.swift"; sourceTree = "<group>"; };
 		E55E77A62BA9157B00B463A0 /* ProductDetailSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailSubviews.swift; sourceTree = "<group>"; };
 		E55E77A82BA917BD00B463A0 /* ProductReviewsSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductReviewsSubviews.swift; sourceTree = "<group>"; };
 		E55E77AB2BA918D200B463A0 /* CategoriesSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesSubviews.swift; sourceTree = "<group>"; };
@@ -345,9 +351,8 @@
 		A332D1652BB2F842007C194D /* ProfileStream */ = {
 			isa = PBXGroup;
 			children = (
-				E5C89A502BB3215900D06BA7 /* Model */,
-				E5C89A4F2BB3214F00D06BA7 /* ViewModel */,
-				E5C89A4E2BB3214A00D06BA7 /* View */,
+				E55B5EBE2BCA496B00DDDFA4 /* AuthScreen */,
+				E55B5EAA2BCA491800DDDFA4 /* ProfileScreen */,
 			);
 			path = ProfileStream;
 			sourceTree = "<group>";
@@ -1055,6 +1060,50 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
+		E55B5EAA2BCA491800DDDFA4 /* ProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E5C89A502BB3215900D06BA7 /* Model */,
+				E5C89A4F2BB3214F00D06BA7 /* ViewModel */,
+				E5C89A4E2BB3214A00D06BA7 /* View */,
+			);
+			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
+		E55B5EB82BCA496B00DDDFA4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E55B5EBA2BCA496B00DDDFA4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E55B5EB92BCA496B00DDDFA4 /* AuthView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E55B5EBD2BCA496B00DDDFA4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E55B5EBB2BCA496B00DDDFA4 /* AuthViewModel.swift */,
+				E55B5EBC2BCA496B00DDDFA4 /* AuthViewModel+Mock.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E55B5EBE2BCA496B00DDDFA4 /* AuthScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E55B5EB82BCA496B00DDDFA4 /* Model */,
+				E55B5EBA2BCA496B00DDDFA4 /* View */,
+				E55B5EBD2BCA496B00DDDFA4 /* ViewModel */,
+			);
+			path = AuthScreen;
+			sourceTree = "<group>";
+		};
 		E55E77A52BA9155900B463A0 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -1395,10 +1444,12 @@
 				E51B331E2B7E60010028E8C7 /* Optional+Extensions.swift in Sources */,
 				E52CDD0A2BB6460E009C08B9 /* ChatSubviews.swift in Sources */,
 				E59AEC7F2B92C4A600760E61 /* ProductRequest+Mock.swift in Sources */,
+				E55B5EC12BCA496B00DDDFA4 /* AuthViewModel+Mock.swift in Sources */,
 				E51B33202B7E60010028E8C7 /* URL+Extensions.swift in Sources */,
 				E51B32DB2B7E5FEF0028E8C7 /* CHMBigBannerView+Configuration.swift in Sources */,
 				E51B32F82B7E5FEF0028E8C7 /* MKRImageView.swift in Sources */,
 				E51B33512B7E63090028E8C7 /* ViewModelable.swift in Sources */,
+				E55B5EBF2BCA496B00DDDFA4 /* AuthView.swift in Sources */,
 				E51B32E52B7E5FEF0028E8C7 /* CHMBadgeView+Configuration.swift in Sources */,
 				E51B33112B7E60010028E8C7 /* CGSize+Extensions.swift in Sources */,
 				E556517D2BB9AC6400759839 /* NotificationView.swift in Sources */,
@@ -1495,6 +1546,7 @@
 				E51B32D02B7E5FEF0028E8C7 /* CHMCommentView+Configuration.swift in Sources */,
 				E5DE815E2BBFDC360012BD8E /* CreateProductViewModel+Mock.swift in Sources */,
 				E51B33162B7E60010028E8C7 /* UIColor+Extenstions.swift in Sources */,
+				E55B5EC02BCA496B00DDDFA4 /* AuthViewModel.swift in Sources */,
 				E51B32DA2B7E5FEF0028E8C7 /* CHMNewCategoryView+Preview.swift in Sources */,
 				E51B32DF2B7E5FEF0028E8C7 /* CHMProductDescriptionView+Defaults.swift in Sources */,
 				E5DE815C2BBFDC360012BD8E /* CreateProductView.swift in Sources */,
