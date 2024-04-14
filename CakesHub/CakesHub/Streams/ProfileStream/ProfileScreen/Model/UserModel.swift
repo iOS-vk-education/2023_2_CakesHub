@@ -44,7 +44,7 @@ private extension UserModel {
     enum Constants {
         static let sellerProducts: [ProductModel] = (1...24).map {
             ProductModel(
-                productID: $0,
+                id: String($0),
                 images: [
                     .init(kind: .url(.mockProductCard)),
                     .init(kind: .url(.mockCake1)),

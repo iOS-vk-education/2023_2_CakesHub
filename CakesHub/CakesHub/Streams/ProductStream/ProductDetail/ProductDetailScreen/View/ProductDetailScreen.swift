@@ -58,7 +58,7 @@ extension ProductDetailScreen {
         }
     }
 
-    func didTapLikeSimilarProductCard(id: UUID, isSelected: Bool) {
+    func didTapLikeSimilarProductCard(id: String, isSelected: Bool) {
         print("id: \(id) | isSelected: \(isSelected)")
     }
 

@@ -8,30 +8,33 @@
 import SwiftData
 
 @Model
-class CurrentUserModel {
+class SDUserModel {
     var uid: String
     var nickName: String
     var email: String
     var userImageURL: String?
     var userHeaderImageURL: String?
+    var products: [SDProductModel]
 
     init(
         uid: String,
         nickName: String,
         email: String,
         userImageURL: String? = nil,
-        userHeaderImageURL: String? = nil
+        userHeaderImageURL: String? = nil,
+        products: [SDProductModel] = []
     ) {
         self.uid = uid
         self.nickName = nickName
         self.email = email
         self.userImageURL = userImageURL
         self.userHeaderImageURL = userHeaderImageURL
+        self.products = products
     }
 }
 
 #if DEBUG
-extension CurrentUserModel? {
+extension SDUserModel? {
 
     static let king = ProductModel.SellerInfo(
         id: "1",

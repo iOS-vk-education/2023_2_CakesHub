@@ -82,5 +82,5 @@ extension AuthView {
     AuthView(viewModel: .mockData)
         .environmentObject(Navigation())
         .environmentObject(RootViewModel())
-        .modelContainer(Preview(CurrentUserModel.self).container)
+        .modelContainer(Preview(SDUserModel.self).container)
 }

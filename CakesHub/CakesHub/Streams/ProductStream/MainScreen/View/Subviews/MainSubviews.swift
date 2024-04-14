@@ -106,7 +106,7 @@ extension MainView {
         buttonTitle: String,
         cards: [ProductModel],
         badgeKind: CHMBadgeView.Configuration.Kind,
-        complection: @escaping (UUID, Bool) -> Void
+        complection: @escaping (String, Bool) -> Void
     ) -> some View {
         VStack {
             SectionHeader(
@@ -159,7 +159,7 @@ extension MainView {
         cards: [ProductModel],
         badgeKind: CHMBadgeView.Configuration.Kind,
         sectionTitle: String,
-        complection: @escaping (UUID, Bool) -> Void
+        complection: @escaping (String, Bool) -> Void
     ) -> some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 16) {
@@ -185,7 +185,7 @@ extension MainView {
     func ProductCard(
         for card: ProductModel,
         badgeConfiguration: CHMBadgeView.Configuration,
-        complection: @escaping (UUID, Bool) -> Void
+        complection: @escaping (String, Bool) -> Void
     ) -> some View {
         if viewModel.isShimmering {
             CHMNewProductCard(

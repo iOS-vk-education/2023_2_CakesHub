@@ -18,7 +18,7 @@ extension ProductDetailScreen.ViewModel: Mockable {
 extension ProductModel: Mockable {
 
     static let mockData = ProductModel(
-        productID: 0,
+        id: UUID().uuidString,
         images: [
             .init(kind: .url(.mockProductCard)),
             .init(kind: .url(.mockCake2)),
@@ -37,8 +37,8 @@ extension ProductModel: Mockable {
         similarProducts: .similarProducts
     )
 
-    static func emptyCards(id: Int) -> Self {
-        ProductModel(productID: id)
+    static func emptyCards(id: String) -> Self {
+        ProductModel(id: id)
     }
 }
 

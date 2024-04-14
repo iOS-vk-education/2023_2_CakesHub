@@ -86,5 +86,5 @@ private extension RootView {
 #Preview {
     RootView()
         .environmentObject(Navigation())
-        .modelContainer(Preview(CurrentUserModel.self).container)
+        .modelContainer(Preview(SDUserModel.self).container)
 }

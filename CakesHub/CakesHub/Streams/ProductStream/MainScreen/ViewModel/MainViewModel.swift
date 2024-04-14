@@ -14,7 +14,7 @@ protocol MainViewModelProtocol: AnyObject {
     func groupDataBySection()
     func startViewDidLoad()
     func pullToRefresh()
-    func didTapFavoriteButton(id: UUID, section: MainViewModel.Section, isSelected: Bool)
+    func didTapFavoriteButton(id: String, section: MainViewModel.Section, isSelected: Bool)
 }
 
 // MARK: - MainViewModel
@@ -98,7 +98,7 @@ extension MainViewModel: MainViewModelProtocol {
     func startViewDidLoad() {
         guard sections.isEmpty else { return }
         isShimmering = true
-        let shimmeringCards: [ProductModel] = (0...3).map { .emptyCards(id: $0) }
+        let shimmeringCards: [ProductModel] = (0...3).map { .emptyCards(id: String($0)) }
         let salesSection = Section.sales(shimmeringCards)
         let newsSection = Section.news(shimmeringCards)
         let allSection = Section.all(shimmeringCards)
@@ -129,5 +129,5 @@ extension MainViewModel: MainViewModelProtocol {
 
     func pullToRefresh() {}
 
-    func didTapFavoriteButton(id: UUID, section: Section, isSelected: Bool) {}
+    func didTapFavoriteButton(id: String, section: Section, isSelected: Bool) {}
 }

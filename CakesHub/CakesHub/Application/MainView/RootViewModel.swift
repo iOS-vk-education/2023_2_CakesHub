@@ -15,11 +15,16 @@ final class RootViewModel: ObservableObject {
     @Published var products: [ProductModel] = []
     @Published var currentUser: ProductModel.SellerInfo = .clear
     @Published var currentUserProducts: [ProductModel] = []
+
     var isAuth: Bool {
         !currentUser.id.isEmpty && !currentUser.mail.isEmpty
     }
 
-    init(products: [ProductModel] = [], currentUser: ProductModel.SellerInfo = .clear, currentUserProducts: [ProductModel] = []) {
+    init(
+        products: [ProductModel] = [], 
+        currentUser: ProductModel.SellerInfo = .clear,
+        currentUserProducts: [ProductModel] = []
+    ) {
         self.products = products
         self.currentUser = currentUser
         self.currentUserProducts = currentUserProducts
@@ -34,7 +39,11 @@ extension RootViewModel: RootViewModelProtocol {
         products = .mockProducts
         // TODO: Кэшировать торты пользователя
 //        currentUser = .king
-//        currentUserProducts = products.filter { $0.seller.id == currentUser.id }
+        currentUserProducts = products.filter { $0.seller.id == currentUser.id }
+    }
+
+    func saveUserProducts() {
+        
     }
 }
 

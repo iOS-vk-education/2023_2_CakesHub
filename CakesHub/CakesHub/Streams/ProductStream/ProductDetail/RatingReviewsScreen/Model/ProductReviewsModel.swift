@@ -20,7 +20,7 @@ struct ProductReviewsModel {
     var comments        : [CommentInfo] = []
 
     struct CommentInfo: Identifiable {
-        let id             = UUID()
+        let id             : String = UUID().uuidString
         var userName       : String = .clear
         var date           : String = .clear
         var description    : String = .clear

@@ -17,7 +17,7 @@ protocol AuthViewModelProtocol: AnyObject {
     func didTapRegisterButton() async throws
     func didTapSignInButton() async throws
     // Memory
-    func saveUserInMemory(user: CurrentUserModel)
+    func saveUserInMemory(user: SDUserModel)
     // Reducers
     func setContext(context: ModelContext)
     func setRootViewModel(viewModel: RootViewModel)
@@ -58,7 +58,7 @@ extension AuthViewModel {
         let uid = try await authService.registeUser(with: inputData.mapper)
 
         // Сохраняем данные о пользователе на устройстве
-        let user = CurrentUserModel(uid: uid, nickName: inputData.nickName, email: inputData.email)
+        let user = SDUserModel(uid: uid, nickName: inputData.nickName, email: inputData.email)
         saveUserInMemory(user: user)
 
         // Обновляем рутового пользователя. Должно выполняться на главном потоке
@@ -81,7 +81,7 @@ extension AuthViewModel {
         let userInfo = try await userService.getUserInfo(uid: userUID)
 
         // Сохраняем новые данные на устройстве
-        let user = CurrentUserModel(
+        let user = SDUserModel(
             uid: userInfo.uid,
             nickName: userInfo.nickname,
             email: userInfo.email,
@@ -101,7 +101,7 @@ extension AuthViewModel {
 
     /// Достаём данные о `пользователе` из устройства
     func fetchUserInfo() {
-        let fetchDescriptor = FetchDescriptor<CurrentUserModel>()
+        let fetchDescriptor = FetchDescriptor<SDUserModel>()
 
         do {
             guard let userInfo = try context?.fetch(fetchDescriptor).first else {
@@ -121,7 +121,7 @@ extension AuthViewModel {
     }
 
     /// Сохраняем данные о `пользователе` на устройство
-    func saveUserInMemory(user: CurrentUserModel) {
+    func saveUserInMemory(user: SDUserModel) {
         DispatchQueue.global(qos: .utility).async {
             self.context?.insert(user)
             do {

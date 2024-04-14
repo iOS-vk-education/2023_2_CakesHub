@@ -42,7 +42,7 @@ extension MainView {
     /// - Parameters:
     ///   - id: id продукта
     ///   - isSelected: флаг лайка
-    func didTapFavoriteButton(id: UUID, section: ViewModel.Section, isSelected: Bool) {
+    func didTapFavoriteButton(id: String, section: ViewModel.Section, isSelected: Bool) {
         Logger.log(message: "id: \(id) | section: \(section.title) | isSelected: \(isSelected)")
         viewModel.didTapFavoriteButton(id: id, section: section, isSelected: isSelected)
     }

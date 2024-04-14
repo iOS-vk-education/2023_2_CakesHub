@@ -72,7 +72,7 @@ extension [ProductModel] {
 
     private static let mockNewsData: [ProductModel] = (1...20).map {
         ProductModel(
-            productID: $0,
+            id: String($0),
             images: [
                 .init(kind: .url(.mockCake1)),
                 .init(kind: .url(.mockCake2)),
@@ -95,7 +95,7 @@ extension [ProductModel] {
 
     private static let mockSalesData: [ProductModel] = (21...40).map {
         ProductModel(
-            productID: $0,
+            id: String($0),
             images: [
                 .init(kind: .url(.mockCake3)),
                 .init(kind: .url(.mockCake2)),
@@ -119,7 +119,7 @@ extension [ProductModel] {
 
     private static let mockAllData: [ProductModel] = (41...61).map {
         ProductModel(
-            productID: $0,
+            id: String($0),
             images: [
                 .init(kind: .url(.mockProductCard)),
                 .init(kind: .url(.mockCake2)),
@@ -141,7 +141,7 @@ extension [ProductModel] {
 
     static let similarProducts: [ProductModel] = (62...83).map {
         ProductModel(
-            productID: $0,
+            id: String($0),
             images: [
                 .init(kind: .uiImage(CHMImage.mockImageCake)),
                 .init(kind: .url(.mockCake3)),

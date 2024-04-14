@@ -103,7 +103,7 @@ private extension CreateProductViewModel {
         }
 
         let newProduct = ProductModel(
-            productID: rootViewModel.products.count,
+            id: UUID().uuidString,
             images: images,
             badgeText: badgeText,
             isFavorite: false,

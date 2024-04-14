@@ -67,7 +67,7 @@ extension ProfileScreen {
     }
 
     /// Нажали на лайк карточки товара
-    func didTapProductLikeButton(for uid: UUID, isSelected: Bool) {
+    func didTapProductLikeButton(for uid: String, isSelected: Bool) {
         Logger.log(message: "Нажали лайк \(uid): \(isSelected)")
     }
 }

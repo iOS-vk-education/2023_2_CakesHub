@@ -10,9 +10,7 @@ import SwiftUI
 import UIKit
 
 struct ProductModel: Identifiable, Hashable {
-    let id = UUID()
-    /// ID с бэка
-    var productID: Int
+    let id: String
     /// Картинки товара
     var images: [ProductImage] = []
     /// Бейдж с информацией

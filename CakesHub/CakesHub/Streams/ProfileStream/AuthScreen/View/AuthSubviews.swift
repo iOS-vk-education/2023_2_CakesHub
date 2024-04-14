@@ -44,7 +44,7 @@ extension AuthView {
 #Preview {
     AuthView(viewModel: .mockData)
         .environmentObject(Navigation())
-        .modelContainer(for: CurrentUserModel.self)
+        .modelContainer(for: SDUserModel.self)
 }
 
 // MARK: - Constants
