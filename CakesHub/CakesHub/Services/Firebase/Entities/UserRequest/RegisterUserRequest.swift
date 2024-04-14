@@ -18,7 +18,11 @@ struct RegisterUserRequest {
 #if DEBUG
 extension RegisterUserRequest: Mockable {
     
-    /// UID: 8n5di1sb8ya1I9Tc2uR8TWpgtsK2
-    static let mockData = RegisterUserRequest(nickname: "mightyK1ngRichard", email: "dimapermyakov55@gmail.com", password: "123456789")
+    /// `UID`: D4zfn3CLZjb0d2PWVPIFmGhptHr2
+    static let mockData = RegisterUserRequest(
+        nickname: UserRequest.mockData.nickname,
+        email: UserRequest.mockData.email,
+        password: "123456789"
+    )
 }
 #endif

@@ -14,15 +14,19 @@ enum APIError: LocalizedError {
     case error(Error)
     case responseIsNil
     case incorrectlyURL
+    case uidNotFound
+    case userIsNil
 
     var errorDescription: String {
         switch self {
-        case .badParameters: return "Query parameters are incorrectly"
+        case .badParameters: return "query parameters are incorrectly"
         case .dataIsNil: return "data is nil"
         case .responseIsNil: return "response is nil"
         case .badStatusCode(let code): return "Bad statuc code: \(code)"
         case .error(let error): return error.localizedDescription
-        case .incorrectlyURL: return "URL is incorrectly"
+        case .incorrectlyURL: return "url is incorrectly"
+        case .uidNotFound: return "user uid not found"
+        case .userIsNil: return "current user not found"
         }
     }
 }

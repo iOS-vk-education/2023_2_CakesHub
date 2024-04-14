@@ -6,15 +6,15 @@
 //
 
 import Foundation
-import FirebaseFirestore
 import FirebaseAuth
 
 // MARK: - AuthServiceProtocol
 
-protocol AuthServiceProtocol {
+protocol AuthServiceProtocol: AnyObject {
     func registeUser(with userRequest: RegisterUserRequest) async throws -> String
-    func loginUser(with userRequest: LoginUserRequest) async throws -> AuthDataResult
+    func loginUser(with userRequest: LoginUserRequest) async throws -> String
     func logoutUser() throws
+    func deleteUser() async throws
 }
 
 // MARK: - AuthService
@@ -33,23 +33,27 @@ extension AuthService: AuthServiceProtocol {
 
     func registeUser(with userRequest: RegisterUserRequest) async throws -> String {
         let result = try await auth.createUser(withEmail: userRequest.email, password: userRequest.password)
-        let user = result.user
-        let db = Firestore.firestore()
-        let uid = user.uid
-        let userData = [
-            "uid": uid,
-            "nickname": userRequest.nickname,
-            "email": userRequest.email
-        ]
-        try await db.collection(FirestoreCollections.users.rawValue).document(user.uid).setData(userData)
+        let uid = result.user.uid
+        let createdUser = UserRequest(uid: uid, nickname: userRequest.nickname, email: userRequest.email)
+        try await UserService.shared.createUserInfo(for: createdUser)
         return uid
     }
 
-    func loginUser(with userRequest: LoginUserRequest) async throws -> AuthDataResult {
-        try await auth.signIn(withEmail: userRequest.email, password: userRequest.password)
+    func loginUser(with userRequest: LoginUserRequest) async throws -> String {
+        let result = try await auth.signIn(withEmail: userRequest.email, password: userRequest.password)
+        let userUID = result.user.uid
+        return userUID
     }
 
     func logoutUser() throws {
         try auth.signOut()
+    }
+
+    func deleteUser() async throws {
+        guard let currentUser = auth.currentUser else {
+            throw APIError.userIsNil
+        }
+        
+        try await currentUser.delete()
     }
 }

@@ -17,11 +17,13 @@
 		E513661F2BC2119700B12304 /* CutomImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51366182BC2119700B12304 /* CutomImagePicker.swift */; };
 		E51366202BC2119700B12304 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51366192BC2119700B12304 /* ImagePickerView.swift */; };
 		E51366212BC2119700B12304 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E513661A2BC2119700B12304 /* ImageView.swift */; };
-		E51366222BC2119700B12304 /* PlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E513661B2BC2119700B12304 /* PlaygroundView.swift */; };
 		E51366232BC2119700B12304 /* RunnerBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E513661C2BC2119700B12304 /* RunnerBanner.swift */; };
 		E51366242BC2119700B12304 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E513661D2BC2119700B12304 /* SectionView.swift */; };
 		E51366282BC2143900B12304 /* AddProductImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51366272BC2143900B12304 /* AddProductImages.swift */; };
 		E513662A2BC21D1A00B12304 /* ProductResultScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51366292BC21D1A00B12304 /* ProductResultScreen.swift */; };
+		E5155CD82BCBA0AC00BF773D /* PreviewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5155CD72BCBA0AC00BF773D /* PreviewContainer.swift */; };
+		E5155CDA2BCBA4A900BF773D /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5155CD92BCBA4A900BF773D /* UserService.swift */; };
+		E5155CDC2BCBC04800BF773D /* FirebaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5155CDB2BCBC04800BF773D /* FirebaseView.swift */; };
 		E51B326F2B7E5DFC0028E8C7 /* CakesHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B326E2B7E5DFC0028E8C7 /* CakesHubApp.swift */; };
 		E51B32712B7E5DFC0028E8C7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B32702B7E5DFC0028E8C7 /* MainView.swift */; };
 		E51B32732B7E5DFD0028E8C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E51B32722B7E5DFD0028E8C7 /* Assets.xcassets */; };
@@ -185,11 +187,13 @@
 		E51366182BC2119700B12304 /* CutomImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CutomImagePicker.swift; sourceTree = "<group>"; };
 		E51366192BC2119700B12304 /* ImagePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		E513661A2BC2119700B12304 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
-		E513661B2BC2119700B12304 /* PlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaygroundView.swift; sourceTree = "<group>"; };
 		E513661C2BC2119700B12304 /* RunnerBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunnerBanner.swift; sourceTree = "<group>"; };
 		E513661D2BC2119700B12304 /* SectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		E51366272BC2143900B12304 /* AddProductImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductImages.swift; sourceTree = "<group>"; };
 		E51366292BC21D1A00B12304 /* ProductResultScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductResultScreen.swift; sourceTree = "<group>"; };
+		E5155CD72BCBA0AC00BF773D /* PreviewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContainer.swift; sourceTree = "<group>"; };
+		E5155CD92BCBA4A900BF773D /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		E5155CDB2BCBC04800BF773D /* FirebaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseView.swift; sourceTree = "<group>"; };
 		E51B326B2B7E5DFC0028E8C7 /* CakesHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CakesHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E51B326E2B7E5DFC0028E8C7 /* CakesHubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CakesHubApp.swift; sourceTree = "<group>"; };
 		E51B32702B7E5DFC0028E8C7 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -388,10 +392,10 @@
 				E51366182BC2119700B12304 /* CutomImagePicker.swift */,
 				E51366192BC2119700B12304 /* ImagePickerView.swift */,
 				E513661A2BC2119700B12304 /* ImageView.swift */,
-				E513661B2BC2119700B12304 /* PlaygroundView.swift */,
 				E513661C2BC2119700B12304 /* RunnerBanner.swift */,
 				E513661D2BC2119700B12304 /* SectionView.swift */,
 				E53564302BC75835001077DF /* WebSocketTesting.swift */,
+				E5155CDB2BCBC04800BF773D /* FirebaseView.swift */,
 			);
 			path = UIPlayground;
 			sourceTree = "<group>";
@@ -429,7 +433,6 @@
 				E5272FBB2B9A9B1100F181A1 /* Application */,
 				E59AEC652B92B16400760E61 /* Services */,
 				E55B5EC62BCA544800DDDFA4 /* SwiftDataModels */,
-				E59AEC572B92A92C00760E61 /* Entities */,
 				E51B327C2B7E5E180028E8C7 /* Resources */,
 				E51B33242B7E602A0028E8C7 /* Helpers */,
 				E51B327E2B7E5EE30028E8C7 /* Streams */,
@@ -441,6 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				E51B32752B7E5DFD0028E8C7 /* Preview Assets.xcassets */,
+				E5155CD72BCBA0AC00BF773D /* PreviewContainer.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -1215,6 +1219,8 @@
 		E59AEC732B92B27200760E61 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
+				E59AEC572B92A92C00760E61 /* Entities */,
+				E5155CD92BCBA4A900BF773D /* UserService.swift */,
 				E59AEC792B92B99F00760E61 /* CakeService.swift */,
 				E59AEC672B92B17200760E61 /* AuthService.swift */,
 				E59AEC712B92B25600760E61 /* FirestoreCollections.swift */,
@@ -1430,7 +1436,6 @@
 				E51B332E2B7E603E0028E8C7 /* Configurable.swift in Sources */,
 				E59AEC7A2B92B99F00760E61 /* CakeService.swift in Sources */,
 				E51B32712B7E5DFC0028E8C7 /* MainView.swift in Sources */,
-				E51366222BC2119700B12304 /* PlaygroundView.swift in Sources */,
 				E56D0FF72B80CF6500B803EF /* CategoriesView.swift in Sources */,
 				E51B32D32B7E5FEF0028E8C7 /* CHMNewProductCard+Defaults.swift in Sources */,
 				E59AEC6E2B92B21200760E61 /* LoginUserRequest.swift in Sources */,
@@ -1451,6 +1456,7 @@
 				E56512DE2BB6478000860F46 /* ImageProvider.swift in Sources */,
 				A332D1692BB2F842007C194D /* UserModel.swift in Sources */,
 				E51B32D82B7E5FEF0028E8C7 /* CHMNewCategoryView+Defaults.swift in Sources */,
+				E5155CDA2BCBA4A900BF773D /* UserService.swift in Sources */,
 				E56D0FF92B80D0A100B803EF /* CategoriesTab.swift in Sources */,
 				E51B32F62B7E5FEF0028E8C7 /* MKRImageView+Defaults.swift in Sources */,
 				E51B32E72B7E5FEF0028E8C7 /* CHMBadgeView+Preview.swift in Sources */,
@@ -1543,6 +1549,7 @@
 				E52CDD082BB6460E009C08B9 /* ChatMessage.swift in Sources */,
 				E513662A2BC21D1A00B12304 /* ProductResultScreen.swift in Sources */,
 				E5DE858B2BC0D92B0013445A /* CreateCakeInfoView.swift in Sources */,
+				E5155CD82BCBA0AC00BF773D /* PreviewContainer.swift in Sources */,
 				E51B33442B7E62AF0028E8C7 /* ProductReviewsViewModel.swift in Sources */,
 				E51366202BC2119700B12304 /* ImagePickerView.swift in Sources */,
 				E51B32CD2B7E5FEF0028E8C7 /* CHMProductButton.swift in Sources */,
@@ -1554,6 +1561,7 @@
 				E5E219D42B940FF000BE9ACE /* CategoriesViewModel.swift in Sources */,
 				E51B332F2B7E603E0028E8C7 /* ClearConfigurationProtocol.swift in Sources */,
 				E51B335B2B7E63300028E8C7 /* UIDevice+Extenstions.swift in Sources */,
+				E5155CDC2BCBC04800BF773D /* FirebaseView.swift in Sources */,
 				E54A3C532BB8FDCC00CBFEEB /* AllProductsCategoryViewModel.swift in Sources */,
 				E54A3C522BB8FDCC00CBFEEB /* AllProductsCategoryView.swift in Sources */,
 				E51B33592B7E63300028E8C7 /* CGFloat+Extentions.swift in Sources */,

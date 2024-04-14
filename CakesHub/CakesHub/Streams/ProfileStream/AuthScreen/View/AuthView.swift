@@ -7,12 +7,14 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 import SwiftData
 
 struct AuthView: View, ViewModelable {
     typealias ViewModel = AuthViewModel
 
     @EnvironmentObject private var nav: Navigation
+    @EnvironmentObject private var rootViewModel: RootViewModel
     @Environment(\.modelContext) var context
     @State var viewModel = ViewModel()
 
@@ -25,7 +27,7 @@ struct AuthView: View, ViewModelable {
             .alert("Ошибка", isPresented: $showingAlert) {
                 Button("OK") {}
             } message: {
-                Text(alertMessage ?? "")
+                Text(alertMessage ?? .clear)
             }
     }
 }
@@ -35,6 +37,7 @@ struct AuthView: View, ViewModelable {
 private extension AuthView {
 
     func onAppear() {
+        viewModel.setRootViewModel(viewModel: rootViewModel)
         viewModel.setContext(context: context)
         viewModel.fetchUserInfo()
     }
@@ -59,8 +62,7 @@ extension AuthView {
     func didTapSignInButton() {
         Task {
             do {
-                let userUID = try await viewModel.didTapSignInButton()
-                Logger.log(message: userUID)
+                try await viewModel.didTapSignInButton()
             } catch {
                 generateErrorMessage(error: error)
             }
@@ -79,5 +81,6 @@ extension AuthView {
 #Preview {
     AuthView(viewModel: .mockData)
         .environmentObject(Navigation())
-        .modelContainer(for: [CurrentUserModel.self], isUndoEnabled: true)
+        .environmentObject(RootViewModel())
+        .modelContainer(Preview(CurrentUserModel.self).container)
 }

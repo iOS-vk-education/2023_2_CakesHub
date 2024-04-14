@@ -57,8 +57,8 @@ extension CakeService: CakeServiceProtocol {
                 dispatchGroup.enter()
                 createImage(
                     image: image,
-                    directoryName: "cake/\(cake.seller.name)/\(cake.productName)",
-                    imageName: generateUniqueFileName(userID: cake.seller.name)
+                    directoryName: "cake/\(cake.seller.email)/\(cake.productName)",
+                    imageName: generateUniqueFileName(userID: cake.seller.email)
                 ) { result in
                     switch result {
                     case let .success(url):

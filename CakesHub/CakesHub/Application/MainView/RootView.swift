@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RootView: View {
 
@@ -20,7 +21,7 @@ struct RootView: View {
 
     var body: some View {
         NavigationStack(path: $nav.path) {
-            MainViewBlock
+            AuthOrMainView
         }
         .tint(CHMColor<IconPalette>.navigationBackButton.color)
         .environmentObject(nav)
@@ -33,6 +34,15 @@ struct RootView: View {
 // MARK: - UI Subviews
 
 private extension RootView {
+
+    @ViewBuilder
+    var AuthOrMainView: some View {
+        if viewModel.isAuth {
+            MainViewBlock
+        } else {
+            AuthView()
+        }
+    }
 
     var MainViewBlock: some View {
         ZStack(alignment: .bottom) {
@@ -76,4 +86,5 @@ private extension RootView {
 #Preview {
     RootView()
         .environmentObject(Navigation())
+        .modelContainer(Preview(CurrentUserModel.self).container)
 }
