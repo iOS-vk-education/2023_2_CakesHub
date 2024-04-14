@@ -7,21 +7,26 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AuthView: View, ViewModelable {
     typealias ViewModel = AuthViewModel
 
-    #warning("Удалите навигацию, если она не требуется")
     @EnvironmentObject private var nav: Navigation
-    @StateObject var viewModel: ViewModel
+    @Environment(\.modelContext) var context
+    @State var viewModel = ViewModel()
 
-    init(viewModel: ViewModel = ViewModel()) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
+    @State private var showingAlert = false
+    @State private var alertMessage: String?
 
     var body: some View {
         MainView
             .onAppear(perform: onAppear)
+            .alert("Ошибка", isPresented: $showingAlert) {
+                Button("OK") {}
+            } message: {
+                Text(alertMessage ?? "")
+            }
     }
 }
 
@@ -30,26 +35,42 @@ struct AuthView: View, ViewModelable {
 private extension AuthView {
 
     func onAppear() {
+        viewModel.setContext(context: context)
+        viewModel.fetchUserInfo()
     }
 }
 
-// MARK: - Subviews
+// MARK: - Actions
 
-private extension AuthView {
-
-    var MainView: some View {
-        VStack {
-            MKRImageView(
-                configuration: .basic(
-                    kind: viewModel.image,
-                    imageShape: .roundedRectangle(Constants.imageCornerRadius)
-                )
-            )
-            .frame(width: Constants.imageSize, height: Constants.imageSize)
-
-            Text(viewModel.title)
-                .style(14, .semibold, Constants.textColor)
+extension AuthView {
+    
+    /// Нажатие кнопки `регистрация`
+    func didTapRegisterButton() {
+        Task {
+            do {
+                try await viewModel.didTapRegisterButton()
+            } catch {
+                generateErrorMessage(error: error)
+            }
         }
+    }
+
+    /// Нажатие кнопки `Войти`
+    func didTapSignInButton() {
+        Task {
+            do {
+                let userUID = try await viewModel.didTapSignInButton()
+                Logger.log(message: userUID)
+            } catch {
+                generateErrorMessage(error: error)
+            }
+        }
+    }
+
+    private func generateErrorMessage(error: any Error) {
+        showingAlert = true
+        alertMessage = error.localizedDescription
+        Logger.log(kind: .error, message: error)
     }
 }
 
@@ -58,15 +79,5 @@ private extension AuthView {
 #Preview {
     AuthView(viewModel: .mockData)
         .environmentObject(Navigation())
-}
-
-// MARK: - Constants
-
-private extension AuthView {
-
-    enum Constants {
-        static let imageSize: CGFloat = 200
-        static let imageCornerRadius: CGFloat = 20
-        static let textColor: Color = CHMColor<TextPalette>.textPrimary.color
-    }
+        .modelContainer(for: [CurrentUserModel.self], isUndoEnabled: true)
 }

@@ -7,26 +7,13 @@
 //
 
 import Foundation
+import SwiftData
 
 #if DEBUG
-
 extension AuthViewModel: Mockable {
 
-    #warning("Обновите, добавив недостоющие переменные")
     static let mockData = AuthViewModel(
-        title: Constants.mockTitle,
-        image: .url(.mockCake2)
+        inputData: UserInputData(nickName: "mightyK1ngRichard", password: "123456789", email: "testUser@gmail.com")
     )
 }
-
-// MARK: - Constants
-
-#warning("Удалите или замените моковые данные")
-private extension AuthViewModel {
-
-    enum Constants {
-        static let mockTitle = "Просто моковый заголовок из кодогенерации для пример"
-    }
-}
-
 #endif

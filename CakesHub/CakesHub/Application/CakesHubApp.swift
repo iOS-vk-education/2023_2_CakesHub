@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseCore
+import SwiftData
 
 final class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
@@ -24,5 +25,6 @@ struct CakesHubApp: App {
         WindowGroup {
             RootView()
         }
+        .modelContainer(for: CurrentUserModel.self)
     }
 }

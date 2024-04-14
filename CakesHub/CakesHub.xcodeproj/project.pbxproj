@@ -128,6 +128,9 @@
 		E55B5EBF2BCA496B00DDDFA4 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EB92BCA496B00DDDFA4 /* AuthView.swift */; };
 		E55B5EC02BCA496B00DDDFA4 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EBB2BCA496B00DDDFA4 /* AuthViewModel.swift */; };
 		E55B5EC12BCA496B00DDDFA4 /* AuthViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EBC2BCA496B00DDDFA4 /* AuthViewModel+Mock.swift */; };
+		E55B5EC32BCA4B1800DDDFA4 /* AuthSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EC22BCA4B1800DDDFA4 /* AuthSubviews.swift */; };
+		E55B5EC52BCA4F4F00DDDFA4 /* UserInputData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EC42BCA4F4F00DDDFA4 /* UserInputData.swift */; };
+		E55B5EC82BCA546000DDDFA4 /* CurrentUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EC72BCA546000DDDFA4 /* CurrentUserModel.swift */; };
 		E55E77A72BA9157B00B463A0 /* ProductDetailSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E77A62BA9157B00B463A0 /* ProductDetailSubviews.swift */; };
 		E55E77A92BA917BD00B463A0 /* ProductReviewsSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E77A82BA917BD00B463A0 /* ProductReviewsSubviews.swift */; };
 		E55E77AC2BA918D200B463A0 /* CategoriesSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E77AB2BA918D200B463A0 /* CategoriesSubviews.swift */; };
@@ -294,6 +297,9 @@
 		E55B5EB92BCA496B00DDDFA4 /* AuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		E55B5EBB2BCA496B00DDDFA4 /* AuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		E55B5EBC2BCA496B00DDDFA4 /* AuthViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthViewModel+Mock.swift"; sourceTree = "<group>"; };
+		E55B5EC22BCA4B1800DDDFA4 /* AuthSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSubviews.swift; sourceTree = "<group>"; };
+		E55B5EC42BCA4F4F00DDDFA4 /* UserInputData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputData.swift; sourceTree = "<group>"; };
+		E55B5EC72BCA546000DDDFA4 /* CurrentUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserModel.swift; sourceTree = "<group>"; };
 		E55E77A62BA9157B00B463A0 /* ProductDetailSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailSubviews.swift; sourceTree = "<group>"; };
 		E55E77A82BA917BD00B463A0 /* ProductReviewsSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductReviewsSubviews.swift; sourceTree = "<group>"; };
 		E55E77AB2BA918D200B463A0 /* CategoriesSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesSubviews.swift; sourceTree = "<group>"; };
@@ -422,6 +428,7 @@
 			children = (
 				E5272FBB2B9A9B1100F181A1 /* Application */,
 				E59AEC652B92B16400760E61 /* Services */,
+				E55B5EC62BCA544800DDDFA4 /* SwiftDataModels */,
 				E59AEC572B92A92C00760E61 /* Entities */,
 				E51B327C2B7E5E180028E8C7 /* Resources */,
 				E51B33242B7E602A0028E8C7 /* Helpers */,
@@ -1073,6 +1080,7 @@
 		E55B5EB82BCA496B00DDDFA4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E55B5EC42BCA4F4F00DDDFA4 /* UserInputData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1081,6 +1089,7 @@
 			isa = PBXGroup;
 			children = (
 				E55B5EB92BCA496B00DDDFA4 /* AuthView.swift */,
+				E55B5EC22BCA4B1800DDDFA4 /* AuthSubviews.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1102,6 +1111,14 @@
 				E55B5EBD2BCA496B00DDDFA4 /* ViewModel */,
 			);
 			path = AuthScreen;
+			sourceTree = "<group>";
+		};
+		E55B5EC62BCA544800DDDFA4 /* SwiftDataModels */ = {
+			isa = PBXGroup;
+			children = (
+				E55B5EC72BCA546000DDDFA4 /* CurrentUserModel.swift */,
+			);
+			path = SwiftDataModels;
 			sourceTree = "<group>";
 		};
 		E55E77A52BA9155900B463A0 /* Subviews */ = {
@@ -1439,6 +1456,7 @@
 				E51B32E72B7E5FEF0028E8C7 /* CHMBadgeView+Preview.swift in Sources */,
 				E51B33522B7E63090028E8C7 /* ViewModelProtocol.swift in Sources */,
 				E51B32E42B7E5FEF0028E8C7 /* CHMBadgeView+Defaults.swift in Sources */,
+				E55B5EC32BCA4B1800DDDFA4 /* AuthSubviews.swift in Sources */,
 				E5272FBD2B9A9B1900F181A1 /* Navigation.swift in Sources */,
 				E59AEC7C2B92BF9F00760E61 /* Logger.swift in Sources */,
 				E51B331E2B7E60010028E8C7 /* Optional+Extensions.swift in Sources */,
@@ -1488,6 +1506,7 @@
 				E51B33472B7E62AF0028E8C7 /* ProductReviewsScreen.swift in Sources */,
 				E5A7BC952BC031B300CFAA4A /* OnBoardingView.swift in Sources */,
 				E51B33292B7E602A0028E8C7 /* Typealias.swift in Sources */,
+				E55B5EC52BCA4F4F00DDDFA4 /* UserInputData.swift in Sources */,
 				E51B32ED2B7E5FEF0028E8C7 /* CHMRatingReviewsView+Configuration.swift in Sources */,
 				E51B326F2B7E5DFC0028E8C7 /* CakesHubApp.swift in Sources */,
 				E50E901F2B7E7C0200C370A9 /* MainViewModel+Mock.swift in Sources */,
@@ -1512,6 +1531,7 @@
 				E5E219D62B9410CE00BE9ACE /* CategoryCardModel.swift in Sources */,
 				E55E77AC2BA918D200B463A0 /* CategoriesSubviews.swift in Sources */,
 				E51B335C2B7E63300028E8C7 /* View+Extentions.swift in Sources */,
+				E55B5EC82BCA546000DDDFA4 /* CurrentUserModel.swift in Sources */,
 				E51B33482B7E62AF0028E8C7 /* ProductDetailViewModel.swift in Sources */,
 				E51B32F02B7E5FEF0028E8C7 /* CHMRatingReviewsView.swift in Sources */,
 				E51B32EF2B7E5FEF0028E8C7 /* CHMRatingReviewsView+Preview.swift in Sources */,

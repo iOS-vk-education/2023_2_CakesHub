@@ -12,9 +12,9 @@ import FirebaseAuth
 // MARK: - AuthServiceProtocol
 
 protocol AuthServiceProtocol {
-    func registeUser(with userRequest: RegisterUserRequest, completion: @escaping CHMResultBlock<Bool, APIError>)
-    func loginUser(with userRequest: LoginUserRequest, completion: @escaping CHMResultBlock<String, APIError>)
-    func logoutUser(completion: @escaping (Error?) -> Void)
+    func registeUser(with userRequest: RegisterUserRequest) async throws -> String
+    func loginUser(with userRequest: LoginUserRequest) async throws -> AuthDataResult
+    func logoutUser() throws
 }
 
 // MARK: - AuthService
@@ -31,76 +31,25 @@ final class AuthService {
 
 extension AuthService: AuthServiceProtocol {
 
-    /// Registration
-    /// - Parameters:
-    ///   - userRequest: user input info
-    ///   - completion: search result
-    func registeUser(with userRequest: RegisterUserRequest, completion: @escaping CHMResultBlock<Bool, APIError>) {
-        auth.createUser(withEmail: userRequest.email, password: userRequest.password) { result, error in
-            if let error {
-                DispatchQueue.main.async {
-                    completion(.failure(.error(error)))
-                }
-                return
-            }
-            guard let user = result?.user else {
-                DispatchQueue.main.async {
-                    completion(.failure(.dataIsNil))
-                }
-                return
-            }
-            let db = Firestore.firestore()
-            db.collection(FirestoreCollections.users.rawValue)
-                .document(user.uid)
-                .setData([
-                    "nickname": userRequest.nickname,
-                    "email": userRequest.email
-                ]) { error in
-                    if let error {
-                        DispatchQueue.main.async {
-                            completion(.failure(.error(error)))
-                        }
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        completion(.success(true))
-                    }
-                }
-        }
+    func registeUser(with userRequest: RegisterUserRequest) async throws -> String {
+        let result = try await auth.createUser(withEmail: userRequest.email, password: userRequest.password)
+        let user = result.user
+        let db = Firestore.firestore()
+        let uid = user.uid
+        let userData = [
+            "uid": uid,
+            "nickname": userRequest.nickname,
+            "email": userRequest.email
+        ]
+        try await db.collection(FirestoreCollections.users.rawValue).document(user.uid).setData(userData)
+        return uid
     }
 
-    /// User Authentication
-    /// - Parameters:
-    ///   - userRequest: user input info
-    ///   - completion: login result
-    func loginUser(with userRequest: LoginUserRequest, completion: @escaping CHMResultBlock<String, APIError>) {
-        auth.signIn(withEmail: userRequest.email, password: userRequest.password) { result, error in
-            if let error {
-                DispatchQueue.main.async {
-                    completion(.failure(.error(error)))
-                }
-                return
-            }
-            guard let user = result?.user else {
-                DispatchQueue.main.async {
-                    completion(.failure(.dataIsNil))
-                }
-                return
-            }
-            DispatchQueue.main.async {
-                completion(.success(user.uid))
-            }
-        }
+    func loginUser(with userRequest: LoginUserRequest) async throws -> AuthDataResult {
+        try await auth.signIn(withEmail: userRequest.email, password: userRequest.password)
     }
 
-    /// Logout session
-    /// - Parameter completion: user logout result
-    func logoutUser(completion: @escaping (Error?) -> Void) {
-        do {
-            try auth.signOut()
-            completion(nil)
-        } catch {
-            completion(error)
-        }
+    func logoutUser() throws {
+        try auth.signOut()
     }
 }
