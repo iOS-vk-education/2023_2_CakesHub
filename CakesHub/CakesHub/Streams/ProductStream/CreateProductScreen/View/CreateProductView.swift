@@ -23,10 +23,6 @@ struct CreateProductView: View, ViewModelable {
     @State var selectedPhotosData: [Data] = []
     @State var showAlert: Bool = false
 
-    init(viewModel: ViewModel = ViewModel()) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
-
     var body: some View {
         MainView
             .navigationBarBackButtonHidden(true)
@@ -53,10 +49,10 @@ extension CreateProductView {
 
     /// Нажали кнопку `далее` на экране добавления называния и описания
     func didCloseProductInfoSreen() {
-        viewModel.productName = cakeName
-        viewModel.productDescription = cakeDescription
-        viewModel.productPrice = cakePrice
-        viewModel.productDiscountedPrice = cakeDiscountedPrice
+        viewModel.inputProductData.productName = cakeName
+        viewModel.inputProductData.productDescription = cakeDescription
+        viewModel.inputProductData.productPrice = cakePrice
+        viewModel.inputProductData.productDiscountedPrice = cakeDiscountedPrice
         withAnimation {
             currentPage += 1
         }

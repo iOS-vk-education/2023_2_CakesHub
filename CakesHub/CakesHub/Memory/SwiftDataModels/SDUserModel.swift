@@ -33,11 +33,13 @@ class SDUserModel {
     }
 }
 
+// MARK: - Mock Data
+
 #if DEBUG
 extension SDUserModel? {
 
     static let king = ProductModel.SellerInfo(
-        id: "1",
+        id: "D4zfn3CLZjb0d2PWVPIFmGhptHr2",
         name: "mightyK1ngRichard",
         surname: "Permyakov",
         mail: "dimapermyakov55@gmail.com",

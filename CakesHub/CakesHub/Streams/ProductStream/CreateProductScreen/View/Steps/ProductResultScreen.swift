@@ -18,11 +18,11 @@ struct ProductResultScreen: View {
 
             CHMProductDescriptionView(
                 configuration: .basic(
-                    title: viewModel.productName,
-                    price: "$\(viewModel.productPrice)", 
-                    discountedPrice: viewModel.productDiscountedPrice.isEmpty ? nil : "$\(viewModel.productDiscountedPrice)",
+                    title: viewModel.inputProductData.productName,
+                    price: "$\(viewModel.inputProductData.productPrice)",
+                    discountedPrice: viewModel.inputProductData.productDiscountedPrice.isEmpty ? nil : "$\(viewModel.inputProductData.productDiscountedPrice)",
                     subtitle: rootViewModel.currentUser.name,
-                    description: viewModel.productDescription,
+                    description: viewModel.inputProductData.productDescription,
                     starsConfiguration: .basic(kind: .zero, feedbackCount: 0)
                 )
             )
@@ -44,7 +44,7 @@ private extension ProductResultScreen {
         VStack {
             ScrollView(.horizontal) {
                 HStack(spacing: 4) {
-                    ForEach(viewModel.productImages, id: \.self) { data in
+                    ForEach(viewModel.inputProductData.productImages, id: \.self) { data in
                         if let uiImage = UIImage(data: data) {
                             Image(uiImage: uiImage)
                                 .resizable()

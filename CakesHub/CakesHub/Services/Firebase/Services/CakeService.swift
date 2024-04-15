@@ -22,7 +22,7 @@ protocol CakeServiceProtocol {
 
 final class CakeService {
 
-    static var shared = CakeService()
+    static let shared = CakeService()
     private let storage = Storage.storage()
 
     private init() {}
@@ -33,14 +33,9 @@ final class CakeService {
 extension CakeService: CakeServiceProtocol {
 
     /// Getting a list of cakes
-    /// - Parameter completion: plenty of cakes
     func getCakesList() async throws -> [ProductRequest] {
         let snapshot = try await Firestore.firestore().collection(FirestoreCollections.products.rawValue).getDocuments()
-        return snapshot.documents.compactMap {
-            var product = ProductRequest(dictionary: $0.data())
-            product?.documentID = $0.documentID
-            return product
-        }
+        return snapshot.documents.compactMap { ProductRequest(dictionary: $0.data()) }
     }
 
     /// Cake creation
@@ -58,7 +53,7 @@ extension CakeService: CakeServiceProtocol {
                 createImage(
                     image: image,
                     directoryName: "cake/\(cake.seller.email)/\(cake.productName)",
-                    imageName: generateUniqueFileName(userID: cake.seller.email)
+                    imageName: generateUniqueFileName(userID: cake.seller.uid)
                 ) { result in
                     switch result {
                     case let .success(url):
@@ -81,8 +76,8 @@ extension CakeService: CakeServiceProtocol {
             firebaseCakeDocument.images = .strings(images)
             let document = firebaseCakeDocument.dictionaryRepresentation
 
-            Firestore.firestore().collection(FirestoreCollections.products.rawValue).addDocument(
-                data: document,
+            Firestore.firestore().collection(FirestoreCollections.products.rawValue).document(cake.documentID).setData(
+                document,
                 completion: completion
             )
         }

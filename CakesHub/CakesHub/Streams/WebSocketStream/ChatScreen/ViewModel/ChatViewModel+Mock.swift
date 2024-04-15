@@ -9,7 +9,6 @@
 import Foundation
 
 #if DEBUG
-
 extension ChatViewModel: Mockable {
 
     static let mockData = ChatViewModel(
@@ -18,5 +17,4 @@ extension ChatViewModel: Mockable {
         user: .king
     )
 }
-
 #endif

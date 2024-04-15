@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Observation
 
 // MARK: - CreateProductViewModelProtocol
 
@@ -22,21 +23,26 @@ final class CreateProductViewModel: ObservableObject, ViewModelProtocol {
 
     private(set) var rootViewModel: RootViewModel
     private(set) var profileViewModel: ProfileViewModel
-    @Published var productName: String
-    @Published var productDescription: String
-    @Published var productPrice: String
-    @Published var productDiscountedPrice: String
-    @Published var productImages: [Data]
+    @Published var inputProductData: InputProductModel
     let totalCount = 3
 
     init(rootViewModel: RootViewModel = RootViewModel(), profileViewModel: ProfileViewModel = ProfileViewModel()) {
         self.rootViewModel = rootViewModel
         self.profileViewModel = profileViewModel
-        self.productName = UserDefaults.standard.value(forKey: Keys.productName) as? String ?? .clear
-        self.productDescription = UserDefaults.standard.value(forKey: Keys.productDescription) as? String ?? .clear
-        self.productPrice = UserDefaults.standard.value(forKey: Keys.productPrice) as? String ?? .clear
-        self.productDiscountedPrice = UserDefaults.standard.value(forKey: Keys.productDiscountedPrice) as? String ?? .clear
-        self.productImages = UserDefaults.standard.array(forKey: Keys.productImages) as? [Data] ?? []
+
+        let productName = UserDefaults.standard.value(forKey: Keys.productName) as? String ?? .clear
+        let productDescription = UserDefaults.standard.value(forKey: Keys.productDescription) as? String ?? .clear
+        let productPrice = UserDefaults.standard.value(forKey: Keys.productPrice) as? String ?? .clear
+        let productDiscountedPrice = UserDefaults.standard.value(forKey: Keys.productDiscountedPrice) as? String ?? .clear
+        let productImages = UserDefaults.standard.array(forKey: Keys.productImages) as? [Data] ?? []
+
+        self.inputProductData = InputProductModel(
+            productName: productName,
+            productDescription: productDescription,
+            productPrice: productPrice,
+            productDiscountedPrice: productDiscountedPrice,
+            productImages: productImages
+        )
     }
 }
 
@@ -59,7 +65,7 @@ extension CreateProductViewModel {
 extension CreateProductViewModel: CreateProductViewModelProtocol {
 
     func saveSelectedImages(imagesData: [Data]) {
-        productImages = imagesData
+        inputProductData.productImages = imagesData
         UserDefaults.standard.set(imagesData, forKey: Keys.productImages)
     }
     
@@ -74,6 +80,7 @@ extension CreateProductViewModel: CreateProductViewModelProtocol {
         // Отправляем запрос в сеть
         // TODO: Добавить запрос ...
 
+
         // Сброс введённых данных
         resetUserDefaults()
         resetValues()
@@ -86,14 +93,14 @@ extension CreateProductViewModel: CreateProductViewModelProtocol {
     }
 }
 
-// MARK: - Inner Calculation
+// MARK: - Inner Methods
 
 private extension CreateProductViewModel {
 
     func configurationProductModel() -> ProductModel {
-        let images: [ProductModel.ProductImage] = productImages.map { .init(kind: .uiImage(UIImage(data: $0))) }
+        let images: [ProductModel.ProductImage] = inputProductData.productImages.map { .init(kind: .uiImage(UIImage(data: $0))) }
         let badgeText: String
-        if let salePrice = Int(productDiscountedPrice), let oldPrice = Int(productPrice) {
+        if let salePrice = Int(inputProductData.productDiscountedPrice), let oldPrice = Int(inputProductData.productPrice) {
             let floatOldePrice = CGFloat(oldPrice)
             let floatSalePrice = CGFloat(salePrice)
             let sale = (floatOldePrice - floatSalePrice) / floatOldePrice * 100
@@ -110,10 +117,10 @@ private extension CreateProductViewModel {
             isNew: true,
             pickers: [], // TODO: iOS-13: Добавить экран с выбором пикеров
             seller: rootViewModel.currentUser,
-            productName: productName,
-            price: "$\(productPrice)",
-            discountedPrice: productDiscountedPrice.isEmpty ? nil : "$\(productDiscountedPrice)",
-            description: productDescription,
+            productName: inputProductData.productName,
+            price: "$\(inputProductData.productPrice)",
+            discountedPrice: inputProductData.productDiscountedPrice.isEmpty ? nil : "$\(inputProductData.productDiscountedPrice)",
+            description: inputProductData.productDescription,
             establishmentDate: Date.now.formattedString(format: "yyyy-MM-dd HH:mm:ss"),
             similarProducts: []
         )
@@ -131,10 +138,6 @@ private extension CreateProductViewModel {
     }
 
     func resetValues() {
-        productName = .clear
-        productDescription = .clear
-        productPrice = .clear
-        productDiscountedPrice = .clear
-        productImages = []
+        inputProductData = .clear
     }
 }

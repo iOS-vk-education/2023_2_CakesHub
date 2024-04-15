@@ -52,8 +52,7 @@ extension ProductReviewsModel {
         countFiveStars + countFourStars + countThreeStars + countTwoStars + countOneStars
     }
     var averageRatingString: String {
-        let count: CGFloat = CGFloat(feedbackCounter) / 5
-        return "\(count.rounded(toPlaces: 1))"
+        return "\(averageRating.rounded(toPlaces: 1))"
     }
     var averageRating: CGFloat {
         CGFloat(feedbackCounter) / 5

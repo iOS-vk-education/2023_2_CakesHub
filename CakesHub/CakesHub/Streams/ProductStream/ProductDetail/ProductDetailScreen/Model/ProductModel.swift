@@ -53,6 +53,7 @@ extension ProductModel {
         var mail: String = .clear
         var userImage: ImageKind = .clear
         var userHeaderImage: ImageKind = .clear
+        var phone: String?
 
         static let clear = SellerInfo()
     }
@@ -122,6 +123,99 @@ extension ProductModel {
         return .clear
     }
 }
+
+#if DEBUG
+
+extension ProductModel {
+
+    /// Маппер для заполнения БД
+    var mapper: ProductRequest {
+        var productImages: ProductRequest.ImageKindRequest {
+            guard let kind = images.first?.kind else { return .clear }
+            switch kind {
+            case .url:
+                return .url(images.compactMap {
+                    switch $0.kind {
+                    case let .url(url):
+                        return url
+                    default:
+                        return nil
+                    }
+                })
+            case .uiImage:
+                return .images(images.compactMap {
+                    switch $0.kind {
+                    case let .uiImage(uiImage):
+                        return uiImage
+                    default:
+                        return nil
+                    }
+                })
+            case .clear:
+                return .clear
+            }
+        }
+
+        var sellerImage: String? {
+            switch seller.userImage {
+            case .url(let url):
+                return url?.absoluteString
+            default:
+                return nil
+            }
+        }
+
+        var sellerHeaderImage: String? {
+            switch seller.userHeaderImage {
+            case .url(let url):
+                return url?.absoluteString
+            default:
+                return nil
+            }
+        }
+
+        let sellerInfo = UserRequest(
+            uid: seller.id,
+            nickname: seller.name,
+            email: seller.mail,
+            avatarImage: sellerImage,
+            headerImage: sellerHeaderImage,
+            phone: seller.phone
+        )
+
+        return ProductRequest(
+            documentID: id,
+            images: productImages,
+            pickers: pickers,
+            productName: productName,
+            price: price,
+            discountedPrice: discountedPrice,
+            weight: nil,
+            seller: sellerInfo,
+            description: description,
+            similarProducts: [],
+            establishmentDate: Date().description,
+            reviewInfo: .init(
+                countFiveStars: reviewInfo.countFiveStars,
+                countFourStars: reviewInfo.countFourStars,
+                countThreeStars: reviewInfo.countThreeStars,
+                countTwoStars: reviewInfo.countTwoStars,
+                countOneStars: reviewInfo.countOneStars,
+                countOfComments: reviewInfo.countOfComments,
+                comments: reviewInfo.comments.map {
+                    .init(userName: $0.userName,
+                          date: $0.date,
+                          description: $0.description,
+                          countFillStars: $0.countFillStars,
+                          feedbackCount: $0.feedbackCount
+                    )
+                }
+            )
+        )
+    }
+}
+
+#endif
 
 extension ProductModel.SellerInfo {
 

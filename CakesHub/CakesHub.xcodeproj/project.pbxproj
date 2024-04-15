@@ -26,6 +26,10 @@
 		E5155CDC2BCBC04800BF773D /* FirebaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5155CDB2BCBC04800BF773D /* FirebaseView.swift */; };
 		E5155CE12BCBF93000BF773D /* SDProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5155CE02BCBF93000BF773D /* SDProductModel.swift */; };
 		E5155CE32BCBFDB900BF773D /* SDProductReviewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5155CE22BCBFDB900BF773D /* SDProductReviewsModel.swift */; };
+		E5155CE52BCCBF3300BF773D /* InputProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5155CE42BCCBF3300BF773D /* InputProductModel.swift */; };
+		E5155CE82BCCCB1300BF773D /* ProductReviewsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5155CE72BCCCB1300BF773D /* ProductReviewsRequest.swift */; };
+		E5155CEA2BCCCB3F00BF773D /* CommentInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5155CE92BCCCB3F00BF773D /* CommentInfoRequest.swift */; };
+		E5155CEC2BCCCB6100BF773D /* ImageKindRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5155CEB2BCCCB6100BF773D /* ImageKindRequest.swift */; };
 		E51B326F2B7E5DFC0028E8C7 /* CakesHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B326E2B7E5DFC0028E8C7 /* CakesHubApp.swift */; };
 		E51B32712B7E5DFC0028E8C7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B32702B7E5DFC0028E8C7 /* MainView.swift */; };
 		E51B32732B7E5DFD0028E8C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E51B32722B7E5DFD0028E8C7 /* Assets.xcassets */; };
@@ -198,6 +202,10 @@
 		E5155CDB2BCBC04800BF773D /* FirebaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseView.swift; sourceTree = "<group>"; };
 		E5155CE02BCBF93000BF773D /* SDProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDProductModel.swift; sourceTree = "<group>"; };
 		E5155CE22BCBFDB900BF773D /* SDProductReviewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDProductReviewsModel.swift; sourceTree = "<group>"; };
+		E5155CE42BCCBF3300BF773D /* InputProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputProductModel.swift; sourceTree = "<group>"; };
+		E5155CE72BCCCB1300BF773D /* ProductReviewsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductReviewsRequest.swift; sourceTree = "<group>"; };
+		E5155CE92BCCCB3F00BF773D /* CommentInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInfoRequest.swift; sourceTree = "<group>"; };
+		E5155CEB2BCCCB6100BF773D /* ImageKindRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageKindRequest.swift; sourceTree = "<group>"; };
 		E51B326B2B7E5DFC0028E8C7 /* CakesHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CakesHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E51B326E2B7E5DFC0028E8C7 /* CakesHubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CakesHubApp.swift; sourceTree = "<group>"; };
 		E51B32702B7E5DFC0028E8C7 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -392,6 +400,7 @@
 		E513661E2BC2119700B12304 /* UIPlayground */ = {
 			isa = PBXGroup;
 			children = (
+				E5155CDB2BCBC04800BF773D /* FirebaseView.swift */,
 				E5A7BC942BC031B300CFAA4A /* OnBoardingView.swift */,
 				E51366182BC2119700B12304 /* CutomImagePicker.swift */,
 				E51366192BC2119700B12304 /* ImagePickerView.swift */,
@@ -399,7 +408,6 @@
 				E513661C2BC2119700B12304 /* RunnerBanner.swift */,
 				E513661D2BC2119700B12304 /* SectionView.swift */,
 				E53564302BC75835001077DF /* WebSocketTesting.swift */,
-				E5155CDB2BCBC04800BF773D /* FirebaseView.swift */,
 			);
 			path = UIPlayground;
 			sourceTree = "<group>";
@@ -420,6 +428,26 @@
 				E55B5EC62BCA544800DDDFA4 /* SwiftDataModels */,
 			);
 			path = Memory;
+			sourceTree = "<group>";
+		};
+		E5155CE62BCCC2D200BF773D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E5155CD92BCBA4A900BF773D /* UserService.swift */,
+				E59AEC792B92B99F00760E61 /* CakeService.swift */,
+				E59AEC672B92B17200760E61 /* AuthService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E5155CED2BCCCBAF00BF773D /* Substructures */ = {
+			isa = PBXGroup;
+			children = (
+				E5155CE72BCCCB1300BF773D /* ProductReviewsRequest.swift */,
+				E5155CE92BCCCB3F00BF773D /* CommentInfoRequest.swift */,
+				E5155CEB2BCCCB6100BF773D /* ImageKindRequest.swift */,
+			);
+			path = Substructures;
 			sourceTree = "<group>";
 		};
 		E51B32622B7E5DFC0028E8C7 = {
@@ -485,7 +513,6 @@
 			children = (
 				E513661E2BC2119700B12304 /* UIPlayground */,
 				E51B327D2B7E5ECB0028E8C7 /* DesignSystemSream */,
-				E55651782BB9AC6400759839 /* NotificationScreen */,
 				E52CDD072BB6460E009C08B9 /* WebSocketStream */,
 				A332D1652BB2F842007C194D /* ProfileStream */,
 				E51B32802B7E5F090028E8C7 /* ProductStream */,
@@ -991,6 +1018,7 @@
 		E52CDD072BB6460E009C08B9 /* WebSocketStream */ = {
 			isa = PBXGroup;
 			children = (
+				E55651782BB9AC6400759839 /* NotificationScreen */,
 				E52CDD062BB6460E009C08B9 /* ChatScreen */,
 			);
 			path = WebSocketStream;
@@ -1123,8 +1151,8 @@
 			isa = PBXGroup;
 			children = (
 				E55B5EB82BCA496B00DDDFA4 /* Model */,
-				E55B5EBA2BCA496B00DDDFA4 /* View */,
 				E55B5EBD2BCA496B00DDDFA4 /* ViewModel */,
+				E55B5EBA2BCA496B00DDDFA4 /* View */,
 			);
 			path = AuthScreen;
 			sourceTree = "<group>";
@@ -1233,10 +1261,8 @@
 		E59AEC732B92B27200760E61 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
+				E5155CE62BCCC2D200BF773D /* Services */,
 				E59AEC572B92A92C00760E61 /* Entities */,
-				E5155CD92BCBA4A900BF773D /* UserService.swift */,
-				E59AEC792B92B99F00760E61 /* CakeService.swift */,
-				E59AEC672B92B17200760E61 /* AuthService.swift */,
 				E59AEC712B92B25600760E61 /* FirestoreCollections.swift */,
 			);
 			path = Firebase;
@@ -1245,6 +1271,7 @@
 		E59AEC7D2B92C49B00760E61 /* ProductRequest */ = {
 			isa = PBXGroup;
 			children = (
+				E5155CED2BCCCBAF00BF773D /* Substructures */,
 				E59AEC582B92AA2900760E61 /* ProductRequest.swift */,
 				E59AEC7E2B92C4A600760E61 /* ProductRequest+Mock.swift */,
 			);
@@ -1314,6 +1341,7 @@
 		E5DE81552BBFDC360012BD8E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E5155CE42BCCBF3300BF773D /* InputProductModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1454,6 +1482,8 @@
 				E51B32D32B7E5FEF0028E8C7 /* CHMNewProductCard+Defaults.swift in Sources */,
 				E59AEC6E2B92B21200760E61 /* LoginUserRequest.swift in Sources */,
 				E52CDD0B2BB6460E009C08B9 /* MessageBubble.swift in Sources */,
+				E5155CEC2BCCCB6100BF773D /* ImageKindRequest.swift in Sources */,
+				E5155CEA2BCCCB3F00BF773D /* CommentInfoRequest.swift in Sources */,
 				E52CDD0D2BB6460E009C08B9 /* ChatViewModel.swift in Sources */,
 				E51366282BC2143900B12304 /* AddProductImages.swift in Sources */,
 				E59AEC592B92AA2900760E61 /* ProductRequest.swift in Sources */,
@@ -1471,6 +1501,7 @@
 				A332D1692BB2F842007C194D /* UserModel.swift in Sources */,
 				E51B32D82B7E5FEF0028E8C7 /* CHMNewCategoryView+Defaults.swift in Sources */,
 				E5155CDA2BCBA4A900BF773D /* UserService.swift in Sources */,
+				E5155CE82BCCCB1300BF773D /* ProductReviewsRequest.swift in Sources */,
 				E56D0FF92B80D0A100B803EF /* CategoriesTab.swift in Sources */,
 				E51B32F62B7E5FEF0028E8C7 /* MKRImageView+Defaults.swift in Sources */,
 				E51B32E72B7E5FEF0028E8C7 /* CHMBadgeView+Preview.swift in Sources */,
@@ -1493,6 +1524,7 @@
 				E556517D2BB9AC6400759839 /* NotificationView.swift in Sources */,
 				E51B32E92B7E5FEF0028E8C7 /* CHMPicker+Configuration.swift in Sources */,
 				A332D16B2BB2F842007C194D /* ProfileViewModel.swift in Sources */,
+				E5155CE52BCCBF3300BF773D /* InputProductModel.swift in Sources */,
 				E51B334D2B7E62AF0028E8C7 /* PickersSectionView.swift in Sources */,
 				E51B32DC2B7E5FEF0028E8C7 /* CHMBigBannerView+Defaults.swift in Sources */,
 				E51B334C2B7E62AF0028E8C7 /* LikeIcon.swift in Sources */,

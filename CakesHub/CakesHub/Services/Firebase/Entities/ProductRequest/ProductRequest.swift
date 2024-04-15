@@ -13,8 +13,6 @@ struct ProductRequest: DictionaryConvertible, ClearConfigurationProtocol {
     var documentID: String = .clear
     /// Картинки товара
     var images: ImageKindRequest = .clear
-    /// Бейдж с информацией
-    var badgeText: String = .clear
     /// Фильтры торта
     var pickers: [String] = []
     /// Название торта
@@ -31,96 +29,23 @@ struct ProductRequest: DictionaryConvertible, ClearConfigurationProtocol {
     var description: String = .clear
     /// Схожие товары
     var similarProducts: [String] = []
+    /// Дата создания товара
+    var establishmentDate: String = .clear
     /// Оценки товара
     var reviewInfo: ProductReviewsRequest = .clear
 
     static let clear = ProductRequest()
 }
 
-// MARK: - ProductRequest Substructures
-
-extension ProductRequest {
-
-    struct ProductReviewsRequest: ClearConfigurationProtocol, DictionaryConvertible {
-        var countFiveStars  : Int = 0
-        var countFourStars  : Int = 0
-        var countThreeStars : Int = 0
-        var countTwoStars   : Int = 0
-        var countOneStars   : Int = 0
-        var countOfComments : Int = 0
-        var comments        : [CommentInfoRequest] = []
-
-        static let clear = ProductReviewsRequest()
-    }
-
-    struct CommentInfoRequest: ClearConfigurationProtocol, DictionaryConvertible {
-        var userName       : String = .clear
-        var date           : String = .clear
-        var description    : String = .clear
-        var countFillStars : Int = 0
-        var feedbackCount  : Int = 0
-
-        static let clear = CommentInfoRequest()
-    }
-
-    enum ImageKindRequest: DictionaryConvertible {
-        case url([URL?])
-        case images([UIImage?])
-        case strings([String])
-        case clear
-    }
-}
-
 // MARK: - DictionaryConvertible
 
-extension ProductRequest.ProductReviewsRequest {
-
-    init?(dictionary: [String: Any]) {
-        let comments = dictionary["comments"] as? [[String: Any]] ?? []
-        self.init(
-            countFiveStars: dictionary["countFiveStars"] as? Int ?? 0,
-            countFourStars: dictionary["countFourStars"] as? Int ?? 0,
-            countThreeStars: dictionary["countThreeStars"] as? Int ?? 0,
-            countTwoStars: dictionary["countTwoStars"] as? Int ?? 0,
-            countOneStars: dictionary["countOneStars"] as? Int ?? 0,
-            countOfComments: dictionary["countOfComments"] as? Int ?? 0,
-            comments: comments.compactMap { .init(dictionary: $0) }
-        )
-    }
-}
-
-extension ProductRequest.CommentInfoRequest {
-
-    init?(dictionary: [String: Any]) {
-        self.init(
-            userName: dictionary["userName"] as? String ?? .clear,
-            date: dictionary["date"] as? String ?? .clear,
-            description: dictionary["description"] as? String ?? .clear,
-            countFillStars: dictionary["countFillStars"] as? Int ?? 0,
-            feedbackCount: dictionary["feedbackCount"] as? Int ?? 0
-        )
-    }
-}
-
-extension ProductRequest.ImageKindRequest {
-
-    init?(dictionary: [String: Any]) {
-        guard let strings = dictionary["strings"] as? [String] else {
-            return nil
-        }
-        let urls = strings.compactMap { URL(string: $0) }
-        self = .url(urls)
-    }
-}
-
 extension ProductRequest {
 
-    init?(dictionary: [String: Any]) {
+    init(dictionary: [String: Any]) {
         var images: ProductRequest.ImageKindRequest?
         if let imagesDictionary = dictionary["images"] as? [String: Any] {
             images = ProductRequest.ImageKindRequest(dictionary: imagesDictionary)
         }
-        let badgeText = dictionary["badgeText"] as? String ?? .clear
         let pickers = dictionary["pickers"] as? [String] ?? []
         let productName = dictionary["productName"] as? String ?? .clear
         let price = dictionary["price"] as? String ?? .clear
@@ -132,6 +57,7 @@ extension ProductRequest {
         }
         let description = dictionary["description"] as? String ?? .clear
         let similarProducts = dictionary["similarProducts"] as? [String] ?? []
+        let establishmentDate = dictionary["establishmentDate"] as? String ?? .clear
         var reviewInfo: ProductReviewsRequest?
         if let reviewInfoDict = dictionary["reviewInfo"] as? [String: Any] {
             reviewInfo = ProductReviewsRequest(dictionary: reviewInfoDict)
@@ -139,7 +65,6 @@ extension ProductRequest {
 
         self.init(
             images: images ?? .clear,
-            badgeText: badgeText,
             pickers: pickers,
             productName: productName,
             price: price,
@@ -148,7 +73,76 @@ extension ProductRequest {
             seller: user ?? .clear,
             description: description,
             similarProducts: similarProducts,
+            establishmentDate: establishmentDate,
             reviewInfo: reviewInfo ?? .clear
         )
+    }
+}
+
+// MARK: - Mapper
+
+extension ProductRequest {
+
+    var mapperToProductModel: ProductModel {
+        var productImages: [ProductModel.ProductImage] {
+            switch images {
+            case let .url(urls):
+                return urls.map { .init(kind: .url($0)) }
+            case let .images(images):
+                return images.map { .init(kind: .uiImage($0)) }
+            case let .strings(strings):
+                return strings.map { .init(kind: .url(URL(string: $0))) }
+            case .clear:
+                return []
+            }
+        }
+
+        // Проставляем `badgeText` в зависимости от данных по продукту
+        let badgeText: String
+        if let salePrice = Int(discountedPrice ?? .clear), let oldPrice = Int(price) {
+            let floatOldePrice = CGFloat(oldPrice)
+            let floatSalePrice = CGFloat(salePrice)
+            let sale = (floatOldePrice - floatSalePrice) / floatOldePrice * 100
+            badgeText = "-\(Int(sale.rounded(toPlaces: 0)))%"
+        } else {
+            badgeText = "NEW"
+        }
+        
+        // Ставим флажок, если объявлению меньше 8 дней
+        let isNew = {
+            // Получаем разницу нынешней даты и даты создания объявления
+            guard let dif = Calendar.current.dateComponents(
+                [.day],
+                from: establishmentDate.toDate,
+                to: Date.now
+            ).day else { return false }
+
+            // Если разница ниже 8, объявление считается новым
+            return dif < 8
+        }()
+
+        return ProductModel(
+            id: documentID,
+            images: productImages,
+            badgeText: badgeText,
+            isFavorite: false,
+            isNew: isNew,
+            pickers: pickers,
+            seller: seller.mapper,
+            productName: productName,
+            price: price,
+            discountedPrice: discountedPrice,
+            description: description,
+            reviewInfo: reviewInfo.mapper,
+            establishmentDate: establishmentDate,
+            similarProducts: []
+        )
+    }
+}
+
+extension [ProductRequest] {
+
+    var mapperToProductModel: [ProductModel] {
+        map { $0.mapperToProductModel }
     }
 }

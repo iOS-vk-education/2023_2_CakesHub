@@ -10,14 +10,9 @@ import SwiftData
 
 struct RootView: View {
 
-    @StateObject var nav: Navigation
-    @StateObject var viewModel: RootViewModel
+    @StateObject private var nav = Navigation()
+    @StateObject var viewModel = RootViewModel()
     @State private var size: CGSize = .zero
-
-    init(nav: Navigation = Navigation(), viewModel: RootViewModel = RootViewModel()) {
-        self._nav = StateObject(wrappedValue: nav)
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
 
     var body: some View {
         NavigationStack(path: $nav.path) {
@@ -27,7 +22,23 @@ struct RootView: View {
         .environmentObject(nav)
         .environmentObject(viewModel)
         .viewSize(size: $size)
-        .onAppear(perform: viewModel.fetchData)
+        .onAppear(perform: onAppear)
+    }
+}
+
+// MARK: - Network
+
+private extension RootView {
+
+    func onAppear() {
+        Task {
+            do {
+                try await viewModel.fetchData()
+            } catch {
+                viewModel.fetchDataFromMemory()
+                Logger.log(kind: .error, message: error)
+            }
+        }
     }
 }
 
@@ -40,7 +51,8 @@ private extension RootView {
         if viewModel.isAuth {
             MainViewBlock
         } else {
-            AuthView()
+            // FIXME: Не забыть убрать моки
+            AuthView(viewModel: .mockData)
         }
     }
 

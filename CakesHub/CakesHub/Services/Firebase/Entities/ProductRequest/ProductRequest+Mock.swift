@@ -17,7 +17,6 @@ extension ProductRequest: Mockable {
             CHMImage.mockImageCake2,
             CHMImage.mockImageCake3,
         ]),
-        badgeText: "NEW",
         pickers: [],
         productName: "Клубничное облако",
         price: "1400" + .space + .rub,
