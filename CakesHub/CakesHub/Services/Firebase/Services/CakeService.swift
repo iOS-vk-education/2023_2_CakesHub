@@ -39,9 +39,6 @@ extension CakeService: CakeServiceProtocol {
     }
 
     /// Cake creation
-    /// - Parameters:
-    ///   - cake: info of the new cake
-    ///   - completion: creation result
     func createCake(cake: ProductRequest, completion: @escaping (Error?) -> Void) {
         let dispatchGroup = DispatchGroup()
 
@@ -104,32 +101,31 @@ extension CakeService: CakeServiceProtocol {
             completion(.failure(.badParameters))
             return
         }
+
+        let mainQueueCompletion: CHMResultBlock<String, APIError> = { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
         storageRef.putData(imageData, metadata: nil) { metadata, error in
             if let error {
-                DispatchQueue.main.async {
-                    completion(.failure(.error(error)))
-                }
+                mainQueueCompletion(.failure(.error(error)))
                 return
             }
             guard !metadata.isNil else {
-                DispatchQueue.main.async {
-                    completion(.failure(.dataIsNil))
-                }
+                mainQueueCompletion(.failure(.dataIsNil))
                 return
             }
 
             storageRef.downloadURL { url, error in
                 if let error {
-                    DispatchQueue.main.async {
-                        completion(.failure(.error(error)))
-                    }
+                    mainQueueCompletion(.failure(.error(error)))
                     return
                 }
 
                 if let imageUrl = url?.absoluteString {
-                    DispatchQueue.main.async {
-                        completion(.success(imageUrl))
-                    }
+                    mainQueueCompletion(.success(imageUrl))
+                    return
                 }
             }
         }

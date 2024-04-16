@@ -25,6 +25,9 @@ struct CakesHubApp: App {
         WindowGroup {
             RootView()
         }
-        .modelContainer(for: SDUserModel.self)
+        .modelContainer(for: [
+            SDUserModel.self,
+            SDProductModel.self
+        ])
     }
 }

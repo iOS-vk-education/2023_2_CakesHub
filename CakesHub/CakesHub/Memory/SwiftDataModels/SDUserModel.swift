@@ -9,12 +9,12 @@ import SwiftData
 
 @Model
 class SDUserModel {
-    var uid: String
-    var nickName: String
-    var email: String
-    var userImageURL: String?
-    var userHeaderImageURL: String?
-    var products: [SDProductModel]
+    var _uid: String
+    var _nickName: String
+    var _email: String
+    var _userImageURL: String?
+    var _userHeaderImageURL: String?
+    var _phone: String?
 
     init(
         uid: String,
@@ -22,29 +22,46 @@ class SDUserModel {
         email: String,
         userImageURL: String? = nil,
         userHeaderImageURL: String? = nil,
-        products: [SDProductModel] = []
+        phone: String? = nil
     ) {
-        self.uid = uid
-        self.nickName = nickName
-        self.email = email
-        self.userImageURL = userImageURL
-        self.userHeaderImageURL = userHeaderImageURL
-        self.products = products
+        self._uid = uid
+        self._nickName = nickName
+        self._email = email
+        self._userImageURL = userImageURL
+        self._userHeaderImageURL = userHeaderImageURL
+        self._phone = phone
     }
 }
 
-// MARK: - Mock Data
+// MARK: - Init
 
-#if DEBUG
-extension SDUserModel? {
+extension SDUserModel {
 
-    static let king = ProductModel.SellerInfo(
-        id: "D4zfn3CLZjb0d2PWVPIFmGhptHr2",
-        name: "mightyK1ngRichard",
-        surname: "Permyakov",
-        mail: "dimapermyakov55@gmail.com",
-        userImage: .url(.mockKingImage),
-        userHeaderImage: .url(.mockKingHeaderImage)
-    )
+    convenience init(user: ProductModel.SellerInfo) {
+        var imageURL: String? {
+            switch user.userImage {
+            case let .url(url):
+                return url?.absoluteString
+            default:
+                return nil
+            }
+        }
+        var headerImageURL: String? {
+            switch user.userHeaderImage {
+            case .url(let url):
+                return url?.absoluteString
+            default:
+                return nil
+            }
+        }
+
+        self.init(
+            uid: user.id,
+            nickName: user.name,
+            email: user.mail,
+            userImageURL: imageURL,
+            userHeaderImageURL: headerImageURL,
+            phone: user.phone
+        )
+    }
 }
-#endif

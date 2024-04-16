@@ -12,6 +12,7 @@ struct RootView: View {
 
     @StateObject private var nav = Navigation()
     @StateObject var viewModel = RootViewModel()
+    @Environment(\.modelContext) var context
     @State private var size: CGSize = .zero
 
     var body: some View {
@@ -31,6 +32,8 @@ struct RootView: View {
 private extension RootView {
 
     func onAppear() {
+        viewModel.context = context
+
         Task {
             do {
                 try await viewModel.fetchData()

@@ -10,13 +10,13 @@ import SwiftData
 
 @Model
 final class SDProductReviewsModel {
-    var countFiveStars  : Int
-    var countFourStars  : Int
-    var countThreeStars : Int
-    var countTwoStars   : Int
-    var countOneStars   : Int
-    var countOfComments : Int
-    var comments        : [CommentInfo]
+    var _countFiveStars  : Int
+    var _countFourStars  : Int
+    var _countThreeStars : Int
+    var _countTwoStars   : Int
+    var _countOneStars   : Int
+    var _countOfComments : Int
+    var _comments        : [SDCommentInfo]
 
     init(
         countFiveStars: Int,
@@ -25,45 +25,31 @@ final class SDProductReviewsModel {
         countTwoStars: Int,
         countOneStars: Int,
         countOfComments: Int,
-        comments: [CommentInfo]
+        comments: [SDCommentInfo]
     ) {
-        self.countFiveStars = countFiveStars
-        self.countFourStars = countFourStars
-        self.countThreeStars = countThreeStars
-        self.countTwoStars = countTwoStars
-        self.countOneStars = countOneStars
-        self.countOfComments = countOfComments
-        self.comments = comments
+        self._countFiveStars = countFiveStars
+        self._countFourStars = countFourStars
+        self._countThreeStars = countThreeStars
+        self._countTwoStars = countTwoStars
+        self._countOneStars = countOneStars
+        self._countOfComments = countOfComments
+        self._comments = comments
     }
 }
 
-// MARK: - CommentInfo
+// MARK: - Init
 
 extension SDProductReviewsModel {
 
-    @Model
-    final class CommentInfo {
-        let id                 : String
-        var userName           : String
-        var date               : String
-        var descriptionComment : String
-        var countFillStars     : Int
-        var feedbackCount      : Int
-
-        init(
-            id: String,
-            userName: String,
-            date: String,
-            description: String,
-            countFillStars: Int,
-            feedbackCount: Int
-        ) {
-            self.id = id
-            self.userName = userName
-            self.date = date
-            self.descriptionComment = description
-            self.countFillStars = countFillStars
-            self.feedbackCount = feedbackCount
-        }
+    convenience init(reviews: ProductReviewsModel) {
+        self.init(
+            countFiveStars: reviews.countFiveStars,
+            countFourStars: reviews.countFourStars,
+            countThreeStars: reviews.countThreeStars,
+            countTwoStars: reviews.countTwoStars,
+            countOneStars: reviews.countOneStars,
+            countOfComments: reviews.countOfComments,
+            comments: reviews.comments.map { .init(comment: $0) }
+        )
     }
 }

@@ -87,7 +87,8 @@ extension AuthViewModel {
             nickName: userInfo.nickname,
             email: userInfo.email,
             userImageURL: userInfo.avatarImage,
-            userHeaderImageURL: userInfo.headerImage
+            userHeaderImageURL: userInfo.headerImage, 
+            phone: userInfo.phone
         )
         saveUserInMemory(user: user)
     }
@@ -102,16 +103,14 @@ extension AuthViewModel {
         let fetchDescriptor = FetchDescriptor<SDUserModel>()
 
         do {
-            guard let userInfo = try context?.fetch(fetchDescriptor).first else {
-                return
-            }
+            guard let userInfo = try context?.fetch(fetchDescriptor).first else { return }
 
             let currentUser = ProductModel.SellerInfo(
-                id: userInfo.uid,
-                name: userInfo.nickName,
-                mail: userInfo.email,
-                userImage: .url(URL(string: userInfo.userImageURL ?? .clear)),
-                userHeaderImage: .url(URL(string: userInfo.userHeaderImageURL ?? .clear))
+                id: userInfo._uid,
+                name: userInfo._nickName,
+                mail: userInfo._email,
+                userImage: .url(URL(string: userInfo._userImageURL ?? .clear)),
+                userHeaderImage: .url(URL(string: userInfo._userHeaderImageURL ?? .clear))
             )
             rootViewModel?.setCurrentUser(for: currentUser)
         } catch {
