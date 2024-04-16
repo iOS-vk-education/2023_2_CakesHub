@@ -22,7 +22,7 @@ protocol RootViewModelProtocol: AnyObject {
 
 final class RootViewModel: ObservableObject {
     @Published private(set) var productData: ProductsData
-    @Published private(set) var currentUser: ProductModel.SellerInfo = .clear
+    @Published private(set) var currentUser: ProductModel.SellerInfo
     @Published private(set) var isShimmering: Bool = false
     private let context: ModelContext?
     private let cakeService: CakeService
@@ -39,6 +39,7 @@ final class RootViewModel: ObservableObject {
     ) {
         self.productData = productsData
         self.cakeService = cakeService
+        self.currentUser = currentUser
         self.context = context
         productData.sections.reserveCapacity(3)
     }
