@@ -30,8 +30,6 @@ struct MainView: View, ViewModelable {
 private extension MainView {
 
     func onAppear() {
-//        viewModel.startViewDidLoad()
-//        viewModel.groupDataBySection()
     }
 }
 
@@ -40,22 +38,16 @@ private extension MainView {
 extension MainView {
     
     /// Нажатие на кнопку лайка карточки
-    /// - Parameters:
-    ///   - id: id продукта
-    ///   - isSelected: флаг лайка
     func didTapFavoriteButton(id: String, section: RootViewModel.Section, isSelected: Bool) {
-        Logger.log(message: "id: \(id) | section: \(section.title) | isSelected: \(isSelected)")
-//        viewModel.didTapFavoriteButton(id: id, section: section, isSelected: isSelected)
+        viewModel.didTapFavoriteButton(id: id, section: section, isSelected: isSelected)
     }
 
     /// Нажатие на карточку продукта
-    /// - Parameter card: модель торта
     func didTapProductCard(card: ProductModel) {
         nav.addScreen(screen: card)
     }
     
     /// Нажатие на секцию
-    /// - Parameter products: товары секции
     func didTapSection(products: [ProductModel]) {
         nav.addScreen(screen: products)
     }
