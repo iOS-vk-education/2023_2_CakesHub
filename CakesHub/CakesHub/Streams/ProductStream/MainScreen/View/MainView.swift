@@ -12,6 +12,7 @@ struct MainView: View, ViewModelable {
     typealias ViewModel = MainViewModel
 
     @EnvironmentObject private var nav: Navigation
+    @EnvironmentObject var rootViewModel: RootViewModel
     @StateObject var viewModel: ViewModel
     var size: CGSize
 
@@ -29,8 +30,8 @@ struct MainView: View, ViewModelable {
 private extension MainView {
 
     func onAppear() {
-        viewModel.startViewDidLoad()
-        viewModel.groupDataBySection()
+//        viewModel.startViewDidLoad()
+//        viewModel.groupDataBySection()
     }
 }
 
@@ -42,9 +43,9 @@ extension MainView {
     /// - Parameters:
     ///   - id: id продукта
     ///   - isSelected: флаг лайка
-    func didTapFavoriteButton(id: String, section: ViewModel.Section, isSelected: Bool) {
+    func didTapFavoriteButton(id: String, section: RootViewModel.Section, isSelected: Bool) {
         Logger.log(message: "id: \(id) | section: \(section.title) | isSelected: \(isSelected)")
-        viewModel.didTapFavoriteButton(id: id, section: section, isSelected: isSelected)
+//        viewModel.didTapFavoriteButton(id: id, section: section, isSelected: isSelected)
     }
 
     /// Нажатие на карточку продукта
@@ -79,5 +80,6 @@ private extension MainView {
 
 #Preview {
     MainView(viewModel: .mockData, size: CGSize(width: 400, height: 800))
+        .environmentObject(RootViewModel(products: .mockProducts))
         .environmentObject(Navigation())
 }

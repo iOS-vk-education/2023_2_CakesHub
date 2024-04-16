@@ -44,14 +44,6 @@ extension AuthView {
 #Preview {
     AuthView(viewModel: .mockData)
         .environmentObject(Navigation())
-        .modelContainer(for: SDUserModel.self)
-}
-
-// MARK: - Constants
-
-private extension AuthView {
-
-    enum Constants {
-        static let textColor: Color = CHMColor<TextPalette>.textPrimary.color
-    }
+        .environmentObject(RootViewModel())
+        .modelContainer(Preview(SDUserModel.self).container)
 }

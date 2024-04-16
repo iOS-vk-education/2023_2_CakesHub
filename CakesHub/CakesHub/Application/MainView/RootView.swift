@@ -75,7 +75,7 @@ private extension RootView {
     var AllTabBarViews: some View {
         switch nav.activeTab {
         case .house:
-            MainView(viewModel: MainView.ViewModel(rootViewModel: viewModel), size: size)
+            MainView(viewModel: MainView.ViewModel(), size: size)
         case .shop:
             CategoriesView(viewModel: .mockData)
         case .bag:

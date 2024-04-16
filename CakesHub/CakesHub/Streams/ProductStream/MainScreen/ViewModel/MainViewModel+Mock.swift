@@ -13,7 +13,7 @@ import UIKit
 
 extension MainViewModel: Mockable {
 
-    static let mockData = MainViewModel(rootViewModel: .mockData)
+    static let mockData = MainViewModel()
 }
 
 // MARK: - Mock Data

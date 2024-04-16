@@ -80,6 +80,10 @@ extension AuthViewModel {
         // Получаем все данные пользователя
         let userInfo = try await userService.getUserInfo(uid: userUID)
 
+        // Обновляем рутового пользователя. Должно выполняться на главном потоке
+        rootViewModel?.currentUser = userInfo.mapper
+        rootViewModel?.setCurrentUser(for: userInfo.mapper)
+
         // Сохраняем новые данные на устройстве
         let user = SDUserModel(
             uid: userInfo.uid,
@@ -89,9 +93,6 @@ extension AuthViewModel {
             userHeaderImageURL: userInfo.headerImage
         )
         saveUserInMemory(user: user)
-
-        // Обновляем рутового пользователя. Должно выполняться на главном потоке
-        rootViewModel?.currentUser = userInfo.mapper
     }
 }
 

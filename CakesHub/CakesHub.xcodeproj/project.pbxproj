@@ -379,6 +379,27 @@
 			path = ProfileStream;
 			sourceTree = "<group>";
 		};
+		E50B613C2BCE2EB6003484C7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E50B613D2BCE2EB9003484C7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E50B613E2BCE2EBD003484C7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		E50E901B2B7E7C0200C370A9 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1281,6 +1302,9 @@
 		E5B636622BB6750900B2F076 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				E50B613C2BCE2EB6003484C7 /* Model */,
+				E50B613D2BCE2EB9003484C7 /* ViewModel */,
+				E50B613E2BCE2EBD003484C7 /* View */,
 				E5272FBE2B9A9F0100F181A1 /* RootView.swift */,
 				E5B636632BB6751400B2F076 /* RootViewModel.swift */,
 			);
