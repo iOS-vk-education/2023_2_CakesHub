@@ -73,9 +73,8 @@ extension CreateProductViewModel: CreateProductViewModelProtocol {
     func didTapCreateProductButton() {
         // Создаём локальную карточку продукта
         let newProduct = configurationProductModel()
-        rootViewModel.products.append(newProduct)
-        rootViewModel.currentUserProducts.append(newProduct)
-        profileViewModel.updateUserProducts(products: rootViewModel.currentUserProducts)
+        rootViewModel.addNewProduct(product: newProduct)
+        profileViewModel.updateUserProducts(products: rootViewModel.productData.currentUserProducts)
 
         // Отправляем запрос в сеть
         // TODO: Добавить запрос ...

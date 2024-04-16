@@ -79,7 +79,11 @@ private extension MainView {
 // MARK: - Preview
 
 #Preview {
-    MainView(viewModel: .mockData, size: CGSize(width: 400, height: 800))
-        .environmentObject(RootViewModel(products: .mockProducts))
+    let vm = RootViewModel.mockData
+    return MainView(viewModel: .mockData, size: CGSize(width: 400, height: 800))
         .environmentObject(Navigation())
+        .environmentObject(vm)
+        .task {
+            do { try await vm.fetchData() } catch {}
+        }
 }

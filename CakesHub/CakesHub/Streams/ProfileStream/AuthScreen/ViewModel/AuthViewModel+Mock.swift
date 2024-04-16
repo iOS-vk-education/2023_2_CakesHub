@@ -13,7 +13,7 @@ import SwiftData
 extension AuthViewModel: Mockable {
 
     static let mockData = AuthViewModel(
-        inputData: UserInputData(nickName: "mightyK1ngRichard", password: "123456789", email: "dimapermyakov55@gmail.com")
+        inputData: VMAuthInputData(nickName: "mightyK1ngRichard", password: "123456789", email: "dimapermyakov55@gmail.com")
     )
 }
 #endif

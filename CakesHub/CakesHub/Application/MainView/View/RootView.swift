@@ -35,7 +35,7 @@ private extension RootView {
             do {
                 try await viewModel.fetchData()
             } catch {
-                viewModel.fetchDataFromMemory()
+                viewModel.fetchProductsFromMemory()
                 Logger.log(kind: .error, message: error)
             }
         }
@@ -86,7 +86,7 @@ private extension RootView {
         case .profile:
             ProfileScreen(
                 viewModel: .init(
-                    user: viewModel.currentUser.mapper(products: viewModel.currentUserProducts)
+                    user: viewModel.currentUser.mapper(products: viewModel.productData.currentUserProducts)
                 )
             )
         }

@@ -79,7 +79,7 @@ extension ProductDetailScreen {
     }
 
     func openSellerInfo() {
-        let userProducts = rootViewModel.products.filter {
+        let userProducts = rootViewModel.productData.products.filter {
             $0.seller.id == viewModel.currentProduct.seller.id
         }
         let seller = viewModel.currentProduct.seller.mapper(products: userProducts)

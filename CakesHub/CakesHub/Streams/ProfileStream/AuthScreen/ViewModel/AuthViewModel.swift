@@ -27,23 +27,20 @@ protocol AuthViewModelProtocol: AnyObject {
 
 @Observable
 final class AuthViewModel: ViewModelProtocol, AuthViewModelProtocol {
-    var inputData: UserInputData
+    var inputData: VMAuthInputData
     private(set) var rootViewModel: RootViewModel? = nil
     @ObservationIgnored
     private(set) var context: ModelContext?
     @ObservationIgnored
-    private let authService: AuthServiceProtocol
-    @ObservationIgnored
-    private let userService: UserServiceProtocol
+    private let services: VMAuthServices
 
     init(
-        inputData: UserInputData = .clear,
+        inputData: VMAuthInputData = .clear,
         authService: AuthServiceProtocol = AuthService.shared,
         userService: UserServiceProtocol = UserService.shared
     ) {
         self.inputData = inputData
-        self.authService = authService
-        self.userService = userService
+        self.services = VMAuthServices(authService: authService, userService: userService)
     }
 }
 
@@ -55,33 +52,33 @@ extension AuthViewModel {
     @MainActor
     func didTapRegisterButton() async throws {
         // Регестрируем пользователя
-        let uid = try await authService.registeUser(with: inputData.mapper)
+        let uid = try await services.authService.registeUser(with: inputData.mapper)
 
         // Сохраняем данные о пользователе на устройстве
         let user = SDUserModel(uid: uid, nickName: inputData.nickName, email: inputData.email)
         saveUserInMemory(user: user)
 
         // Обновляем рутового пользователя. Должно выполняться на главном потоке
-        rootViewModel?.currentUser = .init(
+        let currentUser = ProductModel.SellerInfo(
             id: uid,
             name: inputData.nickName,
             mail: inputData.email
         )
+        rootViewModel?.setCurrentUser(for: currentUser)
     }
 
     /// Нажали кнопку  `войти`
     @MainActor
     func didTapSignInButton() async throws {
         // Проверяем, зарегестрирован ли пользователь
-        let userUID = try await authService.loginUser(
+        let userUID = try await services.authService.loginUser(
             with: LoginUserRequest(email: inputData.email, password: inputData.password)
         )
 
         // Получаем все данные пользователя
-        let userInfo = try await userService.getUserInfo(uid: userUID)
+        let userInfo = try await services.userService.getUserInfo(uid: userUID)
 
         // Обновляем рутового пользователя. Должно выполняться на главном потоке
-        rootViewModel?.currentUser = userInfo.mapper
         rootViewModel?.setCurrentUser(for: userInfo.mapper)
 
         // Сохраняем новые данные на устройстве
@@ -109,13 +106,14 @@ extension AuthViewModel {
                 return
             }
 
-            rootViewModel?.currentUser = .init(
+            let currentUser = ProductModel.SellerInfo(
                 id: userInfo.uid,
                 name: userInfo.nickName,
                 mail: userInfo.email,
                 userImage: .url(URL(string: userInfo.userImageURL ?? .clear)),
                 userHeaderImage: .url(URL(string: userInfo.userHeaderImageURL ?? .clear))
             )
+            rootViewModel?.setCurrentUser(for: currentUser)
         } catch {
             Logger.log(kind: .error, message: error)
         }

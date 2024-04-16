@@ -17,7 +17,7 @@ extension MainView {
                 BannerSectionView
 
                 VStack(spacing: 0) {
-                    ForEach(rootViewModel.sections, id: \.self.id) { section in
+                    ForEach(rootViewModel.productData.sections, id: \.self.id) { section in
                         SectionsBlock(section: section)
                     }
                 }
@@ -227,7 +227,7 @@ extension MainView {
 // MARK: - Preview
 
 #Preview {
-    let vm = RootViewModel(products: .mockProducts)
+    let vm = RootViewModel.mockData
     return MainView(viewModel: .mockData, size: CGSize(width: 400, height: 800))
         .environmentObject(Navigation())
         .environmentObject(vm)
