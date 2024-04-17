@@ -94,6 +94,19 @@ extension SDProductModel {
             _images.map { .init(kind: .url(URL(string: $0))) }
         }
 
+        // Ставим флажок, если объявлению меньше 8 дней
+        let isNew = {
+            // Получаем разницу нынешней даты и даты создания объявления
+            guard let dif = Calendar.current.dateComponents(
+                [.day],
+                from: _establishmentDate.toDate,
+                to: Date.now
+            ).day else { return false }
+
+            // Если разница ниже 8, объявление считается новым
+            return dif < 8
+        }()
+
         // Проставляем `badgeText` в зависимости от данных по продукту
         let badgeText: String
         if let salePrice = Int(_discountedPrice ?? .clear), let oldPrice = Int(_price) {
@@ -101,8 +114,10 @@ extension SDProductModel {
             let floatSalePrice = CGFloat(salePrice)
             let sale = (floatOldePrice - floatSalePrice) / floatOldePrice * 100
             badgeText = "-\(Int(sale.rounded(toPlaces: 0)))%"
-        } else {
+        } else if isNew {
             badgeText = "NEW"
+        } else {
+            badgeText = .clear
         }
 
         var seller: ProductModel.SellerInfo {
@@ -124,16 +139,16 @@ extension SDProductModel {
                 countThreeStars: _reviewInfo._countThreeStars,
                 countTwoStars: _reviewInfo._countTwoStars,
                 countOneStars: _reviewInfo._countOneStars,
-                countOfComments: _reviewInfo._countOfComments
-//                comments: _reviewInfo._comments.map { review in
-//                    ProductReviewsModel.CommentInfo(
-//                        userName: review._userName,
-//                        date: review._date,
-//                        description: review._descriptionComment,
-//                        countFillStars: review._countFillStars,
-//                        feedbackCount: review._feedbackCount
-//                    )
-//                }
+                countOfComments: _reviewInfo._countOfComments,
+                comments: _reviewInfo._comments.map { review in
+                    ProductReviewsModel.CommentInfo(
+                        userName: review._userName,
+                        date: review._date,
+                        description: review._descriptionComment,
+                        countFillStars: review._countFillStars,
+                        feedbackCount: review._feedbackCount
+                    )
+                }
             )
         }
 
@@ -142,7 +157,7 @@ extension SDProductModel {
             images: productImages,
             badgeText: badgeText,
             isFavorite: false,
-            isNew: _discountedPrice.isNil,
+            isNew: isNew,
             pickers: _pickers,
             seller: seller,
             productName: _productName,

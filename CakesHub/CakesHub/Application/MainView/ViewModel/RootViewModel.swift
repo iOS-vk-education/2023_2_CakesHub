@@ -61,7 +61,8 @@ extension RootViewModel: RootViewModelProtocol {
 
 //        let cakes: [ProductRequest] = try await cakeService.getCakesList()
 //        products = cakes.mapperToProductModel
-        productData.products = .mockProducts
+//        productData.products = .mockProducts
+        productData.products = .swiftDataProduct
 
         // Группируем данные по секциям
         DispatchQueue.global(qos: .userInteractive).async {
@@ -185,7 +186,7 @@ extension RootViewModel {
         }
 
         // Кэшируем созданный торт в память устройства
-//        addProductInMemory(product: product)
+        addProductInMemory(product: product)
     }
 
     func setContext(contex: ModelContext) {

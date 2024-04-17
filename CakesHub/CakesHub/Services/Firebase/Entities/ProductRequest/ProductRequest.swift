@@ -96,17 +96,6 @@ extension ProductRequest {
                 return []
             }
         }
-
-        // Проставляем `badgeText` в зависимости от данных по продукту
-        let badgeText: String
-        if let salePrice = Int(discountedPrice ?? .clear), let oldPrice = Int(price) {
-            let floatOldePrice = CGFloat(oldPrice)
-            let floatSalePrice = CGFloat(salePrice)
-            let sale = (floatOldePrice - floatSalePrice) / floatOldePrice * 100
-            badgeText = "-\(Int(sale.rounded(toPlaces: 0)))%"
-        } else {
-            badgeText = "NEW"
-        }
         
         // Ставим флажок, если объявлению меньше 8 дней
         let isNew = {
@@ -120,6 +109,19 @@ extension ProductRequest {
             // Если разница ниже 8, объявление считается новым
             return dif < 8
         }()
+
+        // Проставляем `badgeText` в зависимости от данных по продукту
+        let badgeText: String
+        if let salePrice = Int(discountedPrice ?? .clear), let oldPrice = Int(price) {
+            let floatOldePrice = CGFloat(oldPrice)
+            let floatSalePrice = CGFloat(salePrice)
+            let sale = (floatOldePrice - floatSalePrice) / floatOldePrice * 100
+            badgeText = "-\(Int(sale.rounded(toPlaces: 0)))%"
+        } else if isNew {
+            badgeText = "NEW"
+        } else {
+            badgeText = .clear
+        }
 
         return ProductModel(
             id: documentID,
