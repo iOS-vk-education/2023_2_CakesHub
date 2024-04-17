@@ -11,7 +11,7 @@ struct InputProductModel: ClearConfigurationProtocol {
     var productName            : String = .clear
     var productDescription     : String = .clear
     var productPrice           : String = .clear
-    var productDiscountedPrice : String = .clear
+    var productDiscountedPrice : String? = nil
     var productImages          : [Data] = []
 
     static let clear = InputProductModel()

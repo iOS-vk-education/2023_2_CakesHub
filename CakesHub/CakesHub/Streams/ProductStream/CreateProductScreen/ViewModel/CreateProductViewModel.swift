@@ -40,7 +40,7 @@ final class CreateProductViewModel: ObservableObject, ViewModelProtocol {
         let productName = UserDefaults.standard.value(forKey: Keys.productName) as? String ?? .clear
         let productDescription = UserDefaults.standard.value(forKey: Keys.productDescription) as? String ?? .clear
         let productPrice = UserDefaults.standard.value(forKey: Keys.productPrice) as? String ?? .clear
-        let productDiscountedPrice = UserDefaults.standard.value(forKey: Keys.productDiscountedPrice) as? String ?? .clear
+        let productDiscountedPrice = UserDefaults.standard.value(forKey: Keys.productDiscountedPrice) as? String
         let productImages = UserDefaults.standard.array(forKey: Keys.productImages) as? [Data] ?? []
 
         self.inputProductData = InputProductModel(
@@ -111,7 +111,7 @@ private extension CreateProductViewModel {
             pickers: [], // TODO: iOS-18: Добавить экран с выбором пикеров
             productName: inputProductData.productName,
             price: inputProductData.productPrice,
-            discountedPrice: inputProductData.productDiscountedPrice.isEmpty ? nil : "$\(inputProductData.productDiscountedPrice)",
+            discountedPrice: inputProductData.productDiscountedPrice,
             weight: nil,
             seller: rootViewModel.currentUser,
             description: inputProductData.productDescription,

@@ -77,15 +77,7 @@ extension AuthViewModel {
         rootViewModel?.setCurrentUser(for: userInfo)
 
         // Сохраняем новые данные на устройстве
-        let user = SDUserModel(
-            uid: userInfo.uid,
-            nickName: userInfo.nickname,
-            email: userInfo.email,
-            userImageURL: userInfo.avatarImage,
-            userHeaderImageURL: userInfo.headerImage, 
-            phone: userInfo.phone
-        )
-        saveUserInMemory(user: user)
+        saveUserInMemory(user: SDUserModel(user: userInfo))
     }
 }
 

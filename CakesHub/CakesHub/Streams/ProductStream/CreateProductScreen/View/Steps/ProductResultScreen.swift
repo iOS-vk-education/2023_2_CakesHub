@@ -20,7 +20,12 @@ struct ProductResultScreen: View {
                 configuration: .basic(
                     title: viewModel.inputProductData.productName,
                     price: "$\(viewModel.inputProductData.productPrice)",
-                    discountedPrice: viewModel.inputProductData.productDiscountedPrice.isEmpty ? nil : "$\(viewModel.inputProductData.productDiscountedPrice)",
+                    discountedPrice: {
+                        if let discountedPrice = viewModel.inputProductData.productDiscountedPrice {
+                            return "$\(discountedPrice)"
+                        }
+                        return nil
+                    }(),
                     subtitle: rootViewModel.currentUser.nickname,
                     description: viewModel.inputProductData.productDescription,
                     starsConfiguration: .clear

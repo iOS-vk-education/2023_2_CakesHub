@@ -32,10 +32,10 @@ extension CHMBigBannerView.Configuration: Mockable {
 extension ProductModel.SellerInfo {
 
     static let king = ProductModel.SellerInfo(
-        id: "D4zfn3CLZjb0d2PWVPIFmGhptHr2",
-        name: "mightyK1ngRichard",
+        id: FBUserModel.mockData.uid,
+        name: FBUserModel.mockData.nickname,
         surname: "Permyakov",
-        mail: "dimapermyakov55@gmail.com",
+        mail: FBUserModel.mockData.email,
         userImage: .url(.mockKingImage),
         userHeaderImage: .url(.mockKingHeaderImage)
     )

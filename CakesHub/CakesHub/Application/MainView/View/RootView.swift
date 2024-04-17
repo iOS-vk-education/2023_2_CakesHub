@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 08.03.2024.
+//  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -77,7 +78,7 @@ private extension RootView {
     var AllTabBarViews: some View {
         switch nav.activeTab {
         case .house:
-            MainView(viewModel: MainView.ViewModel(), size: size)
+            MainView(viewModel: .init(), size: size)
         case .shop:
             CategoriesView(viewModel: .mockData)
         case .bag:

@@ -59,8 +59,7 @@ extension RootViewModel: RootViewModelProtocol {
         // Запуск шиммеров
         startShimmeringAnimation()
 
-//        let cakes: [ProductRequest] = try await cakeService.getCakesList()
-        productData.products = .mockData
+        productData.products = try await cakeService.getCakesList()
 
         // Группируем данные по секциям
         DispatchQueue.global(qos: .userInteractive).async {
