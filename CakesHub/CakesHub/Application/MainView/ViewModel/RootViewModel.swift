@@ -22,13 +22,14 @@ protocol RootViewModelProtocol: AnyObject {
     // MARK: Reducers
     func setCurrentUser(for user: ProductModel.SellerInfo)
     func addNewProduct(product: ProductModel)
+    func setContext(contex: ModelContext)
 }
 
 final class RootViewModel: ObservableObject {
     @Published private(set) var productData: ProductsData
     @Published private(set) var currentUser: ProductModel.SellerInfo
     @Published private(set) var isShimmering: Bool = false
-    var context: ModelContext?
+    private var context: ModelContext?
     private let cakeService: CakeService
 
     var isAuth: Bool {
@@ -184,7 +185,12 @@ extension RootViewModel {
         }
 
         // Кэшируем созданный торт в память устройства
-        addProductInMemory(product: product)
+//        addProductInMemory(product: product)
+    }
+
+    func setContext(contex: ModelContext) {
+        guard self.context.isNil else { return }
+        self.context = contex
     }
 }
 
@@ -221,7 +227,7 @@ private extension RootViewModel {
             }
         }
         // FIXME: Убрать задержку. Показана для демонстрации скелетонов на РК2
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.productData.sections[0] = .sales(sales)
             self.productData.sections[1] = .news(news)
             self.productData.sections[2] = .all(all)
