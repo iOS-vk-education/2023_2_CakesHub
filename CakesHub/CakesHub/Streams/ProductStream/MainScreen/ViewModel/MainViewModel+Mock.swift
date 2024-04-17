@@ -62,68 +62,8 @@ extension ProductModel.SellerInfo {
 // MARK: - ProductModel
 
 extension [ProductModel] {
-    private static let saleImg = URL(string: "https://i2.wp.com/shokolad.today/wp-content/uploads/2019/11/ukrashenie-torta-konfetami-10.png")
-    private static let newImg = URL(string: "https://grandgames.net/puzzle/f1200/cake_with_berries.jpg")
-    private static let allImg = URL(string: "https://mykaleidoscope.ru/uploads/posts/2020-07/1594573707_11-p-trekhyarusnie-torti-vkontakte-14.jpg")
-    static let swiftDataProduct: [ProductModel] = [
-        .init(
-            id: "0",
-            images: [.init(kind: .url(saleImg))],
-            badgeText: .clear,
-            isFavorite: true,
-            isNew: true,
-            pickers: [],
-            seller: .king,
-            productName: "Скидочный торт",
-            price: "100",
-            discountedPrice: "50",
-            description: "Описание скидочного торта",
-            reviewInfo: .init(countFiveStars: 5),
-            establishmentDate: "2024-11-11T01:32:01+0000",
-            similarProducts: []
-        ),
-        .init(
-            id: "1",
-            images: [.init(kind: .url(newImg))],
-            badgeText: "NEW",
-            isFavorite: true,
-            isNew: true,
-            pickers: [],
-            seller: .king,
-            productName: "Новый торт",
-            price: "500",
-            discountedPrice: nil,
-            description: "Описание нового торта",
-            reviewInfo: .init(countFiveStars: 2),
-            establishmentDate: "2024-04-17T01:32:01+0000",
-            similarProducts: []
-        ),
-        .init(
-            id: "3",
-            images: [.init(kind: .url(allImg))],
-            badgeText: .clear,
-            isFavorite: true,
-            isNew: false,
-            pickers: [],
-            seller: .king,
-            productName: "Все торт",
-            price: "100",
-            discountedPrice: nil,
-            description: "Описание все торта",
-            reviewInfo: .init(countFiveStars: 3),
-            establishmentDate: "2023-11-11T01:32:01+0000",
-            similarProducts: []
-        ),
-    ]
 
-    static let mockProducts = [
-        [ProductModel].mockAllData,
-        [ProductModel].mockNewsData,
-        [ProductModel].mockSalesData,
-        [ProductModel].similarProducts,
-    ].flatMap { $0 }
-
-    private static let mockNewsData: [ProductModel] = (1...20).map {
+    static let mockNewsData: [ProductModel] = (1...20).map {
         ProductModel(
             id: String($0),
             images: [
@@ -146,7 +86,7 @@ extension [ProductModel] {
         )
     }
 
-    private static let mockSalesData: [ProductModel] = (21...40).map {
+    static let mockSalesData: [ProductModel] = (21...40).map {
         ProductModel(
             id: String($0),
             images: [
@@ -170,7 +110,7 @@ extension [ProductModel] {
         )
     }
 
-    private static let mockAllData: [ProductModel] = (41...61).map {
+    static let mockAllData: [ProductModel] = (41...61).map {
         ProductModel(
             id: String($0),
             images: [

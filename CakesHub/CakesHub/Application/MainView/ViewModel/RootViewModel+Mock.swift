@@ -11,7 +11,14 @@ import Foundation
 extension RootViewModel: Mockable {
 
     static let mockData = RootViewModel(
-        productsData: ProductsData(products: .mockProducts),
+        productsData: ProductsData(
+            sections: [
+                .sales(.mockSalesData),
+                .news(.mockNewsData),
+                .all(.mockAllData),
+            ],
+            currentUserProducts: .mockData
+        ),
         currentUser: .king
     )
 }

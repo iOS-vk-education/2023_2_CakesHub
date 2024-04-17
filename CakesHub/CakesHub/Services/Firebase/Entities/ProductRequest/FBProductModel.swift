@@ -8,62 +8,75 @@
 
 import SwiftUI
 
-struct ProductRequest: DictionaryConvertible, ClearConfigurationProtocol {
+struct FBProductModel: DictionaryConvertible, ClearConfigurationProtocol {
     /// ID firebase документа
-    var documentID: String = .clear
+    var documentID: String
     /// Картинки товара
-    var images: ImageKindRequest = .clear
+    var images: FBImageKind
     /// Фильтры торта
-    var pickers: [String] = []
+    var pickers: [String]
     /// Название торта
-    var productName: String = .clear
+    var productName: String
     /// Цена торта
-    var price: String = .clear
+    var price: String
     /// Цена торта со скидкой
     var discountedPrice: String?
     /// Вес торта
     var weight: String?
     /// Имя продовца
-    var seller: UserRequest = .clear
+    var seller: FBUserModel
     /// Описание товара
-    var description: String = .clear
+    var description: String
     /// Схожие товары
-    var similarProducts: [String] = []
+    var similarProducts: [FBProductModel]
     /// Дата создания товара
-    var establishmentDate: String = .clear
+    var establishmentDate: String
     /// Оценки товара
-    var reviewInfo: ProductReviewsRequest = .clear
+    var reviewInfo: FBProductReviewsModel
 
-    static let clear = ProductRequest()
+    static let clear = FBProductModel(
+        documentID: .clear,
+        images: .clear,
+        pickers: [],
+        productName: .clear,
+        price: .clear,
+        seller: .clear,
+        description: .clear,
+        similarProducts: [],
+        establishmentDate: .clear,
+        reviewInfo: .clear
+    )
 }
 
 // MARK: - DictionaryConvertible
 
-extension ProductRequest {
+extension FBProductModel {
 
-    init(dictionary: [String: Any]) {
-        var images: ProductRequest.ImageKindRequest?
+    init?(dictionary: [String: Any]) {
+        guard let documentID = dictionary["documentID"] as? String else { return nil }
+        var images: FBProductModel.FBImageKind?
         if let imagesDictionary = dictionary["images"] as? [String: Any] {
-            images = ProductRequest.ImageKindRequest(dictionary: imagesDictionary)
+            images = FBProductModel.FBImageKind(dictionary: imagesDictionary)
         }
         let pickers = dictionary["pickers"] as? [String] ?? []
         let productName = dictionary["productName"] as? String ?? .clear
         let price = dictionary["price"] as? String ?? .clear
         let discountedPrice = dictionary["discountedPrice"] as? String
         let weight = dictionary["weight"] as? String
-        var user: UserRequest?
+        var user: FBUserModel?
         if let sellerDict = dictionary["seller"] as? [String: Any] {
-            user = UserRequest(dictionary: sellerDict)
+            user = FBUserModel(dictionary: sellerDict)
         }
         let description = dictionary["description"] as? String ?? .clear
-        let similarProducts = dictionary["similarProducts"] as? [String] ?? []
+        let similarProducts = dictionary["similarProducts"] as? [FBProductModel] ?? []
         let establishmentDate = dictionary["establishmentDate"] as? String ?? .clear
-        var reviewInfo: ProductReviewsRequest?
+        var reviewInfo: FBProductReviewsModel?
         if let reviewInfoDict = dictionary["reviewInfo"] as? [String: Any] {
-            reviewInfo = ProductReviewsRequest(dictionary: reviewInfoDict)
+            reviewInfo = FBProductReviewsModel(dictionary: reviewInfoDict)
         }
 
         self.init(
+            documentID: documentID,
             images: images ?? .clear,
             pickers: pickers,
             productName: productName,
@@ -79,9 +92,39 @@ extension ProductRequest {
     }
 }
 
+// MARK: - Computed Values
+
+extension FBProductModel {
+
+    var isNew: Bool {
+        // Получаем разницу нынешней даты и даты создания объявления
+        guard let dif = Calendar.current.dateComponents(
+            [.day],
+            from: establishmentDate.toDate,
+            to: Date.now
+        ).day else { return false }
+
+        // Если разница ниже 8, объявление считается новым
+        return dif < 8
+    }
+
+    var badgeText: String {
+        if let salePrice = Int(discountedPrice ?? .clear), let oldPrice = Int(price) {
+            let floatOldePrice = CGFloat(oldPrice)
+            let floatSalePrice = CGFloat(salePrice)
+            let sale = (floatOldePrice - floatSalePrice) / floatOldePrice * 100
+            return "-\(Int(sale.rounded(toPlaces: 0)))%"
+        } else if isNew {
+            return "NEW"
+        } else {
+            return .clear
+        }
+    }
+}
+
 // MARK: - Mapper
 
-extension ProductRequest {
+extension FBProductModel {
 
     var mapperToProductModel: ProductModel {
         var productImages: [ProductModel.ProductImage] {
@@ -96,31 +139,9 @@ extension ProductRequest {
                 return []
             }
         }
-        
-        // Ставим флажок, если объявлению меньше 8 дней
-        let isNew = {
-            // Получаем разницу нынешней даты и даты создания объявления
-            guard let dif = Calendar.current.dateComponents(
-                [.day],
-                from: establishmentDate.toDate,
-                to: Date.now
-            ).day else { return false }
-
-            // Если разница ниже 8, объявление считается новым
-            return dif < 8
-        }()
-
-        // Проставляем `badgeText` в зависимости от данных по продукту
-        let badgeText: String
-        if let salePrice = Int(discountedPrice ?? .clear), let oldPrice = Int(price) {
-            let floatOldePrice = CGFloat(oldPrice)
-            let floatSalePrice = CGFloat(salePrice)
-            let sale = (floatOldePrice - floatSalePrice) / floatOldePrice * 100
-            badgeText = "-\(Int(sale.rounded(toPlaces: 0)))%"
-        } else if isNew {
-            badgeText = "NEW"
-        } else {
-            badgeText = .clear
+        var discountedPriceString: String? {
+            guard let price = discountedPrice else { return nil }
+            return "$\(price)"
         }
 
         return ProductModel(
@@ -132,17 +153,17 @@ extension ProductRequest {
             pickers: pickers,
             seller: seller.mapper,
             productName: productName,
-            price: price,
-            discountedPrice: discountedPrice,
+            price: "$\(price)",
+            discountedPrice: discountedPriceString,
             description: description,
             reviewInfo: reviewInfo.mapper,
             establishmentDate: establishmentDate,
-            similarProducts: []
+            similarProducts: similarProducts.mapperToProductModel
         )
     }
 }
 
-extension [ProductRequest] {
+extension [FBProductModel] {
 
     var mapperToProductModel: [ProductModel] {
         map { $0.mapperToProductModel }

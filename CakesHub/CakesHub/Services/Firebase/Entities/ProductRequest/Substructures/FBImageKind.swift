@@ -7,9 +7,9 @@
 
 import UIKit
 
-extension ProductRequest {
+extension FBProductModel {
 
-    enum ImageKindRequest: DictionaryConvertible {
+    enum FBImageKind: DictionaryConvertible {
         case url([URL?])
         case images([UIImage?])
         case strings([String])
@@ -19,7 +19,7 @@ extension ProductRequest {
 
 // MARK: - DictionaryConvertible
 
-extension ProductRequest.ImageKindRequest {
+extension FBProductModel.FBImageKind {
 
     init?(dictionary: [String: Any]) {
         guard let strings = dictionary["strings"] as? [String] else {

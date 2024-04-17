@@ -17,7 +17,7 @@ struct CategoryCardModel: Identifiable {
 
 #if DEBUG
 
-extension [CategoryCardModel]: Mockable {
+extension [CategoryCardModel] {
 
     static let mockData: [CategoryCardModel] = [
         .mockData1,

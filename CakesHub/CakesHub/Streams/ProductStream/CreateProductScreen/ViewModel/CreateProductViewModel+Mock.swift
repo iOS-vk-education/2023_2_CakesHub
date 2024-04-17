@@ -12,7 +12,7 @@ import Foundation
 
 extension CreateProductViewModel: Mockable {
 
-    static let mockData = CreateProductViewModel(rootViewModel: .mockData)
+    static let mockData = CreateProductViewModel(rootViewModel: .mockData, inputProductData: Constants.mockInputData)
 }
 
 // MARK: - Constants
@@ -20,7 +20,17 @@ extension CreateProductViewModel: Mockable {
 private extension CreateProductViewModel {
 
     enum Constants {
-        static let mockTitle = "Просто моковый заголовок из кодогенерации для пример"
+        static let mockInputData = InputProductModel(
+            productName: "Торт медовик",
+            productDescription: "Просто описание торта медовика для превью",
+            productPrice: "1000",
+            productDiscountedPrice: "200",
+            productImages: [
+                CHMImage.mockImageCake?.pngData(),
+                CHMImage.mockImageCake2?.pngData(),
+                CHMImage.mockImageCake3?.pngData(),
+            ].compactMap { $0 }
+        )
     }
 }
 

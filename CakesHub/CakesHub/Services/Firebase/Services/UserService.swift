@@ -11,10 +11,10 @@ import FirebaseFirestore
 // MARK: - UserServiceProtocol
 
 protocol UserServiceProtocol {
-    func getUserInfo(uid userUID: String) async throws -> UserRequest
-    func updateUserInfo(with user: UserRequest) async throws
+    func getUserInfo(uid userUID: String) async throws -> FBUserModel
+    func updateUserInfo(with user: FBUserModel) async throws
     func deleteUserInfo(uid: String) async throws
-    func createUserInfo(for user: UserRequest) async throws
+    func createUserInfo(for user: FBUserModel) async throws
 }
 
 // MARK: - UserService
@@ -32,13 +32,13 @@ final class UserService {
 extension UserService: UserServiceProtocol {
 
     /// Получение данных пользователя по `uid`
-    func getUserInfo(uid userUID: String) async throws -> UserRequest {
+    func getUserInfo(uid userUID: String) async throws -> FBUserModel {
         let docRef = db.collection(FirestoreCollections.users.rawValue).document(userUID)
         let snapshot = try await docRef.getDocument()
         guard let data = snapshot.data() else {
             throw APIError.dataIsNil
         }
-        guard let user = UserRequest(dictionary: data) else {
+        guard let user = FBUserModel(dictionary: data) else {
             throw APIError.uidNotFound
         }
         return user
@@ -46,7 +46,7 @@ extension UserService: UserServiceProtocol {
     
     /// Обновление данных о пользователе
     /// - Parameter user: новые данные о пользователе
-    func updateUserInfo(with user: UserRequest) async throws {
+    func updateUserInfo(with user: FBUserModel) async throws {
         let docRef = db.collection(FirestoreCollections.users.rawValue).document(user.uid)
         try await docRef.setData(user.dictionaryRepresentation)
     }
@@ -58,7 +58,7 @@ extension UserService: UserServiceProtocol {
     }
 
     /// Создание нового пользователя
-    func createUserInfo(for user: UserRequest) async throws {
+    func createUserInfo(for user: FBUserModel) async throws {
         let docRef = db.collection(FirestoreCollections.users.rawValue).document(user.uid)
         try await docRef.setData(user.dictionaryRepresentation)
     }

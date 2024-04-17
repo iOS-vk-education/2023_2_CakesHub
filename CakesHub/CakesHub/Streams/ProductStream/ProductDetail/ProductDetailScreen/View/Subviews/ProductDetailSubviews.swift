@@ -120,7 +120,7 @@ extension ProductDetailScreen {
 
             Divider()
 
-            if rootViewModel.currentUser.id != viewModel.currentProduct.seller.id {
+            if rootViewModel.currentUser.uid != viewModel.currentProduct.seller.id {
                 Button(action: openSellerInfo, label: {
                     MoreInfoCell(text: ProductDetailCells.sellerInfo.rawValue)
                         .padding(.horizontal)

@@ -14,8 +14,8 @@ import SwiftUI
 // MARK: - CakeServiceProtocol
 
 protocol CakeServiceProtocol {
-    func getCakesList() async throws -> [ProductRequest]
-    func createCake(cake: ProductRequest, completion: @escaping (Error?) -> Void)
+    func getCakesList() async throws -> [FBProductModel]
+    func createCake(cake: FBProductModel, completion: @escaping (Error?) -> Void)
 }
 
 // MARK: - CakeService
@@ -33,13 +33,13 @@ final class CakeService {
 extension CakeService: CakeServiceProtocol {
 
     /// Getting a list of cakes
-    func getCakesList() async throws -> [ProductRequest] {
+    func getCakesList() async throws -> [FBProductModel] {
         let snapshot = try await Firestore.firestore().collection(FirestoreCollections.products.rawValue).getDocuments()
-        return snapshot.documents.compactMap { ProductRequest(dictionary: $0.data()) }
+        return snapshot.documents.compactMap { FBProductModel(dictionary: $0.data()) }
     }
 
     /// Cake creation
-    func createCake(cake: ProductRequest, completion: @escaping (Error?) -> Void) {
+    func createCake(cake: FBProductModel, completion: @escaping (Error?) -> Void) {
         let dispatchGroup = DispatchGroup()
 
         var images: [String] = []

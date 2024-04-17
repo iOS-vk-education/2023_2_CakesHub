@@ -7,25 +7,35 @@
 
 import Foundation
 
-extension ProductRequest {
+extension FBProductModel {
     
-    struct CommentInfoRequest: ClearConfigurationProtocol, DictionaryConvertible {
-        var userName       : String = .clear
-        var date           : String = .clear
-        var description    : String = .clear
-        var countFillStars : Int = 0
-        var feedbackCount  : Int = 0
+    struct FBCommentInfoModel: ClearConfigurationProtocol, DictionaryConvertible {
+        var id             : String
+        var userName       : String
+        var date           : String
+        var description    : String
+        var countFillStars : Int
+        var feedbackCount  : Int
         
-        static let clear = CommentInfoRequest()
+        static let clear = FBCommentInfoModel(
+            id: .clear,
+            userName: .clear,
+            date: .clear,
+            description: .clear,
+            countFillStars: 0,
+            feedbackCount: 0
+        )
     }
 }
 
 // MARK: - DictionaryConvertible
 
-extension ProductRequest.CommentInfoRequest {
+extension FBProductModel.FBCommentInfoModel {
 
     init?(dictionary: [String: Any]) {
+        guard let id = dictionary["id"] as? String else { return nil }
         self.init(
+            id: id,
             userName: dictionary["userName"] as? String ?? .clear,
             date: dictionary["date"] as? String ?? .clear,
             description: dictionary["description"] as? String ?? .clear,
@@ -37,10 +47,11 @@ extension ProductRequest.CommentInfoRequest {
 
 // MARK: - Mapper
 
-extension ProductRequest.CommentInfoRequest {
+extension FBProductModel.FBCommentInfoModel {
 
     var mapper: ProductReviewsModel.CommentInfo {
         .init(
+            id: id,
             userName: userName,
             date: date,
             description: description,
@@ -50,7 +61,7 @@ extension ProductRequest.CommentInfoRequest {
     }
 }
 
-extension [ProductRequest.CommentInfoRequest] {
+extension [FBProductModel.FBCommentInfoModel] {
 
     var mapper: [ProductReviewsModel.CommentInfo] {
         map { $0.mapper }

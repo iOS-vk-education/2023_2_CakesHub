@@ -71,11 +71,7 @@ private extension MainView {
 // MARK: - Preview
 
 #Preview {
-    let vm = RootViewModel.mockData
-    return MainView(viewModel: .mockData, size: CGSize(width: 400, height: 800))
+    MainView(viewModel: .mockData, size: CGSize(width: 400, height: 800))
         .environmentObject(Navigation())
-        .environmentObject(vm)
-        .task {
-            do { try await vm.fetchData() } catch {}
-        }
+        .environmentObject(RootViewModel.mockData)
 }

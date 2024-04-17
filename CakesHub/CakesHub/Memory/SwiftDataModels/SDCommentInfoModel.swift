@@ -10,7 +10,7 @@ import SwiftData
 extension SDProductReviewsModel {
 
     @Model
-    final class SDCommentInfo {
+    final class SDCommentInfoModel {
         let _id                 : String
         var _userName           : String
         var _date               : String
@@ -19,12 +19,12 @@ extension SDProductReviewsModel {
         var _feedbackCount      : Int
 
         init(
-            id: String,
-            userName: String,
-            date: String,
-            description: String,
-            countFillStars: Int,
-            feedbackCount: Int
+            id             : String,
+            userName       : String,
+            date           : String,
+            description    : String,
+            countFillStars : Int,
+            feedbackCount  : Int
         ) {
             self._id = id
             self._userName = userName
@@ -38,9 +38,9 @@ extension SDProductReviewsModel {
 
 // MARK: - Init
 
-extension SDProductReviewsModel.SDCommentInfo {
+extension SDProductReviewsModel.SDCommentInfoModel {
 
-    convenience init(comment: ProductReviewsModel.CommentInfo) {
+    convenience init(comment: FBProductModel.FBCommentInfoModel) {
         self.init(
             id: comment.id,
             userName: comment.userName,
@@ -48,6 +48,22 @@ extension SDProductReviewsModel.SDCommentInfo {
             description: comment.description,
             countFillStars: comment.countFillStars,
             feedbackCount: comment.feedbackCount
+        )
+    }
+}
+
+// MARK: - Mapper
+
+extension SDProductReviewsModel.SDCommentInfoModel {
+
+    var mapperInFBCommentInfo: FBProductModel.FBCommentInfoModel {
+        .init(
+            id: _id,
+            userName: _userName,
+            date: _date,
+            description: _descriptionComment,
+            countFillStars: _countFillStars,
+            feedbackCount: _feedbackCount
         )
     }
 }

@@ -21,9 +21,9 @@ struct ProductResultScreen: View {
                     title: viewModel.inputProductData.productName,
                     price: "$\(viewModel.inputProductData.productPrice)",
                     discountedPrice: viewModel.inputProductData.productDiscountedPrice.isEmpty ? nil : "$\(viewModel.inputProductData.productDiscountedPrice)",
-                    subtitle: rootViewModel.currentUser.name,
+                    subtitle: rootViewModel.currentUser.nickname,
                     description: viewModel.inputProductData.productDescription,
-                    starsConfiguration: .basic(kind: .zero, feedbackCount: 0)
+                    starsConfiguration: .clear
                 )
             )
             .padding(.bottom, 150)
@@ -75,7 +75,7 @@ private extension ProductResultScreen {
 // MARK: - Preview
 
 #Preview {
-    return ProductResultScreen()
-        .environmentObject(CreateProductViewModel())
-        .environmentObject(RootViewModel(currentUser: .king))
+    ProductResultScreen()
+        .environmentObject(CreateProductViewModel.mockData)
+        .environmentObject(RootViewModel.mockData)
 }

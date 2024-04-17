@@ -88,7 +88,7 @@ private extension RootView {
         case .profile:
             ProfileScreen(
                 viewModel: .init(
-                    user: viewModel.currentUser.mapper(products: viewModel.productData.currentUserProducts)
+                    user: viewModel.currentUser.mapper.mapper(products: viewModel.productData.currentUserProducts.mapperToProductModel)
                 )
             )
         }
@@ -99,6 +99,7 @@ private extension RootView {
 
 #Preview {
     RootView()
+        .environmentObject(RootViewModel.mockData)
         .environmentObject(Navigation())
         .modelContainer(Preview(SDUserModel.self).container)
 }

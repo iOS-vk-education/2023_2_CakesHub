@@ -16,16 +16,16 @@ final class SDProductReviewsModel {
     var _countTwoStars   : Int
     var _countOneStars   : Int
     var _countOfComments : Int
-    var _comments        : [SDCommentInfo]
+    var _comments        : [SDCommentInfoModel]
 
     init(
-        countFiveStars: Int,
-        countFourStars: Int,
-        countThreeStars: Int,
-        countTwoStars: Int,
-        countOneStars: Int,
-        countOfComments: Int,
-        comments: [SDCommentInfo]
+        countFiveStars  : Int,
+        countFourStars  : Int,
+        countThreeStars : Int,
+        countTwoStars   : Int,
+        countOneStars   : Int,
+        countOfComments : Int,
+        comments        : [SDCommentInfoModel]
     ) {
         self._countFiveStars = countFiveStars
         self._countFourStars = countFourStars
@@ -41,7 +41,7 @@ final class SDProductReviewsModel {
 
 extension SDProductReviewsModel {
 
-    convenience init(reviews: ProductReviewsModel) {
+    convenience init(reviews: FBProductModel.FBProductReviewsModel) {
         self.init(
             countFiveStars: reviews.countFiveStars,
             countFourStars: reviews.countFourStars,
@@ -50,6 +50,23 @@ extension SDProductReviewsModel {
             countOneStars: reviews.countOneStars,
             countOfComments: reviews.countOfComments,
             comments: reviews.comments.map { .init(comment: $0) }
+        )
+    }
+}
+
+// MARK: - Mapper
+
+extension SDProductReviewsModel {
+
+    var mapperInFBProductReviews: FBProductModel.FBProductReviewsModel {
+        .init(
+            countFiveStars: _countFiveStars,
+            countFourStars: _countFourStars,
+            countThreeStars: _countThreeStars,
+            countTwoStars: _countTwoStars,
+            countOneStars: _countOneStars,
+            countOfComments: _countOfComments,
+            comments: _comments.map { $0.mapperInFBCommentInfo }
         )
     }
 }

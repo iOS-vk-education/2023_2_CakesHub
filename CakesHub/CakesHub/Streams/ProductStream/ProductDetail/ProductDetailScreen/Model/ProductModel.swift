@@ -125,12 +125,11 @@ extension ProductModel {
 }
 
 #if DEBUG
-
 extension ProductModel {
 
     /// Маппер для заполнения БД
-    var mapper: ProductRequest {
-        var productImages: ProductRequest.ImageKindRequest {
+    var mapper: FBProductModel {
+        var productImages: FBProductModel.FBImageKind {
             guard let kind = images.first?.kind else { return .clear }
             switch kind {
             case .url:
@@ -174,7 +173,7 @@ extension ProductModel {
             }
         }
 
-        let sellerInfo = UserRequest(
+        let sellerInfo = FBUserModel(
             uid: seller.id,
             nickname: seller.name,
             email: seller.mail,
@@ -183,7 +182,7 @@ extension ProductModel {
             phone: seller.phone
         )
 
-        return ProductRequest(
+        return FBProductModel(
             documentID: id,
             images: productImages,
             pickers: pickers,
@@ -203,18 +202,19 @@ extension ProductModel {
                 countOneStars: reviewInfo.countOneStars,
                 countOfComments: reviewInfo.countOfComments,
                 comments: reviewInfo.comments.map {
-                    .init(userName: $0.userName,
-                          date: $0.date,
-                          description: $0.description,
-                          countFillStars: $0.countFillStars,
-                          feedbackCount: $0.feedbackCount
+                    .init(
+                        id: $0.id,
+                        userName: $0.userName,
+                        date: $0.date,
+                        description: $0.description,
+                        countFillStars: $0.countFillStars,
+                        feedbackCount: $0.feedbackCount
                     )
                 }
             )
         )
     }
 }
-
 #endif
 
 extension ProductModel.SellerInfo {

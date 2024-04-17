@@ -34,7 +34,7 @@ extension AuthService: AuthServiceProtocol {
     func registeUser(with userRequest: RegisterUserRequest) async throws -> String {
         let result = try await auth.createUser(withEmail: userRequest.email, password: userRequest.password)
         let uid = result.user.uid
-        let createdUser = UserRequest(uid: uid, nickname: userRequest.nickname, email: userRequest.email)
+        let createdUser = FBUserModel(uid: uid, nickname: userRequest.nickname, email: userRequest.email)
         try await UserService.shared.createUserInfo(for: createdUser)
         return uid
     }

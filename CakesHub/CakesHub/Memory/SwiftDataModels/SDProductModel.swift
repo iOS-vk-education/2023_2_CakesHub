@@ -56,26 +56,26 @@ final class SDProductModel {
 
 extension SDProductModel {
 
-    convenience init(product: ProductModel) {
+    convenience init(product: FBProductModel) {
         var images: [String] {
-            product.images.compactMap { image in
-                switch image.kind {
-                case let .url(url):
-                    return url?.absoluteString
-                default:
-                    return nil
-                }
+            switch product.images {
+            case let .strings(strings):
+                return strings
+            case let .url(urls):
+                return urls.compactMap { $0?.absoluteString }
+            default:
+                return []
             }
         }
 
         self.init(
-            id: product.id,
+            id: product.documentID,
             images: images,
             pickers: product.pickers,
             productName: product.productName,
             price: product.price,
             discountedPrice: product.discountedPrice,
-            weight: nil,
+            weight: product.weight,
             seller: SDUserModel(user: product.seller),
             description: product.description,
             similarProducts: product.similarProducts.map { SDProductModel(product: $0) },
@@ -89,84 +89,20 @@ extension SDProductModel {
 
 extension SDProductModel {
 
-    var mapperInProductModel: ProductModel {
-        var productImages: [ProductModel.ProductImage] {
-            _images.map { .init(kind: .url(URL(string: $0))) }
-        }
-
-        // Ставим флажок, если объявлению меньше 8 дней
-        let isNew = {
-            // Получаем разницу нынешней даты и даты создания объявления
-            guard let dif = Calendar.current.dateComponents(
-                [.day],
-                from: _establishmentDate.toDate,
-                to: Date.now
-            ).day else { return false }
-
-            // Если разница ниже 8, объявление считается новым
-            return dif < 8
-        }()
-
-        // Проставляем `badgeText` в зависимости от данных по продукту
-        let badgeText: String
-        if let salePrice = Int(_discountedPrice ?? .clear), let oldPrice = Int(_price) {
-            let floatOldePrice = CGFloat(oldPrice)
-            let floatSalePrice = CGFloat(salePrice)
-            let sale = (floatOldePrice - floatSalePrice) / floatOldePrice * 100
-            badgeText = "-\(Int(sale.rounded(toPlaces: 0)))%"
-        } else if isNew {
-            badgeText = "NEW"
-        } else {
-            badgeText = .clear
-        }
-
-        var seller: ProductModel.SellerInfo {
-            .init(
-                id: _seller._uid,
-                name: _seller._nickName,
-                surname: .clear,
-                mail: _seller._email,
-                userImage: .url(URL(string: _seller._userImageURL ?? .clear)),
-                userHeaderImage: .url(URL(string: _seller._userHeaderImageURL ?? .clear)),
-                phone: _seller._phone
-            )
-        }
-
-        var reviewInfo: ProductReviewsModel {
-            ProductReviewsModel(
-                countFiveStars: _reviewInfo._countFourStars,
-                countFourStars: _reviewInfo._countFourStars,
-                countThreeStars: _reviewInfo._countThreeStars,
-                countTwoStars: _reviewInfo._countTwoStars,
-                countOneStars: _reviewInfo._countOneStars,
-                countOfComments: _reviewInfo._countOfComments,
-                comments: _reviewInfo._comments.map { review in
-                    ProductReviewsModel.CommentInfo(
-                        userName: review._userName,
-                        date: review._date,
-                        description: review._descriptionComment,
-                        countFillStars: review._countFillStars,
-                        feedbackCount: review._feedbackCount
-                    )
-                }
-            )
-        }
-
-        return ProductModel(
-            id: _id,
-            images: productImages,
-            badgeText: badgeText,
-            isFavorite: false,
-            isNew: isNew,
+    var mapperInFBProductModel: FBProductModel {
+        return FBProductModel(
+            documentID: _id,
+            images: .strings(_images),
             pickers: _pickers,
-            seller: seller,
             productName: _productName,
             price: _price,
             discountedPrice: _discountedPrice,
+            weight: _weight,
+            seller: _seller.mapperInFBUserModel,
             description: _descriptionInfo,
-            reviewInfo: reviewInfo,
+            similarProducts: _similarProducts.map { $0.mapperInFBProductModel },
             establishmentDate: _establishmentDate,
-            similarProducts: _similarProducts.map { $0.mapperInProductModel }
+            reviewInfo: _reviewInfo.mapperInFBProductReviews
         )
     }
 }

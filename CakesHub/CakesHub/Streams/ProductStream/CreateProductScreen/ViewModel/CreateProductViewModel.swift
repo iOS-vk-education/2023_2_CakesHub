@@ -23,12 +23,19 @@ final class CreateProductViewModel: ObservableObject, ViewModelProtocol {
 
     private(set) var rootViewModel: RootViewModel
     private(set) var profileViewModel: ProfileViewModel
+    private let cakeService: CakeServiceProtocol
     @Published var inputProductData: InputProductModel
     let totalCount = 3
 
-    init(rootViewModel: RootViewModel = RootViewModel(), profileViewModel: ProfileViewModel = ProfileViewModel()) {
+    init(
+        rootViewModel: RootViewModel = RootViewModel(),
+        profileViewModel: ProfileViewModel = ProfileViewModel(),
+        cakeService: CakeServiceProtocol = CakeService.shared,
+        inputProductData: InputProductModel = .clear
+    ) {
         self.rootViewModel = rootViewModel
         self.profileViewModel = profileViewModel
+        self.cakeService = cakeService
 
         let productName = UserDefaults.standard.value(forKey: Keys.productName) as? String ?? .clear
         let productDescription = UserDefaults.standard.value(forKey: Keys.productDescription) as? String ?? .clear
@@ -72,13 +79,14 @@ extension CreateProductViewModel: CreateProductViewModelProtocol {
     /// Нажали кнопку `создать`
     func didTapCreateProductButton() {
         // Создаём локальную карточку продукта
-        let newProduct = configurationProductModel()
+        let newProduct = configurationProductModel
         rootViewModel.addNewProduct(product: newProduct)
-        profileViewModel.updateUserProducts(products: rootViewModel.productData.currentUserProducts)
+        profileViewModel.updateUserProducts(products: rootViewModel.productData.currentUserProducts.mapperToProductModel)
 
         // Отправляем запрос в сеть
-        // TODO: Добавить запрос ...
-
+        cakeService.createCake(cake: newProduct) { error in
+            if let error { Logger.log(kind: .error, message: error) }
+        }
 
         // Сброс введённых данных
         resetUserDefaults()
@@ -96,35 +104,21 @@ extension CreateProductViewModel: CreateProductViewModelProtocol {
 
 private extension CreateProductViewModel {
 
-    func configurationProductModel() -> ProductModel {
-        let images: [ProductModel.ProductImage] = inputProductData.productImages.map { .init(kind: .uiImage(UIImage(data: $0))) }
-        let badgeText: String
-        if let salePrice = Int(inputProductData.productDiscountedPrice), let oldPrice = Int(inputProductData.productPrice) {
-            let floatOldePrice = CGFloat(oldPrice)
-            let floatSalePrice = CGFloat(salePrice)
-            let sale = (floatOldePrice - floatSalePrice) / floatOldePrice * 100
-            badgeText = "-\(Int(sale.rounded(toPlaces: 0)))%"
-        } else {
-            badgeText = "NEW"
-        }
-
-        let newProduct = ProductModel(
-            id: UUID().uuidString,
-            images: images,
-            badgeText: badgeText,
-            isFavorite: false,
-            isNew: true,
-            pickers: [], // TODO: iOS-13: Добавить экран с выбором пикеров
-            seller: rootViewModel.currentUser,
+    var configurationProductModel: FBProductModel {
+        FBProductModel(
+            documentID: UUID().uuidString,
+            images: .images(inputProductData.productImages.compactMap { UIImage(data: $0) }),
+            pickers: [], // TODO: iOS-18: Добавить экран с выбором пикеров
             productName: inputProductData.productName,
-            price: "$\(inputProductData.productPrice)",
+            price: inputProductData.productPrice,
             discountedPrice: inputProductData.productDiscountedPrice.isEmpty ? nil : "$\(inputProductData.productDiscountedPrice)",
+            weight: nil,
+            seller: rootViewModel.currentUser,
             description: inputProductData.productDescription,
+            similarProducts: [],
             establishmentDate: Date.now.formattedString(format: "yyyy-MM-dd HH:mm:ss"),
-            similarProducts: []
+            reviewInfo: .clear
         )
-
-        return newProduct
     }
 
     func resetUserDefaults() {

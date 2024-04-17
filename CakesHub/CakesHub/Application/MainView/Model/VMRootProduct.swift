@@ -10,9 +10,9 @@ import Foundation
 extension RootViewModel {
 
     struct ProductsData: ClearConfigurationProtocol {
-        var products: [ProductModel] = []
+        var products: [FBProductModel] = []
         var sections: [Section] = []
-        var currentUserProducts: [ProductModel] = []
+        var currentUserProducts: [FBProductModel] = []
 
         static let clear = ProductsData()
     }

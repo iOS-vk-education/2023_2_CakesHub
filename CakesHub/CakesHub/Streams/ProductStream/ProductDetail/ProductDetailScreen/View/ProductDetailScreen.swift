@@ -80,9 +80,9 @@ extension ProductDetailScreen {
 
     func openSellerInfo() {
         let userProducts = rootViewModel.productData.products.filter {
-            $0.seller.id == viewModel.currentProduct.seller.id
+            $0.seller.uid == viewModel.currentProduct.seller.id
         }
-        let seller = viewModel.currentProduct.seller.mapper(products: userProducts)
+        let seller = viewModel.currentProduct.seller.mapper(products: userProducts.mapperToProductModel)
         nav.addScreen(screen: seller)
     }
 }

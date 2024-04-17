@@ -59,12 +59,7 @@ extension AuthViewModel {
         saveUserInMemory(user: user)
 
         // Обновляем рутового пользователя. Должно выполняться на главном потоке
-        let currentUser = ProductModel.SellerInfo(
-            id: uid,
-            name: inputData.nickName,
-            mail: inputData.email
-        )
-        rootViewModel?.setCurrentUser(for: currentUser)
+        rootViewModel?.setCurrentUser(for: user.mapperInFBUserModel)
     }
 
     /// Нажали кнопку  `войти`
@@ -79,7 +74,7 @@ extension AuthViewModel {
         let userInfo = try await services.userService.getUserInfo(uid: userUID)
 
         // Обновляем рутового пользователя. Должно выполняться на главном потоке
-        rootViewModel?.setCurrentUser(for: userInfo.mapper)
+        rootViewModel?.setCurrentUser(for: userInfo)
 
         // Сохраняем новые данные на устройстве
         let user = SDUserModel(
@@ -104,15 +99,7 @@ extension AuthViewModel {
 
         do {
             guard let userInfo = try context?.fetch(fetchDescriptor).first else { return }
-
-            let currentUser = ProductModel.SellerInfo(
-                id: userInfo._uid,
-                name: userInfo._nickName,
-                mail: userInfo._email,
-                userImage: .url(URL(string: userInfo._userImageURL ?? .clear)),
-                userHeaderImage: .url(URL(string: userInfo._userHeaderImageURL ?? .clear))
-            )
-            rootViewModel?.setCurrentUser(for: currentUser)
+            rootViewModel?.setCurrentUser(for: userInfo.mapperInFBUserModel)
         } catch {
             Logger.log(kind: .error, message: error)
         }

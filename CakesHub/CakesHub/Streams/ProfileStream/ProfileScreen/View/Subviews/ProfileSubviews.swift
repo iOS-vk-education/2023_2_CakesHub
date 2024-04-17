@@ -28,7 +28,7 @@ extension ProfileScreen {
         GeometryReader { geo in
             let minY = geo.frame(in: .global).minY
             HStack {
-                if rootViewModel.currentUser.id == viewModel.user.id {
+                if rootViewModel.currentUser.uid == viewModel.user.id {
                     MessageButton(title: Constants.createProductTitle,
                                   imgString: Constants.createProductImg,
                                   action: didTapCreateProduct)
@@ -200,7 +200,7 @@ private extension ProfileScreen {
 #Preview {
     ProfileScreen(viewModel: .mockData)
         .environmentObject(Navigation())
-        .environmentObject(RootViewModel(currentUser: .milana))
+        .environmentObject(RootViewModel(currentUser: .poly))
 }
 
 #Preview {

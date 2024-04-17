@@ -7,26 +7,34 @@
 
 import Foundation
 
-extension ProductRequest {
+extension FBProductModel {
     
-    struct ProductReviewsRequest: ClearConfigurationProtocol, DictionaryConvertible {
-        var countFiveStars  : Int = 0
-        var countFourStars  : Int = 0
-        var countThreeStars : Int = 0
-        var countTwoStars   : Int = 0
-        var countOneStars   : Int = 0
-        var countOfComments : Int = 0
-        var comments        : [CommentInfoRequest] = []
+    struct FBProductReviewsModel: ClearConfigurationProtocol, DictionaryConvertible {
+        var countFiveStars  : Int
+        var countFourStars  : Int
+        var countThreeStars : Int
+        var countTwoStars   : Int
+        var countOneStars   : Int
+        var countOfComments : Int
+        var comments        : [FBCommentInfoModel]
         
-        static let clear = ProductReviewsRequest()
+        static let clear = FBProductReviewsModel(
+            countFiveStars: 0,
+            countFourStars: 0,
+            countThreeStars: 0,
+            countTwoStars: 0,
+            countOneStars: 0,
+            countOfComments: 0,
+            comments: []
+        )
     }
 }
 
 // MARK: - DictionaryConvertible
 
-extension ProductRequest.ProductReviewsRequest {
+extension FBProductModel.FBProductReviewsModel {
 
-    init?(dictionary: [String: Any]) {
+    init(dictionary: [String: Any]) {
         let comments = dictionary["comments"] as? [[String: Any]] ?? []
         self.init(
             countFiveStars: dictionary["countFiveStars"] as? Int ?? 0,
@@ -42,7 +50,7 @@ extension ProductRequest.ProductReviewsRequest {
 
 // MARK: - Mapper
 
-extension ProductRequest.ProductReviewsRequest {
+extension FBProductModel.FBProductReviewsModel {
 
     var mapper: ProductReviewsModel {
         ProductReviewsModel(

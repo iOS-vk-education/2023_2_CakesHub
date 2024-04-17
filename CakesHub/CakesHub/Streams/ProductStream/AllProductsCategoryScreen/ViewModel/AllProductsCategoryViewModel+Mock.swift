@@ -13,7 +13,7 @@ import Foundation
 extension AllProductsCategoryViewModel: Mockable {
 
     static let mockData = AllProductsCategoryViewModel(
-        products: .mockProducts
+        products: .mockAllData
     )
 }
 

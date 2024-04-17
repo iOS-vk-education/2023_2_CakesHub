@@ -12,33 +12,33 @@ import SwiftData
 protocol RootViewModelProtocol: AnyObject {
     // MARK: Network
     func fetchData() async throws
-    func saveNewProduct(product: ProductModel, completion: @escaping (Error?) -> Void)
+    func saveNewProduct(product: FBProductModel, completion: @escaping (Error?) -> Void)
     // MARK: Memory
     func fetchProductsFromMemory()
     func fetchProductByID(id: String) -> SDProductModel?
     func isExist(by id: String) -> Bool
     func saveProductsInMemory()
-    func addProductInMemory(product: ProductModel)
+    func addProductInMemory(product: FBProductModel)
     // MARK: Reducers
-    func setCurrentUser(for user: ProductModel.SellerInfo)
-    func addNewProduct(product: ProductModel)
+    func setCurrentUser(for user: FBUserModel)
+    func addNewProduct(product: FBProductModel)
     func setContext(contex: ModelContext)
 }
 
 final class RootViewModel: ObservableObject {
     @Published private(set) var productData: ProductsData
-    @Published private(set) var currentUser: ProductModel.SellerInfo
+    @Published private(set) var currentUser: FBUserModel
     @Published private(set) var isShimmering: Bool = false
     private var context: ModelContext?
     private let cakeService: CakeService
 
     var isAuth: Bool {
-        !currentUser.id.isEmpty && !currentUser.mail.isEmpty
+        !currentUser.uid.isEmpty && !currentUser.email.isEmpty
     }
 
     init(
         productsData: ProductsData = .clear,
-        currentUser: ProductModel.SellerInfo = .clear,
+        currentUser: FBUserModel = .clear,
         cakeService: CakeService = CakeService.shared,
         context: ModelContext? = nil
     ) {
@@ -60,9 +60,7 @@ extension RootViewModel: RootViewModelProtocol {
         startShimmeringAnimation()
 
 //        let cakes: [ProductRequest] = try await cakeService.getCakesList()
-//        products = cakes.mapperToProductModel
-//        productData.products = .mockProducts
-        productData.products = .swiftDataProduct
+        productData.products = .mockData
 
         // Группируем данные по секциям
         DispatchQueue.global(qos: .userInteractive).async {
@@ -73,8 +71,8 @@ extension RootViewModel: RootViewModelProtocol {
         saveProductsInMemory()
     }
 
-    func saveNewProduct(product: ProductModel, completion: @escaping (Error?) -> Void) {
-        cakeService.createCake(cake: product.mapper, completion: completion)
+    func saveNewProduct(product: FBProductModel, completion: @escaping (Error?) -> Void) {
+        cakeService.createCake(cake: product, completion: completion)
     }
 }
 
@@ -92,7 +90,7 @@ extension RootViewModel {
             guard let products = try context?.fetch(fetchDescriptor) else {
                 return
             }
-            productData.products = products.map { $0.mapperInProductModel }
+            productData.products = products.map { $0.mapperInFBProductModel }
 
             // Группируем данные по секциям
             DispatchQueue.global(qos: .userInteractive).async {
@@ -123,8 +121,8 @@ extension RootViewModel {
     func saveProductsInMemory() {
         DispatchQueue.global(qos: .utility).async {
             self.productData.products.forEach {
-                guard !self.isExist(by: $0.id) else {
-                    Logger.log(message: "Товар с id = \($0.id) уже существует")
+                guard !self.isExist(by: $0.documentID) else {
+                    Logger.log(message: "Товар с id = \($0.documentID) уже существует")
                     return
                 }
                 let product = SDProductModel(product: $0)
@@ -135,7 +133,7 @@ extension RootViewModel {
     }
     
     /// Добавляем продукт в память устройства
-    func addProductInMemory(product: ProductModel) {
+    func addProductInMemory(product: FBProductModel) {
         DispatchQueue.global(qos: .utility).async {
             let sdProduct = SDProductModel(product: product)
             self.context?.insert(sdProduct)
@@ -148,13 +146,13 @@ extension RootViewModel {
 
 extension RootViewModel {
 
-    func setCurrentUser(for user: ProductModel.SellerInfo) {
+    func setCurrentUser(for user: FBUserModel) {
         currentUser = user
         // Фильтруем данные только текущего пользователя
-        productData.currentUserProducts = productData.products.filter { $0.seller.id == currentUser.id }
+        productData.currentUserProducts = productData.products.filter { $0.seller.uid == currentUser.uid }
     }
 
-    func addNewProduct(product: ProductModel) {
+    func addNewProduct(product: FBProductModel) {
         productData.products.append(product)
         productData.currentUserProducts.append(product)
 
@@ -164,19 +162,19 @@ extension RootViewModel {
             let sectionIndex = 1
             let section = productData.sections[sectionIndex]
             var oldProducts = section.products
-            oldProducts.append(product)
+            oldProducts.append(product.mapperToProductModel)
             productData.sections[sectionIndex] = .news(oldProducts)
         case .sales:
             let sectionIndex = 0
             let section = productData.sections[sectionIndex]
             var oldProducts = section.products
-            oldProducts.append(product)
+            oldProducts.append(product.mapperToProductModel)
             productData.sections[sectionIndex] = .sales(oldProducts)
         case .all:
             let sectionIndex = 2
             let section = productData.sections[sectionIndex]
             var oldProducts = section.products
-            oldProducts.append(product)
+            oldProducts.append(product.mapperToProductModel)
             productData.sections[sectionIndex] = .all(oldProducts)
         }
 
@@ -220,11 +218,11 @@ private extension RootViewModel {
         productData.products.forEach { product in
             switch self.determineSection(for: product) {
             case .news:
-                news.append(product)
+                news.append(product.mapperToProductModel)
             case .sales:
-                sales.append(product)
+                sales.append(product.mapperToProductModel)
             case .all:
-                all.append(product)
+                all.append(product.mapperToProductModel)
             }
         }
         // FIXME: Убрать задержку. Показана для демонстрации скелетонов на РК2
@@ -237,7 +235,7 @@ private extension RootViewModel {
     }
 
     /// Определение секции товара
-    func determineSection(for product: ProductModel) -> Section {
+    func determineSection(for product: FBProductModel) -> Section {
         if !product.discountedPrice.isNil {
             return .sales([])
         } else if product.isNew {

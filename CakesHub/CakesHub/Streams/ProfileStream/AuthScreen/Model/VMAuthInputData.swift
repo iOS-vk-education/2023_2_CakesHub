@@ -10,11 +10,12 @@ import Foundation
 extension AuthViewModel {
 
     struct VMAuthInputData: ClearConfigurationProtocol {
-        var nickName: String = .clear
-        var password: String = .clear
-        var email: String = .clear
+        var uid: String
+        var nickName: String
+        var password: String
+        var email: String
 
-        static let clear = VMAuthInputData()
+        static let clear = VMAuthInputData(uid: .clear, nickName: .clear, password: .clear, email: .clear)
     }
 }
 
@@ -23,6 +24,6 @@ extension AuthViewModel {
 extension AuthViewModel.VMAuthInputData {
 
     var mapper: RegisterUserRequest {
-        RegisterUserRequest(nickname: nickName, email: email, password: password)
+        RegisterUserRequest(uid: uid, nickname: nickName, email: email, password: password)
     }
 }
