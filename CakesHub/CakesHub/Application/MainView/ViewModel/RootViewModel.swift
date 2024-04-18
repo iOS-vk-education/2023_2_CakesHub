@@ -62,9 +62,7 @@ extension RootViewModel: RootViewModelProtocol {
         productData.products = try await cakeService.getCakesList()
 
         // Группируем данные по секциям
-        DispatchQueue.global(qos: .userInteractive).async {
-            self.groupDataBySection()
-        }
+        groupDataBySection()
 
         // Кэшируем данные
         saveProductsInMemory()
@@ -92,9 +90,7 @@ extension RootViewModel {
             productData.products = products.map { $0.mapperInFBProductModel }
 
             // Группируем данные по секциям
-            DispatchQueue.global(qos: .userInteractive).async {
-                self.groupDataBySection()
-            }
+            groupDataBySection()
         } catch {
             Logger.log(kind: .error, message: error)
         }
@@ -214,25 +210,27 @@ private extension RootViewModel {
 
     /// Группимровака данных по секциям
     func groupDataBySection() {
-        var news: [ProductModel] = []
-        var sales: [ProductModel] = []
-        var all: [ProductModel] = []
-        productData.products.forEach { product in
-            switch self.determineSection(for: product) {
-            case .news:
-                news.append(product.mapperToProductModel)
-            case .sales:
-                sales.append(product.mapperToProductModel)
-            case .all:
-                all.append(product.mapperToProductModel)
+        DispatchQueue.global(qos: .userInteractive).async {
+            var news: [ProductModel] = []
+            var sales: [ProductModel] = []
+            var all: [ProductModel] = []
+            self.productData.products.forEach { product in
+                switch self.determineSection(for: product) {
+                case .news:
+                    news.append(product.mapperToProductModel)
+                case .sales:
+                    sales.append(product.mapperToProductModel)
+                case .all:
+                    all.append(product.mapperToProductModel)
+                }
             }
-        }
-        // FIXME: Убрать задержку. Показана для демонстрации скелетонов на РК2
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.productData.sections[0] = .sales(sales)
-            self.productData.sections[1] = .news(news)
-            self.productData.sections[2] = .all(all)
-            self.isShimmering = false
+            
+            DispatchQueue.main.async {
+                self.productData.sections[0] = .sales(sales)
+                self.productData.sections[1] = .news(news)
+                self.productData.sections[2] = .all(all)
+                self.isShimmering = false
+            }
         }
     }
 
