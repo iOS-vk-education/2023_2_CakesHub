@@ -100,7 +100,8 @@ private extension RootView {
 
 #Preview {
     RootView()
-        .environmentObject(RootViewModel.mockData)
         .environmentObject(Navigation())
-        .modelContainer(Preview(SDUserModel.self).container)
+        .environmentObject(RootViewModel.mockData)
+        .modelContainer(Preview(SDUserModel.self,
+                                SDProductModel.self).container)
 }

@@ -12,9 +12,11 @@ final class Logger {
     private init() {}
 
     static func log(kind: Kind = .info, message: Any, function: String = #function) {
+        #if DEBUG
         print("[ \(kind.rawValue.uppercased()) ]: [ \(Date()) ]: [ \(function) ]")
         Pretty.prettyPrint(message)
         print()
+        #endif
     }
 
     enum Kind: String, Hashable {

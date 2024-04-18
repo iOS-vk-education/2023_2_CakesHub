@@ -16,7 +16,7 @@ protocol RootViewModelProtocol: AnyObject {
     // MARK: Memory
     func fetchProductsFromMemory()
     func fetchProductByID(id: String) -> SDProductModel?
-    func isExist(by id: String) -> Bool
+    func isExist(by product: FBProductModel) -> Bool
     func saveProductsInMemory()
     func addProductInMemory(product: FBProductModel)
     // MARK: Reducers
@@ -109,18 +109,21 @@ extension RootViewModel {
     }
 
     /// Проверка на наличие в памяти продукта по `id`
-    func isExist(by id: String) -> Bool {
-        let predicate = #Predicate<SDProductModel> { $0._id == id }
-        var fetchDescriptor = FetchDescriptor(predicate: predicate)
-        fetchDescriptor.fetchLimit = 1
-        return !((try? context?.fetch(fetchDescriptor))?.first).isNil
+    func isExist(by product: FBProductModel) -> Bool {
+        guard let oldProductFromBD = fetchProductByID(id: product.documentID) else {
+            return false
+        }
+
+        // Если свойства модели изменились, продукт будет перезаписан в памяти
+        let sdProduct = SDProductModel(product: product)
+        return sdProduct == oldProductFromBD
     }
 
     /// Сохраняем торары в память устройства
     func saveProductsInMemory() {
         DispatchQueue.global(qos: .utility).async {
             self.productData.products.forEach {
-                guard !self.isExist(by: $0.documentID) else {
+                guard !self.isExist(by: $0) else {
                     Logger.log(message: "Товар с id = \($0.documentID) уже существует")
                     return
                 }

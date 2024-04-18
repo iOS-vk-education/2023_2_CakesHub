@@ -49,7 +49,7 @@ struct AddProductImages: View {
             Spacer()
         }
         .onAppear {
-            selectedPhotosData = viewModel.inputProductData.productImages
+            selectedPhotosData = viewModel.inputProductData.productImages.compactMap { $0.pngData() }
         }
     }
 }

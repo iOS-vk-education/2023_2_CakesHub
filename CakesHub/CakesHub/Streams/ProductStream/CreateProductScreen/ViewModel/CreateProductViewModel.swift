@@ -23,27 +23,30 @@ final class CreateProductViewModel: ObservableObject, ViewModelProtocol {
 
     private(set) var rootViewModel: RootViewModel
     private(set) var profileViewModel: ProfileViewModel
-    private let cakeService: CakeServiceProtocol
-    @Published var inputProductData: InputProductModel
+    private let services: VMServices
+    @Published var inputProductData: VMInputProductModel
     let totalCount = 3
 
     init(
         rootViewModel: RootViewModel = RootViewModel(),
         profileViewModel: ProfileViewModel = ProfileViewModel(),
-        cakeService: CakeServiceProtocol = CakeService.shared,
-        inputProductData: InputProductModel = .clear
+        services: VMServices = VMServices(),
+        inputProductData: VMInputProductModel = .clear
     ) {
         self.rootViewModel = rootViewModel
         self.profileViewModel = profileViewModel
-        self.cakeService = cakeService
+        self.services = services
 
         let productName = UserDefaults.standard.value(forKey: Keys.productName) as? String ?? .clear
         let productDescription = UserDefaults.standard.value(forKey: Keys.productDescription) as? String ?? .clear
         let productPrice = UserDefaults.standard.value(forKey: Keys.productPrice) as? String ?? .clear
         let productDiscountedPrice = UserDefaults.standard.value(forKey: Keys.productDiscountedPrice) as? String
-        let productImages = UserDefaults.standard.array(forKey: Keys.productImages) as? [Data] ?? []
+        let productImagesPaths = UserDefaults.standard.array(forKey: Keys.productImages) as? [String] ?? []
+        let productImages: Set<UIImage> = Set(productImagesPaths.compactMap {
+            services.fileManager.getImage(key: $0)
+        })
 
-        self.inputProductData = InputProductModel(
+        self.inputProductData = VMInputProductModel(
             productName: productName,
             productDescription: productDescription,
             productPrice: productPrice,
@@ -72,8 +75,16 @@ extension CreateProductViewModel {
 extension CreateProductViewModel: CreateProductViewModelProtocol {
 
     func saveSelectedImages(imagesData: [Data]) {
-        inputProductData.productImages = imagesData
-        UserDefaults.standard.set(imagesData, forKey: Keys.productImages)
+        var images: Set<UIImage> = []
+        let imagePaths: [String] = imagesData.enumerated().compactMap { index, data in
+            guard let uiImage = UIImage(data: data) else { return nil }
+            images.insert(uiImage)
+            let imagePathName: String = "created-image-\(index)"
+            self.services.fileManager.saveImage(uiImage: uiImage, for: imagePathName)
+            return imagePathName
+        }
+        self.inputProductData.productImages = images
+        UserDefaults.standard.set(imagePaths, forKey: Keys.productImages)
     }
     
     /// Нажали кнопку `создать`
@@ -84,7 +95,7 @@ extension CreateProductViewModel: CreateProductViewModelProtocol {
         profileViewModel.updateUserProducts(products: rootViewModel.productData.currentUserProducts.mapperToProductModel)
 
         // Отправляем запрос в сеть
-        cakeService.createCake(cake: newProduct) { error in
+        services.cakeService.createCake(cake: newProduct) { error in
             if let error { Logger.log(kind: .error, message: error) }
         }
 
@@ -107,7 +118,7 @@ private extension CreateProductViewModel {
     var configurationProductModel: FBProductModel {
         FBProductModel(
             documentID: UUID().uuidString,
-            images: .images(inputProductData.productImages.compactMap { UIImage(data: $0) }),
+            images: .images(inputProductData.productImages.map { $0 }),
             pickers: [], // TODO: iOS-18: Добавить экран с выбором пикеров
             productName: inputProductData.productName,
             price: inputProductData.productPrice,

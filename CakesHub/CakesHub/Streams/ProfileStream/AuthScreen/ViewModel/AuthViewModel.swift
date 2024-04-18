@@ -13,12 +13,12 @@ import Observation
 // MARK: - AuthViewModelProtocol
 
 protocol AuthViewModelProtocol: AnyObject {
-    // Actions
+    // MARK: Actions
     func didTapRegisterButton() async throws
     func didTapSignInButton() async throws
-    // Memory
+    // MARK: Memory
     func saveUserInMemory(user: SDUserModel)
-    // Reducers
+    // MARK: Reducers
     func setContext(context: ModelContext)
     func setRootViewModel(viewModel: RootViewModel)
 }

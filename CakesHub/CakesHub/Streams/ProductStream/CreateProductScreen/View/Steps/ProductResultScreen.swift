@@ -21,7 +21,8 @@ struct ProductResultScreen: View {
                     title: viewModel.inputProductData.productName,
                     price: "$\(viewModel.inputProductData.productPrice)",
                     discountedPrice: {
-                        if let discountedPrice = viewModel.inputProductData.productDiscountedPrice {
+                        if let discountedPrice = viewModel.inputProductData.productDiscountedPrice,
+                           !discountedPrice.isEmpty {
                             return "$\(discountedPrice)"
                         }
                         return nil
@@ -49,14 +50,13 @@ private extension ProductResultScreen {
         VStack {
             ScrollView(.horizontal) {
                 HStack(spacing: 4) {
-                    ForEach(viewModel.inputProductData.productImages, id: \.self) { data in
-                        if let uiImage = UIImage(data: data) {
-                            Image(uiImage: uiImage)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 275, height: 413)
-                                .clipped()
-                        }
+                    ForEach(Array(viewModel.inputProductData.productImages), id: \.self) { uiImage in
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 275, height: 413)
+                            .clipped()
+
                     }
                 }
             }

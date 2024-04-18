@@ -74,4 +74,5 @@ private extension MainView {
     MainView(viewModel: .mockData, size: CGSize(width: 400, height: 800))
         .environmentObject(Navigation())
         .environmentObject(RootViewModel.mockData)
+        .modelContainer(Preview(SDUserModel.self).container)
 }
