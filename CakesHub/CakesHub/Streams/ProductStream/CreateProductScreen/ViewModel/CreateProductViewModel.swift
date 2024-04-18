@@ -138,6 +138,8 @@ private extension CreateProductViewModel {
         UserDefaults.standard.removeObject(forKey: Keys.productDescription)
         UserDefaults.standard.removeObject(forKey: Keys.productPrice)
         UserDefaults.standard.removeObject(forKey: Keys.productDiscountedPrice)
+        let productImagesPaths = UserDefaults.standard.array(forKey: Keys.productImages) as? [String] ?? []
+        productImagesPaths.forEach { services.fileManager.deleteImage(by: $0) }
         UserDefaults.standard.removeObject(forKey: Keys.productImages)
     }
 

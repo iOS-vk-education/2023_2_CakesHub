@@ -72,6 +72,7 @@ extension FileManagerImageHash: FileManagerImageHashProtocol {
 
         do {
             try fileManager.removeItem(atPath: imageURL.path(percentEncoded: true))
+            Logger.log(kind: .error, message: "image by key: \(key) successfully deleted")
         } catch {
             Logger.log(kind: .error, message: "failed deletion of the file by key: \(key)")
         }
