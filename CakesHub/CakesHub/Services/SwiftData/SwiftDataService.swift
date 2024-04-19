@@ -11,7 +11,7 @@ import SwiftData
 protocol SwiftDataServiceProtocol {
     func fetchData<T: SDModelable>() -> [T]
     func fetchObject<T: SDModelable>(predicate: Predicate<T>) -> T?
-    func writeObjects<FBType: FBModelable, SDType: SDModelable>(objects: [FBType], completion: CHMResultBlock<SDType, SwiftDataService.SwiftDataError>?)
+    func writeObjects<FBType: FBModelable, SDType: SDModelable>(objects: [FBType], sdType: SDType.Type)
 }
 
 // MARK: - SwiftDataService
@@ -32,7 +32,6 @@ extension SwiftDataService: SwiftDataServiceProtocol {
 
     func fetchData<T: SDModelable>() -> [T] {
         let fetchDescriptor = FetchDescriptor<T>()
-
         do {
             return try context.fetch(fetchDescriptor)
         } catch {
@@ -47,17 +46,19 @@ extension SwiftDataService: SwiftDataServiceProtocol {
         return (try? context.fetch(fetchDescriptor))?.first
     }
 
-    func writeObjects<FBType: FBModelable, SDType: SDModelable>(objects: [FBType], completion: CHMResultBlock<SDType, SwiftDataError>?) {
+    func writeObjects<FBType: FBModelable, SDType: SDModelable>(objects: [FBType], sdType: SDType.Type) {
         saveQueue.async {
             objects.forEach { object in
                 guard !self.isExist(by: object) else {
-                    Logger.log(message: "Объект уже создан")
-                    completion?(.failure(.objectIsCreated))
+                    Logger.log(message: "объект уже создан")
                     return
                 }
 
-                // Создаем объект типа T1 на основе объекта типа T
-                guard let fbObject = object as? SDType.FBModelType, let sdObject = SDType(fbModel: fbObject) else {
+                guard
+                    let fbObject = object as? SDType.FBModelType,
+                    let sdObject = SDType(fbModel: fbObject)
+                else {
+                    Logger.log(kind: .error, message: "ошибка приведения к типу `SDType.FBModelType` или `SDType`")
                     return
                 }
 
@@ -67,8 +68,7 @@ extension SwiftDataService: SwiftDataServiceProtocol {
             do {
                 try self.context.save()
             } catch {
-                completion?(.failure(.saveError))
-                Logger.log(message: "Ошибка при сохранении: \(error)")
+                Logger.log(message: "ошибка при сохранении: \(error)")
             }
         }
     }

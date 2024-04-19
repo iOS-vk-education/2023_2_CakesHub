@@ -14,7 +14,7 @@ final class Logger {
     static func log(kind: Kind = .info, message: Any, fileName: String = #file, function: String = #function, line: Int = #line) {
         #if DEBUG
         let swiftFileName = fileName.split(separator: "/").last ?? "file not found"
-        print("[ \(kind.rawValue.uppercased()) ]: [ \(Date()) ]: [ \(swiftFileName) ] [ \(function) ]: [ #\(line) ]")
+        Swift.print("[ \(kind.rawValue.uppercased()) ]: [ \(Date()) ]: [ \(swiftFileName) ] [ \(function) ]: [ #\(line) ]")
         Pretty.prettyPrint(message)
         Swift.print()
         #endif

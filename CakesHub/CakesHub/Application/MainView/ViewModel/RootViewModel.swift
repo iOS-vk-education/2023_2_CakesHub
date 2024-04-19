@@ -94,10 +94,6 @@ extension RootViewModel {
     
     /// Достаём данные товаров из памяти устройства
     func fetchProductsFromMemory() -> [FBProductModel] {
-        guard let context else {
-            Logger.log(kind: .error, message: "context is nil")
-            return []
-        }
         let sdProduct: [SDProductModel] = services.swiftDataService?.fetchData() ?? []
         return sdProduct.map { $0.mapperInFBProductModel }
     }
@@ -122,19 +118,7 @@ extension RootViewModel {
 
     /// Сохраняем торары в память устройства
     func saveProductsInMemory(products: [FBProductModel]) {
-        DispatchQueue.global(qos: .utility).async {
-            products.forEach { product in
-                Logger.print("Начал кэширование id: \(product.price)")
-                guard !self.isExist(by: product) else {
-                    Logger.log(message: "Товар с id = \(product.documentID) уже существует")
-                    return
-                }
-                Logger.print("Кэширую id: \(product.price)")
-                let sdProduct = SDProductModel(fbModel: product)
-                self.context?.insert(sdProduct)
-            }
-            try? self.context?.save()
-        }
+        services.swiftDataService?.writeObjects(objects: products, sdType: SDProductModel.self)
     }
     
     /// Добавляем продукт в память устройства
