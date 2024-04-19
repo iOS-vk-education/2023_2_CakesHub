@@ -35,16 +35,17 @@ class SDUserModel {
 
 // MARK: - Init
 
-extension SDUserModel {
+extension SDUserModel: SDModelable {
+    typealias FBModelType = FBUserModel
 
-    convenience init(user: FBUserModel) {
+    convenience init(fbModel: FBUserModel) {
         self.init(
-            uid: user.uid,
-            nickName: user.nickname,
-            email: user.email,
-            userImageURL: user.avatarImage,
-            userHeaderImageURL: user.headerImage,
-            phone: user.phone
+            uid: fbModel.uid,
+            nickName: fbModel.nickname,
+            email: fbModel.email,
+            userImageURL: fbModel.avatarImage,
+            userHeaderImageURL: fbModel.headerImage,
+            phone: fbModel.phone
         )
     }
 }

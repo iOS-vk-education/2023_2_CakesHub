@@ -33,12 +33,12 @@ struct RootView: View {
 private extension RootView {
 
     func onAppear() {
-        viewModel.setContext(contex: context)
+        viewModel.setContext(context: context)
         Task {
             do {
                 try await viewModel.fetchData()
             } catch {
-                viewModel.fetchProductsFromMemory()
+//                viewModel.fetchProductsFromMemory()
                 Logger.log(kind: .error, message: error)
             }
         }

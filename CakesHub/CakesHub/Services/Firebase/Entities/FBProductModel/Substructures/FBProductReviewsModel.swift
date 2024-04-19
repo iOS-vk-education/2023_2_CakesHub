@@ -10,7 +10,7 @@ import Foundation
 
 extension FBProductModel {
     
-    struct FBProductReviewsModel: ClearConfigurationProtocol, DictionaryConvertible {
+    struct FBProductReviewsModel: FBModelable {
         var countFiveStars  : Int
         var countFourStars  : Int
         var countThreeStars : Int
@@ -63,5 +63,26 @@ extension FBProductModel.FBProductReviewsModel {
             countOfComments: countOfComments,
             comments: comments.mapper
         )
+    }
+}
+
+extension FBProductModel.FBProductReviewsModel: Equatable {
+
+    static func == (
+        lhs: FBProductModel.FBProductReviewsModel,
+        rhs: FBProductModel.FBProductReviewsModel
+    ) -> Bool {
+        guard lhs.countFiveStars  == rhs.countFiveStars,
+              lhs.countFourStars  == rhs.countFourStars,
+              lhs.countThreeStars == rhs.countThreeStars,
+              lhs.countTwoStars   == rhs.countTwoStars,
+              lhs.countOneStars   == rhs.countOneStars,
+              lhs.countOfComments == rhs.countOfComments,
+              lhs.comments.count  == rhs.comments.count
+        else {
+            return false
+        }
+
+        return zip(lhs.comments, rhs.comments).allSatisfy { $0 == $1 }
     }
 }

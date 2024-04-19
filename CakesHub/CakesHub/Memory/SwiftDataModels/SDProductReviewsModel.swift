@@ -40,17 +40,18 @@ final class SDProductReviewsModel {
 
 // MARK: - Init
 
-extension SDProductReviewsModel {
+extension SDProductReviewsModel: SDModelable {
+    typealias FBModelType = FBProductModel.FBProductReviewsModel
 
-    convenience init(reviews: FBProductModel.FBProductReviewsModel) {
+    convenience init(fbModel: FBModelType) {
         self.init(
-            countFiveStars: reviews.countFiveStars,
-            countFourStars: reviews.countFourStars,
-            countThreeStars: reviews.countThreeStars,
-            countTwoStars: reviews.countTwoStars,
-            countOneStars: reviews.countOneStars,
-            countOfComments: reviews.countOfComments,
-            comments: reviews.comments.map { .init(comment: $0) }
+            countFiveStars: fbModel.countFiveStars,
+            countFourStars: fbModel.countFourStars,
+            countThreeStars: fbModel.countThreeStars,
+            countTwoStars: fbModel.countTwoStars,
+            countOneStars: fbModel.countOneStars,
+            countOfComments: fbModel.countOfComments,
+            comments: fbModel.comments.map { .init(fbModel: $0) }
         )
     }
 }

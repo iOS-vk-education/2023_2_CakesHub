@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct FBProductModel: DictionaryConvertible, ClearConfigurationProtocol {
+struct FBProductModel: FBModelable {
     /// ID firebase документа
     var documentID: String
     /// Картинки товара
@@ -167,5 +167,24 @@ extension [FBProductModel] {
 
     var mapperToProductModel: [ProductModel] {
         map { $0.mapperToProductModel }
+    }
+}
+
+// MARK: - Equatable
+
+extension FBProductModel: Equatable {
+
+    static func == (lhs: FBProductModel, rhs: FBProductModel) -> Bool {
+        lhs.documentID        == rhs.documentID &&
+        lhs.images            == rhs.images &&
+        lhs.pickers           == rhs.pickers &&
+        lhs.productName       == rhs.productName &&
+        lhs.price             == rhs.price &&
+        lhs.discountedPrice   == rhs.discountedPrice &&
+        lhs.weight            == rhs.weight &&
+        lhs.seller            == rhs.seller &&
+        lhs.description       == rhs.description &&
+        lhs.establishmentDate == rhs.establishmentDate &&
+        lhs.reviewInfo        == rhs.reviewInfo
     }
 }

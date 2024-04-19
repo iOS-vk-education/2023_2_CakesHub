@@ -14,15 +14,15 @@ protocol RootViewModelProtocol: AnyObject {
     func fetchData() async throws
     func saveNewProduct(product: FBProductModel, completion: @escaping (Error?) -> Void)
     // MARK: Memory
-    func fetchProductsFromMemory()
+    func fetchProductsFromMemory() -> [FBProductModel]
     func fetchProductByID(id: String) -> SDProductModel?
     func isExist(by product: FBProductModel) -> Bool
-    func saveProductsInMemory()
+    func saveProductsInMemory(products: [FBProductModel])
     func addProductInMemory(product: FBProductModel)
     // MARK: Reducers
     func setCurrentUser(for user: FBUserModel)
     func addNewProduct(product: FBProductModel)
-    func setContext(contex: ModelContext)
+    func setContext(context: ModelContext)
 }
 
 final class RootViewModel: ObservableObject {
@@ -30,7 +30,7 @@ final class RootViewModel: ObservableObject {
     @Published private(set) var currentUser: FBUserModel
     @Published private(set) var isShimmering: Bool = false
     private var context: ModelContext?
-    private let cakeService: CakeService
+    private var services: Services
 
     var isAuth: Bool {
         !currentUser.uid.isEmpty && !currentUser.email.isEmpty
@@ -39,13 +39,11 @@ final class RootViewModel: ObservableObject {
     init(
         productsData: ProductsData = .clear,
         currentUser: FBUserModel = .clear,
-        cakeService: CakeService = CakeService.shared,
-        context: ModelContext? = nil
+        services: Services = .clear
     ) {
         self.productData = productsData
-        self.cakeService = cakeService
+        self.services = services
         self.currentUser = currentUser
-        self.context = context
         productData.sections.reserveCapacity(3)
     }
 }
@@ -59,17 +57,34 @@ extension RootViewModel: RootViewModelProtocol {
         // Запуск шиммеров
         startShimmeringAnimation()
 
-        productData.products = try await cakeService.getCakesList()
-
-        // Группируем данные по секциям
-        groupDataBySection()
+        // Достаём закэшированные данные
+        let sdProducts = fetchProductsFromMemory()
+        groupDataBySection(data: sdProducts) { [weak self] sections in
+            guard let self else { return }
+            productData.sections = sections
+            isShimmering = false
+        }
+//        return
+        // Достаём данные из сети
+        let fbProucts = try await services.cakeService.getCakesList()
 
         // Кэшируем данные
-        saveProductsInMemory()
+        saveProductsInMemory(products: fbProucts)
+
+//        let uniqueProducts = fbProucts.filter { fbProduct in
+//            !sdProducts.contains(where: { $0.documentID == fbProduct.documentID })
+//        }
+
+        // Группируем данные по секциям
+        groupDataBySection(data: fbProucts) { [weak self] sections in
+            guard let self else { return }
+            productData.sections = sections
+            isShimmering = false
+        }
     }
 
     func saveNewProduct(product: FBProductModel, completion: @escaping (Error?) -> Void) {
-        cakeService.createCake(cake: product, completion: completion)
+        services.cakeService.createCake(cake: product, completion: completion)
     }
 }
 
@@ -78,30 +93,20 @@ extension RootViewModel: RootViewModelProtocol {
 extension RootViewModel {
     
     /// Достаём данные товаров из памяти устройства
-    func fetchProductsFromMemory() {
-        startShimmeringAnimation()
-
-        let fetchDescriptor = FetchDescriptor<SDProductModel>()
-
-        do {
-            guard let products = try context?.fetch(fetchDescriptor) else {
-                return
-            }
-            productData.products = products.map { $0.mapperInFBProductModel }
-
-            // Группируем данные по секциям
-            groupDataBySection()
-        } catch {
-            Logger.log(kind: .error, message: error)
+    func fetchProductsFromMemory() -> [FBProductModel] {
+        guard let context else {
+            Logger.log(kind: .error, message: "context is nil")
+            return []
         }
+        let sdProduct: [SDProductModel] = services.swiftDataService?.fetchData() ?? []
+        return sdProduct.map { $0.mapperInFBProductModel }
     }
 
     /// Достаём продукт по `id` из памяти
     func fetchProductByID(id: String) -> SDProductModel? {
         let predicate = #Predicate<SDProductModel> { $0._id == id }
-        var fetchDescriptor = FetchDescriptor(predicate: predicate)
-        fetchDescriptor.fetchLimit = 1
-        return (try? context?.fetch(fetchDescriptor))?.first
+        let product = services.swiftDataService?.fetchObject(predicate: predicate)
+        return product
     }
 
     /// Проверка на наличие в памяти продукта по `id`
@@ -111,20 +116,22 @@ extension RootViewModel {
         }
 
         // Если свойства модели изменились, продукт будет перезаписан в памяти
-        let sdProduct = SDProductModel(product: product)
-        return sdProduct == oldProductFromBD
+        let oldProduct = oldProductFromBD.mapperInFBProductModel
+        return product == oldProduct
     }
 
     /// Сохраняем торары в память устройства
-    func saveProductsInMemory() {
+    func saveProductsInMemory(products: [FBProductModel]) {
         DispatchQueue.global(qos: .utility).async {
-            self.productData.products.forEach {
-                guard !self.isExist(by: $0) else {
-                    Logger.log(message: "Товар с id = \($0.documentID) уже существует")
+            products.forEach { product in
+                Logger.print("Начал кэширование id: \(product.price)")
+                guard !self.isExist(by: product) else {
+                    Logger.log(message: "Товар с id = \(product.documentID) уже существует")
                     return
                 }
-                let product = SDProductModel(product: $0)
-                self.context?.insert(product)
+                Logger.print("Кэширую id: \(product.price)")
+                let sdProduct = SDProductModel(fbModel: product)
+                self.context?.insert(sdProduct)
             }
             try? self.context?.save()
         }
@@ -133,7 +140,7 @@ extension RootViewModel {
     /// Добавляем продукт в память устройства
     func addProductInMemory(product: FBProductModel) {
         DispatchQueue.global(qos: .utility).async {
-            let sdProduct = SDProductModel(product: product)
+            let sdProduct = SDProductModel(fbModel: product)
             self.context?.insert(sdProduct)
             try? self.context?.save()
         }
@@ -185,9 +192,10 @@ extension RootViewModel {
         addProductInMemory(product: product)
     }
 
-    func setContext(contex: ModelContext) {
+    func setContext(context: ModelContext) {
         guard self.context.isNil else { return }
-        self.context = contex
+        self.context = context
+        services.swiftDataService = SwiftDataService(context: context)
     }
 }
 
@@ -209,12 +217,12 @@ private extension RootViewModel {
     }
 
     /// Группимровака данных по секциям
-    func groupDataBySection() {
+    func groupDataBySection(data: [FBProductModel], competion: @escaping CHMGenericBlock<[Section]>) {
         DispatchQueue.global(qos: .userInteractive).async {
-            var news: [ProductModel] = []
             var sales: [ProductModel] = []
+            var news: [ProductModel] = []
             var all: [ProductModel] = []
-            self.productData.products.forEach { product in
+            data.forEach { product in
                 switch self.determineSection(for: product) {
                 case .news:
                     news.append(product.mapperToProductModel)
@@ -224,12 +232,13 @@ private extension RootViewModel {
                     all.append(product.mapperToProductModel)
                 }
             }
-            
+
             DispatchQueue.main.async {
-                self.productData.sections[0] = .sales(sales)
-                self.productData.sections[1] = .news(news)
-                self.productData.sections[2] = .all(all)
-                self.isShimmering = false
+                competion([
+                    .sales(sales),
+                    .news(news),
+                    .all(all)
+                ])
             }
         }
     }

@@ -38,16 +38,17 @@ extension SDProductReviewsModel {
 
 // MARK: - Init
 
-extension SDProductReviewsModel.SDCommentInfoModel {
+extension SDProductReviewsModel.SDCommentInfoModel: SDModelable {
+    typealias FBModelType = FBProductModel.FBCommentInfoModel
 
-    convenience init(comment: FBProductModel.FBCommentInfoModel) {
+    convenience init(fbModel: FBProductModel.FBCommentInfoModel) {
         self.init(
-            id: comment.id,
-            userName: comment.userName,
-            date: comment.date,
-            description: comment.description,
-            countFillStars: comment.countFillStars,
-            feedbackCount: comment.feedbackCount
+            id: fbModel.id,
+            userName: fbModel.userName,
+            date: fbModel.date,
+            description: fbModel.description,
+            countFillStars: fbModel.countFillStars,
+            feedbackCount: fbModel.feedbackCount
         )
     }
 }

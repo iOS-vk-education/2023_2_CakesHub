@@ -55,11 +55,12 @@ final class SDProductModel {
 
 // MARK: - Init
 
-extension SDProductModel {
+extension SDProductModel: SDModelable {
+    typealias FBModelType = FBProductModel
 
-    convenience init(product: FBProductModel) {
+    convenience init(fbModel: FBProductModel) {
         var images: [String] {
-            switch product.images {
+            switch fbModel.images {
             case let .strings(strings):
                 return strings
             case let .url(urls):
@@ -70,18 +71,18 @@ extension SDProductModel {
         }
 
         self.init(
-            id: product.documentID,
+            id: fbModel.documentID,
             images: images,
-            pickers: product.pickers,
-            productName: product.productName,
-            price: product.price,
-            discountedPrice: product.discountedPrice,
-            weight: product.weight,
-            seller: SDUserModel(user: product.seller),
-            description: product.description,
-            similarProducts: product.similarProducts.map { SDProductModel(product: $0) },
-            establishmentDate: product.establishmentDate,
-            reviewInfo: SDProductReviewsModel(reviews: product.reviewInfo)
+            pickers: fbModel.pickers,
+            productName: fbModel.productName,
+            price: fbModel.price,
+            discountedPrice: fbModel.discountedPrice,
+            weight: fbModel.weight,
+            seller: SDUserModel(fbModel: fbModel.seller),
+            description: fbModel.description,
+            similarProducts: fbModel.similarProducts.map { SDProductModel(fbModel: $0) },
+            establishmentDate: fbModel.establishmentDate,
+            reviewInfo: SDProductReviewsModel(fbModel: fbModel.reviewInfo)
         )
     }
 }
@@ -91,7 +92,7 @@ extension SDProductModel {
 extension SDProductModel {
 
     var mapperInFBProductModel: FBProductModel {
-        return FBProductModel(
+        FBProductModel(
             documentID: _id,
             images: .strings(_images),
             pickers: _pickers,

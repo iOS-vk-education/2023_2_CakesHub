@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct FBUserModel: DictionaryConvertible, ClearConfigurationProtocol {
+struct FBUserModel: FBModelable {
     var uid         : String
     var nickname    : String
     var email       : String
@@ -75,3 +75,17 @@ extension FBUserModel: Mockable {
     )
 }
 #endif
+
+// MARK: - Equatable
+
+extension FBUserModel: Equatable {
+
+    static func == (lhs: FBUserModel, rhs: FBUserModel) -> Bool {
+        lhs.uid         == rhs.uid &&
+        lhs.nickname    == rhs.nickname &&
+        lhs.email       == rhs.email &&
+        lhs.avatarImage == rhs.avatarImage &&
+        lhs.headerImage == rhs.headerImage &&
+        lhs.phone       == rhs.phone
+    }
+}

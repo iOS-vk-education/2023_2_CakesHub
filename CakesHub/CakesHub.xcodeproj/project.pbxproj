@@ -145,6 +145,10 @@
 		E55EFD0D2BCEA14C00493686 /* SDCommentInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55EFD0C2BCEA14C00493686 /* SDCommentInfoModel.swift */; };
 		E56512DE2BB6478000860F46 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56512DD2BB6478000860F46 /* ImageProvider.swift */; };
 		E56A85112BACCED600E9A387 /* UINavigationController+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A85102BACCED600E9A387 /* UINavigationController+Extenstions.swift */; };
+		E56B703F2BD2357500851C05 /* SwiftDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B703E2BD2357500851C05 /* SwiftDataService.swift */; };
+		E56B70412BD236D700851C05 /* VMRootServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B70402BD236D700851C05 /* VMRootServices.swift */; };
+		E56B70432BD256DD00851C05 /* FBModelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B70422BD256DD00851C05 /* FBModelable.swift */; };
+		E56B70452BD257F600851C05 /* SDModelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B70442BD257F600851C05 /* SDModelable.swift */; };
 		E56D0FF72B80CF6500B803EF /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56D0FF62B80CF6500B803EF /* CategoriesView.swift */; };
 		E56D0FF92B80D0A100B803EF /* CategoriesTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56D0FF82B80D0A100B803EF /* CategoriesTab.swift */; };
 		E57C920F2B93C5CB00EC90F5 /* SwiftPrettyPrint in Frameworks */ = {isa = PBXBuildFile; productRef = E57C920E2B93C5CB00EC90F5 /* SwiftPrettyPrint */; };
@@ -321,6 +325,10 @@
 		E55EFD0C2BCEA14C00493686 /* SDCommentInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDCommentInfoModel.swift; sourceTree = "<group>"; };
 		E56512DD2BB6478000860F46 /* ImageProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		E56A85102BACCED600E9A387 /* UINavigationController+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extenstions.swift"; sourceTree = "<group>"; };
+		E56B703E2BD2357500851C05 /* SwiftDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataService.swift; sourceTree = "<group>"; };
+		E56B70402BD236D700851C05 /* VMRootServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMRootServices.swift; sourceTree = "<group>"; };
+		E56B70422BD256DD00851C05 /* FBModelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBModelable.swift; sourceTree = "<group>"; };
+		E56B70442BD257F600851C05 /* SDModelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDModelable.swift; sourceTree = "<group>"; };
 		E56D0FF62B80CF6500B803EF /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		E56D0FF82B80D0A100B803EF /* CategoriesTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTab.swift; sourceTree = "<group>"; };
 		E59AEC582B92AA2900760E61 /* FBProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBProductModel.swift; sourceTree = "<group>"; };
@@ -382,6 +390,7 @@
 			children = (
 				E50B61432BCE3433003484C7 /* VMRootSection.swift */,
 				E50B61452BCE377C003484C7 /* VMRootProduct.swift */,
+				E56B70402BD236D700851C05 /* VMRootServices.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -435,6 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				E55B5EC62BCA544800DDDFA4 /* SwiftDataModels */,
+				E56B70442BD257F600851C05 /* SDModelable.swift */,
 			);
 			path = Memory;
 			sourceTree = "<group>";
@@ -1209,6 +1219,14 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
+		E56B703D2BD2355600851C05 /* SwiftData */ = {
+			isa = PBXGroup;
+			children = (
+				E56B703E2BD2357500851C05 /* SwiftDataService.swift */,
+			);
+			path = SwiftData;
+			sourceTree = "<group>";
+		};
 		E56CA0752BD01FD7001BE387 /* Substructures */ = {
 			isa = PBXGroup;
 			children = (
@@ -1258,8 +1276,8 @@
 		E59AEC572B92A92C00760E61 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				E59AEC6B2B92B20A00760E61 /* UserRequest */,
-				E59AEC7D2B92C49B00760E61 /* ProductRequest */,
+				E59AEC6B2B92B20A00760E61 /* FBUserModel */,
+				E59AEC7D2B92C49B00760E61 /* FBProductModel */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1267,6 +1285,7 @@
 		E59AEC652B92B16400760E61 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				E56B703D2BD2355600851C05 /* SwiftData */,
 				E53767942BCF77A300F83990 /* FileManager */,
 				E535642D2BC7524B001077DF /* WebSocket */,
 				E59AEC732B92B27200760E61 /* Firebase */,
@@ -1276,13 +1295,13 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		E59AEC6B2B92B20A00760E61 /* UserRequest */ = {
+		E59AEC6B2B92B20A00760E61 /* FBUserModel */ = {
 			isa = PBXGroup;
 			children = (
 				E56CA0752BD01FD7001BE387 /* Substructures */,
 				E59AEC742B92B7A400760E61 /* FBUserModel.swift */,
 			);
-			path = UserRequest;
+			path = FBUserModel;
 			sourceTree = "<group>";
 		};
 		E59AEC732B92B27200760E61 /* Firebase */ = {
@@ -1291,18 +1310,19 @@
 				E5155CE62BCCC2D200BF773D /* Services */,
 				E59AEC572B92A92C00760E61 /* Entities */,
 				E59AEC712B92B25600760E61 /* FirestoreCollections.swift */,
+				E56B70422BD256DD00851C05 /* FBModelable.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
 		};
-		E59AEC7D2B92C49B00760E61 /* ProductRequest */ = {
+		E59AEC7D2B92C49B00760E61 /* FBProductModel */ = {
 			isa = PBXGroup;
 			children = (
 				E5155CED2BCCCBAF00BF773D /* Substructures */,
 				E59AEC582B92AA2900760E61 /* FBProductModel.swift */,
 				E59AEC7E2B92C4A600760E61 /* FBProductModel+Mock.swift */,
 			);
-			path = ProductRequest;
+			path = FBProductModel;
 			sourceTree = "<group>";
 		};
 		E5B636622BB6750900B2F076 /* MainView */ = {
@@ -1584,6 +1604,7 @@
 				E56A85112BACCED600E9A387 /* UINavigationController+Extenstions.swift in Sources */,
 				E51B334B2B7E62AF0028E8C7 /* ProductDetailScreen.swift in Sources */,
 				E51B33472B7E62AF0028E8C7 /* ProductReviewsScreen.swift in Sources */,
+				E56B70452BD257F600851C05 /* SDModelable.swift in Sources */,
 				E51B33292B7E602A0028E8C7 /* Typealias.swift in Sources */,
 				E50B61422BCE331C003484C7 /* VMAuthServices.swift in Sources */,
 				E55B5EC52BCA4F4F00DDDFA4 /* VMAuthInputData.swift in Sources */,
@@ -1602,6 +1623,7 @@
 				E51B32D92B7E5FEF0028E8C7 /* CHMNewCategoryView.swift in Sources */,
 				E51B33152B7E60010028E8C7 /* Image+Additions.swift in Sources */,
 				E59AEC722B92B25600760E61 /* FirestoreCollections.swift in Sources */,
+				E56B70412BD236D700851C05 /* VMRootServices.swift in Sources */,
 				E59AEC682B92B17200760E61 /* AuthService.swift in Sources */,
 				E50B61442BCE3433003484C7 /* VMRootSection.swift in Sources */,
 				E50B61482BCE3DA0003484C7 /* RootViewModel+Mock.swift in Sources */,
@@ -1622,6 +1644,7 @@
 				E51B32E22B7E5FEF0028E8C7 /* CHMProductDescriptionView.swift in Sources */,
 				E51B32EB2B7E5FEF0028E8C7 /* CHMPicker+Preview.swift in Sources */,
 				E51B334A2B7E62AF0028E8C7 /* ProductDetailScreen+Mock.swift in Sources */,
+				E56B703F2BD2357500851C05 /* SwiftDataService.swift in Sources */,
 				E5155CE12BCBF93000BF773D /* SDProductModel.swift in Sources */,
 				E51B32CF2B7E5FEF0028E8C7 /* CHMCommentView.swift in Sources */,
 				E52CDD082BB6460E009C08B9 /* ChatMessage.swift in Sources */,
@@ -1647,6 +1670,7 @@
 				E51B32E02B7E5FEF0028E8C7 /* CHMProductDescriptionView+Configuration.swift in Sources */,
 				E5DE85872BC0D7690013445A /* LimitedTextField+Configuration.swift in Sources */,
 				E54A3C542BB8FDCC00CBFEEB /* AllProductsCategoryViewModel+Mock.swift in Sources */,
+				E56B70432BD256DD00851C05 /* FBModelable.swift in Sources */,
 				E51B32CC2B7E5FEF0028E8C7 /* CHMProductButton+Preview.swift in Sources */,
 				E51B32D02B7E5FEF0028E8C7 /* CHMCommentView+Configuration.swift in Sources */,
 				E5DE815E2BBFDC360012BD8E /* CreateProductViewModel+Mock.swift in Sources */,

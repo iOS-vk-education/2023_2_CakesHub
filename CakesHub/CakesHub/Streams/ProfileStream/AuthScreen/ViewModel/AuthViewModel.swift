@@ -77,7 +77,7 @@ extension AuthViewModel {
         rootViewModel?.setCurrentUser(for: userInfo)
 
         // Сохраняем новые данные на устройстве
-        saveUserInMemory(user: SDUserModel(user: userInfo))
+        saveUserInMemory(user: SDUserModel(fbModel: userInfo))
     }
 }
 

@@ -10,7 +10,7 @@ import Foundation
 
 extension FBProductModel {
     
-    struct FBCommentInfoModel: ClearConfigurationProtocol, DictionaryConvertible {
+    struct FBCommentInfoModel: FBModelable {
         var id             : String
         var userName       : String
         var date           : String
@@ -66,5 +66,22 @@ extension [FBProductModel.FBCommentInfoModel] {
 
     var mapper: [ProductReviewsModel.CommentInfo] {
         map { $0.mapper }
+    }
+}
+
+// MARK: - <#text#>
+
+extension FBProductModel.FBCommentInfoModel: Equatable {
+
+    static func == (
+        lhs: FBProductModel.FBCommentInfoModel,
+        rhs: FBProductModel.FBCommentInfoModel
+    ) -> Bool {
+        lhs.id             == rhs.id &&
+        lhs.userName       == rhs.userName &&
+        lhs.date           == rhs.date &&
+        lhs.description    == rhs.description &&
+        lhs.countFillStars == rhs.countFillStars &&
+        lhs.feedbackCount  == rhs.feedbackCount
     }
 }
