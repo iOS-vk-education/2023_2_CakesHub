@@ -113,18 +113,16 @@ private extension ChatView {
     enum Constants {
         static let imageSize: CGFloat = 200
         static let imageCornerRadius: CGFloat = 20
-        static let textColor: Color = CHMColor<TextPalette>.textPrimary.color
         static let tgBackground = Image("tg_layer")
         static let paperClip = Image("paperClip")
         static let record = Image("record")
         static let messageBackgroundColor = Color(red: 103/255, green: 77/255, blue: 122/255)
+        static let textColor: Color = CHMColor<TextPalette>.textPrimary.color
         static let textFieldBackgroundColor = CHMColor<BackgroundPalette>.bgPrimary.color
         static let textFieldStrokeColor = CHMColor<SeparatorPalette>(hexLight: 0xD1D1D1, hexDark: 0x3A3A3C).color
         static let iconColor = Color(red: 127/255, green: 127/255, blue: 127/255)
         static let placeholder = "Message"
         static let paperplane = "paperplane"
-        static func joinChatMessage(userName: String) -> String { "\(userName) вступил в чат" }
-        static func quitChatMessage(userName: String) -> String { "\(userName) покинул чат" }
         static let gradientBackgroundColor: [Color] = [
             Color(red: 168/255, green: 255/255, blue: 59/255),
             Color(red: 111/255, green: 135/255, blue: 255/255),
