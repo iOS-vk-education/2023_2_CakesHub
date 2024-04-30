@@ -22,8 +22,10 @@ protocol CakeServiceProtocol {
 
 final class CakeService {
 
-    static let shared = CakeService()
+    static let shared: CakeServiceProtocol = CakeService()
     private let storage = Storage.storage()
+    private let firestore = Firestore.firestore()
+    private let userService: UserServiceProtocol = UserService.shared
 
     private init() {}
 }
@@ -34,8 +36,25 @@ extension CakeService: CakeServiceProtocol {
 
     /// Getting a list of cakes
     func getCakesList() async throws -> [FBProductModel] {
-        let snapshot = try await Firestore.firestore().collection(FirestoreCollections.products.rawValue).getDocuments()
-        return snapshot.documents.compactMap { FBProductModel(dictionary: $0.data()) }
+        let snapshot = try await firestore.collection(FirestoreCollections.products.rawValue).getDocuments()
+
+        let correctProductModels = await withThrowingTaskGroup(of: FBProductModel?.self, returning: [FBProductModel].self) { taskGroup in
+            for productSnapshot in snapshot.documents {
+                taskGroup.addTask {
+                    try? await self.converToCorrectFBProductModel(productSnapshot: productSnapshot)
+                }
+            }
+
+            var products: [FBProductModel] = []
+            while let correctProductModel = try? await taskGroup.next() {
+                if let correctProductModel {
+                    products.append(correctProductModel)
+                }
+            }
+            return products
+        }
+
+        return correctProductModels
     }
 
     /// Cake creation
@@ -71,22 +90,22 @@ extension CakeService: CakeServiceProtocol {
         dispatchGroup.notify(queue: .main) {
             var firebaseCakeDocument = cake
             firebaseCakeDocument.images = .strings(images)
-            let document = firebaseCakeDocument.dictionaryRepresentation
+            let productDocument = self.getProductDict(product: firebaseCakeDocument)
 
-            Firestore.firestore().collection(FirestoreCollections.products.rawValue).document(cake.documentID).setData(
-                document,
+            self.firestore.collection(FirestoreCollections.products.rawValue).document(cake.documentID).setData(
+                productDocument,
                 completion: completion
             )
         }
     }
+}
 
-    /// Image creation
-    /// - Parameters:
-    ///   - image: image
-    ///   - directoryName: name of directory
-    ///   - imageName: image name
-    ///   - completion: image url
-    private func createImage(
+// MARK: - Private Methods
+
+private extension CakeService {
+
+    /// Создание изображений
+    func createImage(
         image: UIImage?,
         directoryName: String,
         imageName: String,
@@ -129,6 +148,31 @@ extension CakeService: CakeServiceProtocol {
                 }
             }
         }
+    }
+    
+    /// Конвертируем в словарь с подменой seller на sellerID
+    func getProductDict(product: FBProductModel) -> [String : Any] {
+        // Маппим структуру в словарь
+        var productDict = product.dictionaryRepresentation
+        // Заменяем структуру продовца на его uid
+        if !productDict.removeValue(forKey: "seller").isNil {
+            productDict["sellerID"] = product.seller.uid
+        }
+        return productDict
+    }
+    
+    /// Конвертируем снэпшот в модель продукта с подменной sellerID в seller
+    func converToCorrectFBProductModel(productSnapshot: QueryDocumentSnapshot) async throws -> FBProductModel {
+        var productDict = productSnapshot.data()
+        guard let sellerID = productDict["sellerID"] as? String else {
+            throw APIError.badParameters
+        }
+        let fbUser = try await userService.getUserInfo(uid: sellerID)
+        productDict["seller"] = fbUser.dictionaryRepresentation
+        guard let productModel = FBProductModel(dictionary: productDict) else {
+            throw APIError.dataIsNil
+        }
+        return productModel
     }
 }
 
