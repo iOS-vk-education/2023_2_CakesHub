@@ -14,7 +14,7 @@ protocol RootViewModelProtocol: AnyObject {
     func fetchData() async throws
     func saveNewProduct(product: FBProductModel, completion: @escaping (Error?) -> Void)
     // MARK: Memory
-    func fetchProductsFromMemory() -> [FBProductModel]
+    func fetchProductsFromMemory() -> [SDProductModel]
     func fetchProductByID(id: String) -> SDProductModel?
     func isExist(by product: FBProductModel) -> Bool
     func saveProductsInMemory(products: [FBProductModel])
@@ -24,6 +24,8 @@ protocol RootViewModelProtocol: AnyObject {
     func addNewProduct(product: FBProductModel)
     func setContext(context: ModelContext)
 }
+
+// MARK: - RootViewModel
 
 final class RootViewModel: ObservableObject {
     @Published private(set) var productData: ProductsData
@@ -59,24 +61,25 @@ extension RootViewModel: RootViewModelProtocol {
 
         // Достаём закэшированные данные
         let sdProducts = fetchProductsFromMemory()
-        groupDataBySection(data: sdProducts) { [weak self] sections in
+        let fbProducts = sdProducts.map { $0.mapperInFBProductModel }
+        productData.products = fbProducts
+        filterCurrentUserProducts()
+        groupDataBySection(data: fbProducts) { [weak self] sections in
             guard let self else { return }
             productData.sections = sections
-            isShimmering = false
+            isShimmering = sections.isEmpty
         }
-//        return
+
         // Достаём данные из сети
-        let fbProucts = try await services.cakeService.getCakesList()
+        let newFBProducts = try await services.cakeService.getCakesList()
+        productData.products = newFBProducts
+        filterCurrentUserProducts()
 
         // Кэшируем данные
-        saveProductsInMemory(products: fbProucts)
-
-//        let uniqueProducts = fbProucts.filter { fbProduct in
-//            !sdProducts.contains(where: { $0.documentID == fbProduct.documentID })
-//        }
+        saveProductsInMemory(products: newFBProducts)
 
         // Группируем данные по секциям
-        groupDataBySection(data: fbProucts) { [weak self] sections in
+        groupDataBySection(data: newFBProducts) { [weak self] sections in
             guard let self else { return }
             productData.sections = sections
             isShimmering = false
@@ -93,9 +96,8 @@ extension RootViewModel: RootViewModelProtocol {
 extension RootViewModel {
     
     /// Достаём данные товаров из памяти устройства
-    func fetchProductsFromMemory() -> [FBProductModel] {
-        let sdProduct: [SDProductModel] = services.swiftDataService?.fetchData() ?? []
-        return sdProduct.map { $0.mapperInFBProductModel }
+    func fetchProductsFromMemory() -> [SDProductModel] {
+        services.swiftDataService?.fetchData() ?? []
     }
 
     /// Достаём продукт по `id` из памяти
@@ -235,5 +237,11 @@ private extension RootViewModel {
             return .news([])
         }
         return .all([])
+    }
+
+    /// Фильтруем товары текущего пользователя
+    func filterCurrentUserProducts() {
+        let userProducts = productData.products.filter { $0.seller.uid == currentUser.uid }
+        productData.currentUserProducts = userProducts
     }
 }
