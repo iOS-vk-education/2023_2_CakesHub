@@ -16,7 +16,6 @@ protocol RootViewModelProtocol: AnyObject {
     // MARK: Memory
     func fetchProductsFromMemory() -> [SDProductModel]
     func fetchProductByID(id: String) -> SDProductModel?
-    func isExist(by product: FBProductModel) -> Bool
     func saveProductsInMemory(products: [FBProductModel])
     func addProductInMemory(product: FBProductModel)
     // MARK: Reducers
@@ -97,38 +96,29 @@ extension RootViewModel {
     
     /// Достаём данные товаров из памяти устройства
     func fetchProductsFromMemory() -> [SDProductModel] {
-        services.swiftDataService?.fetchData() ?? []
+        services.swiftDataService?.fetch() ?? []
     }
 
     /// Достаём продукт по `id` из памяти
     func fetchProductByID(id: String) -> SDProductModel? {
         let predicate = #Predicate<SDProductModel> { $0._id == id }
-        let product = services.swiftDataService?.fetchObject(predicate: predicate)
+        let product = services.swiftDataService?.fetch(predicate: predicate)
         return product
-    }
-
-    /// Проверка на наличие в памяти продукта по `id`
-    func isExist(by product: FBProductModel) -> Bool {
-        guard let oldProductFromBD = fetchProductByID(id: product.documentID) else {
-            return false
-        }
-
-        // Если свойства модели изменились, продукт будет перезаписан в памяти
-        let oldProduct = oldProductFromBD.mapperInFBProductModel
-        return product == oldProduct
     }
 
     /// Сохраняем торары в память устройства
     func saveProductsInMemory(products: [FBProductModel]) {
-        services.swiftDataService?.writeObjects(objects: products, sdType: SDProductModel.self)
+        services.swiftDataService?.create(objects: products.map { SDProductModel(fbModel: $0) }) { obj in
+            let objID = obj._id
+            return #Predicate<SDProductModel> { $0._id == objID }
+        }
     }
     
     /// Добавляем продукт в память устройства
     func addProductInMemory(product: FBProductModel) {
-        DispatchQueue.global(qos: .utility).async {
-            let sdProduct = SDProductModel(fbModel: product)
-            self.context?.insert(sdProduct)
-            try? self.context?.save()
+        services.swiftDataService?.create(object: SDProductModel(fbModel: product)) { obj in
+            let objID = obj._id
+            return #Predicate<SDProductModel> { $0._id == objID }
         }
     }
 }

@@ -9,7 +9,7 @@ import SwiftData
 
 @Model
 class SDUserModel {
-    var _uid                : String
+    var _id                 : String
     var _nickName           : String
     var _email              : String
     var _userImageURL       : String?
@@ -17,14 +17,14 @@ class SDUserModel {
     var _phone              : String?
 
     init(
-        uid                : String,
+        id                 : String,
         nickName           : String,
         email              : String,
         userImageURL       : String? = nil,
         userHeaderImageURL : String? = nil,
         phone              : String? = nil
     ) {
-        self._uid = uid
+        self._id = id
         self._nickName = nickName
         self._email = email
         self._userImageURL = userImageURL
@@ -33,14 +33,14 @@ class SDUserModel {
     }
 }
 
-// MARK: - Init
+// MARK: - SDModelable
 
 extension SDUserModel: SDModelable {
     typealias FBModelType = FBUserModel
 
     convenience init(fbModel: FBUserModel) {
         self.init(
-            uid: fbModel.uid,
+            id: fbModel.uid,
             nickName: fbModel.nickname,
             email: fbModel.email,
             userImageURL: fbModel.avatarImage,
@@ -56,7 +56,7 @@ extension SDUserModel {
 
     var mapperInFBUserModel: FBUserModel {
         FBUserModel(
-            uid: _uid,
+            uid: _id,
             nickname: _nickName,
             email: _email,
             avatarImage: _userImageURL,

@@ -151,7 +151,7 @@ private extension CakeService {
     }
     
     /// Конвертируем в словарь с подменой seller на sellerID
-    func getProductDict(product: FBProductModel) -> [String : Any] {
+    func getProductDict(product: FBProductModel) -> [String: Any] {
         // Маппим структуру в словарь
         var productDict = product.dictionaryRepresentation
         // Заменяем структуру продовца на его uid

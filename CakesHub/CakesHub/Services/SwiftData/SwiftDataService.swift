@@ -9,16 +9,17 @@ import Foundation
 import SwiftData
 
 protocol SwiftDataServiceProtocol {
-    func fetchData<T: SDModelable>() -> [T]
-    func fetchObject<T: SDModelable>(predicate: Predicate<T>) -> T?
-    func writeObjects<FBType: FBModelable, SDType: SDModelable>(objects: [FBType], sdType: SDType.Type)
+    func fetch<T: SDModelable>() -> [T]
+    func fetch<T: SDModelable>(predicate: Predicate<T>) -> T?
+    func create<SDType: SDModelable>(object: SDType, configurationPredicate: @escaping (SDType) -> Predicate<SDType>)
+    func create<SDType: SDModelable>(objects: [SDType], configurationPredicate: @escaping (SDType) -> Predicate<SDType>)
 }
 
 // MARK: - SwiftDataService
 
 final class SwiftDataService {
 
-    let context: ModelContext
+    private let context: ModelContext
     private let saveQueue = DispatchQueue(label: "com.vk.SwiftDataService", qos: .utility, attributes: [.concurrent])
 
     init(context: ModelContext) {
@@ -30,7 +31,7 @@ final class SwiftDataService {
 
 extension SwiftDataService: SwiftDataServiceProtocol {
 
-    func fetchData<T: SDModelable>() -> [T] {
+    func fetch<T: SDModelable>() -> [T] {
         let fetchDescriptor = FetchDescriptor<T>()
         do {
             return try context.fetch(fetchDescriptor)
@@ -40,35 +41,47 @@ extension SwiftDataService: SwiftDataServiceProtocol {
         }
     }
 
-    func fetchObject<T: SDModelable>(predicate: Predicate<T>) -> T? {
+    func fetch<T: SDModelable>(predicate: Predicate<T>) -> T? {
         var fetchDescriptor = FetchDescriptor<T>(predicate: predicate)
         fetchDescriptor.fetchLimit = 1
         return (try? context.fetch(fetchDescriptor))?.first
     }
 
-    func writeObjects<FBType: FBModelable, SDType: SDModelable>(objects: [FBType], sdType: SDType.Type) {
+    func create<SDType: SDModelable>(
+        object: SDType,
+        configurationPredicate: @escaping (SDType) -> Predicate<SDType>
+    ) {
+        saveQueue.async {
+            guard self.isEmpty(object: object, predicate: configurationPredicate(object)) else {
+                Logger.log(message: "Объект уже существует в БД!")
+                return
+            }
+
+            self.context.insert(object)
+
+            do {
+                try self.context.save()
+            } catch {
+                Logger.log(kind: .error, message: error)
+            }
+        }
+    }
+
+    func create<SDType: SDModelable>(objects: [SDType], configurationPredicate: @escaping (SDType) -> Predicate<SDType>) {
         saveQueue.async {
             objects.forEach { object in
-                guard !self.isExist(by: object) else {
-                    Logger.log(message: "объект уже создан")
+                guard self.isEmpty(object: object, predicate: configurationPredicate(object)) else {
+                    Logger.log(message: "Объект уже существует в БД!")
                     return
                 }
-
-                guard
-                    let fbObject = object as? SDType.FBModelType,
-                    let sdObject = SDType(fbModel: fbObject)
-                else {
-                    Logger.log(kind: .error, message: "ошибка приведения к типу `SDType.FBModelType` или `SDType`")
-                    return
-                }
-
-                self.context.insert(sdObject)
+                
+                self.context.insert(object)
             }
 
             do {
                 try self.context.save()
             } catch {
-                Logger.log(message: "ошибка при сохранении: \(error)")
+                Logger.log(message: "ошибка при сохранении `swift data model`: \(error)")
             }
         }
     }
@@ -78,17 +91,7 @@ extension SwiftDataService: SwiftDataServiceProtocol {
 
 private extension SwiftDataService {
 
-    func isExist<T: FBModelable>(by object: T) -> Bool {
-        true
-    }
-}
-
-// MARK: - SwiftDataError
-
-extension SwiftDataService {
-
-    enum SwiftDataError: Error {
-        case objectIsCreated
-        case saveError
+    func isEmpty<SDType: SDModelable>(object: SDType, predicate: Predicate<SDType>) -> Bool {
+        fetch(predicate: predicate).isNil
     }
 }

@@ -55,7 +55,7 @@ extension AuthViewModel {
         let uid = try await services.authService.registeUser(with: inputData.mapper)
 
         // Сохраняем данные о пользователе на устройстве
-        let user = SDUserModel(uid: uid, nickName: inputData.nickName, email: inputData.email)
+        let user = SDUserModel(id: uid, nickName: inputData.nickName, email: inputData.email)
         saveUserInMemory(user: user)
 
         // Обновляем рутового пользователя. Должно выполняться на главном потоке

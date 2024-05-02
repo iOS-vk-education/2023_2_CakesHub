@@ -119,10 +119,19 @@ private extension CreateProductViewModel {
         FBProductModel(
             documentID: UUID().uuidString,
             images: .images(inputProductData.productImages.map { $0 }),
-            pickers: [], // TODO: iOS-18: Добавить экран с выбором пикеров
+            pickers: [],
+            // TODO: iOS-18: Добавить экран с выбором пикеров
             productName: inputProductData.productName,
             price: inputProductData.productPrice,
-            discountedPrice: inputProductData.productDiscountedPrice,
+            discountedPrice: {
+                guard 
+                    let price = inputProductData.productDiscountedPrice,
+                    !price.isEmpty
+                else {
+                    return nil
+                }
+                return price
+            }(),
             weight: nil,
             seller: rootViewModel.currentUser,
             description: inputProductData.productDescription,
