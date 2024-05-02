@@ -80,7 +80,7 @@ extension CreateProductViewModel: CreateProductViewModelProtocol {
             guard let uiImage = UIImage(data: data) else { return nil }
             images.insert(uiImage)
             let imagePathName: String = "created-image-\(index)"
-            self.services.fileManager.saveImage(uiImage: uiImage, for: imagePathName)
+            self.services.fileManager.saveImage(uiImage: uiImage, for: imagePathName, completion: nil)
             return imagePathName
         }
         self.inputProductData.productImages = images

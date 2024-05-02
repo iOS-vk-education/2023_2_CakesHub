@@ -108,18 +108,35 @@ extension RootViewModel {
 
     /// Сохраняем торары в память устройства
     func saveProductsInMemory(products: [FBProductModel]) {
-        services.swiftDataService?.create(objects: products.map { SDProductModel(fbModel: $0) }) { obj in
-            let objID = obj._id
-            return #Predicate<SDProductModel> { $0._id == objID }
-        }
+        services.swiftDataService?.create(
+            objects: products,
+            configureSDModel: {
+                let sd = SDProductModel(fbModel: $0)
+                return sd
+            },
+            configurePredicate: { sdModel in
+                let objID = sdModel._id
+                return #Predicate<SDProductModel> { $0._id == objID }
+            },
+            equalCheck: { obj, sdObject in
+                obj == sdObject.mapperInFBProductModel
+            }
+        )
     }
     
     /// Добавляем продукт в память устройства
     func addProductInMemory(product: FBProductModel) {
-        services.swiftDataService?.create(object: SDProductModel(fbModel: product)) { obj in
-            let objID = obj._id
-            return #Predicate<SDProductModel> { $0._id == objID }
-        }
+        services.swiftDataService?.create(
+            object: product,
+            configureSDModel: { SDProductModel(fbModel: $0) },
+            configurePredicate: { obj in
+                let objID = obj._id
+                return #Predicate<SDProductModel> { $0._id == objID }
+            },
+            equalCheck: { obj, sdObject in
+                obj == sdObject.mapperInFBProductModel
+            }
+        )
     }
 }
 

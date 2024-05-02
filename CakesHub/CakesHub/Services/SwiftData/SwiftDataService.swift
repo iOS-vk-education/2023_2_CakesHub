@@ -11,8 +11,14 @@ import SwiftData
 protocol SwiftDataServiceProtocol {
     func fetch<T: SDModelable>() -> [T]
     func fetch<T: SDModelable>(predicate: Predicate<T>) -> T?
-    func create<SDType: SDModelable>(object: SDType, configurationPredicate: @escaping (SDType) -> Predicate<SDType>)
-    func create<SDType: SDModelable>(objects: [SDType], configurationPredicate: @escaping (SDType) -> Predicate<SDType>)
+    func create<SDType: SDModelable, FBType: FBModelable>(object: FBType,
+                                                          configureSDModel: @escaping (FBType) -> SDType?,
+                                                          configurePredicate: @escaping (SDType) -> Predicate<SDType>,
+                                                          equalCheck: ((_ obj: FBType, _ sdObject: SDType) -> Bool)?)
+    func create<SDType: SDModelable, FBType: FBModelable>(objects: [FBType],
+                                                          configureSDModel: @escaping (FBType) -> SDType?,
+                                                          configurePredicate: @escaping (SDType) -> Predicate<SDType>,
+                                                          equalCheck: ((_ obj: FBType, _ sdObject: SDType) -> Bool)?)
 }
 
 // MARK: - SwiftDataService
@@ -47,17 +53,29 @@ extension SwiftDataService: SwiftDataServiceProtocol {
         return (try? context.fetch(fetchDescriptor))?.first
     }
 
-    func create<SDType: SDModelable>(
-        object: SDType,
-        configurationPredicate: @escaping (SDType) -> Predicate<SDType>
+    func create<SDType: SDModelable, FBType: FBModelable>(
+        object: FBType,
+        configureSDModel: @escaping (FBType) -> SDType?,
+        configurePredicate: @escaping (SDType) -> Predicate<SDType>,
+        equalCheck: ((_ obj: FBType, _ sdObject: SDType) -> Bool)? = nil
     ) {
         saveQueue.async {
-            guard self.isEmpty(object: object, predicate: configurationPredicate(object)) else {
+            guard let sdObject = configureSDModel(object) else {
+                Logger.log(kind: .error, message: "Текущая модель isNil. Так не должно быть")
+                return
+            }
+
+            guard self.isEmpty(
+                fbObject: object,
+                predicate: configurePredicate(sdObject),
+                equalCheck: equalCheck
+            ) else {
                 Logger.log(message: "Объект уже существует в БД!")
                 return
             }
 
-            self.context.insert(object)
+            self.context.insert(sdObject)
+            Logger.log(message: "Создан новый торт!")
 
             do {
                 try self.context.save()
@@ -67,15 +85,30 @@ extension SwiftDataService: SwiftDataServiceProtocol {
         }
     }
 
-    func create<SDType: SDModelable>(objects: [SDType], configurationPredicate: @escaping (SDType) -> Predicate<SDType>) {
+    func create<SDType: SDModelable, FBType: FBModelable>(
+        objects: [FBType],
+        configureSDModel: @escaping (FBType) -> SDType?,
+        configurePredicate: @escaping (SDType) -> Predicate<SDType>,
+        equalCheck: ((_ obj: FBType, _ sdObject: SDType) -> Bool)? = nil
+    ) {
         saveQueue.async {
-            objects.forEach { object in
-                guard self.isEmpty(object: object, predicate: configurationPredicate(object)) else {
+            objects.forEach { fbObject in
+                guard let sdObject = configureSDModel(fbObject) else {
+                    Logger.log(kind: .error, message: "Текущая модель isNil. Так не должно быть")
+                    return
+                }
+
+                guard self.isEmpty(
+                    fbObject: fbObject,
+                    predicate: configurePredicate(sdObject),
+                    equalCheck: equalCheck
+                ) else {
                     Logger.log(message: "Объект уже существует в БД!")
                     return
                 }
                 
-                self.context.insert(object)
+                self.context.insert(sdObject)
+                Logger.log(message: "Создан новый торт!")
             }
 
             do {
@@ -91,7 +124,17 @@ extension SwiftDataService: SwiftDataServiceProtocol {
 
 private extension SwiftDataService {
 
-    func isEmpty<SDType: SDModelable>(object: SDType, predicate: Predicate<SDType>) -> Bool {
-        fetch(predicate: predicate).isNil
+    func isEmpty<SDType: SDModelable, FBType: FBModelable>(
+        fbObject: FBType,
+        predicate: Predicate<SDType>,
+        equalCheck: ((_ obj: FBType, _ sdObject: SDType) -> Bool)? = nil
+    ) -> Bool {
+        let sdObject = fetch(predicate: predicate)
+        guard let sdObject, let equalCheck else {
+            Logger.log(kind: .error, message: "sdObject or equalCheck is nil")
+            return sdObject.isNil
+        }
+        let isEqual = equalCheck(fbObject, sdObject)
+        return !isEqual
     }
 }

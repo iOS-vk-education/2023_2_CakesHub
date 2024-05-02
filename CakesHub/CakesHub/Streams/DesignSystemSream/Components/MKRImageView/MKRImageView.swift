@@ -64,6 +64,10 @@ private extension MKRImageView {
                             fetchedError = nil
                         } catch {
                             fetchedError = error
+                            if error is APIError {
+                                Logger.log(kind: .error, message: error.localizedDescription)
+                                return
+                            }
                             Logger.log(kind: .error, message: error)
                         }
                     }

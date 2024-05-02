@@ -14,11 +14,7 @@ extension FBProductModel: Mockable {
 
     static let mockData = FBProductModel(
         documentID: "888",
-        images: .images([
-            CHMImage.mockImageCake,
-            CHMImage.mockImageCake2,
-            CHMImage.mockImageCake3,
-        ]),
+        images: .strings([]),
         pickers: [],
         productName: "Клубничное облако",
         price: "1400",

@@ -11,8 +11,9 @@ import SwiftData
 
 @Model
 final class SDProductModel {
+    @Attribute(.unique)
     var _id                : String
-    var _images            : [String]
+    var _imageKeys         : [String]
     var _pickers           : [String]
     var _productName       : String
     var _price             : String
@@ -39,7 +40,7 @@ final class SDProductModel {
         reviewInfo: SDProductReviewsModel
     ) {
         self._id = id
-        self._images = images
+        self._imageKeys = images
         self._pickers = pickers
         self._productName = productName
         self._price = price
@@ -94,7 +95,7 @@ extension SDProductModel {
     var mapperInFBProductModel: FBProductModel {
         FBProductModel(
             documentID: _id,
-            images: .strings(_images),
+            images: .strings(_imageKeys),
             pickers: _pickers,
             productName: _productName,
             price: _price,
