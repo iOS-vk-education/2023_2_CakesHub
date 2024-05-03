@@ -10,10 +10,12 @@ import Foundation
 
 protocol WebSockerManagerProtocol: AnyObject {
     func connection(completion: @escaping CHMGenericBlock<Error?>)
-    func send(message: Message, completion: @escaping CHMVoidBlock)
-    func receive(completion: @escaping CHMGenericBlock<Message>)
+    func send<T: Codable>(message: T, completion: @escaping CHMVoidBlock)
+    func receive<T: Decodable>(completion: @escaping CHMGenericBlock<T>)
     func close()
 }
+
+// MARK: - WebSockerManager
 
 final class WebSockerManager {
     private let urlMessage: String = "ws://localhost:8080/socket"
@@ -38,7 +40,7 @@ extension WebSockerManager: WebSockerManagerProtocol {
         webSocketTask = nil
     }
 
-    func send(message: Message, completion: @escaping CHMVoidBlock) {
+    func send<T: Encodable>(message: T, completion: @escaping CHMVoidBlock) {
         do {
             let jsonData = try JSONEncoder().encode(message)
             guard let jsonString = String(data: jsonData, encoding: .utf8) else { return }
@@ -55,7 +57,7 @@ extension WebSockerManager: WebSockerManagerProtocol {
         }
     }
 
-    func receive(completion: @escaping CHMGenericBlock<Message>) {
+    func receive<T: Decodable>(completion: @escaping CHMGenericBlock<T>) {
         webSocketTask?.receive { [weak self] result in
             guard let self, webSocketTask != nil else { return }
             switch result {
@@ -68,12 +70,12 @@ extension WebSockerManager: WebSockerManagerProtocol {
                     Logger.log(message: "Получено сообщение: [ " + stringMessage + " ]")
                     guard let data = stringMessage.data(using: .utf8) else { return }
                     do {
-                        let message = try JSONDecoder().decode(Message.self, from: data)
+                        let message = try JSONDecoder().decode(T.self, from: data)
                         completion(message)
                     } catch {
                         Logger.log(
                             kind: .error,
-                            message: "Не получилось распарсить сообщение: [ \(stringMessage) ] к типу Message.self.\n [ \(error.localizedDescription) ]"
+                            message: "Не получилось распарсить сообщение: [ \(stringMessage) ] к типу \(T.Type.self).self.\n [ \(error.localizedDescription) ]"
                         )
                     }
                 @unknown default: break

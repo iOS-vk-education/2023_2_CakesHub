@@ -123,6 +123,8 @@
 		E535642F2BC7525A001077DF /* WebSockerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E535642E2BC7525A001077DF /* WebSockerManager.swift */; };
 		E53767962BCF77A700F83990 /* FileManagerImageHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53767952BCF77A700F83990 /* FileManagerImageHash.swift */; };
 		E541F2292BD0F20C00692138 /* VMCreateProductServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541F2282BD0F20C00692138 /* VMCreateProductServices.swift */; };
+		E54460AF2BE5600C00B70444 /* WSNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54460AE2BE5600C00B70444 /* WSNotification.swift */; };
+		E54460B12BE560D000B70444 /* WSMessageKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54460B02BE560D000B70444 /* WSMessageKind.swift */; };
 		E54A3C522BB8FDCC00CBFEEB /* AllProductsCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A3C4C2BB8FDCC00CBFEEB /* AllProductsCategoryView.swift */; };
 		E54A3C532BB8FDCC00CBFEEB /* AllProductsCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A3C4E2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel.swift */; };
 		E54A3C542BB8FDCC00CBFEEB /* AllProductsCategoryViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A3C4F2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel+Mock.swift */; };
@@ -305,6 +307,8 @@
 		E535642E2BC7525A001077DF /* WebSockerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSockerManager.swift; sourceTree = "<group>"; };
 		E53767952BCF77A700F83990 /* FileManagerImageHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerImageHash.swift; sourceTree = "<group>"; };
 		E541F2282BD0F20C00692138 /* VMCreateProductServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMCreateProductServices.swift; sourceTree = "<group>"; };
+		E54460AE2BE5600C00B70444 /* WSNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSNotification.swift; sourceTree = "<group>"; };
+		E54460B02BE560D000B70444 /* WSMessageKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMessageKind.swift; sourceTree = "<group>"; };
 		E54A3C4C2BB8FDCC00CBFEEB /* AllProductsCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllProductsCategoryView.swift; sourceTree = "<group>"; };
 		E54A3C4E2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllProductsCategoryViewModel.swift; sourceTree = "<group>"; };
 		E54A3C4F2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AllProductsCategoryViewModel+Mock.swift"; sourceTree = "<group>"; };
@@ -1050,6 +1054,7 @@
 		E535642D2BC7524B001077DF /* WebSocket */ = {
 			isa = PBXGroup;
 			children = (
+				E54460AD2BE5600300B70444 /* Models */,
 				E535642E2BC7525A001077DF /* WebSockerManager.swift */,
 			);
 			path = WebSocket;
@@ -1061,6 +1066,15 @@
 				E53767952BCF77A700F83990 /* FileManagerImageHash.swift */,
 			);
 			path = FileManager;
+			sourceTree = "<group>";
+		};
+		E54460AD2BE5600300B70444 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E54460AE2BE5600C00B70444 /* WSNotification.swift */,
+				E54460B02BE560D000B70444 /* WSMessageKind.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		E54A3C4B2BB8FDCC00CBFEEB /* Model */ = {
@@ -1592,11 +1606,13 @@
 				E51B32DC2B7E5FEF0028E8C7 /* CHMBigBannerView+Defaults.swift in Sources */,
 				E51B334C2B7E62AF0028E8C7 /* LikeIcon.swift in Sources */,
 				E5E219DA2B94137500BE9ACE /* CategoriesViewModel+Mock.swift in Sources */,
+				E54460B12BE560D000B70444 /* WSMessageKind.swift in Sources */,
 				E51B33492B7E62AF0028E8C7 /* ProductModel.swift in Sources */,
 				E52C88802BA709730056FC51 /* MainSubviews.swift in Sources */,
 				E53528A32BAF134100A1ADC3 /* Text+Extenstions.swift in Sources */,
 				E51B32EE2B7E5FEF0028E8C7 /* CHMRatingReviewsView+Defaults.swift in Sources */,
 				E52CDD092BB6460E009C08B9 /* Message.swift in Sources */,
+				E54460AF2BE5600C00B70444 /* WSNotification.swift in Sources */,
 				E51B32D42B7E5FEF0028E8C7 /* CHMNewProductCard+Configuration.swift in Sources */,
 				E51B32E32B7E5FEF0028E8C7 /* CHMProductDescriptionView+Preview.swift in Sources */,
 				E51B332A2B7E602A0028E8C7 /* SwiftUIPreview.swift in Sources */,

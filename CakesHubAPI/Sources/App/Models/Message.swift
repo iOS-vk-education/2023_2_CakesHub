@@ -32,6 +32,7 @@ enum MessageKind: String, Codable {
     case connection
     case message
     case close
+    case notification
 }
 
 // MARK: - Encode

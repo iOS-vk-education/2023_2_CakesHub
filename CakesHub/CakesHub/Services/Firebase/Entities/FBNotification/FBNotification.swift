@@ -9,13 +9,13 @@
 import Foundation
 
 struct FBNotification: FBModelable {
-    let id: String
-    var title: String
-    var date: String
-    var message: String?
-    var productID: String
-    var sellerID: String
-    var customerID: String
+    let id         : String
+    var title      : String
+    var date       : String
+    var message    : String?
+    var productID  : String
+    var sellerID   : String
+    var customerID : String
 
     static var clear = FBNotification(
         id: .clear,
@@ -32,7 +32,7 @@ struct FBNotification: FBModelable {
 
 extension FBNotification {
 
-    init?(dictionary: [String : Any]) {
+    init?(dictionary: [String: Any]) {
         guard 
             let id = dictionary["id"] as? String,
             let title = dictionary["title"] as? String,

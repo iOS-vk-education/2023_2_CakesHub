@@ -47,6 +47,9 @@ private extension WebSocketController {
                 case .message:
                     try self.messageHandler(ws: ws, data: data)
 
+                case .notification:
+                    try self.notificationHandler(ws: ws, data: data)
+
                 case .close:
                     break
                 }
@@ -57,7 +60,9 @@ private extension WebSocketController {
         }
 
         ws.onClose.whenComplete { [weak self] _ in
-            guard let self, let client = wsClients.first(where: { $0.ws === ws }) else { return }
+            guard let self, let client = wsClients.first(where: { $0.ws === ws }) else {
+                return
+            }
             do {
                 try closeHandler(ws: ws, client: client)
             } catch {
@@ -81,7 +86,7 @@ private extension WebSocketController {
             state: .received
         )
         let msgConnectionString = try msgConnection.encodeMessage()
-        Logger.log(kind: .connection, message: "Пользователь с ником: [ \(msg.userName) ] добавлен в сессию")
+        Logger.log(kind: .connection, message: "Пользователь с ником: [ \(msg.userName) ] и id: [ \(msg.userID) ] добавлен в сессию")
         wsClients.forEach {
             $0.ws.send(msgConnectionString)
         }
@@ -119,5 +124,30 @@ private extension WebSocketController {
         )
         let msgConnectionString = try msgConnection.encodeMessage()
         client.ws.send(msgConnectionString)
+    }
+}
+
+// MARK: - Notifications
+
+private extension WebSocketController {
+
+    func notificationHandler(ws: WebSocket, data: Data) throws {
+        var notification = try JSONDecoder().decode(Notification.self, from: data)
+        Logger.log(message: "Полученно уведомление с title:\n\(notification.title)")
+
+        let notificationData = try JSONEncoder().encode(notification)
+        guard let notificationString = String(data: notificationData, encoding: .utf8) else {
+            Logger.log(kind: .error, message: "Ошибка конвертирования в строку")
+            throw Abort(.badRequest)
+        }
+
+        let receiverID = notification.receiverID
+        for client in wsClients {
+            if client.userID == receiverID {
+                client.ws.send(notificationString)
+                Logger.log(message: "Отправил текст получателю с id: \(receiverID)")
+                return
+            }
+        }
     }
 }

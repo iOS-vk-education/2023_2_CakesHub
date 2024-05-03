@@ -64,7 +64,7 @@ extension ChatViewModel: ChatViewModelProtocol {
 
             /// Сообщения для добавления в сессию при успешном соединении.
             wsSocket?.send(
-                message: .init(
+                message: Message(
                     id: UUID(),
                     kind: .connection,
                     userName: user.name,
@@ -113,7 +113,7 @@ private extension ChatViewModel {
 
     /// Getting new message
     func receiveWebSocketData() {
-        wsSocket?.receive { [weak self] message in
+        wsSocket?.receive { [weak self] (message: Message) in
             guard let self, message.kind == .message else { return }
             let image: ImageKind = message.userID == user.id ? user.userImage : seller.userImage
             let chatMessage = ChatMessage(

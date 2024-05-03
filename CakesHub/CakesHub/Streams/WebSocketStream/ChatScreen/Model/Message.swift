@@ -9,19 +9,13 @@ import UIKit
 
 struct Message: Codable, Identifiable {
     var id: UUID
-    let kind: MessageKind
+    let kind: WSMessageKind
     let userName: String
     let userID: String
     let receiverID: String
     let dispatchDate: Date
     let message: String
     var state: State
-
-    enum MessageKind: String, Codable {
-        case connection
-        case message
-        case close
-    }
 
     enum State: String, Codable {
         case progress
