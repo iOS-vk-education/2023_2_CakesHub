@@ -111,16 +111,14 @@ extension RootViewModel {
         services.swiftDataService?.create(
             objects: products,
             configureSDModel: {
-                let sd = SDProductModel(fbModel: $0)
-                return sd
+                let sdModel = SDProductModel(fbModel: $0)
+                return sdModel
             },
             configurePredicate: { sdModel in
                 let objID = sdModel._id
                 return #Predicate<SDProductModel> { $0._id == objID }
             },
-            equalCheck: { obj, sdObject in
-                obj == sdObject.mapperInFBProductModel
-            }
+            equalCheck: { $0 == $1.mapperInFBProductModel }
         )
     }
     
@@ -128,14 +126,15 @@ extension RootViewModel {
     func addProductInMemory(product: FBProductModel) {
         services.swiftDataService?.create(
             object: product,
-            configureSDModel: { SDProductModel(fbModel: $0) },
+            configureSDModel: {
+                let sdModel = SDProductModel(fbModel: $0)
+                return sdModel
+            },
             configurePredicate: { obj in
                 let objID = obj._id
                 return #Predicate<SDProductModel> { $0._id == objID }
             },
-            equalCheck: { obj, sdObject in
-                obj == sdObject.mapperInFBProductModel
-            }
+            equalCheck: { $0 == $1.mapperInFBProductModel }
         )
     }
 }
