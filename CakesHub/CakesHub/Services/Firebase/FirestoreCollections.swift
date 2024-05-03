@@ -13,4 +13,5 @@ import Firebase
 enum FirestoreCollections: String {
     case users
     case products
+    case notification
 }
