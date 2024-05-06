@@ -19,8 +19,8 @@ struct ProductModel: Identifiable, Hashable {
     var isFavorite: Bool = false
     /// Флаг если товар новый
     var isNew: Bool = false
-    /// Фильтры торта
-    var pickers: [String] = []
+    /// Категории торта
+    var categories: [String] = []
     /// Информация об продавце
     var seller: SellerInfo = .clear
     /// Название торта
@@ -185,7 +185,7 @@ extension ProductModel {
         return FBProductModel(
             documentID: id,
             images: productImages,
-            pickers: pickers,
+            categories: categories,
             productName: productName,
             price: price,
             discountedPrice: discountedPrice,

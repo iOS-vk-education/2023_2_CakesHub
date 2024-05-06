@@ -13,6 +13,18 @@ struct CategoryCardModel: Identifiable {
     var image: ImageKind = .clear
 }
 
+// MARK: - Mapper
+
+extension FBCateoryModel {
+
+    var mapper: CategoryCardModel {
+        CategoryCardModel(
+            title: title,
+            image: .url(URL(string: imageURL))
+        )
+    }
+}
+
 // MARK: - Mock Data
 
 #if DEBUG
@@ -28,6 +40,12 @@ extension [CategoryCardModel] {
     static let mockData2: [CategoryCardModel] = [
         .mockData3,
         .mockData2,
+        .mockData1,
+    ]
+
+    static let mockData3: [CategoryCardModel] = [
+        .mockData2,
+        .mockData3,
         .mockData1,
     ]
 }

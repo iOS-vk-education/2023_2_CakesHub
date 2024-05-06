@@ -11,7 +11,13 @@ import Foundation
 
 extension CategoriesViewModel: Mockable {
 
-    static let mockData = CategoriesViewModel(firstSections: .mockData, secondSections: .mockData2)
+    static let mockData = CategoriesViewModel(
+        sections: [
+            .kids(.mockData),
+            .men(.mockData2),
+            .women(.mockData3)
+        ]
+    )
 }
 
 #endif

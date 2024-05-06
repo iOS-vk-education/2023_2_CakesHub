@@ -14,7 +14,7 @@ final class SDProductModel {
     @Attribute(.unique)
     var _id                : String
     var _imageKeys         : [String]
-    var _pickers           : [String]
+    var _categories        : [String]
     var _productName       : String
     var _price             : String
     var _discountedPrice   : String?
@@ -28,7 +28,7 @@ final class SDProductModel {
     init(
         id: String,
         images: [String],
-        pickers: [String],
+        categories: [String],
         productName: String,
         price: String,
         discountedPrice: String? = nil,
@@ -40,7 +40,7 @@ final class SDProductModel {
     ) {
         self._id = id
         self._imageKeys = images
-        self._pickers = pickers
+        self._categories = categories
         self._productName = productName
         self._price = price
         self._discountedPrice = discountedPrice
@@ -72,7 +72,7 @@ extension SDProductModel: SDModelable {
         self.init(
             id: fbModel.documentID,
             images: images,
-            pickers: fbModel.pickers,
+            categories: fbModel.categories,
             productName: fbModel.productName,
             price: fbModel.price,
             discountedPrice: fbModel.discountedPrice,
@@ -93,7 +93,7 @@ extension SDProductModel {
         FBProductModel(
             documentID: _id,
             images: .strings(_imageKeys),
-            pickers: _pickers,
+            categories: _categories,
             productName: _productName,
             price: _price,
             discountedPrice: _discountedPrice,

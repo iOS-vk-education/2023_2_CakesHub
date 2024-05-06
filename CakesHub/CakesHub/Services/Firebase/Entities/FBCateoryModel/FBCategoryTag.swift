@@ -10,8 +10,8 @@ import Foundation
 extension FBCateoryModel {
 
     enum Tag: String, CaseIterable {
-        case man
-        case kid
-        case woman
+        case men
+        case kids
+        case women
     }
 }

@@ -12,34 +12,31 @@ struct CategoriesView: View {
     // MARK: View Model
 
     typealias ViewModel = CategoriesViewModel
-    @StateObject var viewModel: ViewModel
-
-    // MARK: Properties
-    
-    @State var selectedTab: CategoriesTab?
-    @State var tabBarProgess: CGFloat = .zero
-    @State var showSearchBar: Bool = false
-    @State var searchText: String = .clear
-
-    // MARK: Lifecycle
-
-    init(viewModel: ViewModel = ViewModel()) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
+    @State private(set) var viewModel = ViewModel()
+    @EnvironmentObject private var root: RootViewModel
 
     // MARK: View
 
     var body: some View {
         MainViewBlock
-            .onAppear(perform: viewModel.fetchSections)
+            .onAppear(perform: onAppear)
+    }
+}
+
+// MARK: - Actions
+
+private extension CategoriesView {
+
+    func onAppear() {
+        viewModel.setRootViewModel(with: root)
+        viewModel.fetchSections()
     }
 }
 
 // MARK: - Preview
 
 #Preview {
-    let viewModel = CategoriesViewModel()
-    return CategoriesView(viewModel: viewModel)
-        .onAppear(perform: viewModel.fetchPreviewData)
+    CategoriesView()
         .environmentObject(Navigation())
+        .environmentObject(RootViewModel.mockData)
 }

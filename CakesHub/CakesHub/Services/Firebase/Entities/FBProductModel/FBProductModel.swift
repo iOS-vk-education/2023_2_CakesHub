@@ -13,8 +13,8 @@ struct FBProductModel: FBModelable {
     var documentID: String
     /// Картинки товара
     var images: FBImageKind
-    /// Фильтры торта
-    var pickers: [String]
+    /// Категории торта
+    var categories: [String]
     /// Название торта
     var productName: String
     /// Цена торта
@@ -37,7 +37,7 @@ struct FBProductModel: FBModelable {
     static let clear = FBProductModel(
         documentID: .clear,
         images: .clear,
-        pickers: [],
+        categories: [],
         productName: .clear,
         price: .clear,
         seller: .clear,
@@ -58,7 +58,7 @@ extension FBProductModel {
         if let imagesDictionary = dictionary["images"] as? [String: Any] {
             images = FBProductModel.FBImageKind(dictionary: imagesDictionary)
         }
-        let pickers = dictionary["pickers"] as? [String] ?? []
+        let categories = dictionary["categories"] as? [String] ?? []
         let productName = dictionary["productName"] as? String ?? .clear
         let price = dictionary["price"] as? String ?? .clear
         let discountedPrice = dictionary["discountedPrice"] as? String
@@ -78,7 +78,7 @@ extension FBProductModel {
         self.init(
             documentID: documentID,
             images: images ?? .clear,
-            pickers: pickers,
+            categories: categories,
             productName: productName,
             price: price,
             discountedPrice: discountedPrice,
@@ -150,7 +150,7 @@ extension FBProductModel {
             badgeText: badgeText,
             isFavorite: false,
             isNew: isNew,
-            pickers: pickers,
+            categories: categories,
             seller: seller.mapper,
             productName: productName,
             price: "$\(price)",
@@ -177,7 +177,7 @@ extension FBProductModel: Equatable {
     static func == (lhs: FBProductModel, rhs: FBProductModel) -> Bool {
         lhs.documentID        == rhs.documentID &&
         lhs.images            == rhs.images &&
-        lhs.pickers           == rhs.pickers &&
+        lhs.categories        == rhs.categories &&
         lhs.productName       == rhs.productName &&
         lhs.price             == rhs.price &&
         lhs.discountedPrice   == rhs.discountedPrice &&

@@ -27,7 +27,7 @@ extension ProductModel: Mockable {
         ],
         isFavorite: true,
         isNew: true,
-        pickers: Constants.pickers,
+        categories: Constants.categories,
         seller: .king,
         productName: Constants.productName,
         price: Constants.price,
@@ -70,7 +70,7 @@ private extension ProductModel {
         static let previewDescription = """
         Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.
         """
-        static let pickers = ["Size", "Color"]
+        static let categories = ["День рождения", "Новый год"]
     }
 }
 

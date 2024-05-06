@@ -29,7 +29,7 @@ extension CategoriesView {
                 Spacer()
                 Button {
                     withAnimation {
-                        showSearchBar.toggle()
+                        viewModel.uiProperties.showSearchBar.toggle()
                     }
                 } label: {
                     CHMImage.magnifier
@@ -44,7 +44,7 @@ extension CategoriesView {
             .foregroundStyle(.primary)
             .padding(15)
 
-            if showSearchBar {
+            if viewModel.uiProperties.showSearchBar {
                 SearchBar
             }
         }
@@ -55,7 +55,7 @@ extension CategoriesView {
             CHMImage.magnifier
                 .renderingMode(.template)
                 .foregroundStyle(CHMColor<IconPalette>.iconSecondary.color)
-            TextField(Constants.searchTitle, text: $searchText)
+            TextField(Constants.searchTitle, text: $viewModel.uiProperties.searchText)
         }
         .padding(.vertical, 9)
         .padding(.horizontal, 15)
@@ -74,12 +74,12 @@ extension CategoriesView {
                 .padding(.vertical, 10)
                 .onTapGesture {
                     withAnimation(.snappy) {
-                        selectedTab = tab
+                        viewModel.uiProperties.selectedTab = tab
                     }
                 }
             }
         }
-        .tabMask(tabBarProgess)
+        .tabMask(viewModel.uiProperties.tabBarProgess)
         .background {
             GeometryReader {
                 let size = $0.size
@@ -88,7 +88,9 @@ extension CategoriesView {
                     .fill(CHMColor<BackgroundPalette>.bgBasketColor.color)
                     .frame(width: capsuleWidth, height: 3)
                     .frame(maxHeight: .infinity, alignment: .bottom)
-                    .offset(x: tabBarProgess * (size.width - capsuleWidth))
+                    .offset(
+                        x: viewModel.uiProperties.tabBarProgess * (size.width - capsuleWidth)
+                    )
             }
         }
     }
@@ -99,70 +101,46 @@ extension CategoriesView {
 
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 0) {
-                    WomenSection
-                        .id(CategoriesTab.women)
-                        .containerRelativeFrame(.horizontal)
-
-                    MenSection
-                        .id(CategoriesTab.men)
-                        .containerRelativeFrame(.horizontal)
-
-                    KidsSection
-                        .id(CategoriesTab.kids)
-                        .containerRelativeFrame(.horizontal)
+                    ForEach(viewModel.sections) { section in
+                        switch section {
+                        case let .men(categories):
+                            ScrollSections(
+                                items: filterData(categories: categories)
+                            )
+                            .id(CategoriesTab.men)
+                            .containerRelativeFrame(.horizontal)
+                        case let .women(categories):
+                            ScrollSections(
+                                items: filterData(categories: categories)
+                            )
+                            .id(CategoriesTab.women)
+                            .containerRelativeFrame(.horizontal)
+                        case let .kids(categories):
+                            ScrollSections(
+                                items: filterData(categories: categories)
+                            )
+                            .id(CategoriesTab.kids)
+                            .containerRelativeFrame(.horizontal)
+                        }
+                    }
                 }
                 .scrollTargetLayout()
                 .offsetX { value in
                     let progress = -value / (size.width * CGFloat(CategoriesTab.allCases.count - 1))
-                    tabBarProgess = max(min(progress, 1), 0)
+                    viewModel.uiProperties.tabBarProgess = max(min(progress, 1), 0)
                 }
             }
-            .scrollPosition(id: $selectedTab)
+            .scrollPosition(id: $viewModel.uiProperties.selectedTab)
             .scrollIndicators(.hidden)
             .scrollTargetBehavior(.paging)
             .scrollClipDisabled()
         }
     }
 
-    var KidsSection: some View {
-        ScrollView {
-            LazyVGrid(
-                columns: Array(repeating: GridItem(), count: 2)
-            ) {
-                ForEach(1...40, id: \.self) { _ in
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.gray.gradient)
-                        .frame(height: 150)
-                }
-            }
-            .padding([.horizontal, .top])
-        }
-        .scrollIndicators(.hidden)
-        .scrollClipDisabled()
-        .mask {
-            Rectangle()
-                .padding(.bottom, -100)
-        }
-    }
-
-    var WomenSection: some View {
+    func ScrollSections(items: [CategoryCardModel]) -> some View {
         ScrollView {
             LazyVStack(spacing: 16) {
-                ForEach(viewModel.firstSections) { section in
-                    CHMNewCategoryView(
-                        configuration: .basic(imageKind: section.image, title: section.title)
-                    )
-                    .padding(.horizontal)
-                }
-            }
-            .padding(.top)
-        }
-    }
-
-    var MenSection: some View {
-        ScrollView {
-            LazyVStack(spacing: 16) {
-                ForEach(viewModel.secondSections) { section in
+                ForEach(items) { section in
                     CHMNewCategoryView(
                         configuration: .basic(imageKind: section.image, title: section.title)
                     )
@@ -190,12 +168,22 @@ private extension CategoriesView {
             }
         }
     }
+
+    /// Фильтруем данные при вводе
+    func filterData(categories: [CategoryCardModel]) -> [CategoryCardModel] {
+        viewModel.uiProperties.searchText.isEmpty
+        ? categories
+        : categories.filter {
+            $0.title.contains(viewModel.uiProperties.searchText)
+        }
+    }
 }
 
 // MARK: - Preview
 
 #Preview {
     CategoriesView(viewModel: .mockData)
+        .environmentObject(RootViewModel.mockData)
 }
 
 // MARK: - Constants

@@ -8,7 +8,7 @@
 import Foundation
 
 enum CategoriesTab: String, CaseIterable {
-    case women
     case men
+    case women
     case kids
 }

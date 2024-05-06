@@ -133,6 +133,8 @@
 		E54A3C522BB8FDCC00CBFEEB /* AllProductsCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A3C4C2BB8FDCC00CBFEEB /* AllProductsCategoryView.swift */; };
 		E54A3C532BB8FDCC00CBFEEB /* AllProductsCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A3C4E2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel.swift */; };
 		E54A3C542BB8FDCC00CBFEEB /* AllProductsCategoryViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A3C4F2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel+Mock.swift */; };
+		E55093772BE9811000F1326E /* CategoriesVMServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55093762BE9811000F1326E /* CategoriesVMServices.swift */; };
+		E55093792BE987FD00F1326E /* CategoriesUIProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55093782BE987FD00F1326E /* CategoriesUIProperties.swift */; };
 		E556517A2BB9AC6400759839 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556516C2BB9AC6400759839 /* NotificationModel.swift */; };
 		E556517C2BB9AC6400759839 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55651702BB9AC6400759839 /* NotificationCell.swift */; };
 		E556517D2BB9AC6400759839 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55651712BB9AC6400759839 /* NotificationView.swift */; };
@@ -322,6 +324,8 @@
 		E54A3C4C2BB8FDCC00CBFEEB /* AllProductsCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllProductsCategoryView.swift; sourceTree = "<group>"; };
 		E54A3C4E2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllProductsCategoryViewModel.swift; sourceTree = "<group>"; };
 		E54A3C4F2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AllProductsCategoryViewModel+Mock.swift"; sourceTree = "<group>"; };
+		E55093762BE9811000F1326E /* CategoriesVMServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesVMServices.swift; sourceTree = "<group>"; };
+		E55093782BE987FD00F1326E /* CategoriesUIProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesUIProperties.swift; sourceTree = "<group>"; };
 		E556516C2BB9AC6400759839 /* NotificationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		E55651702BB9AC6400759839 /* NotificationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		E55651712BB9AC6400759839 /* NotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
@@ -1344,6 +1348,8 @@
 			children = (
 				E56D0FF82B80D0A100B803EF /* CategoriesTab.swift */,
 				E5E219D52B9410CE00BE9ACE /* CategoryCardModel.swift */,
+				E55093762BE9811000F1326E /* CategoriesVMServices.swift */,
+				E55093782BE987FD00F1326E /* CategoriesUIProperties.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1617,6 +1623,7 @@
 				E51B32DD2B7E5FEF0028E8C7 /* CHMBigBannerView.swift in Sources */,
 				E54460B32BE563D300B70444 /* VMNotificationScreenServices.swift in Sources */,
 				E59AEC702B92B22000760E61 /* RegisterUserRequest.swift in Sources */,
+				E55093772BE9811000F1326E /* CategoriesVMServices.swift in Sources */,
 				E5B636642BB6751400B2F076 /* RootViewModel.swift in Sources */,
 				E535642F2BC7525A001077DF /* WebSockerManager.swift in Sources */,
 				E51B32F72B7E5FEF0028E8C7 /* MKRImageView+Preview.swift in Sources */,
@@ -1714,6 +1721,7 @@
 				E51B335A2B7E63300028E8C7 /* Optional+Extenstions.swift in Sources */,
 				E5C99DD82B9A833F0000A2A9 /* CustomTabBar.swift in Sources */,
 				E556517C2BB9AC6400759839 /* NotificationCell.swift in Sources */,
+				E55093792BE987FD00F1326E /* CategoriesUIProperties.swift in Sources */,
 				E53767962BCF77A700F83990 /* FileManagerImageHash.swift in Sources */,
 				E52CDD0E2BB6460E009C08B9 /* ChatViewModel+Mock.swift in Sources */,
 				E5E219D62B9410CE00BE9ACE /* CategoryCardModel.swift in Sources */,
