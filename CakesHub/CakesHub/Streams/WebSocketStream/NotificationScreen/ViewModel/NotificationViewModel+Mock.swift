@@ -11,19 +11,20 @@ import Foundation
 
 extension NotificationViewModel: Mockable {
 
-    static let mockData = NotificationViewModel(notifications: .mockData)
+    static let mockData = NotificationViewModel(
+        notifications: .mockData
+    )
 }
 
 extension NotificationModel: Mockable {
 
     static let mockData = NotificationModel(
-        id: 0,
+        id: UUID().uuidString,
         title: "Доставка",
         text: "Вас ожидает доставщик торта по номеру заказа #12342",
-        date: .now,
-        userID: 2,
-        sellerID: 1,
-        isRead: false
+        date: Date().description,
+        userID: "2",
+        sellerID: "1"
     )
 }
 
@@ -31,13 +32,12 @@ private extension [NotificationModel] {
 
     static let mockData: Self = (0...15).map {
         NotificationModel(
-            id: $0,
+            id: String($0),
             title: "Доставка \($0)",
             text: "Вас ожидает доставщик торта по номеру заказа #\($0)",
-            date: .now,
-            userID: 2,
-            sellerID: 1,
-            isRead: false
+            date: Date().description,
+            userID: "2",
+            sellerID: "1"
         )
     }
 }

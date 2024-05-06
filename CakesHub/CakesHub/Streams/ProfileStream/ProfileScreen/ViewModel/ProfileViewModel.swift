@@ -17,11 +17,13 @@ protocol ProfileViewModelProtocol: AnyObject {
 
 final class ProfileViewModel: ObservableObject, ViewModelProtocol {
     @Published private(set) var user: UserModel
-    
-    init(user: UserModel = .init()) {
+
+    init(user: UserModel = .clear) {
         self.user = user
     }
 }
+
+// MARK: - Screens
 
 extension ProfileViewModel {
 

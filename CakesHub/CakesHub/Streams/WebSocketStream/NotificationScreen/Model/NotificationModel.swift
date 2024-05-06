@@ -9,43 +9,55 @@
 import Foundation
 
 struct NotificationModel: Identifiable {
-    let id: Int
+    let id: String
     var title: String
-    var text: String
-    var date: Date
-    var userID: Int
-    var sellerID: Int
-    var isRead: Bool
-}
-
-// MARK: - Entity
-
-struct NotificationResponseEntity: Decodable {
-    let count: Int
-    let notifications: [NotificationEntity]
-}
-
-struct NotificationEntity: Decodable {
-    var id: Int
-    var title: String
-    var text: String
+    var text: String?
     var date: String
-    var userID: Int
-    var sellerID: Int
-    var isRead: Bool
+    var userID: String
+    var sellerID: String
 }
 
-extension NotificationEntity {
-    
+// MARK: - Mapper
+
+extension FBNotification {
+
     var mapper: NotificationModel {
         NotificationModel(
             id: id,
             title: title,
-            text: text,
-            date: date.toDate,
-            userID: userID,
-            sellerID: sellerID,
-            isRead: isRead
+            text: message,
+            date: date.toCorrectDate,
+            userID: customerID,
+            sellerID: sellerID
         )
+    }
+}
+
+extension WSNotification {
+
+    var mapper: NotificationModel {
+        NotificationModel(
+            id: id,
+            title: title,
+            text: message,
+            date: date.toCorrectDate,
+            userID: receiverID,
+            sellerID: userID
+        )
+    }
+}
+
+// MARK: - Helper
+
+private extension String {
+
+    var toCorrectDate: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        if let date = dateFormatter.date(from: self) {
+            return date.formatted(.dateTime.year().day().month(.wide))
+        } else {
+            return self
+        }
     }
 }

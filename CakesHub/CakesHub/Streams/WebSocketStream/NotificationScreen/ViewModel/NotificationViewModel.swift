@@ -7,38 +7,112 @@
 //
 
 import SwiftUI
+import Observation
 
 // MARK: - NotificationViewModelProtocol
 
 protocol NotificationViewModelProtocol: AnyObject {
-    
-    func setupWebSocket()
-    func deleteNotification(id notificationID: Int)
+    // MARK: Network
+    func fetchNotifications(currentUserID: String) async throws -> [NotificationModel]
+    func deleteNotification(id: String) async throws
+    // MARK: Actions
+    func onAppear(currentUserID: String)
+    func deleteNotification(id notificationID: String)
+    // MARK: WebSocketLayer
+    func getNotificationsFromWebSocketLayer()
 }
 
 // MARK: - NotificationViewModel
 
-final class NotificationViewModel: ObservableObject, ViewModelProtocol {
-    
-    @Published private(set) var notifications: [NotificationModel]
-    @Published private(set) var screenIsShimmering: Bool
+@Observable
+final class NotificationViewModel: ViewModelProtocol {
 
-    init(notifications: [NotificationModel] = [], screenIsShimmering: Bool = true) {
+    private(set) var notifications: [NotificationModel]
+    private(set) var screenIsShimmering: Bool
+    private let services: Services
+
+    init(
+        notifications: [NotificationModel] = [],
+        screenIsShimmering: Bool = true,
+        services: Services = Services()
+    ) {
         self.notifications = notifications
         self.screenIsShimmering = screenIsShimmering
+        self.services = services
+    }
+}
+
+
+// MARK: - Network
+
+extension NotificationViewModel: NotificationViewModelProtocol {
+    
+    func fetchNotifications(currentUserID: String) async throws -> [NotificationModel] {
+        let fbNotifications = try await services.fbManager.getNotifications(customerID: currentUserID)
+        let notifications = fbNotifications.map { $0.mapper }
+        return notifications
+    }
+
+    func deleteNotification(id: String) async throws {
+        try await services.fbManager.deleteNotification(id: id)
     }
 }
 
 // MARK: - Actions
 
-extension NotificationViewModel: NotificationViewModelProtocol {
+extension NotificationViewModel {
 
-    func setupWebSocket() {
-        screenIsShimmering = false
+    @MainActor
+    func onAppear(currentUserID: String) {
+        getNotificationsFromWebSocketLayer()
+        // TODO: Добавить фетч из бд
+        Task {
+            screenIsShimmering = true
+            do {
+                notifications = try await fetchNotifications(currentUserID: currentUserID)
+                screenIsShimmering = false
+            } catch {
+                if error is APIError {
+                    Logger.log(kind: .error, message: error.localizedDescription)
+                } else {
+                    Logger.log(kind: .error, message: error)
+                }
+            }
+        }
     }
 
-    func deleteNotification(id notificationID: Int) {
+    func deleteNotification(id notificationID: String) {
+        // Отправляем запрос на удаление уведомления
+        Task {
+            do {
+                try await deleteNotification(id: notificationID)
+            } catch {
+                Logger.log(kind: .error, message: error.localizedDescription)
+            }
+        }
+        // Удаляем локально
         guard let deletedNotificationIndex = notifications.firstIndex(where: { $0.id == notificationID }) else { return }
         notifications.remove(at: deletedNotificationIndex)
+    }
+}
+
+// MARK: - WebSocketLayer
+
+extension NotificationViewModel {
+
+    func getNotificationsFromWebSocketLayer() {
+        services.wsManager.receive { [weak self] (response: WSNotification) in
+            guard let self else { return }
+            let notification: NotificationModel = response.mapper
+            if !notifications.contains(where: { $0.id == notification.id }) {
+                DispatchQueue.main.async {
+                    if self.screenIsShimmering {
+                        self.screenIsShimmering = false
+                    }
+                    self.notifications.append(notification)
+                    // TODO: Добавить кэширование
+                }
+            }
+        }
     }
 }

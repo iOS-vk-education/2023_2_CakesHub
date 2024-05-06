@@ -23,14 +23,20 @@ struct ProfileScreen: View {
             .navigationDestination(for: ViewModel.Screens.self) { screen in
                 switch screen {
                 case .message:
-                    let vm = ChatViewModel(seller: viewModel.user, user: rootViewModel.currentUser.mapper)
+                    let vm = ChatViewModel(
+                        seller: viewModel.user,
+                        user: rootViewModel.currentUser.mapper
+                    )
                     ChatView(viewModel: vm)
                 case .notifications:
                     Text("Экран уведомлений")
                 case .settings:
                     SettingsView()
                 case .createProduct:
-                    let vc = CreateProductViewModel(rootViewModel: rootViewModel, profileViewModel: viewModel)
+                    let vc = CreateProductViewModel(
+                        rootViewModel: rootViewModel,
+                        profileViewModel: viewModel
+                    )
                     CreateProductView(viewModel: vc)
                 }
             }
@@ -77,5 +83,5 @@ extension ProfileScreen {
 #Preview {
     ProfileScreen(viewModel: .mockData)
         .environmentObject(Navigation())
-        .environmentObject(RootViewModel(currentUser: .poly))
+        .environmentObject(RootViewModel.mockData)
 }

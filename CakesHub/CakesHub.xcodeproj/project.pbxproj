@@ -125,6 +125,7 @@
 		E541F2292BD0F20C00692138 /* VMCreateProductServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541F2282BD0F20C00692138 /* VMCreateProductServices.swift */; };
 		E54460AF2BE5600C00B70444 /* WSNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54460AE2BE5600C00B70444 /* WSNotification.swift */; };
 		E54460B12BE560D000B70444 /* WSMessageKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54460B02BE560D000B70444 /* WSMessageKind.swift */; };
+		E54460B32BE563D300B70444 /* VMNotificationScreenServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54460B22BE563D300B70444 /* VMNotificationScreenServices.swift */; };
 		E54A3C522BB8FDCC00CBFEEB /* AllProductsCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A3C4C2BB8FDCC00CBFEEB /* AllProductsCategoryView.swift */; };
 		E54A3C532BB8FDCC00CBFEEB /* AllProductsCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A3C4E2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel.swift */; };
 		E54A3C542BB8FDCC00CBFEEB /* AllProductsCategoryViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A3C4F2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel+Mock.swift */; };
@@ -134,6 +135,7 @@
 		E55651802BB9AC6400759839 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55651762BB9AC6400759839 /* NotificationViewModel.swift */; };
 		E55651822BB9DFD200759839 /* NotificationViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55651812BB9DFD200759839 /* NotificationViewModel+Mock.swift */; };
 		E55651842BB9E66F00759839 /* NotificationSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55651832BB9E66F00759839 /* NotificationSubviews.swift */; };
+		E5587ADF2BE8676F00470924 /* ProductDetailVMServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5587ADE2BE8676F00470924 /* ProductDetailVMServices.swift */; };
 		E55B5EBF2BCA496B00DDDFA4 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EB92BCA496B00DDDFA4 /* AuthView.swift */; };
 		E55B5EC02BCA496B00DDDFA4 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EBB2BCA496B00DDDFA4 /* AuthViewModel.swift */; };
 		E55B5EC12BCA496B00DDDFA4 /* AuthViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EBC2BCA496B00DDDFA4 /* AuthViewModel+Mock.swift */; };
@@ -149,7 +151,6 @@
 		E566A6F42BE4D6FA0004D5CF /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E566A6F32BE4D6FA0004D5CF /* NotificationService.swift */; };
 		E566A6F72BE4D8DE0004D5CF /* FBNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E566A6F62BE4D8DE0004D5CF /* FBNotification.swift */; };
 		E56A85112BACCED600E9A387 /* UINavigationController+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A85102BACCED600E9A387 /* UINavigationController+Extenstions.swift */; };
-		E56B703F2BD2357500851C05 /* SwiftDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B703E2BD2357500851C05 /* SwiftDataService.swift */; };
 		E56B70412BD236D700851C05 /* VMRootServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B70402BD236D700851C05 /* VMRootServices.swift */; };
 		E56B70432BD256DD00851C05 /* FBModelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B70422BD256DD00851C05 /* FBModelable.swift */; };
 		E56B70452BD257F600851C05 /* SDModelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B70442BD257F600851C05 /* SDModelable.swift */; };
@@ -309,6 +310,7 @@
 		E541F2282BD0F20C00692138 /* VMCreateProductServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMCreateProductServices.swift; sourceTree = "<group>"; };
 		E54460AE2BE5600C00B70444 /* WSNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSNotification.swift; sourceTree = "<group>"; };
 		E54460B02BE560D000B70444 /* WSMessageKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMessageKind.swift; sourceTree = "<group>"; };
+		E54460B22BE563D300B70444 /* VMNotificationScreenServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMNotificationScreenServices.swift; sourceTree = "<group>"; };
 		E54A3C4C2BB8FDCC00CBFEEB /* AllProductsCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllProductsCategoryView.swift; sourceTree = "<group>"; };
 		E54A3C4E2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllProductsCategoryViewModel.swift; sourceTree = "<group>"; };
 		E54A3C4F2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AllProductsCategoryViewModel+Mock.swift"; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 		E55651762BB9AC6400759839 /* NotificationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		E55651812BB9DFD200759839 /* NotificationViewModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationViewModel+Mock.swift"; sourceTree = "<group>"; };
 		E55651832BB9E66F00759839 /* NotificationSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSubviews.swift; sourceTree = "<group>"; };
+		E5587ADE2BE8676F00470924 /* ProductDetailVMServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailVMServices.swift; sourceTree = "<group>"; };
 		E55B5EB92BCA496B00DDDFA4 /* AuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		E55B5EBB2BCA496B00DDDFA4 /* AuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		E55B5EBC2BCA496B00DDDFA4 /* AuthViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthViewModel+Mock.swift"; sourceTree = "<group>"; };
@@ -333,7 +336,6 @@
 		E566A6F32BE4D6FA0004D5CF /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		E566A6F62BE4D8DE0004D5CF /* FBNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBNotification.swift; sourceTree = "<group>"; };
 		E56A85102BACCED600E9A387 /* UINavigationController+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extenstions.swift"; sourceTree = "<group>"; };
-		E56B703E2BD2357500851C05 /* SwiftDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataService.swift; sourceTree = "<group>"; };
 		E56B70402BD236D700851C05 /* VMRootServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMRootServices.swift; sourceTree = "<group>"; };
 		E56B70422BD256DD00851C05 /* FBModelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBModelable.swift; sourceTree = "<group>"; };
 		E56B70442BD257F600851C05 /* SDModelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDModelable.swift; sourceTree = "<group>"; };
@@ -945,6 +947,7 @@
 			children = (
 				E51B333D2B7E62AF0028E8C7 /* ProductModel.swift */,
 				E55E77AE2BA91B5600B463A0 /* ProductDetailCells.swift */,
+				E5587ADE2BE8676F00470924 /* ProductDetailVMServices.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1115,6 +1118,7 @@
 			isa = PBXGroup;
 			children = (
 				E556516C2BB9AC6400759839 /* NotificationModel.swift */,
+				E54460B22BE563D300B70444 /* VMNotificationScreenServices.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1246,14 +1250,6 @@
 			path = FBNotification;
 			sourceTree = "<group>";
 		};
-		E56B703D2BD2355600851C05 /* SwiftData */ = {
-			isa = PBXGroup;
-			children = (
-				E56B703E2BD2357500851C05 /* SwiftDataService.swift */,
-			);
-			path = SwiftData;
-			sourceTree = "<group>";
-		};
 		E56CA0752BD01FD7001BE387 /* Substructures */ = {
 			isa = PBXGroup;
 			children = (
@@ -1313,7 +1309,6 @@
 		E59AEC652B92B16400760E61 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				E56B703D2BD2355600851C05 /* SwiftData */,
 				E53767942BCF77A300F83990 /* FileManager */,
 				E535642D2BC7524B001077DF /* WebSocket */,
 				E59AEC732B92B27200760E61 /* Firebase */,
@@ -1568,6 +1563,7 @@
 				E51B32EA2B7E5FEF0028E8C7 /* CHMPicker+HandlerConfiguration.swift in Sources */,
 				A332D16A2BB2F842007C194D /* ProfileScreen.swift in Sources */,
 				E51B32DD2B7E5FEF0028E8C7 /* CHMBigBannerView.swift in Sources */,
+				E54460B32BE563D300B70444 /* VMNotificationScreenServices.swift in Sources */,
 				E59AEC702B92B22000760E61 /* RegisterUserRequest.swift in Sources */,
 				E5B636642BB6751400B2F076 /* RootViewModel.swift in Sources */,
 				E535642F2BC7525A001077DF /* WebSockerManager.swift in Sources */,
@@ -1582,6 +1578,7 @@
 				E51B32F62B7E5FEF0028E8C7 /* MKRImageView+Defaults.swift in Sources */,
 				E51B32E72B7E5FEF0028E8C7 /* CHMBadgeView+Preview.swift in Sources */,
 				E51B33522B7E63090028E8C7 /* ViewModelProtocol.swift in Sources */,
+				E5587ADF2BE8676F00470924 /* ProductDetailVMServices.swift in Sources */,
 				E51B32E42B7E5FEF0028E8C7 /* CHMBadgeView+Defaults.swift in Sources */,
 				E55B5EC32BCA4B1800DDDFA4 /* AuthSubviews.swift in Sources */,
 				E5272FBD2B9A9B1900F181A1 /* Navigation.swift in Sources */,
@@ -1675,7 +1672,6 @@
 				E51B32E22B7E5FEF0028E8C7 /* CHMProductDescriptionView.swift in Sources */,
 				E51B32EB2B7E5FEF0028E8C7 /* CHMPicker+Preview.swift in Sources */,
 				E51B334A2B7E62AF0028E8C7 /* ProductDetailScreen+Mock.swift in Sources */,
-				E56B703F2BD2357500851C05 /* SwiftDataService.swift in Sources */,
 				E5155CE12BCBF93000BF773D /* SDProductModel.swift in Sources */,
 				E51B32CF2B7E5FEF0028E8C7 /* CHMCommentView.swift in Sources */,
 				E52CDD082BB6460E009C08B9 /* ChatMessage.swift in Sources */,

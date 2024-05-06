@@ -19,5 +19,13 @@ extension AuthViewModel: Mockable {
             email: "dimapermyakov55@gmail.com"
         )
     )
+
+    static let poly = AuthViewModel(
+        inputData: VMAuthInputData(
+            nickName: "Полиночка",
+            password: "123456789",
+            email: "kakashek@gmail.com"
+        )
+    )
 }
 #endif

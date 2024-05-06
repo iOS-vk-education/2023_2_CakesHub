@@ -13,7 +13,7 @@ struct NotificationCell: View {
     var notification: NotificationModel!
     @State private var offsetX: CGFloat = .zero
     @State private var showTrash = false
-    var deleteHandler: CHMIntBlock?
+    var deleteHandler: CHMStringBlock?
 
     var body: some View {
         ZStack {
@@ -75,14 +75,16 @@ private extension NotificationCell {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.system(size: 20, weight: .semibold, design: .rounded))
                 
-                Text(notification.date.formatted(.dateTime.year().day().month(.wide)))
+                Text(notification.date)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.system(size: 12, weight: .medium, design: .serif))
                 
-                Text(notification.text)
-                    .font(.system(size: 15, weight: .regular, design: .rounded))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, 3)
+                if let message = notification.text {
+                    Text(message)
+                        .font(.system(size: 15, weight: .regular, design: .rounded))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 3)
+                }
             }
         }
         .padding(.vertical, 20)

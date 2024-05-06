@@ -55,29 +55,7 @@ extension ChatViewModel: ChatViewModelProtocol {
             time: Date.now.formattedString(format: "HH:mm"),
             state: .received
         ))
-        wsSocket?.connection { [weak self] error in
-            guard let self else { return }
-            if let error {
-                Logger.log(kind: .error, message: error)
-                return
-            }
-
-            /// Сообщения для добавления в сессию при успешном соединении.
-            wsSocket?.send(
-                message: Message(
-                    id: UUID(),
-                    kind: .connection,
-                    userName: user.name,
-                    userID: user.id,
-                    receiverID: "",
-                    dispatchDate: Date(),
-                    message: "",
-                    state: .progress
-                )
-            ) { [weak self] in
-                self?.receiveWebSocketData()
-            }
-        }
+        receiveWebSocketData()
     }
 
     /// Sending message to the server
@@ -97,13 +75,6 @@ extension ChatViewModel: ChatViewModelProtocol {
         let chatMsg = msg.mapper(name: user.name, userImage: user.userImage)
         messages.append(chatMsg)
         wsSocket?.send(message: msg, completion: {})
-    }
-
-    /// Quit chat view
-    func quitChat() {
-        messages = []
-        lastMessageID = nil
-        wsSocket?.close()
     }
 }
 

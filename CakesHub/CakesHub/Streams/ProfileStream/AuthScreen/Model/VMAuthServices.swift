@@ -10,7 +10,10 @@ import Foundation
 extension AuthViewModel {
 
     struct VMAuthServices {
-        let authService: AuthServiceProtocol
-        let userService: UserServiceProtocol
+        let authService: AuthServiceProtocol = AuthService.shared
+        let userService: UserServiceProtocol = UserService.shared
+        let wsService: WebSockerManagerProtocol = WebSockerManager.shared
+
+        static let clear = VMAuthServices()
     }
 }

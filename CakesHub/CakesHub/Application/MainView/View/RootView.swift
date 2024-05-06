@@ -38,8 +38,8 @@ private extension RootView {
             do {
                 try await viewModel.fetchData()
             } catch {
-//                viewModel.fetchProductsFromMemory()
-                Logger.log(kind: .error, message: error)
+                viewModel.fetchDataWithoutNetwork()
+                Logger.log(kind: .error, message: error.localizedDescription)
             }
         }
     }
@@ -85,11 +85,13 @@ private extension RootView {
             Text("BAG")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         case .notifications:
-            NotificationView(viewModel: .mockData)
+            NotificationView()
         case .profile:
             ProfileScreen(
                 viewModel: .init(
-                    user: viewModel.currentUser.mapper.mapper(products: viewModel.productData.currentUserProducts.mapperToProductModel)
+                    user: viewModel.currentUser.mapper.mapper(
+                        products: viewModel.productData.currentUserProducts.mapperToProductModel
+                    )
                 )
             )
         }
@@ -102,6 +104,5 @@ private extension RootView {
     RootView()
         .environmentObject(Navigation())
         .environmentObject(RootViewModel.mockData)
-        .modelContainer(Preview(SDUserModel.self,
-                                SDProductModel.self).container)
+        .modelContainer(Preview(SDProductModel.self).container)
 }

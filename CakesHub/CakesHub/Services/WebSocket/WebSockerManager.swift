@@ -50,7 +50,9 @@ extension WebSockerManager: WebSockerManagerProtocol {
                     Logger.log(kind: .error, message: error)
                     return
                 }
-                completion()
+                DispatchQueue.main.async {
+                    completion()
+                }
             }
         } catch {
             Logger.log(kind: .error, message: error.localizedDescription)

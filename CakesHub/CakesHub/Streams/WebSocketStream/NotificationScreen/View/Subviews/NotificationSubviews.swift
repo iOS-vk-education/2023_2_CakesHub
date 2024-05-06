@@ -41,23 +41,26 @@ extension NotificationView {
                     .frame(maxWidth: .infinity, maxHeight: 90)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
             }
+
             Spacer()
         }
     }
 
     var NotificationsNotFound: some View {
-        VStack {
-            Constants.emptyImageName
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 50)
+        GroupBox {
+            VStack {
+                Constants.emptyImageName
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 50)
 
-            Text(Constants.emptyString)
-                .font(.headline)
-                .padding(.top)
+                Text(Constants.emptyString)
+                    .font(.headline)
+                    .padding(.top)
+            }
+            .padding(.vertical, 10)
+            .padding(.horizontal)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Constants.bgColor)
     }
 }
 
@@ -65,12 +68,12 @@ extension NotificationView {
 
 #Preview {
     NotificationView(viewModel: .mockData)
-        .environmentObject(NotificationViewModel())
+        .environmentObject(RootViewModel.mockData)
 }
 
 #Preview {
     NotificationView()
-        .environmentObject(NotificationViewModel())
+        .environmentObject(RootViewModel.mockData)
 }
 
 // MARK: - Constants

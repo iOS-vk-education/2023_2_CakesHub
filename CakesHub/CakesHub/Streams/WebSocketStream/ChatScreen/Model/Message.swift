@@ -24,6 +24,22 @@ struct Message: Codable, Identifiable {
     }
 }
 
+extension Message {
+
+    static func connectionMessage(userID: String) -> Message {
+        Message(
+            id: UUID(),
+            kind: .connection,
+            userName: .clear,
+            userID: userID,
+            receiverID: .clear,
+            dispatchDate: Date(),
+            message: .clear,
+            state: .progress
+        )
+    }
+}
+
 // MARK: - Mapper
 
 extension Message {

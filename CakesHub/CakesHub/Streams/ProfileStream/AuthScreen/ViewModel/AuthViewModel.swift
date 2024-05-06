@@ -17,7 +17,7 @@ protocol AuthViewModelProtocol: AnyObject {
     func didTapRegisterButton() async throws
     func didTapSignInButton() async throws
     // MARK: Memory
-    func saveUserInMemory(user: SDUserModel)
+    func saveUserInMemory(user: FBUserModel)
     // MARK: Reducers
     func setContext(context: ModelContext)
     func setRootViewModel(viewModel: RootViewModel)
@@ -30,17 +30,15 @@ final class AuthViewModel: ViewModelProtocol, AuthViewModelProtocol {
     var inputData: VMAuthInputData
     private(set) var rootViewModel: RootViewModel? = nil
     @ObservationIgnored
-    private(set) var context: ModelContext?
-    @ObservationIgnored
-    private let services: VMAuthServices
+    private var services: VMAuthServices
+    var context: ModelContext?
 
     init(
         inputData: VMAuthInputData = .clear,
-        authService: AuthServiceProtocol = AuthService.shared,
-        userService: UserServiceProtocol = UserService.shared
+        services: VMAuthServices = .clear
     ) {
         self.inputData = inputData
-        self.services = VMAuthServices(authService: authService, userService: userService)
+        self.services = services
     }
 }
 
@@ -54,12 +52,15 @@ extension AuthViewModel {
         // Регестрируем пользователя
         let uid = try await services.authService.registeUser(with: inputData.mapper)
 
+        // Устанавливаем Web Socket соединение
+        startWebSocketLink(userID: uid)
+
         // Сохраняем данные о пользователе на устройстве
-        let user = SDUserModel(id: uid, nickName: inputData.nickName, email: inputData.email)
-        saveUserInMemory(user: user)
+        let fbUser = FBUserModel(uid: uid, nickname: inputData.nickName, email: inputData.email)
+        saveUserInMemory(user: fbUser)
 
         // Обновляем рутового пользователя. Должно выполняться на главном потоке
-        rootViewModel?.setCurrentUser(for: user.mapperInFBUserModel)
+        rootViewModel?.setCurrentUser(for: fbUser)
     }
 
     /// Нажали кнопку  `войти`
@@ -70,6 +71,9 @@ extension AuthViewModel {
             with: LoginUserRequest(email: inputData.email, password: inputData.password)
         )
 
+        // Устанавливаем Web Socket соединение
+        startWebSocketLink(userID: userUID)
+
         // Получаем все данные пользователя
         let userInfo = try await services.userService.getUserInfo(uid: userUID)
 
@@ -77,7 +81,7 @@ extension AuthViewModel {
         rootViewModel?.setCurrentUser(for: userInfo)
 
         // Сохраняем новые данные на устройстве
-        saveUserInMemory(user: SDUserModel(fbModel: userInfo))
+        saveUserInMemory(user: userInfo)
     }
 }
 
@@ -87,26 +91,38 @@ extension AuthViewModel {
 
     /// Достаём данные о `пользователе` из устройства
     func fetchUserInfo() {
-        let fetchDescriptor = FetchDescriptor<SDUserModel>()
+        guard
+            let userID = UserDefaults.standard.string(forKey: UserDefaultsKeys.currentUser)
+        else {
+            Logger.log(kind: .error, message: "UserID is nil")
+            return
+        }
+
+        var fetchDescriptor = FetchDescriptor<SDUserModel>(
+            predicate: #Predicate { $0._id == userID }
+        )
+        fetchDescriptor.fetchLimit = 1
 
         do {
-            guard let userInfo = try context?.fetch(fetchDescriptor).first else { return }
-            rootViewModel?.setCurrentUser(for: userInfo.mapperInFBUserModel)
-        } catch {
-            Logger.log(kind: .error, message: error)
+            let sdUsers = try context?.fetch(fetchDescriptor)
+            guard let sdCurrentUser = sdUsers?.first else {
+                Logger.log(kind: .error, message: "Текущий пользователь не найден в БД, но обладает userID в UserDefauls")
+                return
+            }
+            rootViewModel?.setCurrentUser(for: sdCurrentUser.mapperInFBUserModel)
+        }
+        catch {
+            Logger.log(kind: .error, message: error.localizedDescription)
         }
     }
 
     /// Сохраняем данные о `пользователе` на устройство
-    func saveUserInMemory(user: SDUserModel) {
-        DispatchQueue.global(qos: .utility).async {
-            self.context?.insert(user)
-            do {
-                try self.context?.save()
-            } catch {
-                Logger.log(kind: .error, message: error)
-            }
-        }
+    func saveUserInMemory(user: FBUserModel) {
+        let sdUser = SDUserModel(fbModel: user)
+        UserDefaults.standard.set(user.uid, forKey: UserDefaultsKeys.currentUser)
+        context?.insert(sdUser)
+        do { try self.context?.save(); print("[DEBUG]: Сохранил") }
+        catch { Logger.log(kind: .error, message: error.localizedDescription) }
     }
 }
 
@@ -115,12 +131,44 @@ extension AuthViewModel {
 extension AuthViewModel {
 
     func setContext(context: ModelContext) {
-        if self.context.isNil {
-            self.context = context
-        }
+        self.context = context
     }
 
     func setRootViewModel(viewModel: RootViewModel) {
         self.rootViewModel = viewModel
+    }
+}
+
+// MARK: - User Defaults Keys
+
+extension AuthViewModel {
+
+    enum UserDefaultsKeys {
+        static let currentUser = "com.vk.AuthViewModel.currentUserID"
+    }
+}
+
+// MARK: - Inner Methods
+
+private extension AuthViewModel {
+
+    func startWebSocketLink(userID: String) {
+        services.wsService.connection { [weak self] error in
+            guard let self else { return }
+            if let error {
+                if error is APIError {
+                    Logger.log(kind: .error, message: error.localizedDescription)
+                } else {
+                    Logger.log(kind: .error, message: error)
+                }
+                return
+            }
+
+            services.wsService.send(
+                message: Message.connectionMessage(userID: userID)
+            ) {
+                Logger.log(kind: .webSocket, message: "Соединение установленно через Auth View")
+            }
+        }
     }
 }

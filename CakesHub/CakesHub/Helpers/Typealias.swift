@@ -11,6 +11,7 @@ import UIKit
 typealias CHMVoidBlock = () -> Void
 typealias CHMViewBlock<T: UIView> = (T) -> Void
 typealias CHMIntBlock = (Int) -> Void
+typealias CHMStringBlock = (String) -> Void
 typealias CHMBoolBlock = (Bool) -> Void
 typealias CHMGenericBlock<T> = (T) -> Void
 typealias CHMBinding<T> = (Binding<T>) -> Void

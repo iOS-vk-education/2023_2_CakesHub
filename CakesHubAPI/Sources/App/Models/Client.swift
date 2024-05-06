@@ -9,7 +9,6 @@ import Vapor
 
 struct Client: Hashable {
     var ws: WebSocket
-    var userName: String
     var userID: String
 }
 
@@ -18,11 +17,10 @@ struct Client: Hashable {
 extension Client {
 
     static func == (lhs: Client, rhs: Client) -> Bool {
-        lhs.userName == rhs.userName && lhs.userID == rhs.userID
+        lhs.userID == rhs.userID
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(userName)
         hasher.combine(userID)
     }
 }

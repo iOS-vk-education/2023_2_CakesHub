@@ -10,23 +10,27 @@ import SwiftUI
 
 struct NotificationView: View {
 
-    @StateObject var viewModel = NotificationViewModel()
+    @State var viewModel = NotificationViewModel()
+    @EnvironmentObject var rootView: RootViewModel
 
     var body: some View {
         MainView
-            .onAppear {
-                viewModel.setupWebSocket()
-            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .onAppear(perform: onAppear)
     }
 }
 
 // MARK: - Actions
 
 extension NotificationView {
-    
+
+    func onAppear() {
+        viewModel.onAppear(currentUserID: rootView.currentUser.uid)
+    }
+
     /// Удаление уведомления свайпом
     /// - Parameter notificationID: ID уведомления
-    func didDeleteNotification(notificationID: Int) {
+    func didDeleteNotification(notificationID: String) {
         viewModel.deleteNotification(id: notificationID)
     }
 }
@@ -34,6 +38,8 @@ extension NotificationView {
 // MARK: - Preview
 
 #Preview {
-    NotificationView(viewModel: .mockData)
-        .environmentObject(NotificationViewModel())
+    NavigationStack {
+        NotificationView()
+            .environmentObject(RootViewModel.mockData)
+    }
 }

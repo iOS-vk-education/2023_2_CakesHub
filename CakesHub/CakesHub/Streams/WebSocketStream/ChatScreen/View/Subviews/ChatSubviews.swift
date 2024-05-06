@@ -44,7 +44,6 @@ extension ChatView {
                     .ignoresSafeArea()
             }
         }
-        .onDisappear(perform: viewModel.quitChat)
     }
 
     var MessagesBlock: some View {

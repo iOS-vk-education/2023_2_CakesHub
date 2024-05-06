@@ -29,6 +29,10 @@ final class Logger {
     enum Kind: String, Hashable {
         case info
         case error
+        case dbError
+        case debug
         case warning
+        case imageError
+        case webSocket
     }
 }

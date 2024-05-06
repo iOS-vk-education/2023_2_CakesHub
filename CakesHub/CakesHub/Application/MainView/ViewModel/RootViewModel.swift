@@ -14,6 +14,7 @@ protocol RootViewModelProtocol: AnyObject {
     func fetchData() async throws
     func saveNewProduct(product: FBProductModel, completion: @escaping (Error?) -> Void)
     // MARK: Memory
+    func fetchDataWithoutNetwork()
     func fetchProductsFromMemory() -> [SDProductModel]
     func fetchProductByID(id: String) -> SDProductModel?
     func saveProductsInMemory(products: [FBProductModel])
@@ -85,6 +86,18 @@ extension RootViewModel: RootViewModelProtocol {
         }
     }
 
+    func fetchDataWithoutNetwork() {
+        let sdProducts = fetchProductsFromMemory()
+        let fbProducts = sdProducts.map { $0.mapperInFBProductModel }
+        productData.products = fbProducts
+        filterCurrentUserProducts()
+        groupDataBySection(data: fbProducts) { [weak self] sections in
+            guard let self else { return }
+            productData.sections = sections
+            isShimmering = sections.isEmpty
+        }
+    }
+
     func saveNewProduct(product: FBProductModel, completion: @escaping (Error?) -> Void) {
         services.cakeService.createCake(cake: product, completion: completion)
     }
@@ -96,46 +109,45 @@ extension RootViewModel {
     
     /// Достаём данные товаров из памяти устройства
     func fetchProductsFromMemory() -> [SDProductModel] {
-        services.swiftDataService?.fetch() ?? []
+        let fetchDescriptor = FetchDescriptor<SDProductModel>()
+        return (try? context?.fetch(fetchDescriptor)) ?? []
     }
 
     /// Достаём продукт по `id` из памяти
     func fetchProductByID(id: String) -> SDProductModel? {
         let predicate = #Predicate<SDProductModel> { $0._id == id }
-        let product = services.swiftDataService?.fetch(predicate: predicate)
+        var fetchDescriptor = FetchDescriptor(predicate: predicate)
+        fetchDescriptor.fetchLimit = 1
+        let product = try? context?.fetch(fetchDescriptor).first
         return product
     }
 
     /// Сохраняем торары в память устройства
     func saveProductsInMemory(products: [FBProductModel]) {
-        services.swiftDataService?.create(
-            objects: products,
-            configureSDModel: {
-                let sdModel = SDProductModel(fbModel: $0)
-                return sdModel
-            },
-            configurePredicate: { sdModel in
-                let objID = sdModel._id
-                return #Predicate<SDProductModel> { $0._id == objID }
-            },
-            equalCheck: { $0 == $1.mapperInFBProductModel }
-        )
+        guard let context else {
+            Logger.log(kind: .error, message: "context is nil")
+            return
+        }
+
+        for product in products {
+            let sdProduct = SDProductModel(fbModel: product)
+            context.insert(sdProduct)
+            let seller = SDUserModel(fbModel: product.seller)
+            sdProduct._seller = seller
+        }
+
+        do { try context.save() }
+        catch { Logger.log(kind: .error, message: "context.save() выдал ошибку: \(error.localizedDescription)") }
     }
     
     /// Добавляем продукт в память устройства
     func addProductInMemory(product: FBProductModel) {
-        services.swiftDataService?.create(
-            object: product,
-            configureSDModel: {
-                let sdModel = SDProductModel(fbModel: $0)
-                return sdModel
-            },
-            configurePredicate: { obj in
-                let objID = obj._id
-                return #Predicate<SDProductModel> { $0._id == objID }
-            },
-            equalCheck: { $0 == $1.mapperInFBProductModel }
-        )
+        let sdProduct = SDProductModel(fbModel: product)
+        self.context?.insert(sdProduct)
+        let seller: SDUserModel = SDUserModel(fbModel: product.seller)
+        sdProduct._seller = seller
+        do { try self.context?.save() }
+        catch { Logger.log(kind: .error, message: "context.save() выдал ошибку: \(error.localizedDescription)") }
     }
 }
 
@@ -187,7 +199,6 @@ extension RootViewModel {
     func setContext(context: ModelContext) {
         guard self.context.isNil else { return }
         self.context = context
-        services.swiftDataService = SwiftDataService(context: context)
     }
 }
 
