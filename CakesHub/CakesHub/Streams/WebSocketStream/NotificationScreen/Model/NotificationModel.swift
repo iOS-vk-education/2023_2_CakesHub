@@ -27,8 +27,8 @@ extension FBNotification {
             title: title,
             text: message,
             date: date.toCorrectDate,
-            userID: customerID,
-            sellerID: sellerID
+            userID: receiverID,
+            sellerID: creatorID
         )
     }
 }

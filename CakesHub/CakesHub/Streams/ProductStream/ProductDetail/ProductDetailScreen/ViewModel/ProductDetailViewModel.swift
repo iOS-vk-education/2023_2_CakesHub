@@ -43,8 +43,8 @@ extension ProductDetailViewModel {
             date: notification.date,
             message: notification.message,
             productID: notification.productID,
-            sellerID: notification.receiverID,
-            customerID: notification.userID
+            receiverID: notification.receiverID,
+            creatorID: notification.userID
         )
         try await services.notificationService.createNotification(notification: fbNotification)
     }

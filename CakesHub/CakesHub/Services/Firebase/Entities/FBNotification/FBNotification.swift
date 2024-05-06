@@ -13,9 +13,12 @@ struct FBNotification: FBModelable {
     var title      : String
     var date       : String
     var message    : String?
+    /// ID Товара
     var productID  : String
-    var sellerID   : String
-    var customerID : String
+    /// Кто получает уведомление
+    var receiverID : String
+    /// Кто создаёт увидомление
+    var creatorID  : String
 
     static var clear = FBNotification(
         id: .clear,
@@ -23,8 +26,8 @@ struct FBNotification: FBModelable {
         date: .clear,
         message: .clear,
         productID: .clear,
-        sellerID: .clear,
-        customerID: .clear
+        receiverID: .clear,
+        creatorID: .clear
     )
 }
 
@@ -38,8 +41,8 @@ extension FBNotification {
             let title = dictionary["title"] as? String,
             let date = dictionary["date"] as? String,
             let productID = dictionary["productID"] as? String,
-            let sellerID = dictionary["sellerID"] as? String,
-            let customerID = dictionary["customerID"] as? String
+            let receiverID = dictionary["receiverID"] as? String,
+            let creatorID = dictionary["creatorID"] as? String
         else {
             return nil
         }
@@ -50,8 +53,8 @@ extension FBNotification {
             date: date,
             message: message,
             productID: productID,
-            sellerID: sellerID,
-            customerID: customerID
+            receiverID: receiverID,
+            creatorID: creatorID
         )
     }
 }

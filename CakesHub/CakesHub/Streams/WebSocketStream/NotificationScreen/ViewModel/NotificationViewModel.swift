@@ -70,7 +70,9 @@ extension NotificationViewModel {
             screenIsShimmering = true
             do {
                 notifications = try await fetchNotifications(currentUserID: currentUserID)
-                screenIsShimmering = false
+                withAnimation {
+                    screenIsShimmering = false
+                }
             } catch {
                 if error is APIError {
                     Logger.log(kind: .error, message: error.localizedDescription)
@@ -107,7 +109,9 @@ extension NotificationViewModel {
             if !notifications.contains(where: { $0.id == notification.id }) {
                 DispatchQueue.main.async {
                     if self.screenIsShimmering {
-                        self.screenIsShimmering = false
+                        withAnimation {
+                            self.screenIsShimmering = false
+                        }
                     }
                     self.notifications.append(notification)
                     // TODO: Добавить кэширование
