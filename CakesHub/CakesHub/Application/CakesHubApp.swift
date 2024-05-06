@@ -19,7 +19,8 @@ struct CakesHubApp: App {
             RootView()
         }
         .modelContainer(for: [
-            SDProductModel.self
+            SDProductModel.self,
+            SDNotificationModel.self
         ])
     }
 

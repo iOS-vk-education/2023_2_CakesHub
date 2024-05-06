@@ -7,11 +7,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NotificationView: View {
 
     @State var viewModel = NotificationViewModel()
     @EnvironmentObject var rootView: RootViewModel
+    @Environment(\.modelContext) private var modelContext
 
     var body: some View {
         MainView
@@ -25,6 +27,7 @@ struct NotificationView: View {
 extension NotificationView {
 
     func onAppear() {
+        viewModel.setModelContext(with: modelContext)
         viewModel.onAppear(currentUserID: rootView.currentUser.uid)
     }
 

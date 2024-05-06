@@ -30,6 +30,7 @@ final class Logger {
         case info
         case error
         case dbError
+        case dbInfo
         case debug
         case warning
         case imageError
