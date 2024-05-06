@@ -12,6 +12,7 @@ import FirebaseFirestore
 protocol CategoryServiceProtocol: AnyObject {
     func fetch() async throws -> [FBCateoryModel]
     func create(with category: FBCateoryModel) async throws
+    func fetch(tags: Set<FBCateoryModel.Tag>) async throws -> [FBCateoryModel]
 }
 
 // MARK: - CategoryService
@@ -42,5 +43,14 @@ extension CategoryService: CategoryServiceProtocol {
         var categoryDictionary = category.dictionaryRepresentation
         categoryDictionary["tags"] = category.tags.map { $0.rawValue }
         try await documentRef.setData(categoryDictionary)
+    }
+
+    func fetch(tags: Set<FBCateoryModel.Tag>) async throws -> [FBCateoryModel] {
+        let query = firestore.collection(collection).whereField("tags", arrayContainsAny: tags.map { $0.rawValue })
+        let snapshot = try await query.getDocuments()
+        let categories = snapshot.documents.compactMap {
+            FBCateoryModel(dictionary: $0.data())
+        }
+        return categories
     }
 }
