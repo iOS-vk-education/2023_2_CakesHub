@@ -36,7 +36,9 @@ final class NotificationViewModel: ViewModelProtocol, NotificationViewModelProto
 
     private(set) var notifications: [NotificationModel]
     private(set) var screenIsShimmering: Bool
+    @ObservationIgnored
     private let services: Services
+    @ObservationIgnored
     private var modelContext: ModelContext?
 
     init(
