@@ -9,12 +9,16 @@ import SwiftData
 
 @Model
 class SDUserModel {
+    @Attribute(.unique)
     var _id                 : String
     var _nickName           : String
     var _email              : String
     var _userImageURL       : String?
     var _userHeaderImageURL : String?
     var _phone              : String?
+
+    @Relationship(deleteRule:  .cascade, inverse: \SDProductModel._seller)
+    var products: [SDProductModel]?
 
     init(
         id                 : String,

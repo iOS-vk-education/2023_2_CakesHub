@@ -19,7 +19,7 @@ final class SDProductModel {
     var _price             : String
     var _discountedPrice   : String?
     var _weight            : String?
-    var _seller            : SDUserModel
+    var _seller            : SDUserModel?
     var _descriptionInfo   : String
     var _similarProducts   : [SDProductModel]
     var _establishmentDate : String
@@ -33,7 +33,6 @@ final class SDProductModel {
         price: String,
         discountedPrice: String? = nil,
         weight: String? = nil,
-        seller: SDUserModel,
         description: String,
         similarProducts: [SDProductModel],
         establishmentDate: String,
@@ -46,7 +45,6 @@ final class SDProductModel {
         self._price = price
         self._discountedPrice = discountedPrice
         self._weight = weight
-        self._seller = seller
         self._descriptionInfo = description
         self._establishmentDate = establishmentDate
         self._reviewInfo = reviewInfo
@@ -79,7 +77,6 @@ extension SDProductModel: SDModelable {
             price: fbModel.price,
             discountedPrice: fbModel.discountedPrice,
             weight: fbModel.weight,
-            seller: SDUserModel(fbModel: fbModel.seller),
             description: fbModel.description,
             similarProducts: fbModel.similarProducts.map { SDProductModel(fbModel: $0) },
             establishmentDate: fbModel.establishmentDate,
@@ -101,7 +98,13 @@ extension SDProductModel {
             price: _price,
             discountedPrice: _discountedPrice,
             weight: _weight,
-            seller: _seller.mapperInFBUserModel,
+            seller: {
+                guard let fbSeller = _seller?.mapperInFBUserModel else {
+                    Logger.log(kind: .dbError, message: "Пользователь в бд isNil. Этого не должно быть")
+                    return .clear
+                }
+                return fbSeller
+            }(),
             description: _descriptionInfo,
             similarProducts: _similarProducts.map { $0.mapperInFBProductModel },
             establishmentDate: _establishmentDate,
