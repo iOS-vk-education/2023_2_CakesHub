@@ -13,8 +13,10 @@ import Observation
 protocol CategoriesViewModelProtocol {
     // MARK: Network
     func fetch() async throws -> [CategoriesViewModel.Section]
-    // MARK: Actions
+    // MARK: Lifecycle
     func fetchSections()
+    // MARK: Actions
+    func didTapSectionCell(title: String) -> [FBProductModel]
     // MARK: Reducers
     func setRootViewModel(with rootViewModel: RootViewModel)
 }
@@ -40,21 +42,33 @@ final class CategoriesViewModel: ViewModelProtocol, CategoriesViewModelProtocol 
     }
 }
 
-// MARK: - Section
+// MARK: - Lifecycle
 
 extension CategoriesViewModel {
 
-    enum Section: Identifiable {
-        case men([CategoryCardModel])
-        case women([CategoryCardModel])
-        case kids([CategoryCardModel])
-        
-        var id: Int {
-            switch self {
-            case .men: return 1
-            case .women: return 2
-            case .kids: return 3
+    @MainActor
+    func fetchSections() {
+        Task {
+            do {
+                let sections = try await fetch()
+                withAnimation {
+                    self.sections = sections
+                }
+            } catch {
+                Logger.log(kind: .error, message: error.localizedDescription)
             }
+        }
+    }
+}
+
+// MARK: - Actions
+
+extension CategoriesViewModel {
+
+    /// Нажали на ячейку секции
+    func didTapSectionCell(title: String) -> [FBProductModel] {
+        rootViewModel.productData.products.filter { product in
+            product.categories.contains(title)
         }
     }
 }
@@ -75,22 +89,6 @@ extension CategoriesViewModel {
         ]
 
         return section
-    }
-}
-
-// MARK: - Actions
-
-extension CategoriesViewModel {
-
-    @MainActor
-    func fetchSections() {
-        Task {
-            do {
-                sections = try await fetch()
-            } catch {
-                Logger.log(kind: .error, message: error.localizedDescription)
-            }
-        }
     }
 }
 

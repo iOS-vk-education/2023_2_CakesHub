@@ -27,7 +27,7 @@ final class ProfileViewModel: ObservableObject, ViewModelProtocol {
 
 extension ProfileViewModel {
 
-    enum Screens {
+    enum Screens: Hashable {
         case message
         case notifications
         case settings

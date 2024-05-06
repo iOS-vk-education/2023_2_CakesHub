@@ -135,6 +135,7 @@
 		E54A3C542BB8FDCC00CBFEEB /* AllProductsCategoryViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A3C4F2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel+Mock.swift */; };
 		E55093772BE9811000F1326E /* CategoriesVMServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55093762BE9811000F1326E /* CategoriesVMServices.swift */; };
 		E55093792BE987FD00F1326E /* CategoriesUIProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55093782BE987FD00F1326E /* CategoriesUIProperties.swift */; };
+		E550937B2BE990E400F1326E /* CategoriesVMSubmodels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E550937A2BE990E400F1326E /* CategoriesVMSubmodels.swift */; };
 		E556517A2BB9AC6400759839 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556516C2BB9AC6400759839 /* NotificationModel.swift */; };
 		E556517C2BB9AC6400759839 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55651702BB9AC6400759839 /* NotificationCell.swift */; };
 		E556517D2BB9AC6400759839 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55651712BB9AC6400759839 /* NotificationView.swift */; };
@@ -326,6 +327,7 @@
 		E54A3C4F2BB8FDCC00CBFEEB /* AllProductsCategoryViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AllProductsCategoryViewModel+Mock.swift"; sourceTree = "<group>"; };
 		E55093762BE9811000F1326E /* CategoriesVMServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesVMServices.swift; sourceTree = "<group>"; };
 		E55093782BE987FD00F1326E /* CategoriesUIProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesUIProperties.swift; sourceTree = "<group>"; };
+		E550937A2BE990E400F1326E /* CategoriesVMSubmodels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesVMSubmodels.swift; sourceTree = "<group>"; };
 		E556516C2BB9AC6400759839 /* NotificationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		E55651702BB9AC6400759839 /* NotificationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		E55651712BB9AC6400759839 /* NotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
@@ -1350,6 +1352,7 @@
 				E5E219D52B9410CE00BE9ACE /* CategoryCardModel.swift */,
 				E55093762BE9811000F1326E /* CategoriesVMServices.swift */,
 				E55093782BE987FD00F1326E /* CategoriesUIProperties.swift */,
+				E550937A2BE990E400F1326E /* CategoriesVMSubmodels.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1666,6 +1669,7 @@
 				E5E219DA2B94137500BE9ACE /* CategoriesViewModel+Mock.swift in Sources */,
 				E54460B12BE560D000B70444 /* WSMessageKind.swift in Sources */,
 				E51B33492B7E62AF0028E8C7 /* ProductModel.swift in Sources */,
+				E550937B2BE990E400F1326E /* CategoriesVMSubmodels.swift in Sources */,
 				E52C88802BA709730056FC51 /* MainSubviews.swift in Sources */,
 				E53528A32BAF134100A1ADC3 /* Text+Extenstions.swift in Sources */,
 				E51B32EE2B7E5FEF0028E8C7 /* CHMRatingReviewsView+Defaults.swift in Sources */,
@@ -1690,7 +1694,6 @@
 				E5272FBF2B9A9F0100F181A1 /* RootView.swift in Sources */,
 				E5DE85892BC0D7DE0013445A /* LimitedTextField+Preview.swift in Sources */,
 				E56A85112BACCED600E9A387 /* UINavigationController+Extenstions.swift in Sources */,
-				E52722822BE933CC00E4441B /* TestView.swift in Sources */,
 				E51B334B2B7E62AF0028E8C7 /* ProductDetailScreen.swift in Sources */,
 				E51B33472B7E62AF0028E8C7 /* ProductReviewsScreen.swift in Sources */,
 				E56B70452BD257F600851C05 /* SDModelable.swift in Sources */,

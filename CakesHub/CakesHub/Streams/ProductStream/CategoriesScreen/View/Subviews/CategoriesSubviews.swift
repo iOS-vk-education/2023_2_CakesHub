@@ -145,6 +145,10 @@ extension CategoriesView {
                         configuration: .basic(imageKind: section.image, title: section.title)
                     )
                     .padding(.horizontal)
+                    .contentShape(.rect)
+                    .onTapGesture {
+                        didTapSectionCell(title: section.title)
+                    }
                 }
             }
             .padding(.top)

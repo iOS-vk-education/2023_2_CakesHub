@@ -79,10 +79,10 @@ private extension RootView {
         switch nav.activeTab {
         case .house:
             MainView(viewModel: .init(), size: size)
-        case .shop:
-            CategoriesView(viewModel: .mockData)
-        case .bag:
-            Text("BAG")
+        case .categories:
+            CategoriesView()
+        case .chat:
+            Text("Chats")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         case .notifications:
             NotificationView()

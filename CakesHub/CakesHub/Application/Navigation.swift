@@ -30,8 +30,8 @@ extension Navigation {
 
 enum TabBarItem: String, CaseIterable {
     case house = "house"
-    case shop = "cart"
-    case bag = "handbag"
+    case categories = "cart"
+    case chat = "message"
     case notifications = "bell.and.waves.left.and.right"
     case profile = "person"
 
@@ -39,14 +39,14 @@ enum TabBarItem: String, CaseIterable {
         switch self {
         case .house:
             return "Home"
-        case .shop:
-            return "Shop"
-        case .bag:
-            return "apps"
+        case .categories:
+            return "Categories"
+        case .chat:
+            return "Chats"
         case .notifications:
-            return "notifications"
+            return "Notifications"
         case .profile:
-            return "profile"
+            return "Profile"
         }
     }
 }

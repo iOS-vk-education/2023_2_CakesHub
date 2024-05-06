@@ -14,22 +14,42 @@ struct CategoriesView: View {
     typealias ViewModel = CategoriesViewModel
     @State private(set) var viewModel = ViewModel()
     @EnvironmentObject private var root: RootViewModel
+    @EnvironmentObject private var nav: Navigation
 
     // MARK: View
 
     var body: some View {
         MainViewBlock
             .onAppear(perform: onAppear)
+            .navigationDestination(for: ViewModel.Screens.self) { screen in
+                switch screen {
+                case let .sectionCakes(products):
+                    let productModels: [ProductModel] = products.mapperToProductModel
+                    let vm = AllProductsCategoryViewModel(products: productModels)
+                    AllProductsCategoryView(viewModel: vm)
+                }
+            }
     }
 }
 
-// MARK: - Actions
+// MARK: - Network
 
 private extension CategoriesView {
 
     func onAppear() {
         viewModel.setRootViewModel(with: root)
         viewModel.fetchSections()
+    }
+}
+
+// MARK: - Actions
+
+extension CategoriesView {
+
+    /// Нажали на ячейку секции
+    func didTapSectionCell(title: String) {
+        let products = viewModel.didTapSectionCell(title: title)
+        nav.addScreen(screen: ViewModel.Screens.sectionCakes(products))
     }
 }
 

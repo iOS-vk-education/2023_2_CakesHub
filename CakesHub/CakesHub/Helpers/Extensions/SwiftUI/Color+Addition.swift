@@ -89,6 +89,7 @@ extension CHMColor where Palette == IconPalette {
     static let iconSecondary = CHMColor(hexLight: 0x9B9B9B, hexDark: 0x8E8E93)
     static let iconGray = CHMColor(hexLight: 0x9B9B9B, hexDark: 0xABB4BD)
     static let iconBasket = CHMColor(hexLight: 0xF9F9F9, hexDark: 0xF6F6F6)
+    static let iconPrimary = CHMColor(hexLight: 0x222222, hexDark: 0xF9F9F9)
     static let navigationBackButton = CHMColor(hexLight: 0x222222, hexDark: 0xF6F6F6)
 }
 

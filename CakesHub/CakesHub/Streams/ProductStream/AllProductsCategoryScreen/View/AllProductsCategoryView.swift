@@ -19,16 +19,7 @@ struct AllProductsCategoryView: View, ViewModelable {
     }
 
     var body: some View {
-        MainView
-            .onAppear(perform: onAppear)
-    }
-}
-
-// MARK: - Network
-
-private extension AllProductsCategoryView {
-
-    func onAppear() {
+        MainOrEmptyView
     }
 }
 
@@ -47,6 +38,32 @@ private extension AllProductsCategoryView {
 // MARK: - Subviews
 
 private extension AllProductsCategoryView {
+
+    @ViewBuilder
+    var MainOrEmptyView: some View {
+        if viewModel.products.count == 0 {
+            EmptyBlock
+        } else {
+            MainView
+        }
+    }
+
+    var EmptyBlock: some View {
+        GroupBox {
+            Image(.cakeLogo)
+                .renderingMode(.template)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(edge: 200)
+                .foregroundStyle(Constants.emptyImageColor)
+                .padding(.horizontal)
+
+            Text(Constants.emptyText)
+                .font(.system(size: 18, weight: .semibold, design: .rounded))
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Constants.bgColor)
+    }
 
     var MainView: some View {
         ScrollView {
@@ -87,5 +104,7 @@ private extension AllProductsCategoryView {
 
     enum Constants {
         static let bgColor: Color = CHMColor<BackgroundPalette>.bgMainColor.color
+        static let emptyText = "Ничего не найденно"
+        static let emptyImageColor = CHMColor<IconPalette>.iconPrimary.color
     }
 }

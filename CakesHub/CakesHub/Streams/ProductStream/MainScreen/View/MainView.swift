@@ -18,18 +18,9 @@ struct MainView: View, ViewModelable {
 
     var body: some View {
         MainBlock
-            .onAppear(perform: onAppear)
             .navigationDestination(for: [ProductModel].self) { products in
                 AllProductsCategoryView(viewModel: .init(products: products))
             }
-    }
-}
-
-// MARK: - Network
-
-private extension MainView {
-
-    func onAppear() {
     }
 }
 

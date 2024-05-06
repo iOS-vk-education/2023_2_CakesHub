@@ -8,7 +8,7 @@
 import Foundation
 
 struct CategoryCardModel: Identifiable {
-    let id = UUID()
+    var id: String = UUID().uuidString
     var title: String = .clear
     var image: ImageKind = .clear
 }
@@ -19,6 +19,7 @@ extension FBCateoryModel {
 
     var mapper: CategoryCardModel {
         CategoryCardModel(
+            id: id,
             title: title,
             image: .url(URL(string: imageURL))
         )
