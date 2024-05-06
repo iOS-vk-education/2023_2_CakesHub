@@ -21,7 +21,7 @@ protocol NotificationServiceProtocol: AnyObject {
 final class NotificationService {
 
     static let shared: NotificationServiceProtocol = NotificationService()
-    private let collection = FirestoreCollections.notification.rawValue
+    private let collection = FirestoreCollections.notifications.rawValue
     private let firestore = Firestore.firestore()
 
     private init() {}

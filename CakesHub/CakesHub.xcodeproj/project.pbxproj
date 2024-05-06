@@ -108,6 +108,9 @@
 		E51B335B2B7E63300028E8C7 /* UIDevice+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33562B7E63300028E8C7 /* UIDevice+Extenstions.swift */; };
 		E51B335C2B7E63300028E8C7 /* View+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33572B7E63300028E8C7 /* View+Extentions.swift */; };
 		E52722752BE8F3A300E4441B /* SDNotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52722742BE8F3A300E4441B /* SDNotificationModel.swift */; };
+		E52722782BE9202B00E4441B /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52722772BE9202B00E4441B /* CategoryService.swift */; };
+		E527227E2BE9314000E4441B /* FBCateoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527227D2BE9314000E4441B /* FBCateoryModel.swift */; };
+		E52722802BE9316500E4441B /* FBCategoryTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527227F2BE9316500E4441B /* FBCategoryTag.swift */; };
 		E5272FBD2B9A9B1900F181A1 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5272FBC2B9A9B1900F181A1 /* Navigation.swift */; };
 		E5272FBF2B9A9F0100F181A1 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5272FBE2B9A9F0100F181A1 /* RootView.swift */; };
 		E52C88802BA709730056FC51 /* MainSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C887F2BA709730056FC51 /* MainSubviews.swift */; };
@@ -294,6 +297,9 @@
 		E51B33562B7E63300028E8C7 /* UIDevice+Extenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extenstions.swift"; sourceTree = "<group>"; };
 		E51B33572B7E63300028E8C7 /* View+Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "View+Extentions.swift"; path = "../View+Extentions.swift"; sourceTree = "<group>"; };
 		E52722742BE8F3A300E4441B /* SDNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDNotificationModel.swift; sourceTree = "<group>"; };
+		E52722772BE9202B00E4441B /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
+		E527227D2BE9314000E4441B /* FBCateoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBCateoryModel.swift; sourceTree = "<group>"; };
+		E527227F2BE9316500E4441B /* FBCategoryTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBCategoryTag.swift; sourceTree = "<group>"; };
 		E5272FBC2B9A9B1900F181A1 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		E5272FBE2B9A9F0100F181A1 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		E52C887F2BA709730056FC51 /* MainSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSubviews.swift; sourceTree = "<group>"; };
@@ -464,10 +470,9 @@
 		E5155CE62BCCC2D200BF773D /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				E5155CD92BCBA4A900BF773D /* UserService.swift */,
-				E59AEC792B92B99F00760E61 /* CakeService.swift */,
-				E59AEC672B92B17200760E61 /* AuthService.swift */,
-				E566A6F32BE4D6FA0004D5CF /* NotificationService.swift */,
+				E527227B2BE9208300E4441B /* Notification */,
+				E527227A2BE9208100E4441B /* User */,
+				E52722792BE9207D00E4441B /* Product */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -983,6 +988,50 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		E52722762BE9200500E4441B /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E59AEC712B92B25600760E61 /* FirestoreCollections.swift */,
+				E56B70422BD256DD00851C05 /* FBModelable.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E52722792BE9207D00E4441B /* Product */ = {
+			isa = PBXGroup;
+			children = (
+				E52722772BE9202B00E4441B /* CategoryService.swift */,
+				E59AEC792B92B99F00760E61 /* CakeService.swift */,
+			);
+			path = Product;
+			sourceTree = "<group>";
+		};
+		E527227A2BE9208100E4441B /* User */ = {
+			isa = PBXGroup;
+			children = (
+				E59AEC672B92B17200760E61 /* AuthService.swift */,
+				E5155CD92BCBA4A900BF773D /* UserService.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		E527227B2BE9208300E4441B /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				E566A6F32BE4D6FA0004D5CF /* NotificationService.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		E527227C2BE9313B00E4441B /* FBCateoryModel */ = {
+			isa = PBXGroup;
+			children = (
+				E527227D2BE9314000E4441B /* FBCateoryModel.swift */,
+				E527227F2BE9316500E4441B /* FBCategoryTag.swift */,
+			);
+			path = FBCateoryModel;
+			sourceTree = "<group>";
+		};
 		E5272FBB2B9A9B1100F181A1 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -1302,6 +1351,7 @@
 		E59AEC572B92A92C00760E61 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				E527227C2BE9313B00E4441B /* FBCateoryModel */,
 				E566A6F52BE4D8D40004D5CF /* FBNotification */,
 				E59AEC6B2B92B20A00760E61 /* FBUserModel */,
 				E59AEC7D2B92C49B00760E61 /* FBProductModel */,
@@ -1333,10 +1383,9 @@
 		E59AEC732B92B27200760E61 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
+				E52722762BE9200500E4441B /* Common */,
 				E5155CE62BCCC2D200BF773D /* Services */,
 				E59AEC572B92A92C00760E61 /* Entities */,
-				E59AEC712B92B25600760E61 /* FirestoreCollections.swift */,
-				E56B70422BD256DD00851C05 /* FBModelable.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -1589,6 +1638,7 @@
 				E51B331E2B7E60010028E8C7 /* Optional+Extensions.swift in Sources */,
 				E52CDD0A2BB6460E009C08B9 /* ChatSubviews.swift in Sources */,
 				E59AEC7F2B92C4A600760E61 /* FBProductModel+Mock.swift in Sources */,
+				E527227E2BE9314000E4441B /* FBCateoryModel.swift in Sources */,
 				E55B5EC12BCA496B00DDDFA4 /* AuthViewModel+Mock.swift in Sources */,
 				E51B33202B7E60010028E8C7 /* URL+Extensions.swift in Sources */,
 				E52722752BE8F3A300E4441B /* SDNotificationModel.swift in Sources */,
@@ -1633,6 +1683,7 @@
 				E5272FBF2B9A9F0100F181A1 /* RootView.swift in Sources */,
 				E5DE85892BC0D7DE0013445A /* LimitedTextField+Preview.swift in Sources */,
 				E56A85112BACCED600E9A387 /* UINavigationController+Extenstions.swift in Sources */,
+				E52722822BE933CC00E4441B /* TestView.swift in Sources */,
 				E51B334B2B7E62AF0028E8C7 /* ProductDetailScreen.swift in Sources */,
 				E51B33472B7E62AF0028E8C7 /* ProductReviewsScreen.swift in Sources */,
 				E56B70452BD257F600851C05 /* SDModelable.swift in Sources */,
@@ -1695,6 +1746,7 @@
 				E51B335B2B7E63300028E8C7 /* UIDevice+Extenstions.swift in Sources */,
 				E54A3C532BB8FDCC00CBFEEB /* AllProductsCategoryViewModel.swift in Sources */,
 				E54A3C522BB8FDCC00CBFEEB /* AllProductsCategoryView.swift in Sources */,
+				E52722802BE9316500E4441B /* FBCategoryTag.swift in Sources */,
 				E51B33592B7E63300028E8C7 /* CGFloat+Extentions.swift in Sources */,
 				E51B32D22B7E5FEF0028E8C7 /* CHMCommentView+Preview.swift in Sources */,
 				E55EFD0D2BCEA14C00493686 /* SDCommentInfoModel.swift in Sources */,
@@ -1706,6 +1758,7 @@
 				E51B32CC2B7E5FEF0028E8C7 /* CHMProductButton+Preview.swift in Sources */,
 				E51B32D02B7E5FEF0028E8C7 /* CHMCommentView+Configuration.swift in Sources */,
 				E5DE815E2BBFDC360012BD8E /* CreateProductViewModel+Mock.swift in Sources */,
+				E52722782BE9202B00E4441B /* CategoryService.swift in Sources */,
 				E51B33162B7E60010028E8C7 /* UIColor+Extenstions.swift in Sources */,
 				E55B5EC02BCA496B00DDDFA4 /* AuthViewModel.swift in Sources */,
 				E51B32DA2B7E5FEF0028E8C7 /* CHMNewCategoryView+Preview.swift in Sources */,
