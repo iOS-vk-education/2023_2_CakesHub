@@ -40,7 +40,10 @@ extension NotificationService: NotificationServiceProtocol {
     /// Получение уведомлений покупателя
     /// - Parameter customerID: ID покупателя
     func getNotifications(customerID: String) async throws -> [FBNotification] {
-        let query = firestore.collection(collection).whereField("customerID", isEqualTo: customerID)
+        let query = firestore
+            .collection(collection)
+            .whereField("customerID", isEqualTo: customerID)
+            .whereField("sellerID", isEqualTo: customerID)
         let snapshots = try await query.getDocuments()
         let notifications = snapshots.documents.compactMap {
             FBNotification(dictionary: $0.data())

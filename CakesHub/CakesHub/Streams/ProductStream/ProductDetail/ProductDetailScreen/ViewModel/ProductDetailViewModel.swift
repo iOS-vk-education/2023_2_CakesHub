@@ -59,27 +59,53 @@ extension ProductDetailViewModel {
     func didTapBuyButton(completion: @escaping CHMVoidBlock) {
         guard let currentUser else { return }
 
-        // Отправляем уведомление
-        let notification = WSNotification(
-            id: UUID().uuidString,
-            kind: .notification,
-            title: "Покупка торта: \"\(currentProduct.productName)\"",
-            date: Date().description,
-            message: "Пользователь \"\(currentUser.nickname)\" заказал у вас товар: \"\(currentProduct.productName)\"",
-            productID: currentProduct.id,
-            userID: currentUser.uid,
-            receiverID: currentProduct.seller.id
+        // Формируем модели уведомлений
+        let purchaseDate = Date().description
+        let sellerID = currentProduct.seller.id
+        let customerID = currentUser.uid
+        let productName = currentProduct.productName
+        let productID = currentProduct.id
+
+        let sellerNotification = generateNotificationForSeller(
+            date: purchaseDate,
+            sellerID: sellerID,
+            customerID: customerID,
+            customerName: currentUser.nickname,
+            productName: productName,
+            productID: productID
         )
-        services.wsService.send(message: notification) {
-            Logger.log(message: "Сообщение отправленно продавцу")
-            // TODO: Сделать какой-то алерт об успешной покупке и возможно сделать удаление товара из firebase
-            completion()
+        let customerNotification = generateNotificationForCustomer(
+            date: purchaseDate,
+            sellerID: sellerID,
+            customerID: customerID,
+            sellerName: currentProduct.seller.name,
+            productPrice: currentProduct.price,
+            productName: productName,
+            productID: productID
+        )
+
+        // Отправляем уведомления по Web Socket протоколу
+        services.wsService.send(message: sellerNotification) {
+            Logger.log(message: "Уведомление отправленно продавцу")
+        }
+        services.wsService.send(message: customerNotification) {
+            Logger.log(message: "Уведомление отправленно покупателю")
         }
 
         // Отправляем уведомление в firebase
         Task {
             do {
-                try await sendNotification(notification: notification)
+                try await sendNotification(notification: sellerNotification)
+                DispatchQueue.main.async {
+                    completion()
+                }
+            } catch {
+                Logger.log(kind: .error, message: error.localizedDescription)
+            }
+        }
+        Task {
+            do {
+                try await sendNotification(notification: customerNotification)
             } catch {
                 Logger.log(kind: .error, message: error.localizedDescription)
             }
@@ -95,3 +121,50 @@ extension ProductDetailViewModel {
         currentUser = user
     }
 }
+
+// MARK: - Helper
+
+private extension ProductDetailViewModel {
+
+    func generateNotificationForSeller(
+        date: String,
+        sellerID: String,
+        customerID: String,
+        customerName: String,
+        productName: String,
+        productID: String
+    ) -> WSNotification {
+        WSNotification(
+            id: UUID().uuidString,
+            kind: .notification,
+            title: "У вас заказали торт: \"\(productName)\"",
+            date: date,
+            message: "Пользователь \"\(customerName)\" заказал у вас торт: \"\(productName)\"",
+            productID: productID,
+            userID: customerID,
+            receiverID: sellerID
+        )
+    }
+
+    func generateNotificationForCustomer(
+        date: String,
+        sellerID: String,
+        customerID: String,
+        sellerName: String,
+        productPrice: String,
+        productName: String,
+        productID: String
+    ) -> WSNotification {
+        WSNotification(
+            id: UUID().uuidString,
+            kind: .notification,
+            title: "Вы заказали торт: \"\(productName)\"",
+            date: date,
+            message: "Вы заказали торт: \"\(productName)\" по цене $\(productPrice) у продавца: \(sellerName)",
+            productID: productID,
+            userID: sellerID,
+            receiverID: customerID
+        )
+    }
+}
+
