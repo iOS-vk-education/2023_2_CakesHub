@@ -42,7 +42,7 @@ class SDUserModel {
 extension SDUserModel: SDModelable {
     typealias FBModelType = FBUserModel
 
-    convenience init(fbModel: FBUserModel) {
+    convenience init(fbModel: FBModelType) {
         self.init(
             id: fbModel.uid,
             nickName: fbModel.nickname,
@@ -58,7 +58,7 @@ extension SDUserModel: SDModelable {
 
 extension SDUserModel {
 
-    var mapperInFBUserModel: FBUserModel {
+    var mapper: FBUserModel {
         FBUserModel(
             uid: _id,
             nickname: _nickName,

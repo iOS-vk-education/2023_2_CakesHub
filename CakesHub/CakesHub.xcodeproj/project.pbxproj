@@ -175,6 +175,7 @@
 		E59AEC7A2B92B99F00760E61 /* CakeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC792B92B99F00760E61 /* CakeService.swift */; };
 		E59AEC7C2B92BF9F00760E61 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC7B2B92BF9F00760E61 /* Logger.swift */; };
 		E59AEC7F2B92C4A600760E61 /* FBProductModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC7E2B92C4A600760E61 /* FBProductModel+Mock.swift */; };
+		E5A8E85E2BEA4324004FD3DA /* SDCateoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A8E85D2BEA4324004FD3DA /* SDCateoryModel.swift */; };
 		E5B636642BB6751400B2F076 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B636632BB6751400B2F076 /* RootViewModel.swift */; };
 		E5C99DCD2B9A6DA40000A2A9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E5C99DCC2B9A6DA40000A2A9 /* FirebaseAuth */; };
 		E5C99DCF2B9A6DA40000A2A9 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = E5C99DCE2B9A6DA40000A2A9 /* FirebaseDatabase */; };
@@ -366,6 +367,7 @@
 		E59AEC792B92B99F00760E61 /* CakeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CakeService.swift; sourceTree = "<group>"; };
 		E59AEC7B2B92BF9F00760E61 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		E59AEC7E2B92C4A600760E61 /* FBProductModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FBProductModel+Mock.swift"; sourceTree = "<group>"; };
+		E5A8E85D2BEA4324004FD3DA /* SDCateoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDCateoryModel.swift; sourceTree = "<group>"; };
 		E5B636632BB6751400B2F076 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		E5C99DD72B9A833F0000A2A9 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		E5DBD6D42BBDB49B002ACFB2 /* ProfileSubviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSubviews.swift; sourceTree = "<group>"; };
@@ -1272,6 +1274,7 @@
 				E5155CE22BCBFDB900BF773D /* SDProductReviewsModel.swift */,
 				E55EFD0C2BCEA14C00493686 /* SDCommentInfoModel.swift */,
 				E52722742BE8F3A300E4441B /* SDNotificationModel.swift */,
+				E5A8E85D2BEA4324004FD3DA /* SDCateoryModel.swift */,
 			);
 			path = SwiftDataModels;
 			sourceTree = "<group>";
@@ -1777,6 +1780,7 @@
 				E5DE815C2BBFDC360012BD8E /* CreateProductView.swift in Sources */,
 				E51B33212B7E60010028E8C7 /* Color+Addition.swift in Sources */,
 				E51B32D72B7E5FEF0028E8C7 /* CHMNewCategoryView+Configuration.swift in Sources */,
+				E5A8E85E2BEA4324004FD3DA /* SDCateoryModel.swift in Sources */,
 				E5DBD6D62BBDB49B002ACFB2 /* ProfileSubviews.swift in Sources */,
 				E51B32F12B7E5FEF0028E8C7 /* CHMStarsView+Defaults.swift in Sources */,
 				E59AEC6A2B92B1D500760E61 /* APIError.swift in Sources */,

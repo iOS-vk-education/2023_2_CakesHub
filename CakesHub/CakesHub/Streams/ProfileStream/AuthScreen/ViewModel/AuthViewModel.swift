@@ -109,7 +109,7 @@ extension AuthViewModel {
                 Logger.log(kind: .error, message: "Текущий пользователь не найден в БД, но обладает userID в UserDefauls")
                 return
             }
-            rootViewModel?.setCurrentUser(for: sdCurrentUser.mapperInFBUserModel)
+            rootViewModel?.setCurrentUser(for: sdCurrentUser.mapper)
         }
         catch {
             Logger.log(kind: .error, message: error.localizedDescription)

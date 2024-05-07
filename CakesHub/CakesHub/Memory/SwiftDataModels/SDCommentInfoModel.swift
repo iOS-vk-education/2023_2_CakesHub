@@ -57,7 +57,7 @@ extension SDProductReviewsModel.SDCommentInfoModel: SDModelable {
 
 extension SDProductReviewsModel.SDCommentInfoModel {
 
-    var mapperInFBCommentInfo: FBProductModel.FBCommentInfoModel {
+    var mapper: FBProductModel.FBCommentInfoModel {
         .init(
             id: _id,
             userName: _userName,

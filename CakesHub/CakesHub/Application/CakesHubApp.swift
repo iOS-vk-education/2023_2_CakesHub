@@ -20,7 +20,8 @@ struct CakesHubApp: App {
         }
         .modelContainer(for: [
             SDProductModel.self,
-            SDNotificationModel.self
+            SDNotificationModel.self,
+            SDCateoryModel.self
         ])
     }
 

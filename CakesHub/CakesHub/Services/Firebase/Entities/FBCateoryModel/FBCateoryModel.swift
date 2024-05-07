@@ -44,3 +44,16 @@ extension FBCateoryModel {
         )
     }
 }
+
+// MARK: - Hashable
+
+extension FBCateoryModel: Hashable {
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    static func == (lhs: FBCateoryModel, rhs: FBCateoryModel) -> Bool {
+        lhs.id == rhs.id
+    }
+}

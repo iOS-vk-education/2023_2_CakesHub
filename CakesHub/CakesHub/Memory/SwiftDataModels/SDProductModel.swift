@@ -89,7 +89,7 @@ extension SDProductModel: SDModelable {
 
 extension SDProductModel {
 
-    var mapperInFBProductModel: FBProductModel {
+    var mapper: FBProductModel {
         FBProductModel(
             documentID: _id,
             images: .strings(_imageKeys),
@@ -99,16 +99,16 @@ extension SDProductModel {
             discountedPrice: _discountedPrice,
             weight: _weight,
             seller: {
-                guard let fbSeller = _seller?.mapperInFBUserModel else {
+                guard let fbSeller = _seller?.mapper else {
                     Logger.log(kind: .dbError, message: "Пользователь в бд isNil. Этого не должно быть")
                     return .clear
                 }
                 return fbSeller
             }(),
             description: _descriptionInfo,
-            similarProducts: _similarProducts.map { $0.mapperInFBProductModel },
+            similarProducts: _similarProducts.map { $0.mapper },
             establishmentDate: _establishmentDate,
-            reviewInfo: _reviewInfo.mapperInFBProductReviews
+            reviewInfo: _reviewInfo.mapper
         )
     }
 }

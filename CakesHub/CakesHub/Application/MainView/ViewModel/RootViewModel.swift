@@ -61,7 +61,7 @@ extension RootViewModel: RootViewModelProtocol {
 
         // Достаём закэшированные данные
         let sdProducts = fetchProductsFromMemory()
-        let fbProducts = sdProducts.map { $0.mapperInFBProductModel }
+        let fbProducts = sdProducts.map { $0.mapper }
         productData.products = fbProducts
         filterCurrentUserProducts()
         groupDataBySection(data: fbProducts) { [weak self] sections in
@@ -88,7 +88,7 @@ extension RootViewModel: RootViewModelProtocol {
 
     func fetchDataWithoutNetwork() {
         let sdProducts = fetchProductsFromMemory()
-        let fbProducts = sdProducts.map { $0.mapperInFBProductModel }
+        let fbProducts = sdProducts.map { $0.mapper }
         productData.products = fbProducts
         filterCurrentUserProducts()
         groupDataBySection(data: fbProducts) { [weak self] sections in

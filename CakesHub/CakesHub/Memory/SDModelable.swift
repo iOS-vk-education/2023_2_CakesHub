@@ -11,6 +11,8 @@ import SwiftData
 /// Протокол для `SwiftData` моделей
 protocol SDModelable: PersistentModel {
     associatedtype FBModelType: FBModelable
+
+    var mapper: FBModelType { get }
 }
 
 extension SDModelable {

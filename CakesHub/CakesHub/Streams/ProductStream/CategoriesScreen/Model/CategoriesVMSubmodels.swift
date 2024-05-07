@@ -16,6 +16,23 @@ extension CategoriesViewModel {
         case women([CategoryCardModel])
         case kids([CategoryCardModel])
     }
+
+    enum FBSection {
+        case men([FBCateoryModel])
+        case women([FBCateoryModel])
+        case kids([FBCateoryModel])
+
+        var items: [FBCateoryModel] {
+            switch self {
+            case let .men(items):
+                return items
+            case let .women(items):
+                return items
+            case let .kids(items):
+                return items
+            }
+        }
+    }
 }
 
 extension CategoriesViewModel.Section: Identifiable{
@@ -25,6 +42,17 @@ extension CategoriesViewModel.Section: Identifiable{
         case .men: return 1
         case .women: return 2
         case .kids: return 3
+        }
+    }
+
+    var items: [CategoryCardModel] {
+        switch self {
+        case let .men(items):
+            return items
+        case let .women(items):
+            return items
+        case let .kids(items):
+            return items
         }
     }
 }

@@ -15,6 +15,7 @@ struct CategoriesView: View {
     @State private(set) var viewModel = ViewModel()
     @EnvironmentObject private var root: RootViewModel
     @EnvironmentObject private var nav: Navigation
+    @Environment(\.modelContext) private var modelContext
 
     // MARK: View
 
@@ -38,6 +39,7 @@ private extension CategoriesView {
 
     func onAppear() {
         viewModel.setRootViewModel(with: root)
+        viewModel.setModelContext(with: modelContext)
         viewModel.fetchSections()
     }
 }

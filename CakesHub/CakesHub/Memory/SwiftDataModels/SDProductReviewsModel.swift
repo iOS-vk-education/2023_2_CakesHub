@@ -60,7 +60,7 @@ extension SDProductReviewsModel: SDModelable {
 
 extension SDProductReviewsModel {
 
-    var mapperInFBProductReviews: FBProductModel.FBProductReviewsModel {
+    var mapper: FBProductModel.FBProductReviewsModel {
         .init(
             countFiveStars: _countFiveStars,
             countFourStars: _countFourStars,
@@ -68,7 +68,7 @@ extension SDProductReviewsModel {
             countTwoStars: _countTwoStars,
             countOneStars: _countOneStars,
             countOfComments: _countOfComments,
-            comments: _comments.map { $0.mapperInFBCommentInfo }
+            comments: _comments.map { $0.mapper }
         )
     }
 }
