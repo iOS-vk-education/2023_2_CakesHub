@@ -104,5 +104,11 @@ private extension RootView {
     RootView()
         .environmentObject(Navigation())
         .environmentObject(RootViewModel.mockData)
-        .modelContainer(Preview(SDProductModel.self).container)
+        .modelContainer(
+            Preview(
+                SDProductModel.self,
+                SDNotificationModel.self,
+                SDCateoryModel.self
+            ).container
+        )
 }

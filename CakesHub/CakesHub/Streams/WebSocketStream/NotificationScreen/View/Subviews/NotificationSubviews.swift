@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 31.03.2024.
+//  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -69,11 +70,13 @@ extension NotificationView {
 #Preview {
     NotificationView(viewModel: .mockData)
         .environmentObject(RootViewModel.mockData)
+        .modelContainer(for: [SDNotificationModel.self])
 }
 
 #Preview {
     NotificationView()
         .environmentObject(RootViewModel.mockData)
+        .modelContainer(for: [SDNotificationModel.self])
 }
 
 // MARK: - Constants

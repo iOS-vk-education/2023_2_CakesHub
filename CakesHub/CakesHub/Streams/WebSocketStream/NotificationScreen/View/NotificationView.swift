@@ -44,5 +44,6 @@ extension NotificationView {
     NavigationStack {
         NotificationView()
             .environmentObject(RootViewModel.mockData)
+            .modelContainer(for: [SDNotificationModel.self])
     }
 }

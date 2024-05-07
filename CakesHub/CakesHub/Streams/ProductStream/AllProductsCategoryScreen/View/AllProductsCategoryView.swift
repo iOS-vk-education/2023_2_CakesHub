@@ -61,6 +61,9 @@ private extension AllProductsCategoryView {
             Text(Constants.emptyText)
                 .font(.system(size: 18, weight: .semibold, design: .rounded))
         }
+        .backgroundStyle(
+            CHMColor<BackgroundPalette>.bgCommentView.color
+        )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Constants.bgColor)
     }

@@ -176,6 +176,9 @@
 		E59AEC7C2B92BF9F00760E61 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC7B2B92BF9F00760E61 /* Logger.swift */; };
 		E59AEC7F2B92C4A600760E61 /* FBProductModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC7E2B92C4A600760E61 /* FBProductModel+Mock.swift */; };
 		E5A8E85E2BEA4324004FD3DA /* SDCateoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A8E85D2BEA4324004FD3DA /* SDCateoryModel.swift */; };
+		E5A8E8602BEABCB3004FD3DA /* SDChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A8E85F2BEABCB3004FD3DA /* SDChatMessageModel.swift */; };
+		E5A8E8632BEABCDC004FD3DA /* FBChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A8E8622BEABCDC004FD3DA /* FBChatMessageModel.swift */; };
+		E5A8E8652BEABF2C004FD3DA /* FBUserMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A8E8642BEABF2C004FD3DA /* FBUserMessageModel.swift */; };
 		E5B636642BB6751400B2F076 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B636632BB6751400B2F076 /* RootViewModel.swift */; };
 		E5C99DCD2B9A6DA40000A2A9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E5C99DCC2B9A6DA40000A2A9 /* FirebaseAuth */; };
 		E5C99DCF2B9A6DA40000A2A9 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = E5C99DCE2B9A6DA40000A2A9 /* FirebaseDatabase */; };
@@ -368,6 +371,9 @@
 		E59AEC7B2B92BF9F00760E61 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		E59AEC7E2B92C4A600760E61 /* FBProductModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FBProductModel+Mock.swift"; sourceTree = "<group>"; };
 		E5A8E85D2BEA4324004FD3DA /* SDCateoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDCateoryModel.swift; sourceTree = "<group>"; };
+		E5A8E85F2BEABCB3004FD3DA /* SDChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDChatMessageModel.swift; sourceTree = "<group>"; };
+		E5A8E8622BEABCDC004FD3DA /* FBChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBChatMessageModel.swift; sourceTree = "<group>"; };
+		E5A8E8642BEABF2C004FD3DA /* FBUserMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBUserMessageModel.swift; sourceTree = "<group>"; };
 		E5B636632BB6751400B2F076 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		E5C99DD72B9A833F0000A2A9 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		E5DBD6D42BBDB49B002ACFB2 /* ProfileSubviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSubviews.swift; sourceTree = "<group>"; };
@@ -1139,13 +1145,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		E54A3C4B2BB8FDCC00CBFEEB /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		E54A3C4D2BB8FDCC00CBFEEB /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1166,7 +1165,6 @@
 		E54A3C512BB8FDCC00CBFEEB /* AllProductsCategoryScreen */ = {
 			isa = PBXGroup;
 			children = (
-				E54A3C4B2BB8FDCC00CBFEEB /* Model */,
 				E54A3C502BB8FDCC00CBFEEB /* ViewModel */,
 				E54A3C4D2BB8FDCC00CBFEEB /* View */,
 			);
@@ -1275,6 +1273,7 @@
 				E55EFD0C2BCEA14C00493686 /* SDCommentInfoModel.swift */,
 				E52722742BE8F3A300E4441B /* SDNotificationModel.swift */,
 				E5A8E85D2BEA4324004FD3DA /* SDCateoryModel.swift */,
+				E5A8E85F2BEABCB3004FD3DA /* SDChatMessageModel.swift */,
 			);
 			path = SwiftDataModels;
 			sourceTree = "<group>";
@@ -1363,6 +1362,7 @@
 		E59AEC572B92A92C00760E61 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				E5A8E8612BEABCD1004FD3DA /* FBChatMessageModel */,
 				E527227C2BE9313B00E4441B /* FBCateoryModel */,
 				E566A6F52BE4D8D40004D5CF /* FBNotification */,
 				E59AEC6B2B92B20A00760E61 /* FBUserModel */,
@@ -1410,6 +1410,15 @@
 				E59AEC7E2B92C4A600760E61 /* FBProductModel+Mock.swift */,
 			);
 			path = FBProductModel;
+			sourceTree = "<group>";
+		};
+		E5A8E8612BEABCD1004FD3DA /* FBChatMessageModel */ = {
+			isa = PBXGroup;
+			children = (
+				E5A8E8622BEABCDC004FD3DA /* FBChatMessageModel.swift */,
+				E5A8E8642BEABF2C004FD3DA /* FBUserMessageModel.swift */,
+			);
+			path = FBChatMessageModel;
 			sourceTree = "<group>";
 		};
 		E5B636622BB6750900B2F076 /* MainView */ = {
@@ -1611,6 +1620,7 @@
 				E51B32D52B7E5FEF0028E8C7 /* CHMNewProductCard+Preview.swift in Sources */,
 				E52CE6E72BBE39E0001F45BB /* Date+Extenstions.swift in Sources */,
 				E51B32CA2B7E5FEF0028E8C7 /* CHMProductButton+Configuration.swift in Sources */,
+				E5A8E8652BEABF2C004FD3DA /* FBUserMessageModel.swift in Sources */,
 				E51B332E2B7E603E0028E8C7 /* Configurable.swift in Sources */,
 				E59AEC7A2B92B99F00760E61 /* CakeService.swift in Sources */,
 				E51B32712B7E5DFC0028E8C7 /* MainView.swift in Sources */,
@@ -1697,6 +1707,7 @@
 				E5272FBF2B9A9F0100F181A1 /* RootView.swift in Sources */,
 				E5DE85892BC0D7DE0013445A /* LimitedTextField+Preview.swift in Sources */,
 				E56A85112BACCED600E9A387 /* UINavigationController+Extenstions.swift in Sources */,
+				E5A8E8602BEABCB3004FD3DA /* SDChatMessageModel.swift in Sources */,
 				E51B334B2B7E62AF0028E8C7 /* ProductDetailScreen.swift in Sources */,
 				E51B33472B7E62AF0028E8C7 /* ProductReviewsScreen.swift in Sources */,
 				E56B70452BD257F600851C05 /* SDModelable.swift in Sources */,
@@ -1745,6 +1756,7 @@
 				E51B32CF2B7E5FEF0028E8C7 /* CHMCommentView.swift in Sources */,
 				E52CDD082BB6460E009C08B9 /* ChatMessage.swift in Sources */,
 				E566A6F42BE4D6FA0004D5CF /* NotificationService.swift in Sources */,
+				E5A8E8632BEABCDC004FD3DA /* FBChatMessageModel.swift in Sources */,
 				E513662A2BC21D1A00B12304 /* ProductResultScreen.swift in Sources */,
 				E5DE858B2BC0D92B0013445A /* CreateCakeInfoView.swift in Sources */,
 				E5155CD82BCBA0AC00BF773D /* PreviewContainer.swift in Sources */,
@@ -1920,6 +1932,7 @@
 				DEVELOPMENT_TEAM = SKCX3NJ774;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CakesHub/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CakesHub;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1950,6 +1963,7 @@
 				DEVELOPMENT_TEAM = SKCX3NJ774;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CakesHub/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CakesHub;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

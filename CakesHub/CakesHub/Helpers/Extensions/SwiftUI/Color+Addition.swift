@@ -3,6 +3,7 @@
 //  CHMUIKIT
 //
 //  Created by Dmitriy Permyakov on 27.01.2024.
+//  Copyright 2023 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
