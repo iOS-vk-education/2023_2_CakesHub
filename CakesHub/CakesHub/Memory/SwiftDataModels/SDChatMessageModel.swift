@@ -35,7 +35,13 @@ extension SDChatMessageModel: SDModelable {
     typealias FBModelType = FBChatMessageModel
 
     convenience init(fbModel: FBChatMessageModel) {
-
+        self.init(
+            id: fbModel.id,
+            message: fbModel.message,
+            receiverID: fbModel.receiverID,
+            userID: fbModel.userID,
+            dispatchDate: fbModel.dispatchDate
+        )
     }
 }
 
@@ -49,7 +55,7 @@ extension SDChatMessageModel {
             message: _message,
             receiverID: _receiverID,
             userID: _userID,
-            dispatchDate: <#T##String#>
+            dispatchDate: _dispatchDate
         )
     }
 }
