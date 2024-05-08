@@ -19,6 +19,19 @@ struct AllChatsView: View, ViewModelable {
     var body: some View {
         MainOrLoadingView
             .onAppear(perform: onAppear)
+            .navigationDestination(for: ViewModel.Screens.self) { screen in
+                switch screen {
+                case let .chat(messages, seller):
+                    let lastMessageID = messages.last?.id
+                    let vm = ChatViewModel(
+                        messages: messages,
+                        lastMessageID: lastMessageID,
+                        seller: seller,
+                        user: root.currentUser.mapper
+                    )
+                    ChatView(viewModel: vm)
+                }
+            }
     }
 }
 
@@ -27,8 +40,17 @@ struct AllChatsView: View, ViewModelable {
 private extension AllChatsView {
 
     func onAppear() {
-        viewModel.setReducers(modelContext: modelContext, root: root)
+        viewModel.setReducers(modelContext: modelContext, root: root, nav: nav)
         viewModel.onAppear()
+    }
+}
+
+// MARK: - Action
+
+extension AllChatsView {
+
+    func didTapCell(with cellInfo: ChatCellIModel) {
+        viewModel.didTapCell(with: cellInfo)
     }
 }
 

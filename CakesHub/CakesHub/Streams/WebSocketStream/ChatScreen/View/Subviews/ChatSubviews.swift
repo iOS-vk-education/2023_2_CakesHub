@@ -33,6 +33,11 @@ extension ChatView {
                     .background(.ultraThinMaterial)
             }
             .frame(maxHeight: .infinity)
+            .onAppear {
+                if let id = viewModel.lastMessageID {
+                    proxy.scrollTo(id, anchor: .bottom)
+                }
+            }
             .onChange(of: viewModel.lastMessageID) { _, id in
                 if let id {
                     withAnimation {

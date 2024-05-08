@@ -24,16 +24,12 @@ private extension AllChatsViewModel {
     enum Constants {
         static let cells: [ChatCellIModel] = [
             .init(
-                userID: "1",
-                userName: "Dmitriy Permyakov",
-                imageKind: .url(.mockKingImage),
+                chatUser: .king,
                 lastMessage: "Привет! Это последнее сообщение",
                 timeMessage: "03:12"
             ),
             .init(
-                userID: "2",
-                userName: "Полиночка",
-                imageKind: .uiImage(.bestGirl),
+                chatUser: .poly,
                 lastMessage: "А это ещё одно сообщение",
                 timeMessage: "02:12"
             )

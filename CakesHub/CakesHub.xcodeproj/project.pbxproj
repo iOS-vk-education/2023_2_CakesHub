@@ -164,6 +164,7 @@
 		E56D0FF72B80CF6500B803EF /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56D0FF62B80CF6500B803EF /* CategoriesView.swift */; };
 		E56D0FF92B80D0A100B803EF /* CategoriesTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56D0FF82B80D0A100B803EF /* CategoriesTab.swift */; };
 		E5727DF72BEBA3A0008543BD /* AllChatsVMReducers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5727DF62BEBA3A0008543BD /* AllChatsVMReducers.swift */; };
+		E5727DFE2BEBFA47008543BD /* AllChatsVMScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5727DFD2BEBFA47008543BD /* AllChatsVMScreens.swift */; };
 		E57C920F2B93C5CB00EC90F5 /* SwiftPrettyPrint in Frameworks */ = {isa = PBXBuildFile; productRef = E57C920E2B93C5CB00EC90F5 /* SwiftPrettyPrint */; };
 		E59AEC592B92AA2900760E61 /* FBProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC582B92AA2900760E61 /* FBProductModel.swift */; };
 		E59AEC5B2B92AE5F00760E61 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E59AEC5A2B92AE5F00760E61 /* GoogleService-Info.plist */; };
@@ -372,6 +373,7 @@
 		E56D0FF62B80CF6500B803EF /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		E56D0FF82B80D0A100B803EF /* CategoriesTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTab.swift; sourceTree = "<group>"; };
 		E5727DF62BEBA3A0008543BD /* AllChatsVMReducers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChatsVMReducers.swift; sourceTree = "<group>"; };
+		E5727DFD2BEBFA47008543BD /* AllChatsVMScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChatsVMScreens.swift; sourceTree = "<group>"; };
 		E59AEC582B92AA2900760E61 /* FBProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBProductModel.swift; sourceTree = "<group>"; };
 		E59AEC5A2B92AE5F00760E61 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E59AEC672B92B17200760E61 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -1483,6 +1485,7 @@
 				E5C5408F2BEAF8B90025EBF1 /* AllChatsVMServices.swift */,
 				E5C540942BEAFA630025EBF1 /* ChatCellIModel.swift */,
 				E5727DF62BEBA3A0008543BD /* AllChatsVMReducers.swift */,
+				E5727DFD2BEBFA47008543BD /* AllChatsVMScreens.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1755,6 +1758,7 @@
 				E52CDD0A2BB6460E009C08B9 /* ChatSubviews.swift in Sources */,
 				E59AEC7F2B92C4A600760E61 /* FBProductModel+Mock.swift in Sources */,
 				E527227E2BE9314000E4441B /* FBCateoryModel.swift in Sources */,
+				E5727DFE2BEBFA47008543BD /* AllChatsVMScreens.swift in Sources */,
 				E55B5EC12BCA496B00DDDFA4 /* AuthViewModel+Mock.swift in Sources */,
 				E51B33202B7E60010028E8C7 /* URL+Extensions.swift in Sources */,
 				E52722752BE8F3A300E4441B /* SDNotificationModel.swift in Sources */,

@@ -16,8 +16,10 @@ protocol AllChatsViewModelProtocol: AnyObject {
     func getUserMessages() async throws -> [FBChatMessageModel]
     // MARK: Lifecycle
     func onAppear()
+    // MARK: Action
+    func didTapCell(with cellInfo: ChatCellIModel)
     // MARK: Reducers
-    func setReducers(modelContext: ModelContext, root: RootViewModel)
+    func setReducers(modelContext: ModelContext, root: RootViewModel, nav: Navigation)
 }
 
 // MARK: - AllChatsViewModel
@@ -47,10 +49,12 @@ final class AllChatsViewModel: ViewModelProtocol, AllChatsViewModelProtocol {
     var filterInputText: [ChatCellIModel] {
         uiProperties.searchText.isEmpty
         ? chatCells
-        : chatCells.filter { $0.userName.lowercased().contains(uiProperties.searchText.lowercased().trimmingCharacters(in: .whitespaces)) }
+        : chatCells.filter {
+            $0.chatUser.nickname.lowercased().contains(uiProperties.searchText.lowercased().trimmingCharacters(in: .whitespaces))
+        }
     }
-
-    private var currentUserID: String { reducers.root.currentUser.uid }
+    private var currentUser: FBUserModel { reducers.root.currentUser }
+    private var currentUserID: String { currentUser.uid }
 }
 
 // MARK: - Network
@@ -77,13 +81,47 @@ extension AllChatsViewModel {
     }
 }
 
+// MARK: - Action
+
+extension AllChatsViewModel {
+
+    func didTapCell(with cellInfo: ChatCellIModel) {
+        let messages: [ChatMessage] = cellInfo.messages.map { message in
+            let messageUserName: String = message.isYou ? currentUser.nickname : cellInfo.chatUser.nickname
+            let messageUserImageString = message.isYou
+            ? currentUser.avatarImage
+            : cellInfo.chatUser.avatarImage
+
+            return ChatMessage(
+                id: UUID(uuidString: message.id) ?? UUID(),
+                isYou: message.isYou,
+                message: message.text,
+                user: .init(
+                    name: messageUserName,
+                    image: .url(URL(string: messageUserImageString ?? .clear))
+                ),
+                time: message.time,
+                state: .received
+            )
+        }
+
+        reducers.nav.addScreen(
+            screen: Screens.chat(
+                messages: messages,
+                seller: cellInfo.chatUser.mapperToUserModel
+            )
+        )
+    }
+}
+
 // MARK: - Reducers
 
 extension AllChatsViewModel {
 
-    func setReducers(modelContext: ModelContext, root: RootViewModel) {
+    func setReducers(modelContext: ModelContext, root: RootViewModel, nav: Navigation) {
         reducers.modelContext = modelContext
         reducers.root = root
+        reducers.nav = nav
     }
 }
 
@@ -120,22 +158,20 @@ private extension AllChatsViewModel {
             for chatCell in chatCells {
                 // Если в массиве уже есть ячейка с текущим ID, значит надо дополнить вторую часть информации по ней
                 // Иначе это только первая часть информации и мы просто добавляем её в массив и идём дальше
-                guard let oldChatCellIndex = mergedChatCells.firstIndex(where: { $0.userID == chatCell.userID }) else {
+                guard let oldChatCellIndex = mergedChatCells.firstIndex(where: { $0.chatUser.uid == chatCell.chatUser.uid }) else {
                     mergedChatCells.append(chatCell)
                     continue
                 }
 
                 let oldChatCell = mergedChatCells[oldChatCellIndex]
-                let userName = oldChatCell.userName.isEmpty ? chatCell.userName : oldChatCell.userName
-                let imageKind = oldChatCell.imageKind.isClear ? chatCell.imageKind : oldChatCell.imageKind
+                let chatUser: FBUserModel = oldChatCell.chatUser.nickname.isEmpty ? chatCell.chatUser : oldChatCell.chatUser
                 let lastMessage = oldChatCell.lastMessage.isEmpty ? chatCell.lastMessage : oldChatCell.lastMessage
                 let timeMessage = oldChatCell.timeMessage.isEmpty ? chatCell.timeMessage : oldChatCell.timeMessage
                 let messages = oldChatCell.messages.isEmpty ? chatCell.messages : oldChatCell.messages
+                let lastMessageID = messages.last?.id
 
                 let newChatCell = ChatCellIModel(
-                    userID: oldChatCell.userID,
-                    userName: userName,
-                    imageKind: imageKind,
+                    chatUser: chatUser,
                     lastMessage: lastMessage,
                     timeMessage: timeMessage,
                     messages: messages
@@ -174,11 +210,7 @@ private extension AllChatsViewModel {
             var users: [ChatCellIModel] = []
             while let userInfo = try? await taskGroup.next() {
                 guard let userInfo else { continue }
-                let chatCell = ChatCellIModel(
-                    userID: userInfo.uid,
-                    userName: userInfo.nickname,
-                    imageKind: .url(URL(string: userInfo.avatarImage ?? .clear))
-                )
+                let chatCell = ChatCellIModel(chatUser: userInfo)
                 users.append(chatCell)
             }
             return users
@@ -196,7 +228,7 @@ private extension AllChatsViewModel {
         for userID in usersIDsSet {
             if userID == currentUserID {
                 let chatCell = ChatCellIModel(
-                    userID: userID,
+                    chatUser: FBUserModel(uid: userID, nickname: .clear, email: .clear),
                     lastMessage: Constants.emptyCellSubtitleForYou
                 )
                 chatsMessages.append(chatCell)
@@ -205,7 +237,7 @@ private extension AllChatsViewModel {
 
             // Фильтруем сообщения только текущего пользователя и собеседника
             let theirMessages = messages.filter {
-                ($0.receiverID == userID && $0.userID == currentUserID) || ($0.userID == currentUserID && $0.receiverID == userID)
+                ($0.receiverID == userID && $0.userID == currentUserID) || ($0.userID == userID && $0.receiverID == currentUserID)
             }
 
             // Сортируем сообщения по дате отправления
@@ -213,15 +245,14 @@ private extension AllChatsViewModel {
                 ChatCellIModel.Message(
                     id: $0.id,
                     time: $0.dispatchDate.dateRedescription?.formattedString(format: Constants.dateFormattedString) ?? .clear,
-                    text: $0.message
+                    text: $0.message,
+                    isYou: $0.userID == currentUserID
                 )
             }
 
             let lastMessageInfo = sortedMessages.last
             let chatCell = ChatCellIModel(
-                userID: userID,
-                userName: .clear,
-                imageKind: .clear,
+                chatUser: FBUserModel(uid: userID, nickname: .clear, email: .clear),
                 lastMessage: lastMessageInfo?.text ?? Constants.emptyCellSubtitleForInterlator,
                 timeMessage: lastMessageInfo?.time ?? .clear,
                 messages: sortedMessages

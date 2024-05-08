@@ -14,6 +14,7 @@ extension AllChatsViewModel {
     struct Reducers: ClearConfigurationProtocol {
         var modelContext: ModelContext!
         var root: RootViewModel!
+        var nav: Navigation!
 
         static let clear = Reducers()
     }

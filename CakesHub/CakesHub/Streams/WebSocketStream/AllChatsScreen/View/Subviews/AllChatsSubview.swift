@@ -55,8 +55,8 @@ extension AllChatsView {
         VStack {
             CHMChatCell(
                 configuration: .basic(
-                    imageKind: cell.imageKind,
-                    title: cell.userName,
+                    imageKind: .url(URL(string: cell.chatUser.avatarImage ?? .clear)),
+                    title: cell.chatUser.nickname,
                     subtitle: cell.lastMessage,
                     time: cell.timeMessage
                 )
@@ -64,6 +64,10 @@ extension AllChatsView {
             .padding(.horizontal)
 
             Divider()
+        }
+        .contentShape(.rect)
+        .onTapGesture {
+            didTapCell(with: cell)
         }
     }
 

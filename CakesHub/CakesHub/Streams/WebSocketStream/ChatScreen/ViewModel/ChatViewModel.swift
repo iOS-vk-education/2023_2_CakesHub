@@ -48,13 +48,6 @@ extension ChatViewModel: ChatViewModelProtocol {
 
     /// Create web socket connection with the server
     func connectWebSocket(completion: @escaping CHMVoidBlock) {
-        messages.append(.init(
-            isYou: false,
-            message: "Привет! Как дела? Тебе понравился какой-то товар?",
-            user: .init(name: seller.name, image: seller.userImage),
-            time: Date.now.formattedString(format: "HH:mm"),
-            state: .received
-        ))
         receiveWebSocketData()
     }
 
