@@ -15,4 +15,5 @@ enum FirestoreCollections: String {
     case products
     case notifications
     case categories
+    case messages
 }

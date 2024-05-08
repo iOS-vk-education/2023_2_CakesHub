@@ -9,12 +9,21 @@
 
 import Foundation
 
-struct ChatCellIModel: Identifiable {
-    let userName: String
-    let imageKind: ImageKind
-    let lastMessage: String
-    let timeMessage: String
+struct ChatCellIModel: Identifiable, ClearConfigurationProtocol {
+    var userID: String = .clear
+    var userName: String = .clear
+    var imageKind: ImageKind = .clear
+    var lastMessage: String = .clear
+    var timeMessage: String = .clear
+    var messages: [Message] = []
 
-    var id: String { userName }
+    var id: String { userID }
+
+    struct Message {
+        let id: String
+        let time: String
+        let text: String
+    }
+
+    static let clear = ChatCellIModel()
 }
-

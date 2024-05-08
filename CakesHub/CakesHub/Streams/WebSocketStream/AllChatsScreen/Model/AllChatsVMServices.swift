@@ -12,6 +12,16 @@ import Foundation
 extension AllChatsViewModel {
 
     struct Services: ClearConfigurationProtocol {
+        let chatService: ChatServiceProtocol
+        let userService: UserServiceProtocol
+
+        init(
+            chatService: ChatServiceProtocol = ChatService.shared,
+            userService: UserServiceProtocol = UserService.shared
+        ) {
+            self.chatService = chatService
+            self.userService = userService
+        }
 
         static let clear = Services()
     }

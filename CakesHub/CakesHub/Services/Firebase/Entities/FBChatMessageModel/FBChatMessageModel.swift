@@ -9,18 +9,18 @@
 import Foundation
 
 struct FBChatMessageModel: FBModelable {
-    let id           : UUID
+    let id           : String
     let message      : String
-    let receiver     : FBUserMessageModel
-    let user         : FBUserMessageModel
-    let dispatchDate : Date
+    let receiverID   : String
+    let userID       : String
+    let dispatchDate : String
 
     static let clear = FBChatMessageModel(
-        id: UUID(),
+        id: .clear,
         message: .clear,
-        receiver: .clear,
-        user: .clear,
-        dispatchDate: Date()
+        receiverID: .clear,
+        userID: .clear,
+        dispatchDate: .clear
     )
 }
 
@@ -30,23 +30,20 @@ extension FBChatMessageModel {
 
     init?(dictionary: [String: Any]) {
         guard
-            let id = dictionary["id"] as? UUID,
+            let id = dictionary["id"] as? String,
             let message = dictionary["message"] as? String,
-            let receiverDict = dictionary["receiver"] as? [String: Any],
-            let userDict = dictionary["user"] as? [String: Any],
-            let dispatchDate = dictionary["dispatchDate"] as? Date
+            let receiverID = dictionary["receiverID"] as? String,
+            let userID = dictionary["userID"] as? String,
+            let dispatchDate = dictionary["dispatchDate"] as? String
         else {
             return nil
         }
-        
-        let receiver = FBUserMessageModel(dictionary: receiverDict) ?? .clear
-        let user = FBUserMessageModel(dictionary: userDict) ?? .clear
 
         self.init(
             id: id,
             message: message,
-            receiver: receiver,
-            user: user,
+            receiverID: receiverID,
+            userID: userID,
             dispatchDate: dispatchDate
         )
     }

@@ -13,6 +13,7 @@ extension AllChatsViewModel {
 
     struct UIProperties: ClearConfigurationProtocol {
         var searchText: String = .clear
+        var showLoader = false
 
         static let clear = UIProperties()
     }

@@ -12,12 +12,12 @@ struct AllChatsView: View, ViewModelable {
     typealias ViewModel = AllChatsViewModel
 
     @State var viewModel = ViewModel()
-    @State var inputText = ""
     @EnvironmentObject private var nav: Navigation
     @EnvironmentObject private var root: RootViewModel
+    @Environment(\.modelContext) private var modelContext
 
     var body: some View {
-        MainView
+        MainOrLoadingView
             .onAppear(perform: onAppear)
     }
 }
@@ -27,6 +27,8 @@ struct AllChatsView: View, ViewModelable {
 private extension AllChatsView {
 
     func onAppear() {
+        viewModel.setReducers(modelContext: modelContext, root: root)
+        viewModel.onAppear()
     }
 }
 

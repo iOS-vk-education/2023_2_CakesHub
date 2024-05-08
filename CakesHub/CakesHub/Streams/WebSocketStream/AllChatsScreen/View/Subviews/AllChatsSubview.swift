@@ -13,6 +13,15 @@ import SwiftUI
 
 extension AllChatsView {
 
+    @ViewBuilder
+    var MainOrLoadingView: some View {
+        if viewModel.uiProperties.showLoader {
+            LoadingView
+        } else {
+            MainView
+        }
+    }
+
     var MainView: some View {
         ScrollView {
             LazyVStack(pinnedViews: [.sectionHeaders]) {
@@ -25,6 +34,14 @@ extension AllChatsView {
             }
         }
         .background(Constants.bgColor)
+    }
+
+    var LoadingView: some View {
+        Constants.bgColor
+            .ignoresSafeArea()
+            .overlay {
+                ProgressView()
+            }
     }
 
     @ViewBuilder
@@ -55,6 +72,7 @@ extension AllChatsView {
             CHMImage.magnifier
                 .renderingMode(.template)
                 .foregroundStyle(CHMColor<IconPalette>.iconSecondary.color)
+
             TextField(Constants.searchTitle, text: $viewModel.uiProperties.searchText)
         }
         .padding(.vertical, 9)
@@ -68,6 +86,12 @@ extension AllChatsView {
 
 #Preview {
     AllChatsView(viewModel: .mockData)
+        .environmentObject(Navigation())
+        .environmentObject(RootViewModel.mockData)
+}
+
+#Preview {
+    AllChatsView()
         .environmentObject(Navigation())
         .environmentObject(RootViewModel.mockData)
 }
