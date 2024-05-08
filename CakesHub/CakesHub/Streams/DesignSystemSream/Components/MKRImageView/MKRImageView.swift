@@ -99,6 +99,13 @@ private extension MKRImageView {
             .fill(.ultraThinMaterial)
             .frame(width: size.width, height: size.height)
             .clippedShape(configuration.imageShape)
+            .overlay {
+                Image(.cakeLogo)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: size.width - size.width * 0.25, height: size.height)
+                    .clippedShape(configuration.imageShape)
+            }
     }
 }
 
@@ -128,6 +135,16 @@ private extension Image {
             imageShape: .roundedRectangle(20)
         )
     )
+}
+
+#Preview {
+    MKRImageView(
+        configuration: .basic(
+            kind: .url(nil),
+            imageShape: .capsule
+        )
+    )
+    .frame(edge: 100)
 }
 
 #Preview {

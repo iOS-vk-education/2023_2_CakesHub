@@ -13,7 +13,7 @@ struct MainView: View, ViewModelable {
 
     @EnvironmentObject private var nav: Navigation
     @EnvironmentObject var rootViewModel: RootViewModel
-    @StateObject var viewModel: ViewModel
+    @StateObject var viewModel = ViewModel()
     var size: CGSize
 
     var body: some View {

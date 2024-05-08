@@ -78,12 +78,11 @@ private extension RootView {
     var AllTabBarViews: some View {
         switch nav.activeTab {
         case .house:
-            MainView(viewModel: .init(), size: size)
+            MainView(size: size)
         case .categories:
             CategoriesView()
         case .chat:
-            Text("Chats")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            AllChatsView()
         case .notifications:
             NotificationView()
         case .profile:
