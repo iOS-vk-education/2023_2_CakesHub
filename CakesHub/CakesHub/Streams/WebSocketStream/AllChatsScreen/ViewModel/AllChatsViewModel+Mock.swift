@@ -33,7 +33,7 @@ private extension AllChatsViewModel {
             .init(
                 userID: "2",
                 userName: "Полиночка",
-                imageKind: .uiImage(.bestGirl2),
+                imageKind: .uiImage(.bestGirl),
                 lastMessage: "А это ещё одно сообщение",
                 timeMessage: "02:12"
             )

@@ -11,7 +11,14 @@ import SwiftData
 
 // MARK: - AllChatsViewModelProtocol
 
-protocol AllChatsViewModelProtocol: AnyObject {}
+protocol AllChatsViewModelProtocol: AnyObject {
+    // MARK: Network
+    func getUserMessages() async throws -> [FBChatMessageModel]
+    // MARK: Lifecycle
+    func onAppear()
+    // MARK: Reducers
+    func setReducers(modelContext: ModelContext, root: RootViewModel)
+}
 
 // MARK: - AllChatsViewModel
 
@@ -82,7 +89,7 @@ extension AllChatsViewModel {
 
 // MARK: - Private Logic
 
-extension AllChatsViewModel {
+private extension AllChatsViewModel {
 
     /// Получаем собеседников и полную историю сообщений с ним
     func assembleMessagesInfoCells(messages: [FBChatMessageModel]) async -> [ChatCellIModel] {

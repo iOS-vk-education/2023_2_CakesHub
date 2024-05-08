@@ -574,19 +574,19 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		E51B327D2B7E5ECB0028E8C7 /* DesignSystemSream */ = {
+		E51B327D2B7E5ECB0028E8C7 /* DesignSystemStream */ = {
 			isa = PBXGroup;
 			children = (
 				E51B332B2B7E603E0028E8C7 /* Protocols */,
 				E51B32822B7E5F540028E8C7 /* Components */,
 			);
-			path = DesignSystemSream;
+			path = DesignSystemStream;
 			sourceTree = "<group>";
 		};
 		E51B327E2B7E5EE30028E8C7 /* Streams */ = {
 			isa = PBXGroup;
 			children = (
-				E51B327D2B7E5ECB0028E8C7 /* DesignSystemSream */,
+				E51B327D2B7E5ECB0028E8C7 /* DesignSystemStream */,
 				E52CDD072BB6460E009C08B9 /* WebSocketStream */,
 				A332D1652BB2F842007C194D /* ProfileStream */,
 				E51B32802B7E5F090028E8C7 /* ProductStream */,
@@ -1294,13 +1294,13 @@
 		E55B5EC62BCA544800DDDFA4 /* SwiftDataModels */ = {
 			isa = PBXGroup;
 			children = (
+				E5A8E85F2BEABCB3004FD3DA /* SDChatMessageModel.swift */,
 				E55B5EC72BCA546000DDDFA4 /* SDUserModel.swift */,
 				E5155CE02BCBF93000BF773D /* SDProductModel.swift */,
 				E5155CE22BCBFDB900BF773D /* SDProductReviewsModel.swift */,
 				E55EFD0C2BCEA14C00493686 /* SDCommentInfoModel.swift */,
 				E52722742BE8F3A300E4441B /* SDNotificationModel.swift */,
 				E5A8E85D2BEA4324004FD3DA /* SDCateoryModel.swift */,
-				E5A8E85F2BEABCB3004FD3DA /* SDChatMessageModel.swift */,
 			);
 			path = SwiftDataModels;
 			sourceTree = "<group>";
