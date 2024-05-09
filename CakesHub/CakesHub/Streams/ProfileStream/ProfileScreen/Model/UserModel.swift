@@ -21,24 +21,6 @@ struct UserModel: ClearConfigurationProtocol, Hashable {
     static let clear: Self = .init()
 }
 
-// MARK: - Mapper
-
-extension FBUserModel {
-
-    var mapperToUserModel: UserModel {
-        UserModel(
-            id: uid,
-            name: nickname,
-            surname: .clear,
-            mail: email,
-            orders: .zero,
-            userImage: .url(URL(string: avatarImage ?? .clear)),
-            userHeaderImage: .url(URL(string: headerImage ?? .clear)),
-            products: []
-        )
-    }
-}
-
 // MARK: - Mock Data
 
 #if DEBUG

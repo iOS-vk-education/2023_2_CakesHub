@@ -165,7 +165,7 @@ private extension AuthViewModel {
             }
 
             services.wsService.send(
-                message: Message.connectionMessage(userID: userID)
+                message: WSMessage.connectionMessage(userID: userID)
             ) {
                 Logger.log(kind: .webSocket, message: "Соединение установленно через Auth View")
             }

@@ -22,6 +22,7 @@ extension MKRImageView {
 enum ImageKind: Hashable {
     case url(URL?)
     case uiImage(UIImage?)
+    case string(String)
     case clear
 }
 
@@ -33,6 +34,8 @@ extension ImageKind {
             return url.isNil
         case let .uiImage(uiImage):
             return uiImage.isNil
+        case let .string(string):
+            return string.isEmpty
         case .clear:
             return true
         }

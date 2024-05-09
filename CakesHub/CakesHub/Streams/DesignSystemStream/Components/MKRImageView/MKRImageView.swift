@@ -45,6 +45,12 @@ private extension MKRImageView {
                     PlaceholderView(size: size)
                 }
 
+            case let .string(string):
+                if let url = URL(string: string) {
+                    CHMAsyncImage(url: url, size: size)
+                } else {
+                    PlaceholderView(size: size)
+                }
             case .clear:
                 EmptyView()
             }

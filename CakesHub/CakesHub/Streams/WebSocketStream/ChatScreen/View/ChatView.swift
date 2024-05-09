@@ -12,11 +12,12 @@ struct ChatView: View, ViewModelable {
     typealias ViewModel = ChatViewModel
 
     @EnvironmentObject private var nav: Navigation
-    @StateObject var viewModel: ViewModel
+    @State var viewModel: ViewModel
     @State var messageText: String = .clear
 
     init(viewModel: ViewModel) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
+        Logger.print("INIT ChatView: \(UIDevice.current.name)")
+        self._viewModel = State(initialValue: viewModel)
     }
 
     var body: some View {

@@ -150,6 +150,15 @@ extension ProductModel {
                         return nil
                     }
                 })
+            case .string:
+                return .strings(images.compactMap {
+                    switch $0.kind {
+                    case let .string(string):
+                        return string
+                    default:
+                        return nil
+                    }
+                })
             case .clear:
                 return .clear
             }

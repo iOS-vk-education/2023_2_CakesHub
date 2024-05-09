@@ -17,28 +17,33 @@ protocol ChatViewModelProtocol: AnyObject {
 
 // MARK: - ChatViewModel
 
-final class ChatViewModel: ObservableObject, ViewModelProtocol {
+@Observable
+final class ChatViewModel: ViewModelProtocol {
  
-    @Published private(set) var messages: [ChatMessage]
-    @Published private(set) var lastMessageID: UUID?
-    @Published private(set) var seller: UserModel
+    private(set) var messages: [ChatMessage]
+    private(set) var lastMessageID: String?
+    private(set) var interlocutor: Interlocutor
     private(set) var user: ProductModel.SellerInfo
     private(set) var wsSocket: WebSockerManagerProtocol?
 
     init(
         messages: [ChatMessage] = [], 
-        lastMessageID: UUID? = nil,
-        seller: UserModel = .clear,
+        lastMessageID: String? = nil,
+        interlocutor: Interlocutor = .clear,
         user: ProductModel.SellerInfo,
         wsSocket: WebSockerManagerProtocol = WebSockerManager.shared
     ) {
+        Logger.print("INIT ChatViewModel")
         self.messages = messages
         self.lastMessageID = lastMessageID
-        self.seller = seller
+        self.interlocutor = interlocutor
         self.user = user
-        if self.wsSocket == nil {
-            self.wsSocket = wsSocket
-        }
+        self.wsSocket = wsSocket
+        print("count: \(messages.count)")
+    }
+
+    deinit {
+        Logger.print("DEINIT ChatViewModel")
     }
 }
 
@@ -54,12 +59,12 @@ extension ChatViewModel: ChatViewModelProtocol {
     /// Sending message to the server
     /// - Parameter message: message data
     func sendMessage(message: String) {
-        let msg = Message(
-            id: UUID(),
+        let msg = WSMessage(
+            id: UUID().uuidString,
             kind: .message,
             userName: user.name,
             userID: user.id,
-            receiverID: seller.id,
+            receiverID: interlocutor.id,
             dispatchDate: Date(),
             message: message,
             state: .progress
@@ -77,9 +82,9 @@ private extension ChatViewModel {
 
     /// Getting new message
     func receiveWebSocketData() {
-        wsSocket?.receive { [weak self] (message: Message) in
+        wsSocket?.receive { [weak self] (message: WSMessage) in
             guard let self, message.kind == .message else { return }
-            let image: ImageKind = message.userID == user.id ? user.userImage : seller.userImage
+            let image: ImageKind = message.userID == user.id ? user.userImage : interlocutor.image
             let chatMessage = ChatMessage(
                 id: message.id,
                 isYou: message.userID == user.id,

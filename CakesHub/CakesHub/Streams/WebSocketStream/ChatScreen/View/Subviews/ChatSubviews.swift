@@ -18,6 +18,10 @@ extension ChatView {
             ZStack(alignment: .bottom) {
                 ScrollView {
                     MessagesBlock
+
+                    HStack { Spacer() }
+                        .id(Constants.scrollIdentifier)
+                        .padding(.bottom, 50)
                 }
                 .onTapGesture {
                     UIApplication.shared.sendAction(
@@ -33,21 +37,18 @@ extension ChatView {
                     .background(.ultraThinMaterial)
             }
             .frame(maxHeight: .infinity)
-            .onAppear {
-                if let id = viewModel.lastMessageID {
-                    proxy.scrollTo(id, anchor: .bottom)
-                }
-            }
-            .onChange(of: viewModel.lastMessageID) { _, id in
-                if let id {
-                    withAnimation {
-                        proxy.scrollTo(id, anchor: .bottom)
-                    }
-                }
-            }
             .background {
                 BackgroundView
                     .ignoresSafeArea()
+            }
+            .onAppear {
+                // MARK: Закомментировать для работы превью.
+                proxy.scrollTo(Constants.scrollIdentifier, anchor: .bottom)
+            }
+            .onChange(of: viewModel.lastMessageID) { _, _ in
+                withAnimation {
+                    proxy.scrollTo(Constants.scrollIdentifier, anchor: .bottom)
+                }
             }
         }
     }
@@ -116,6 +117,7 @@ extension ChatView {
 private extension ChatView {
 
     enum Constants {
+        static let scrollIdentifier = "EMPTY"
         static let imageSize: CGFloat = 200
         static let imageCornerRadius: CGFloat = 20
         static let tgBackground = Image("tg_layer")

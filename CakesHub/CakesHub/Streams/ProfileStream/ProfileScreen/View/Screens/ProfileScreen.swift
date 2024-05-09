@@ -24,8 +24,13 @@ struct ProfileScreen: View {
             .navigationDestination(for: ViewModel.Screens.self) { screen in
                 switch screen {
                 case .message:
+                    let interlocutor: ChatViewModel.Interlocutor = .init(
+                        id: viewModel.user.id,
+                        image: viewModel.user.userImage,
+                        nickname: viewModel.user.name
+                    )
                     let vm = ChatViewModel(
-                        seller: viewModel.user,
+                        interlocutor: interlocutor,
                         user: rootViewModel.currentUser.mapper
                     )
                     ChatView(viewModel: vm)

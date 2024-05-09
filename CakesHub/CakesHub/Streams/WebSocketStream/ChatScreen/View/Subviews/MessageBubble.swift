@@ -91,9 +91,9 @@ private extension MessageBubble {
     }
 }
 
-// MARK: - Message State
+// MARK: - WSMessage State
 
-private extension Message.State {
+private extension WSMessage.State {
 
     var image: Image {
         switch self {
@@ -149,7 +149,7 @@ private extension Message.State {
 
 // MARK: - Constants
 
-private extension Message.State {
+private extension WSMessage.State {
 
     enum Constants {
         static let receivedImage = Image("checkMark2")

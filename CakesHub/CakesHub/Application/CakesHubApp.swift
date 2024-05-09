@@ -68,7 +68,7 @@ private extension AppDelegate {
                 return
             }
             wbManager.send(
-                message: Message.connectionMessage(userID: userID)
+                message: WSMessage.connectionMessage(userID: userID)
             ) {
                 Logger.log(kind: .webSocket, message: "Соединение установленно через App Delegate")
             }

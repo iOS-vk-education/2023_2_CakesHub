@@ -1,5 +1,5 @@
 //
-//  Message.swift
+//  WSMessage.swift
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 26.03.2024.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-struct Message: Codable, Identifiable {
-    var id: UUID
+struct WSMessage: Codable, Identifiable {
+    var id: String
     let kind: WSMessageKind
     let userName: String
     let userID: String
@@ -25,25 +25,9 @@ struct Message: Codable, Identifiable {
     }
 }
 
-extension Message {
-
-    static func connectionMessage(userID: String) -> Message {
-        Message(
-            id: UUID(),
-            kind: .connection,
-            userName: .clear,
-            userID: userID,
-            receiverID: .clear,
-            dispatchDate: Date(),
-            message: .clear,
-            state: .progress
-        )
-    }
-}
-
 // MARK: - Mapper
 
-extension Message {
+extension WSMessage {
 
     func mapper(name: String, userImage: ImageKind) -> ChatMessage {
         .init(
@@ -59,10 +43,18 @@ extension Message {
 
 // MARK: - Helper
 
-private extension Data? {
+extension WSMessage {
 
-    var mapper: ImageKind {
-        guard let data = self else { return .clear }
-        return .uiImage(UIImage(data: data))
+    static func connectionMessage(userID: String) -> WSMessage {
+        WSMessage(
+            id: UUID().uuidString,
+            kind: .connection,
+            userName: .clear,
+            userID: userID,
+            receiverID: .clear,
+            dispatchDate: Date(),
+            message: .clear,
+            state: .progress
+        )
     }
 }
