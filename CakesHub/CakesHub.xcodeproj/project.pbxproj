@@ -178,6 +178,7 @@
 		E59AEC7C2B92BF9F00760E61 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC7B2B92BF9F00760E61 /* Logger.swift */; };
 		E59AEC7F2B92C4A600760E61 /* FBProductModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC7E2B92C4A600760E61 /* FBProductModel+Mock.swift */; };
 		E5A65EBC2BED29BB0030338C /* ChatInterlocutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A65EBB2BED29BB0030338C /* ChatInterlocutor.swift */; };
+		E5A65EBE2BED447F0030338C /* Notification.Name+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A65EBD2BED447F0030338C /* Notification.Name+Extenstions.swift */; };
 		E5A8E85E2BEA4324004FD3DA /* SDCateoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A8E85D2BEA4324004FD3DA /* SDCateoryModel.swift */; };
 		E5A8E8602BEABCB3004FD3DA /* SDChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A8E85F2BEABCB3004FD3DA /* SDChatMessageModel.swift */; };
 		E5A8E8632BEABCDC004FD3DA /* FBChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A8E8622BEABCDC004FD3DA /* FBChatMessageModel.swift */; };
@@ -387,6 +388,7 @@
 		E59AEC7B2B92BF9F00760E61 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		E59AEC7E2B92C4A600760E61 /* FBProductModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FBProductModel+Mock.swift"; sourceTree = "<group>"; };
 		E5A65EBB2BED29BB0030338C /* ChatInterlocutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInterlocutor.swift; sourceTree = "<group>"; };
+		E5A65EBD2BED447F0030338C /* Notification.Name+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+Extenstions.swift"; sourceTree = "<group>"; };
 		E5A8E85D2BEA4324004FD3DA /* SDCateoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDCateoryModel.swift; sourceTree = "<group>"; };
 		E5A8E85F2BEABCB3004FD3DA /* SDChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDChatMessageModel.swift; sourceTree = "<group>"; };
 		E5A8E8622BEABCDC004FD3DA /* FBChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBChatMessageModel.swift; sourceTree = "<group>"; };
@@ -890,6 +892,7 @@
 				E51B330A2B7E60010028E8C7 /* Optional+Extensions.swift */,
 				E51B330C2B7E60010028E8C7 /* URL+Extensions.swift */,
 				E52CE6E62BBE39E0001F45BB /* Date+Extenstions.swift */,
+				E5A65EBD2BED447F0030338C /* Notification.Name+Extenstions.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -1873,6 +1876,7 @@
 				E51B32F52B7E5FEF0028E8C7 /* MKRImageView+Configuration.swift in Sources */,
 				E5E219D82B94118000BE9ACE /* Mockable.swift in Sources */,
 				E51B32D12B7E5FEF0028E8C7 /* CHMCommentView+Defaults.swift in Sources */,
+				E5A65EBE2BED447F0030338C /* Notification.Name+Extenstions.swift in Sources */,
 				E51B33462B7E62AF0028E8C7 /* ProductReviewsModel+Mock.swift in Sources */,
 				E59AEC752B92B7A400760E61 /* FBUserModel.swift in Sources */,
 				E5E219D42B940FF000BE9ACE /* CategoriesViewModel.swift in Sources */,

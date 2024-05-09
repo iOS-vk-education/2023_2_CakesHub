@@ -128,33 +128,33 @@ extension NotificationViewModel {
 extension NotificationViewModel {
 
     func getNotificationsFromWebSocketLayer() {
-        services.wsManager.receive { [weak self] (response: WSNotification) in
-            guard let self else { return }
-            let notification: NotificationModel = response.mapper
-            if !notifications.contains(where: { $0.id == notification.id }) {
-                DispatchQueue.main.async {
-                    // Обновляем UI
-                    if self.screenIsShimmering {
-                        withAnimation {
-                            self.screenIsShimmering = false
-                        }
-                    }
-                    self.notifications.append(notification)
-
-                    // Кэшируем уведомление из Web Socket канала
-                    let fbNotification = FBNotification(
-                        id: response.id,
-                        title: response.title,
-                        date: response.date,
-                        message: response.message,
-                        productID: response.productID,
-                        receiverID: response.receiverID,
-                        creatorID: response.userID
-                    )
-                    self.save(notification: fbNotification)
-                }
-            }
-        }
+//        services.wsManager.receive { [weak self] (response: WSNotification) in
+//            guard let self else { return }
+//            let notification: NotificationModel = response.mapper
+//            if !notifications.contains(where: { $0.id == notification.id }) {
+//                DispatchQueue.main.async {
+//                    // Обновляем UI
+//                    if self.screenIsShimmering {
+//                        withAnimation {
+//                            self.screenIsShimmering = false
+//                        }
+//                    }
+//                    self.notifications.append(notification)
+//
+//                    // Кэшируем уведомление из Web Socket канала
+//                    let fbNotification = FBNotification(
+//                        id: response.id,
+//                        title: response.title,
+//                        date: response.date,
+//                        message: response.message,
+//                        productID: response.productID,
+//                        receiverID: response.receiverID,
+//                        creatorID: response.userID
+//                    )
+//                    self.save(notification: fbNotification)
+//                }
+//            }
+//        }
     }
 }
 

@@ -11,8 +11,8 @@ import Foundation
 // MARK: - ChatViewModelProtocol
 
 protocol ChatViewModelProtocol: AnyObject {
-    func connectWebSocket(completion: @escaping CHMVoidBlock)
     func sendMessage(message: String)
+    func receivedMessage(output: NotificationCenter.Publisher.Output)
 }
 
 // MARK: - ChatViewModel
@@ -51,11 +51,6 @@ final class ChatViewModel: ViewModelProtocol {
 
 extension ChatViewModel: ChatViewModelProtocol {
 
-    /// Create web socket connection with the server
-    func connectWebSocket(completion: @escaping CHMVoidBlock) {
-        receiveWebSocketData()
-    }
-
     /// Sending message to the server
     /// - Parameter message: message data
     func sendMessage(message: String) {
@@ -74,36 +69,26 @@ extension ChatViewModel: ChatViewModelProtocol {
         messages.append(chatMsg)
         wsSocket?.send(message: msg, completion: {})
     }
-}
 
-// MARK: - Private Methods
-
-private extension ChatViewModel {
-
-    /// Getting new message
-    func receiveWebSocketData() {
-        wsSocket?.receive { [weak self] (message: WSMessage) in
-            guard let self, message.kind == .message else { return }
-            let image: ImageKind = message.userID == user.id ? user.userImage : interlocutor.image
-            let chatMessage = ChatMessage(
-                id: message.id,
-                isYou: message.userID == user.id,
-                message: message.message,
-                user: .init(name: message.userName, image: image),
-                time: message.dispatchDate.formattedString(format: "HH:mm"),
-                state: message.state
-            )
-            // Если сообщение не найденно, значит добавляем его
-            guard let index = messages.firstIndex(where: { $0.id == chatMessage.id }) else {
-                DispatchQueue.main.async {
-                    self.messages.append(chatMessage)
-                    self.lastMessageID = chatMessage.id
-                }
-                return
-            }
-            DispatchQueue.main.async {
-                self.messages[index] = chatMessage
-            }
+    func receivedMessage(output: NotificationCenter.Publisher.Output) {
+        guard let wsMessage = output.object as? WSMessage, wsMessage.state == .received else {
+            return
         }
+        let image: ImageKind = wsMessage.userID == user.id ? user.userImage : interlocutor.image
+        let chatMessage = ChatMessage(
+            id: wsMessage.id,
+            isYou: wsMessage.userID == user.id,
+            message: wsMessage.message,
+            user: .init(name: wsMessage.userName, image: image),
+            time: wsMessage.dispatchDate.formattedString(format: "HH:mm"),
+            state: wsMessage.state
+        )
+        // Если сообщение не найденно, значит добавляем его
+        guard let index = messages.firstIndex(where: { $0.id == chatMessage.id }) else {
+            messages.append(chatMessage)
+            lastMessageID = chatMessage.id
+            return
+        }
+        messages[index] = chatMessage
     }
 }

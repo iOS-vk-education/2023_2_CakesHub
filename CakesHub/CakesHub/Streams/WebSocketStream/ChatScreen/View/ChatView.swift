@@ -23,6 +23,13 @@ struct ChatView: View, ViewModelable {
     var body: some View {
         MainView
             .onAppear(perform: onAppear)
+            .onReceive(
+                NotificationCenter.default.publisher(
+                    for: .WebSocketNames.message
+                )
+            ) { output in
+                viewModel.receivedMessage(output: output)
+            }
     }
 }
 
@@ -31,9 +38,6 @@ struct ChatView: View, ViewModelable {
 private extension ChatView {
 
     func onAppear() {
-        viewModel.connectWebSocket {
-            nav.openPreviousScreen()
-        }
     }
 }
 

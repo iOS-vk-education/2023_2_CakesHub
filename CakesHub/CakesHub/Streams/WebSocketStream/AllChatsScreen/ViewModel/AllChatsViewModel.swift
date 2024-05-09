@@ -79,6 +79,23 @@ extension AllChatsViewModel {
             uiProperties.showLoader = false
         }
     }
+
+    func receiveMessage(output: NotificationCenter.Publisher.Output) {
+        guard let wsMessage = output.object as? WSMessage, wsMessage.state == .received else {
+            return
+        }
+        guard let index = chatCells.firstIndex(where: { $0.user.id == wsMessage.userID }) else {
+            return
+        }
+        let newMessage = ChatCellIModel.Message(
+            id: wsMessage.id,
+            time: wsMessage.dispatchDate.formattedString(format: "HH:mm"),
+            text: wsMessage.message,
+            isYou: wsMessage.userID == currentUserID
+        )
+        chatCells[index].lastMessage = newMessage.text
+        chatCells[index].messages.append(newMessage)
+    }
 }
 
 // MARK: - Action

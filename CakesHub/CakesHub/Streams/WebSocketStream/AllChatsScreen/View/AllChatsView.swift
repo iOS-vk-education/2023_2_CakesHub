@@ -19,6 +19,13 @@ struct AllChatsView: View, ViewModelable {
     var body: some View {
         MainOrLoadingView
             .onAppear(perform: onAppear)
+            .onReceive(
+                NotificationCenter.default.publisher(
+                    for: .WebSocketNames.message
+                )
+            ) { output in
+                viewModel.receiveMessage(output: output)
+            }
             .navigationDestination(for: ViewModel.Screens.self) { screen in
                 switch screen {
                 case let .chat(messages, interlocutor):

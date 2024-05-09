@@ -58,7 +58,9 @@ private extension AppDelegate {
         }
 
         wbManager.connection { [weak self] error in
-            guard let self else { return }
+            guard let self else {
+                return
+            }
             if let error {
                 if error is APIError {
                     Logger.log(kind: .error, message: error.localizedDescription)
@@ -69,8 +71,21 @@ private extension AppDelegate {
             }
             wbManager.send(
                 message: WSMessage.connectionMessage(userID: userID)
-            ) {
+            ) { [weak self] in
+                guard let self else {
+                    return
+                }
                 Logger.log(kind: .webSocket, message: "Соединение установленно через App Delegate")
+
+                wbManager.receive { (message: WSMessage) in
+                    DispatchQueue.main.async {
+                        Logger.log(kind: .webSocket, message: message)
+                        NotificationCenter.default.post(
+                            name: .WebSocketNames.message,
+                            object: message
+                        )
+                    }
+                }
             }
         }
     }
