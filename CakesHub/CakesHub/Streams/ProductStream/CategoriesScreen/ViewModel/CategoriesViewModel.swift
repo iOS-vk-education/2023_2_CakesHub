@@ -23,6 +23,7 @@ protocol CategoriesViewModelProtocol {
     func fetchSectionsFromMemory() -> [CategoriesViewModel.Section]
     // MARK: Actions
     func didTapSectionCell(title: String) -> [FBProductModel]
+    func filterData(categories: [CategoryCardModel]) -> [CategoryCardModel]
     // MARK: Reducers
     func setRootViewModel(with rootViewModel: RootViewModel)
     func setModelContext(with context: ModelContext)
@@ -123,6 +124,15 @@ extension CategoriesViewModel {
     func didTapSectionCell(title: String) -> [FBProductModel] {
         rootViewModel.productData.products.filter { product in
             product.categories.contains(title)
+        }
+    }
+
+    /// Фильтруем данные при вводе
+    func filterData(categories: [CategoryCardModel]) -> [CategoryCardModel] {
+        uiProperties.searchText.isEmpty
+        ? categories
+        : categories.filter {
+            $0.title.lowercased().contains(uiProperties.searchText.lowercased())
         }
     }
 }

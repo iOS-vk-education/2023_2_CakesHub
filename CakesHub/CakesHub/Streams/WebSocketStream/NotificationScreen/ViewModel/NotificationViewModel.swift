@@ -20,7 +20,7 @@ protocol NotificationViewModelProtocol: AnyObject {
     func onAppear(currentUserID: String)
     func deleteNotification(id notificationID: String)
     // MARK: WebSocketLayer
-    func getNotificationsFromWebSocketLayer()
+    func getNotificationsFromWebSocketLayer(output: NotificationCenter.Publisher.Output)
     // MARK: Memory CRUD
     func save(notification: FBNotification)
     func save(notifications: [FBNotification])
@@ -72,9 +72,6 @@ extension NotificationViewModel {
 
     @MainActor
     func onAppear(currentUserID: String) {
-        // Добавляем слушатель Web Socket протокола
-        getNotificationsFromWebSocketLayer()
-
         // Достаём данные из сети
         Task {
             screenIsShimmering = true
@@ -127,34 +124,31 @@ extension NotificationViewModel {
 
 extension NotificationViewModel {
 
-    func getNotificationsFromWebSocketLayer() {
-//        services.wsManager.receive { [weak self] (response: WSNotification) in
-//            guard let self else { return }
-//            let notification: NotificationModel = response.mapper
-//            if !notifications.contains(where: { $0.id == notification.id }) {
-//                DispatchQueue.main.async {
-//                    // Обновляем UI
-//                    if self.screenIsShimmering {
-//                        withAnimation {
-//                            self.screenIsShimmering = false
-//                        }
-//                    }
-//                    self.notifications.append(notification)
-//
-//                    // Кэшируем уведомление из Web Socket канала
-//                    let fbNotification = FBNotification(
-//                        id: response.id,
-//                        title: response.title,
-//                        date: response.date,
-//                        message: response.message,
-//                        productID: response.productID,
-//                        receiverID: response.receiverID,
-//                        creatorID: response.userID
-//                    )
-//                    self.save(notification: fbNotification)
-//                }
-//            }
-//        }
+    func getNotificationsFromWebSocketLayer(output: NotificationCenter.Publisher.Output) {
+        guard let wsNotification = output.object as? WSNotification else {
+            return
+        }
+        let notification: NotificationModel = wsNotification.mapper
+        guard !notifications.contains(where: { $0.id == notification.id }) else { return }
+        // Обновляем UI
+        if screenIsShimmering {
+            withAnimation {
+                screenIsShimmering = false
+            }
+        }
+        notifications.append(notification)
+
+        // Кэшируем уведомление из Web Socket канала
+        let fbNotification = FBNotification(
+            id: wsNotification.id,
+            title: wsNotification.title,
+            date: wsNotification.date,
+            message: wsNotification.message,
+            productID: wsNotification.productID,
+            receiverID: wsNotification.receiverID,
+            creatorID: wsNotification.userID
+        )
+        save(notification: fbNotification)
     }
 }
 
