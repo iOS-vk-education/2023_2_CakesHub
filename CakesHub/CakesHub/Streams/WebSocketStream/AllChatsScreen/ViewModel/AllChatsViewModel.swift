@@ -50,7 +50,7 @@ final class AllChatsViewModel: ViewModelProtocol, AllChatsViewModelProtocol {
         uiProperties.searchText.isEmpty
         ? chatCells
         : chatCells.filter {
-            $0.chatUser.nickname.lowercased().contains(uiProperties.searchText.lowercased().trimmingCharacters(in: .whitespaces))
+            $0.user.nickname.lowercased().contains(uiProperties.searchText.lowercased().trimmingCharacters(in: .whitespaces))
         }
     }
     private var currentUser: FBUserModel { reducers.root.currentUser }
@@ -87,28 +87,33 @@ extension AllChatsViewModel {
 
     func didTapCell(with cellInfo: ChatCellIModel) {
         let messages: [ChatMessage] = cellInfo.messages.map { message in
-            let messageUserName: String = message.isYou ? currentUser.nickname : cellInfo.chatUser.nickname
-            let messageUserImageString = message.isYou
-            ? currentUser.avatarImage
-            : cellInfo.chatUser.avatarImage
+            let messageUserName: String = message.isYou ? currentUser.nickname : cellInfo.user.nickname
+            let messageUserImage = message.isYou
+            ? .string(currentUser.avatarImage ?? .clear)
+            : cellInfo.user.imageKind
 
             return ChatMessage(
-                id: UUID(uuidString: message.id) ?? UUID(),
+                id: message.id,
                 isYou: message.isYou,
                 message: message.text,
                 user: .init(
                     name: messageUserName,
-                    image: .url(URL(string: messageUserImageString ?? .clear))
+                    image: messageUserImage
                 ),
                 time: message.time,
                 state: .received
             )
         }
 
+        var user: ChatCellIModel.User { cellInfo.user }
         reducers.nav.addScreen(
             screen: Screens.chat(
                 messages: messages,
-                seller: cellInfo.chatUser.mapperToUserModel
+                interlocutor: .init(
+                    id: user.id,
+                    image: user.imageKind,
+                    nickname: user.nickname
+                )
             )
         )
     }
@@ -158,20 +163,19 @@ private extension AllChatsViewModel {
             for chatCell in chatCells {
                 // Если в массиве уже есть ячейка с текущим ID, значит надо дополнить вторую часть информации по ней
                 // Иначе это только первая часть информации и мы просто добавляем её в массив и идём дальше
-                guard let oldChatCellIndex = mergedChatCells.firstIndex(where: { $0.chatUser.uid == chatCell.chatUser.uid }) else {
+                guard let oldChatCellIndex = mergedChatCells.firstIndex(where: { $0.user.id == chatCell.user.id }) else {
                     mergedChatCells.append(chatCell)
                     continue
                 }
 
                 let oldChatCell = mergedChatCells[oldChatCellIndex]
-                let chatUser: FBUserModel = oldChatCell.chatUser.nickname.isEmpty ? chatCell.chatUser : oldChatCell.chatUser
+                let user = oldChatCell.user.nickname.isEmpty ? chatCell.user : oldChatCell.user
                 let lastMessage = oldChatCell.lastMessage.isEmpty ? chatCell.lastMessage : oldChatCell.lastMessage
                 let timeMessage = oldChatCell.timeMessage.isEmpty ? chatCell.timeMessage : oldChatCell.timeMessage
                 let messages = oldChatCell.messages.isEmpty ? chatCell.messages : oldChatCell.messages
-                let lastMessageID = messages.last?.id
 
                 let newChatCell = ChatCellIModel(
-                    chatUser: chatUser,
+                    user: user,
                     lastMessage: lastMessage,
                     timeMessage: timeMessage,
                     messages: messages
@@ -210,7 +214,12 @@ private extension AllChatsViewModel {
             var users: [ChatCellIModel] = []
             while let userInfo = try? await taskGroup.next() {
                 guard let userInfo else { continue }
-                let chatCell = ChatCellIModel(chatUser: userInfo)
+                let user: ChatCellIModel.User = .init(
+                    id: userInfo.uid,
+                    nickname: userInfo.nickname,
+                    imageKind: .string(userInfo.avatarImage ?? .clear)
+                )
+                let chatCell = ChatCellIModel(user: user)
                 users.append(chatCell)
             }
             return users
@@ -228,7 +237,7 @@ private extension AllChatsViewModel {
         for userID in usersIDsSet {
             if userID == currentUserID {
                 let chatCell = ChatCellIModel(
-                    chatUser: FBUserModel(uid: userID, nickname: .clear, email: .clear),
+                    user: .init(id: userID),
                     lastMessage: Constants.emptyCellSubtitleForYou
                 )
                 chatsMessages.append(chatCell)
@@ -252,7 +261,7 @@ private extension AllChatsViewModel {
 
             let lastMessageInfo = sortedMessages.last
             let chatCell = ChatCellIModel(
-                chatUser: FBUserModel(uid: userID, nickname: .clear, email: .clear),
+                user: .init(id: userID),
                 lastMessage: lastMessageInfo?.text ?? Constants.emptyCellSubtitleForInterlator,
                 timeMessage: lastMessageInfo?.time ?? .clear,
                 messages: sortedMessages

@@ -12,6 +12,6 @@ import Foundation
 extension AllChatsViewModel {
 
     enum Screens: Hashable {
-        case chat(messages: [ChatMessage], seller: UserModel)
+        case chat(messages: [ChatMessage], interlocutor: ChatViewModel.Interlocutor)
     }
 }

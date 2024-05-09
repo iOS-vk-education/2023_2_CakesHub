@@ -24,16 +24,19 @@ private extension AllChatsViewModel {
     enum Constants {
         static let cells: [ChatCellIModel] = [
             .init(
-                chatUser: .king,
+                user: .init(id: king.uid, nickname: king.nickname, imageKind: .string(king.avatarImage ?? .clear)),
                 lastMessage: "Привет! Это последнее сообщение",
                 timeMessage: "03:12"
             ),
             .init(
-                chatUser: .poly,
+                user: .init(id: poly.uid, nickname: poly.nickname, imageKind: .string(poly.avatarImage ?? .clear)),
                 lastMessage: "А это ещё одно сообщение",
                 timeMessage: "02:12"
             )
         ]
+
+        private static let king = FBUserModel.king
+        private static let poly = FBUserModel.poly
     }
 }
 

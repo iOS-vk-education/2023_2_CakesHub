@@ -21,12 +21,12 @@ struct AllChatsView: View, ViewModelable {
             .onAppear(perform: onAppear)
             .navigationDestination(for: ViewModel.Screens.self) { screen in
                 switch screen {
-                case let .chat(messages, seller):
+                case let .chat(messages, interlocutor):
                     let lastMessageID = messages.last?.id
                     let vm = ChatViewModel(
                         messages: messages,
                         lastMessageID: lastMessageID,
-                        seller: seller,
+                        interlocutor: interlocutor,
                         user: root.currentUser.mapper
                     )
                     ChatView(viewModel: vm)

@@ -10,18 +10,26 @@
 import Foundation
 
 struct ChatCellIModel: Identifiable, ClearConfigurationProtocol {
-    var chatUser: FBUserModel = .clear
+    var user: User = .clear
     var lastMessage: String = .clear
     var timeMessage: String = .clear
     var messages: [Message] = []
 
-    var id: String { chatUser.uid }
+    var id: String { user.id }
 
     struct Message {
         let id: String
         let time: String
         let text: String
         let isYou: Bool
+    }
+
+    struct User: ClearConfigurationProtocol {
+        var id: String = .clear
+        var nickname: String = .clear
+        var imageKind: ImageKind = .clear
+
+        static let clear = User()
     }
 
     static let clear = ChatCellIModel()

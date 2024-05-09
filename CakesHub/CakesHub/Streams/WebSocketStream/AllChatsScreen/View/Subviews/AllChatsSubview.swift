@@ -55,8 +55,8 @@ extension AllChatsView {
         VStack {
             CHMChatCell(
                 configuration: .basic(
-                    imageKind: .url(URL(string: cell.chatUser.avatarImage ?? .clear)),
-                    title: cell.chatUser.nickname,
+                    imageKind: cell.user.imageKind,
+                    title: cell.user.nickname,
                     subtitle: cell.lastMessage,
                     time: cell.timeMessage
                 )
