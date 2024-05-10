@@ -20,9 +20,7 @@ struct AllChatsView: View, ViewModelable {
         MainOrLoadingView
             .onAppear(perform: onAppear)
             .onReceive(
-                NotificationCenter.default.publisher(
-                    for: .WebSocketNames.message
-                )
+                NotificationCenter.default.publisher(for: .WebSocketNames.message)
             ) { output in
                 viewModel.receiveMessage(output: output)
             }
@@ -56,7 +54,7 @@ private extension AllChatsView {
 
 extension AllChatsView {
 
-    func didTapCell(with cellInfo: ChatCellIModel) {
+    func didTapCell(with cellInfo: ChatCellModel) {
         viewModel.didTapCell(with: cellInfo)
     }
 }

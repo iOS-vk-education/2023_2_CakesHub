@@ -10,26 +10,29 @@ import SwiftData
 
 @Model
 final class SDChatMessageModel {
-    let _id           : String
-    let _message      : String
-    let _receiverID   : String
-    let _userID       : String
-    let _dispatchDate : String
+    @Attribute(.unique)
+    let _id             : String
+    let _message        : String
+    let _interlocutorID : String
+    let _userID         : String
+    let _dispatchDate   : String
 
     init(
         id: String,
         message: String,
-        receiverID: String,
+        interlocutorID: String,
         userID: String,
         dispatchDate: String
     ) {
         self._id = id
         self._message = message
-        self._receiverID = receiverID
+        self._interlocutorID = interlocutorID
         self._userID = userID
         self._dispatchDate = dispatchDate
     }
 }
+
+// MARK: - SDModelable
 
 extension SDChatMessageModel: SDModelable {
     typealias FBModelType = FBChatMessageModel
@@ -38,7 +41,7 @@ extension SDChatMessageModel: SDModelable {
         self.init(
             id: fbModel.id,
             message: fbModel.message,
-            receiverID: fbModel.receiverID,
+            interlocutorID: fbModel.receiverID,
             userID: fbModel.userID,
             dispatchDate: fbModel.dispatchDate
         )
@@ -53,7 +56,7 @@ extension SDChatMessageModel {
         FBChatMessageModel(
             id: _id,
             message: _message,
-            receiverID: _receiverID,
+            receiverID: _interlocutorID,
             userID: _userID,
             dispatchDate: _dispatchDate
         )

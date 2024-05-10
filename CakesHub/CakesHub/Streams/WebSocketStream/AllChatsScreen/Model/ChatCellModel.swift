@@ -1,6 +1,6 @@
 //
 //
-//  ChatCellIModel.swift
+//  ChatCellModel.swift
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 08.05.2024.
@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct ChatCellIModel: Identifiable, ClearConfigurationProtocol {
+struct ChatCellModel: Identifiable, ClearConfigurationProtocol {
     var user: User = .clear
     var lastMessage: String = .clear
     var timeMessage: String = .clear
@@ -32,5 +32,5 @@ struct ChatCellIModel: Identifiable, ClearConfigurationProtocol {
         static let clear = User()
     }
 
-    static let clear = ChatCellIModel()
+    static let clear = ChatCellModel()
 }

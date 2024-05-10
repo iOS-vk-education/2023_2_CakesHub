@@ -166,8 +166,35 @@ private extension AuthViewModel {
 
             services.wsService.send(
                 message: WSMessage.connectionMessage(userID: userID)
-            ) {
+            ) { [weak self] in
+                guard let self else { return }
                 Logger.log(kind: .webSocket, message: "Соединение установленно через Auth View")
+
+                services.wsService.receive { data in
+                    do {
+                        let message = try JSONDecoder().decode(WSMessage.self, from: data)
+                        DispatchQueue.main.async {
+                            NotificationCenter.default.post(
+                                name: .WebSocketNames.message,
+                                object: message
+                            )
+                        }
+                        return
+                    } catch {
+                        do {
+                            let notification = try JSONDecoder().decode(WSNotification.self, from: data)
+                            DispatchQueue.main.async {
+                                NotificationCenter.default.post(
+                                    name: .WebSocketNames.notification,
+                                    object: notification
+                                )
+                            }
+                            return
+                        } catch {
+                            Logger.log(kind: .error, message: error.localizedDescription)
+                        }
+                    }
+                }
             }
         }
     }

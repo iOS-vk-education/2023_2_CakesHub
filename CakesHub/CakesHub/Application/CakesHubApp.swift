@@ -21,7 +21,8 @@ struct CakesHubApp: App {
         .modelContainer(for: [
             SDProductModel.self,
             SDNotificationModel.self,
-            SDCateoryModel.self
+            SDCateoryModel.self,
+            SDChatMessageModel.self,
         ])
     }
 

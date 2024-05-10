@@ -71,7 +71,7 @@ extension ChatViewModel: ChatViewModelProtocol {
     }
 
     func receivedMessage(output: NotificationCenter.Publisher.Output) {
-        guard let wsMessage = output.object as? WSMessage, wsMessage.state == .received else {
+        guard let wsMessage = output.object as? WSMessage, wsMessage.kind == .message else {
             return
         }
         let image: ImageKind = wsMessage.userID == user.id ? user.userImage : interlocutor.image

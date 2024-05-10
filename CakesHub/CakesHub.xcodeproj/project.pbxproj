@@ -194,7 +194,7 @@
 		E5C5408E2BEAF85F0025EBF1 /* AllChatsVMUIProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C5408D2BEAF85F0025EBF1 /* AllChatsVMUIProperties.swift */; };
 		E5C540902BEAF8B90025EBF1 /* AllChatsVMServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C5408F2BEAF8B90025EBF1 /* AllChatsVMServices.swift */; };
 		E5C540922BEAF9770025EBF1 /* AllChatsSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C540912BEAF9770025EBF1 /* AllChatsSubview.swift */; };
-		E5C540952BEAFA630025EBF1 /* ChatCellIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C540942BEAFA630025EBF1 /* ChatCellIModel.swift */; };
+		E5C540952BEAFA630025EBF1 /* ChatCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C540942BEAFA630025EBF1 /* ChatCellModel.swift */; };
 		E5C99DCD2B9A6DA40000A2A9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E5C99DCC2B9A6DA40000A2A9 /* FirebaseAuth */; };
 		E5C99DCF2B9A6DA40000A2A9 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = E5C99DCE2B9A6DA40000A2A9 /* FirebaseDatabase */; };
 		E5C99DD12B9A6DA40000A2A9 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E5C99DD02B9A6DA40000A2A9 /* FirebaseStorage */; };
@@ -404,7 +404,7 @@
 		E5C5408D2BEAF85F0025EBF1 /* AllChatsVMUIProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChatsVMUIProperties.swift; sourceTree = "<group>"; };
 		E5C5408F2BEAF8B90025EBF1 /* AllChatsVMServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChatsVMServices.swift; sourceTree = "<group>"; };
 		E5C540912BEAF9770025EBF1 /* AllChatsSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChatsSubview.swift; sourceTree = "<group>"; };
-		E5C540942BEAFA630025EBF1 /* ChatCellIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCellIModel.swift; sourceTree = "<group>"; };
+		E5C540942BEAFA630025EBF1 /* ChatCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCellModel.swift; sourceTree = "<group>"; };
 		E5C99DD72B9A833F0000A2A9 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		E5DBD6D42BBDB49B002ACFB2 /* ProfileSubviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSubviews.swift; sourceTree = "<group>"; };
 		E5DC48B42BB322CD000F3EFE /* ProfileViewModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileViewModel+Mock.swift"; sourceTree = "<group>"; };
@@ -1489,7 +1489,7 @@
 			children = (
 				E5C5408D2BEAF85F0025EBF1 /* AllChatsVMUIProperties.swift */,
 				E5C5408F2BEAF8B90025EBF1 /* AllChatsVMServices.swift */,
-				E5C540942BEAFA630025EBF1 /* ChatCellIModel.swift */,
+				E5C540942BEAFA630025EBF1 /* ChatCellModel.swift */,
 				E5727DF62BEBA3A0008543BD /* AllChatsVMReducers.swift */,
 				E5727DFD2BEBFA47008543BD /* AllChatsVMScreens.swift */,
 			);
@@ -1882,7 +1882,7 @@
 				E5E219D42B940FF000BE9ACE /* CategoriesViewModel.swift in Sources */,
 				E51B332F2B7E603E0028E8C7 /* ClearConfigurationProtocol.swift in Sources */,
 				E51B335B2B7E63300028E8C7 /* UIDevice+Extenstions.swift in Sources */,
-				E5C540952BEAFA630025EBF1 /* ChatCellIModel.swift in Sources */,
+				E5C540952BEAFA630025EBF1 /* ChatCellModel.swift in Sources */,
 				E54A3C532BB8FDCC00CBFEEB /* AllProductsCategoryViewModel.swift in Sources */,
 				E54A3C522BB8FDCC00CBFEEB /* AllProductsCategoryView.swift in Sources */,
 				E52722802BE9316500E4441B /* FBCategoryTag.swift in Sources */,

@@ -22,22 +22,11 @@ struct ChatView: View, ViewModelable {
 
     var body: some View {
         MainView
-            .onAppear(perform: onAppear)
             .onReceive(
-                NotificationCenter.default.publisher(
-                    for: .WebSocketNames.message
-                )
+                NotificationCenter.default.publisher(for: .WebSocketNames.message)
             ) { output in
                 viewModel.receivedMessage(output: output)
             }
-    }
-}
-
-// MARK: - Network
-
-private extension ChatView {
-
-    func onAppear() {
     }
 }
 
