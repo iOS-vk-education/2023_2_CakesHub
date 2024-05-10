@@ -78,6 +78,8 @@ extension AllChatsViewModel {
     @MainActor
     func onAppear() {
         guard chatCells.isEmpty else { return }
+
+        // Достаём данные из памяти устройства
         Task {
             uiProperties.showLoader = true
             chatCells = await fetchMessages()
@@ -86,6 +88,7 @@ extension AllChatsViewModel {
             }
         }
 
+        // Получаем данные из сети
         Task {
             let userMessages = try await getUserMessages()
 
@@ -99,6 +102,7 @@ extension AllChatsViewModel {
         }
     }
 
+    /// Получение сообщения из Web Socket слоя
     func receiveMessage(output: NotificationCenter.Publisher.Output) {
         guard
             let wsMessage = output.object as? WSMessage, wsMessage.kind == .message,
@@ -159,6 +163,7 @@ extension AllChatsViewModel {
 
 extension AllChatsViewModel {
 
+    /// Кэшируем пользователя чата, если он ещё не существует
     func saveUser(fbUser: FBUserModel) {
         let userID = fbUser.uid
         let predicate = #Predicate<SDUserModel> { $0._id == userID }
@@ -173,6 +178,7 @@ extension AllChatsViewModel {
         try? reducers.modelContext.save()
     }
 
+    /// Кэшируем все сообщения
     func saveMessages(messages: [FBChatMessageModel]) {
         messages.forEach { message in
             let sdMessage = SDChatMessageModel(fbModel: message)
@@ -182,19 +188,28 @@ extension AllChatsViewModel {
     }
 
     @MainActor
+    /// Достаем истории чатов со всеми пользователями
     func fetchMessages() async -> [ChatCellModel] {
+        // Достаём сообщения из памяти устройства
         let fetchDescriptor = FetchDescriptor<SDChatMessageModel>()
         guard let messages = try? reducers.modelContext.fetch(fetchDescriptor) else {
             return []
         }
         let fbMessages = messages.map { $0.mapper }
+
+        // Получаем уникальных пользователей
         let usersIDsSet = getAllInterlocutorsIDs(messages: fbMessages)
+
+        // Асинхронно группируем по ячейкам чата
         async let chatMessages = interlocutorsMessages(
             usersIDsSet: usersIDsSet,
             messages: fbMessages
         )
 
+        // Дожидаемся выполнения задачи группировки и получения данных пользоветлей из памяти устройства
         let result = await (fetchUsersInfoFromMemory(userIDsSet: usersIDsSet), chatMessages)
+
+        // Мёржим данные пользователей и истории сообщений
         let chatCells: [ChatCellModel] = result.0.compactMap { fbUser in
             guard let chatCell = result.1.first(where: { $0.user.id == fbUser.uid }) else {
                 return nil
@@ -210,10 +225,12 @@ extension AllChatsViewModel {
                 messages: chatCell.messages
             )
         }
+
         return chatCells
     }
 
     @MainActor
+    /// Достаём информацию о пользователях из памяти устройства
     func fetchUsersInfoFromMemory(userIDsSet: Set<String>) -> [FBUserModel] {
         let sdUsers = userIDsSet.compactMap { userID in
             let predicate = #Predicate<SDUserModel> { $0._id == userID }
