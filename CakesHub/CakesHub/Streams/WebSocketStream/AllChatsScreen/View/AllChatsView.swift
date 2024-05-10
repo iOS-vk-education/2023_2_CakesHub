@@ -29,10 +29,12 @@ struct AllChatsView: View, ViewModelable {
                 case let .chat(messages, interlocutor):
                     let lastMessageID = messages.last?.id
                     let vm = ChatViewModel(
-                        messages: messages,
-                        lastMessageID: lastMessageID,
-                        interlocutor: interlocutor,
-                        user: root.currentUser.mapper
+                        data: .init(
+                            messages: messages,
+                            lastMessageID: lastMessageID,
+                            interlocutor: interlocutor,
+                            user: root.currentUser.mapper
+                        )
                     )
                     ChatView(viewModel: vm)
                 }

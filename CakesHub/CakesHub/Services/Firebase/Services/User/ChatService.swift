@@ -12,7 +12,7 @@ import FirebaseFirestore
 
 protocol ChatServiceProtocol: AnyObject {
     func fetchUserMessages(userID: String) async throws -> [FBChatMessageModel]
-    func create(message: FBChatMessageModel) async throws
+    func send(message: FBChatMessageModel) async throws
 }
 
 // MARK: - ChatService
@@ -47,7 +47,7 @@ extension ChatService: ChatServiceProtocol {
     }
     
     /// Отправка сообщения
-    func create(message: FBChatMessageModel) async throws {
+    func send(message: FBChatMessageModel) async throws {
         let documentRef = firestore.collection(collection).document(message.id)
         try await documentRef.setData(message.dictionaryRepresentation)
     }

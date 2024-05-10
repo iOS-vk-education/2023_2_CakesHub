@@ -166,6 +166,8 @@
 		E5727DF72BEBA3A0008543BD /* AllChatsVMReducers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5727DF62BEBA3A0008543BD /* AllChatsVMReducers.swift */; };
 		E5727DFE2BEBFA47008543BD /* AllChatsVMScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5727DFD2BEBFA47008543BD /* AllChatsVMScreens.swift */; };
 		E57C920F2B93C5CB00EC90F5 /* SwiftPrettyPrint in Frameworks */ = {isa = PBXBuildFile; productRef = E57C920E2B93C5CB00EC90F5 /* SwiftPrettyPrint */; };
+		E58825D92BEDB32400929FD1 /* ChatVMServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58825D82BEDB32400929FD1 /* ChatVMServices.swift */; };
+		E58825DB2BEDB3C900929FD1 /* ChatVMData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58825DA2BEDB3C900929FD1 /* ChatVMData.swift */; };
 		E59AEC592B92AA2900760E61 /* FBProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC582B92AA2900760E61 /* FBProductModel.swift */; };
 		E59AEC5B2B92AE5F00760E61 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E59AEC5A2B92AE5F00760E61 /* GoogleService-Info.plist */; };
 		E59AEC682B92B17200760E61 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC672B92B17200760E61 /* AuthService.swift */; };
@@ -376,6 +378,8 @@
 		E56D0FF82B80D0A100B803EF /* CategoriesTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTab.swift; sourceTree = "<group>"; };
 		E5727DF62BEBA3A0008543BD /* AllChatsVMReducers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChatsVMReducers.swift; sourceTree = "<group>"; };
 		E5727DFD2BEBFA47008543BD /* AllChatsVMScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChatsVMScreens.swift; sourceTree = "<group>"; };
+		E58825D82BEDB32400929FD1 /* ChatVMServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVMServices.swift; sourceTree = "<group>"; };
+		E58825DA2BEDB3C900929FD1 /* ChatVMData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVMData.swift; sourceTree = "<group>"; };
 		E59AEC582B92AA2900760E61 /* FBProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBProductModel.swift; sourceTree = "<group>"; };
 		E59AEC5A2B92AE5F00760E61 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E59AEC672B92B17200760E61 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -1102,6 +1106,8 @@
 			children = (
 				E52CDCFB2BB6460E009C08B9 /* ChatMessage.swift */,
 				E5A65EBB2BED29BB0030338C /* ChatInterlocutor.swift */,
+				E58825D82BEDB32400929FD1 /* ChatVMServices.swift */,
+				E58825DA2BEDB3C900929FD1 /* ChatVMData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1775,6 +1781,7 @@
 				E5C5408A2BEAF7DC0025EBF1 /* AllChatsView.swift in Sources */,
 				E51B33512B7E63090028E8C7 /* ViewModelable.swift in Sources */,
 				E55B5EBF2BCA496B00DDDFA4 /* AuthView.swift in Sources */,
+				E58825D92BEDB32400929FD1 /* ChatVMServices.swift in Sources */,
 				E51B32E52B7E5FEF0028E8C7 /* CHMBadgeView+Configuration.swift in Sources */,
 				E51B33112B7E60010028E8C7 /* CGSize+Extensions.swift in Sources */,
 				E556517D2BB9AC6400759839 /* NotificationView.swift in Sources */,
@@ -1847,6 +1854,7 @@
 				E55651802BB9AC6400759839 /* NotificationViewModel.swift in Sources */,
 				E51B335A2B7E63300028E8C7 /* Optional+Extenstions.swift in Sources */,
 				E5C99DD82B9A833F0000A2A9 /* CustomTabBar.swift in Sources */,
+				E58825DB2BEDB3C900929FD1 /* ChatVMData.swift in Sources */,
 				E556517C2BB9AC6400759839 /* NotificationCell.swift in Sources */,
 				E55093792BE987FD00F1326E /* CategoriesUIProperties.swift in Sources */,
 				E53767962BCF77A700F83990 /* FileManagerImageHash.swift in Sources */,

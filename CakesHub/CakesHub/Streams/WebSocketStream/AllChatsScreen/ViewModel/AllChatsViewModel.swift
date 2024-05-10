@@ -168,11 +168,6 @@ extension AllChatsViewModel {
         let userID = fbUser.uid
         let predicate = #Predicate<SDUserModel> { $0._id == userID }
         let fetchDescriptor = FetchDescriptor(predicate: predicate)
-        guard (try? reducers.modelContext.fetch(fetchDescriptor).count) == 0 else {
-            Logger.log(message: "Пользователь с id: \(userID) уже существует")
-            return
-        }
-
         let sdUser = SDUserModel(fbModel: fbUser)
         reducers.modelContext.insert(sdUser)
         try? reducers.modelContext.save()
@@ -316,6 +311,7 @@ private extension AllChatsViewModel {
         var usersIDsSet: Set<String> = Set()
         for message in messages {
             usersIDsSet.insert(message.receiverID)
+            usersIDsSet.insert(message.userID)
         }
 
         return usersIDsSet

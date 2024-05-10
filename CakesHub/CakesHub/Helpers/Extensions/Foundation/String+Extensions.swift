@@ -25,17 +25,6 @@ extension String {
 
 extension String {
 
-    var toDate: Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-
-        if let date = dateFormatter.date(from: self) {
-            return date
-        } else {
-            return .now
-        }
-    }
-
     var dateRedescription: Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
