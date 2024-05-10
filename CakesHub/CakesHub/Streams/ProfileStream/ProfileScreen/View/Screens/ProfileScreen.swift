@@ -21,9 +21,10 @@ struct ProfileScreen: View {
     
     var body: some View {
         MainView
+            .onAppear(perform: onAppear)
             .navigationDestination(for: ViewModel.Screens.self) { screen in
                 switch screen {
-                case .message:
+                case let .message(messages):
                     let interlocutor: ChatViewModel.Interlocutor = .init(
                         id: viewModel.user.id,
                         image: viewModel.user.userImage,
@@ -32,8 +33,8 @@ struct ProfileScreen: View {
                     // FIXME: Тут надо фетчить историю сообщений из FB
                     let vm = ChatViewModel(
                         data: .init(
-                            messages: [],
-                            lastMessageID: nil,
+                            messages: messages,
+                            lastMessageID: messages.last?.id,
                             interlocutor: interlocutor,
                             user: rootViewModel.currentUser.mapper
                         )
@@ -58,9 +59,15 @@ struct ProfileScreen: View {
 
 extension ProfileScreen {
 
+    func onAppear() {
+        viewModel.setRootUser(rootUser: rootViewModel.currentUser)
+    }
+
     /// Нажатие на кнопку открытия чата
     func didTapOpenMessageScreen() {
-        nav.addScreen(screen: ViewModel.Screens.message)
+        viewModel.didTapOpenChatWithInterlocutor() { messages in
+            nav.addScreen(screen: ViewModel.Screens.message(messages))
+        }
     }
 
     /// Нажатие на кнопку создания товара

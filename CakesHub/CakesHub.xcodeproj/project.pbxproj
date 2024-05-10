@@ -168,6 +168,8 @@
 		E57C920F2B93C5CB00EC90F5 /* SwiftPrettyPrint in Frameworks */ = {isa = PBXBuildFile; productRef = E57C920E2B93C5CB00EC90F5 /* SwiftPrettyPrint */; };
 		E58825D92BEDB32400929FD1 /* ChatVMServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58825D82BEDB32400929FD1 /* ChatVMServices.swift */; };
 		E58825DB2BEDB3C900929FD1 /* ChatVMData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58825DA2BEDB3C900929FD1 /* ChatVMData.swift */; };
+		E58825DD2BEDD31100929FD1 /* ProfileVMScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58825DC2BEDD31100929FD1 /* ProfileVMScreens.swift */; };
+		E58825DF2BEDD31C00929FD1 /* ProfileVMServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58825DE2BEDD31C00929FD1 /* ProfileVMServices.swift */; };
 		E59AEC592B92AA2900760E61 /* FBProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC582B92AA2900760E61 /* FBProductModel.swift */; };
 		E59AEC5B2B92AE5F00760E61 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E59AEC5A2B92AE5F00760E61 /* GoogleService-Info.plist */; };
 		E59AEC682B92B17200760E61 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC672B92B17200760E61 /* AuthService.swift */; };
@@ -380,6 +382,8 @@
 		E5727DFD2BEBFA47008543BD /* AllChatsVMScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChatsVMScreens.swift; sourceTree = "<group>"; };
 		E58825D82BEDB32400929FD1 /* ChatVMServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVMServices.swift; sourceTree = "<group>"; };
 		E58825DA2BEDB3C900929FD1 /* ChatVMData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVMData.swift; sourceTree = "<group>"; };
+		E58825DC2BEDD31100929FD1 /* ProfileVMScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVMScreens.swift; sourceTree = "<group>"; };
+		E58825DE2BEDD31C00929FD1 /* ProfileVMServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVMServices.swift; sourceTree = "<group>"; };
 		E59AEC582B92AA2900760E61 /* FBProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBProductModel.swift; sourceTree = "<group>"; };
 		E59AEC5A2B92AE5F00760E61 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E59AEC672B92B17200760E61 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -1560,6 +1564,8 @@
 			isa = PBXGroup;
 			children = (
 				A332D1662BB2F842007C194D /* UserModel.swift */,
+				E58825DC2BEDD31100929FD1 /* ProfileVMScreens.swift */,
+				E58825DE2BEDD31C00929FD1 /* ProfileVMServices.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1891,6 +1897,8 @@
 				E51B332F2B7E603E0028E8C7 /* ClearConfigurationProtocol.swift in Sources */,
 				E51B335B2B7E63300028E8C7 /* UIDevice+Extenstions.swift in Sources */,
 				E5C540952BEAFA630025EBF1 /* ChatCellModel.swift in Sources */,
+				E58825DF2BEDD31C00929FD1 /* ProfileVMServices.swift in Sources */,
+				E58825DD2BEDD31100929FD1 /* ProfileVMScreens.swift in Sources */,
 				E54A3C532BB8FDCC00CBFEEB /* AllProductsCategoryViewModel.swift in Sources */,
 				E54A3C522BB8FDCC00CBFEEB /* AllProductsCategoryView.swift in Sources */,
 				E52722802BE9316500E4441B /* FBCategoryTag.swift in Sources */,
