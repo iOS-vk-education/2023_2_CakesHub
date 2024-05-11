@@ -53,7 +53,6 @@ extension ProductReviewsScreen {
         }
         .padding(.leading, 16)
         .padding(.trailing, 32)
-        .padding(.bottom, 50)
     }
 }
 
@@ -72,8 +71,7 @@ fileprivate struct ReviewCell: View {
                 date: comment.date,
                 description: comment.description,
                 starsConfiguration: .basic(
-                    kind: .init(rawValue: comment.countFillStars) ?? .zero,
-                    feedbackCount: comment.feedbackCount
+                    kind: .init(rawValue: comment.countFillStars) ?? .zero
                 )
             )
         )
@@ -119,6 +117,8 @@ private extension ProductReviewsScreen {
 // MARK: - Preview
 
 #Preview {
-    ProductReviewsScreen(viewModel: .init(data: .mockData))
+    NavigationStack {
+        ProductReviewsScreen(viewModel: .init(data: .mockData))
+    }
     .environmentObject(Navigation())
 }

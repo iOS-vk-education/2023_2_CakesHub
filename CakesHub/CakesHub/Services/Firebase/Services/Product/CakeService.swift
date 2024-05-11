@@ -68,7 +68,7 @@ extension CakeService: CakeServiceProtocol {
                 dispatchGroup.enter()
                 createImage(
                     image: image,
-                    directoryName: "cake/\(cake.seller.email)/\(cake.productName)",
+                    directoryName: "cakes",
                     imageName: generateUniqueFileName(userID: cake.seller.uid)
                 ) { result in
                     switch result {
@@ -115,7 +115,7 @@ private extension CakeService {
             completion(.failure(.badParameters))
             return
         }
-        let storageRef = storage.reference().child("images/\(directoryName)/\(imageName).jpg")
+        let storageRef = storage.reference().child("\(directoryName)/\(imageName).jpg")
         guard let imageData = image.jpegData(compressionQuality: 1) else {
             completion(.failure(.badParameters))
             return
@@ -182,13 +182,6 @@ private extension CakeService {
 /// - Parameter userID: seller uid
 /// - Returns: file name
 private func generateUniqueFileName(userID: String) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyyMMdd_HHmmssSSS"
-
-    let currentDateTime = Date()
-    let formattedDate = dateFormatter.string(from: currentDateTime)
-
-    let uniqueFileName = "photo_\(userID)_\(formattedDate)"
-
+    let uniqueFileName = "\(userID)_\(UUID().uuidString)"
     return uniqueFileName
 }

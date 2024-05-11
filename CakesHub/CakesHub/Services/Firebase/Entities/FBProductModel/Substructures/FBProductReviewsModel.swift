@@ -18,7 +18,8 @@ extension FBProductModel {
         var countOneStars   : Int
         var countOfComments : Int
         var comments        : [FBCommentInfoModel]
-        
+        var feedbackCount   : Int
+
         static let clear = FBProductReviewsModel(
             countFiveStars: 0,
             countFourStars: 0,
@@ -26,7 +27,8 @@ extension FBProductModel {
             countTwoStars: 0,
             countOneStars: 0,
             countOfComments: 0,
-            comments: []
+            comments: [],
+            feedbackCount: 0
         )
     }
 }
@@ -44,7 +46,8 @@ extension FBProductModel.FBProductReviewsModel {
             countTwoStars: dictionary["countTwoStars"] as? Int ?? 0,
             countOneStars: dictionary["countOneStars"] as? Int ?? 0,
             countOfComments: dictionary["countOfComments"] as? Int ?? 0,
-            comments: comments.compactMap { .init(dictionary: $0) }
+            comments: comments.compactMap { .init(dictionary: $0) },
+            feedbackCount: dictionary["feedbackCount"] as? Int ?? 0
         )
     }
 }
@@ -61,7 +64,8 @@ extension FBProductModel.FBProductReviewsModel {
             countTwoStars: countTwoStars,
             countOneStars: countOneStars,
             countOfComments: countOfComments,
-            comments: comments.mapper
+            comments: comments.mapper,
+            feedbackCount: feedbackCount
         )
     }
 }

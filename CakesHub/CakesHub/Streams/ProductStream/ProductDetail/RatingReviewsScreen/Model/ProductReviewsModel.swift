@@ -18,6 +18,7 @@ struct ProductReviewsModel {
     var countOneStars   : Int = 0
     var countOfComments : Int = 0
     var comments        : [CommentInfo] = []
+    var feedbackCount   : Int = 0
 
     struct CommentInfo: Identifiable {
         var id             : String = .clear
@@ -25,7 +26,6 @@ struct ProductReviewsModel {
         var date           : String = .clear
         var description    : String = .clear
         var countFillStars : Int = 0
-        var feedbackCount  : Int = 0
     }
 }
 
@@ -59,7 +59,7 @@ extension ProductReviewsModel {
     }
 }
 
-// MARK: Inner logic
+// MARK: - Inner logic
 
 private extension ProductReviewsModel {
 
@@ -68,5 +68,27 @@ private extension ProductReviewsModel {
         let ration = CHMRatingReviewsView.Configuration.Kind(rawValue: perсentArea.rounded(toPlaces: 1)) ?? .zero
         let configuration = CHMRatingReviewsView.Configuration.RatingData.basic(ration: ration, count: count)
         return configuration
+    }
+}
+
+// MARK: - Mapper
+
+extension FBProductModel.FBCommentInfoModel {
+
+    var mapper: ProductReviewsModel.CommentInfo {
+        .init(
+            id: id,
+            userName: userName,
+            date: date.toCorrectDate,
+            description: description,
+            countFillStars: countFillStars
+        )
+    }
+}
+
+extension [FBProductModel.FBCommentInfoModel] {
+
+    var mapper: [ProductReviewsModel.CommentInfo] {
+        map { $0.mapper }
     }
 }
