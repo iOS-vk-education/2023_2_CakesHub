@@ -107,6 +107,11 @@
 		E51B335A2B7E63300028E8C7 /* Optional+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33552B7E63300028E8C7 /* Optional+Extenstions.swift */; };
 		E51B335B2B7E63300028E8C7 /* UIDevice+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33562B7E63300028E8C7 /* UIDevice+Extenstions.swift */; };
 		E51B335C2B7E63300028E8C7 /* View+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B33572B7E63300028E8C7 /* View+Extentions.swift */; };
+		E523BD1B2BEFA128008B0F70 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E523BD152BEFA128008B0F70 /* FeedbackView.swift */; };
+		E523BD1C2BEFA128008B0F70 /* FeedbackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E523BD172BEFA128008B0F70 /* FeedbackViewModel.swift */; };
+		E523BD1D2BEFA128008B0F70 /* FeedbackViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E523BD182BEFA128008B0F70 /* FeedbackViewModel+Mock.swift */; };
+		E523BD1F2BEFA187008B0F70 /* FeedbackSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E523BD1E2BEFA187008B0F70 /* FeedbackSubview.swift */; };
+		E523BD212BEFA502008B0F70 /* FeedbackVMUIProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E523BD202BEFA502008B0F70 /* FeedbackVMUIProperties.swift */; };
 		E52722752BE8F3A300E4441B /* SDNotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52722742BE8F3A300E4441B /* SDNotificationModel.swift */; };
 		E52722782BE9202B00E4441B /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52722772BE9202B00E4441B /* CategoryService.swift */; };
 		E527227E2BE9314000E4441B /* FBCateoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527227D2BE9314000E4441B /* FBCateoryModel.swift */; };
@@ -322,6 +327,11 @@
 		E51B33552B7E63300028E8C7 /* Optional+Extenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+Extenstions.swift"; sourceTree = "<group>"; };
 		E51B33562B7E63300028E8C7 /* UIDevice+Extenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extenstions.swift"; sourceTree = "<group>"; };
 		E51B33572B7E63300028E8C7 /* View+Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "View+Extentions.swift"; path = "../View+Extentions.swift"; sourceTree = "<group>"; };
+		E523BD152BEFA128008B0F70 /* FeedbackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
+		E523BD172BEFA128008B0F70 /* FeedbackViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackViewModel.swift; sourceTree = "<group>"; };
+		E523BD182BEFA128008B0F70 /* FeedbackViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeedbackViewModel+Mock.swift"; sourceTree = "<group>"; };
+		E523BD1E2BEFA187008B0F70 /* FeedbackSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSubview.swift; sourceTree = "<group>"; };
+		E523BD202BEFA502008B0F70 /* FeedbackVMUIProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackVMUIProperties.swift; sourceTree = "<group>"; };
 		E52722742BE8F3A300E4441B /* SDNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDNotificationModel.swift; sourceTree = "<group>"; };
 		E52722772BE9202B00E4441B /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
 		E527227D2BE9314000E4441B /* FBCateoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBCateoryModel.swift; sourceTree = "<group>"; };
@@ -611,6 +621,7 @@
 		E51B32802B7E5F090028E8C7 /* ProductStream */ = {
 			isa = PBXGroup;
 			children = (
+				E523BD1A2BEFA128008B0F70 /* FeedbackScreen */,
 				E5DE815B2BBFDC360012BD8E /* CreateProductScreen */,
 				E54A3C512BB8FDCC00CBFEEB /* AllProductsCategoryScreen */,
 				E56D0FF22B80CF3900B803EF /* CategoriesScreen */,
@@ -1040,6 +1051,42 @@
 				E530C72F2B935DCD00658817 /* DictionaryConvertible.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		E523BD142BEFA128008B0F70 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E523BD202BEFA502008B0F70 /* FeedbackVMUIProperties.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E523BD162BEFA128008B0F70 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E523BD152BEFA128008B0F70 /* FeedbackView.swift */,
+				E523BD1E2BEFA187008B0F70 /* FeedbackSubview.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E523BD192BEFA128008B0F70 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E523BD172BEFA128008B0F70 /* FeedbackViewModel.swift */,
+				E523BD182BEFA128008B0F70 /* FeedbackViewModel+Mock.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E523BD1A2BEFA128008B0F70 /* FeedbackScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E523BD142BEFA128008B0F70 /* Model */,
+				E523BD162BEFA128008B0F70 /* View */,
+				E523BD192BEFA128008B0F70 /* ViewModel */,
+			);
+			path = FeedbackScreen;
 			sourceTree = "<group>";
 		};
 		E52722762BE9200500E4441B /* Common */ = {
@@ -1732,6 +1779,7 @@
 				E51B32DE2B7E5FEF0028E8C7 /* CHMBigBannerView+Preview.swift in Sources */,
 				E51B32D52B7E5FEF0028E8C7 /* CHMNewProductCard+Preview.swift in Sources */,
 				E52CE6E72BBE39E0001F45BB /* Date+Extenstions.swift in Sources */,
+				E523BD1D2BEFA128008B0F70 /* FeedbackViewModel+Mock.swift in Sources */,
 				E51B32CA2B7E5FEF0028E8C7 /* CHMProductButton+Configuration.swift in Sources */,
 				E51B332E2B7E603E0028E8C7 /* Configurable.swift in Sources */,
 				E59AEC7A2B92B99F00760E61 /* CakeService.swift in Sources */,
@@ -1826,6 +1874,7 @@
 				A3A03F592BB3430D0034C0B1 /* NotificationsView.swift in Sources */,
 				E51B32CB2B7E5FEF0028E8C7 /* CHMProductButton+Defaults.swift in Sources */,
 				E5727DF72BEBA3A0008543BD /* AllChatsVMReducers.swift in Sources */,
+				E523BD1B2BEFA128008B0F70 /* FeedbackView.swift in Sources */,
 				E5272FBF2B9A9F0100F181A1 /* RootView.swift in Sources */,
 				E5DE85892BC0D7DE0013445A /* LimitedTextField+Preview.swift in Sources */,
 				E56A85112BACCED600E9A387 /* UINavigationController+Extenstions.swift in Sources */,
@@ -1858,8 +1907,10 @@
 				E566A6F72BE4D8DE0004D5CF /* FBNotification.swift in Sources */,
 				E50B61482BCE3DA0003484C7 /* RootViewModel+Mock.swift in Sources */,
 				E55651802BB9AC6400759839 /* NotificationViewModel.swift in Sources */,
+				E523BD1F2BEFA187008B0F70 /* FeedbackSubview.swift in Sources */,
 				E51B335A2B7E63300028E8C7 /* Optional+Extenstions.swift in Sources */,
 				E5C99DD82B9A833F0000A2A9 /* CustomTabBar.swift in Sources */,
+				E523BD212BEFA502008B0F70 /* FeedbackVMUIProperties.swift in Sources */,
 				E58825DB2BEDB3C900929FD1 /* ChatVMData.swift in Sources */,
 				E556517C2BB9AC6400759839 /* NotificationCell.swift in Sources */,
 				E55093792BE987FD00F1326E /* CategoriesUIProperties.swift in Sources */,
@@ -1872,6 +1923,7 @@
 				E55B5EC82BCA546000DDDFA4 /* SDUserModel.swift in Sources */,
 				E51B33482B7E62AF0028E8C7 /* ProductDetailViewModel.swift in Sources */,
 				E51B32F02B7E5FEF0028E8C7 /* CHMRatingReviewsView.swift in Sources */,
+				E523BD1C2BEFA128008B0F70 /* FeedbackViewModel.swift in Sources */,
 				E51B32EF2B7E5FEF0028E8C7 /* CHMRatingReviewsView+Preview.swift in Sources */,
 				E55651842BB9E66F00759839 /* NotificationSubviews.swift in Sources */,
 				E51B32E22B7E5FEF0028E8C7 /* CHMProductDescriptionView.swift in Sources */,
