@@ -17,6 +17,7 @@ enum APIError: LocalizedError {
     case incorrectlyURL
     case uidNotFound
     case userIsNil
+    case innerError
 
     var errorDescription: String {
         switch self {
@@ -28,6 +29,7 @@ enum APIError: LocalizedError {
         case .incorrectlyURL: return "url is incorrectly"
         case .uidNotFound: return "user uid not found"
         case .userIsNil: return "current user not found"
+        case .innerError: return "inner error"
         }
     }
 }

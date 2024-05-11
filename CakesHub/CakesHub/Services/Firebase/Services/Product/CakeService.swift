@@ -43,7 +43,7 @@ extension CakeService: CakeServiceProtocol {
         let correctProductModels = await withThrowingTaskGroup(of: FBProductModel?.self, returning: [FBProductModel].self) { taskGroup in
             for productSnapshot in snapshot.documents {
                 taskGroup.addTask {
-                    try? await self.converToCorrectFBProductModel(productSnapshot: productSnapshot)
+                    try? await self.converToCorrectFBProductModel(productDict: productSnapshot.data())
                 }
             }
 
@@ -110,12 +110,11 @@ extension CakeService: CakeServiceProtocol {
         // Получаем старую информацию о продукте
         let docomuntRef = firestore.collection(collection).document(productID)
         let snapshot = try await docomuntRef.getDocument()
-        guard
-            let data = snapshot.data(),
-            var fbProduct = FBProductModel(dictionary: data)
-        else {
+        
+        guard let productDict = snapshot.data() else {
             throw APIError.responseIsNil
         }
+        var fbProduct = try await converToCorrectFBProductModel(productDict: productDict)
 
         // Добавляем комментарий, если имеется текст
         if !feedbackText.isEmpty {
@@ -146,8 +145,15 @@ extension CakeService: CakeServiceProtocol {
             break
         }
 
-        try await docomuntRef.setData(fbProduct.dictionaryRepresentation)
+        let fbProductDict = converToCorrectToCorrectDict(product: fbProduct)
+        guard let newComments = fbProductDict["reviewInfo"] else {
+            throw APIError.innerError
+        }
 
+        try await firestore.collection(collection).document(productID).updateData([
+            "reviewInfo": newComments
+        ])
+        
         return fbProduct
     }
 }
@@ -214,17 +220,23 @@ private extension CakeService {
     }
     
     /// Конвертируем снэпшот в модель продукта с подменной sellerID в seller
-    func converToCorrectFBProductModel(productSnapshot: QueryDocumentSnapshot) async throws -> FBProductModel {
-        var productDict = productSnapshot.data()
+    func converToCorrectFBProductModel(productDict: [String: Any]) async throws -> FBProductModel {
+        var productDictCopy = productDict
         guard let sellerID = productDict["sellerID"] as? String else {
             throw APIError.badParameters
         }
         let fbUser = try await userService.getUserInfo(uid: sellerID)
-        productDict["seller"] = fbUser.dictionaryRepresentation
-        guard let productModel = FBProductModel(dictionary: productDict) else {
+        productDictCopy["seller"] = fbUser.dictionaryRepresentation
+        guard let productModel = FBProductModel(dictionary: productDictCopy) else {
             throw APIError.dataIsNil
         }
         return productModel
+    }
+
+    func converToCorrectToCorrectDict(product: FBProductModel) -> [String: Any] {
+        var dict = product.dictionaryRepresentation
+        dict["sellerID"] = product.seller.uid
+        return dict
     }
 }
 

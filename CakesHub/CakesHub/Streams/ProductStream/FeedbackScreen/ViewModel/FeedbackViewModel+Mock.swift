@@ -9,19 +9,12 @@
 import Foundation
 
 #if DEBUG
-
 extension FeedbackViewModel: Mockable {
 
-    static let mockData = FeedbackViewModel()
+    static let mockData = FeedbackViewModel(
+        data: ScreenData(
+            productID: "1"
+        )
+    )
 }
-
-// MARK: - Constants
-
-private extension FeedbackViewModel {
-
-    enum Constants {
-        static let mockTitle = "Просто моковый заголовок из кодогенерации для пример"
-    }
-}
-
 #endif

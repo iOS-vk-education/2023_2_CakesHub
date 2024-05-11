@@ -12,7 +12,8 @@ struct FeedbackView: View, ViewModelable {
     typealias ViewModel = FeedbackViewModel
 
     @EnvironmentObject private var nav: Navigation
-    @State var viewModel = ViewModel()
+    @EnvironmentObject private var root: RootViewModel
+    @State var viewModel: ViewModel
 
     var body: some View {
         MainView
@@ -25,6 +26,7 @@ struct FeedbackView: View, ViewModelable {
 private extension FeedbackView {
 
     func onAppear() {
+        viewModel.setModels(root: root, nav: nav)
     }
 }
 
@@ -33,4 +35,5 @@ private extension FeedbackView {
 #Preview {
     FeedbackView(viewModel: .mockData)
         .environmentObject(Navigation())
+        .environmentObject(RootViewModel.mockData)
 }

@@ -23,6 +23,7 @@ protocol RootViewModelProtocol: AnyObject {
     func setCurrentUser(for user: FBUserModel)
     func addNewProduct(product: FBProductModel)
     func setContext(context: ModelContext)
+    func updateExistedProduct(product: FBProductModel)
 }
 
 // MARK: - RootViewModel
@@ -194,6 +195,17 @@ extension RootViewModel {
 
         // Кэшируем созданный торт в память устройства
         addProductInMemory(product: product)
+    }
+
+    /// Обновляем данные существующего товара, если таковой имеется
+    func updateExistedProduct(product: FBProductModel) {
+        guard
+            let index = productData.products.firstIndex(where: { $0.documentID == product.documentID })
+        else {
+            Logger.log(kind: .error, message: "Не получилось обновить данные товара. Он не найден")
+            return
+        }
+        productData.products[index] = product
     }
 
     func setContext(context: ModelContext) {
