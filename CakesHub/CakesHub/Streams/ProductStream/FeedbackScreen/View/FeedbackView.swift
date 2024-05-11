@@ -11,8 +11,9 @@ import SwiftUI
 struct FeedbackView: View, ViewModelable {
     typealias ViewModel = FeedbackViewModel
 
-    @EnvironmentObject private var nav: Navigation
     @EnvironmentObject private var root: RootViewModel
+    @Environment(\.dismiss) private var dismiss
+    @Environment(ProductReviewsViewModel.self) var reviewViewModel
     @State var viewModel: ViewModel
 
     var body: some View {
@@ -26,7 +27,11 @@ struct FeedbackView: View, ViewModelable {
 private extension FeedbackView {
 
     func onAppear() {
-        viewModel.setModels(root: root, nav: nav)
+        viewModel.setModels(
+            root: root,
+            reviewViewModel: reviewViewModel,
+            dismiss: dismiss
+        )
     }
 }
 
@@ -34,6 +39,6 @@ private extension FeedbackView {
 
 #Preview {
     FeedbackView(viewModel: .mockData)
-        .environmentObject(Navigation())
+        .environment(ProductReviewsViewModel.mockData)
         .environmentObject(RootViewModel.mockData)
 }

@@ -14,6 +14,7 @@ extension FeedbackViewModel {
     struct UIProperties: ClearConfigurationProtocol {
         var countFillStars: Int = 1
         var feedbackText: String = .clear
+        var isShowLoading: Bool = false
 
         static let clear = UIProperties()
     }

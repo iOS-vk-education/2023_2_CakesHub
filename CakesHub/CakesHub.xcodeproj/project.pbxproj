@@ -113,6 +113,7 @@
 		E523BD1F2BEFA187008B0F70 /* FeedbackSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E523BD1E2BEFA187008B0F70 /* FeedbackSubview.swift */; };
 		E523BD212BEFA502008B0F70 /* FeedbackVMUIProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E523BD202BEFA502008B0F70 /* FeedbackVMUIProperties.swift */; };
 		E523BD232BEFBC48008B0F70 /* FeedbackVMData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E523BD222BEFBC48008B0F70 /* FeedbackVMData.swift */; };
+		E523BD252BF017EE008B0F70 /* ProductReviewsViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E523BD242BF017EE008B0F70 /* ProductReviewsViewModel+Mock.swift */; };
 		E52722752BE8F3A300E4441B /* SDNotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52722742BE8F3A300E4441B /* SDNotificationModel.swift */; };
 		E52722782BE9202B00E4441B /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52722772BE9202B00E4441B /* CategoryService.swift */; };
 		E527227E2BE9314000E4441B /* FBCateoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527227D2BE9314000E4441B /* FBCateoryModel.swift */; };
@@ -334,6 +335,7 @@
 		E523BD1E2BEFA187008B0F70 /* FeedbackSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSubview.swift; sourceTree = "<group>"; };
 		E523BD202BEFA502008B0F70 /* FeedbackVMUIProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackVMUIProperties.swift; sourceTree = "<group>"; };
 		E523BD222BEFBC48008B0F70 /* FeedbackVMData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackVMData.swift; sourceTree = "<group>"; };
+		E523BD242BF017EE008B0F70 /* ProductReviewsViewModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductReviewsViewModel+Mock.swift"; sourceTree = "<group>"; };
 		E52722742BE8F3A300E4441B /* SDNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDNotificationModel.swift; sourceTree = "<group>"; };
 		E52722772BE9202B00E4441B /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
 		E527227D2BE9314000E4441B /* FBCateoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBCateoryModel.swift; sourceTree = "<group>"; };
@@ -975,6 +977,7 @@
 			isa = PBXGroup;
 			children = (
 				E51B33332B7E62AF0028E8C7 /* ProductReviewsViewModel.swift */,
+				E523BD242BF017EE008B0F70 /* ProductReviewsViewModel+Mock.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1873,6 +1876,7 @@
 				E50B61462BCE377C003484C7 /* VMRootProduct.swift in Sources */,
 				E51B33282B7E602A0028E8C7 /* Modifiy.swift in Sources */,
 				A3A03F572BB33A730034C0B1 /* SettingsView.swift in Sources */,
+				E523BD252BF017EE008B0F70 /* ProductReviewsViewModel+Mock.swift in Sources */,
 				E52CDD0C2BB6460E009C08B9 /* ChatView.swift in Sources */,
 				A3A03F592BB3430D0034C0B1 /* NotificationsView.swift in Sources */,
 				E51B32CB2B7E5FEF0028E8C7 /* CHMProductButton+Defaults.swift in Sources */,

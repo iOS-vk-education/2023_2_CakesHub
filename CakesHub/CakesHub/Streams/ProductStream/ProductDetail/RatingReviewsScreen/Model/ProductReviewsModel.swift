@@ -48,14 +48,14 @@ extension ProductReviewsModel {
     var oneStarsConfiguration: CHMRatingReviewsView.Configuration.RatingData {
         calculateRatingConfiguration(countOneStars)
     }
-    var feedbackCounter: Int {
-        countFiveStars + countFourStars + countThreeStars + countTwoStars + countOneStars
+    var feedbackAmountOfPoints: Int {
+        countFiveStars * 5 + countFourStars * 4 + countThreeStars * 3 + countTwoStars * 2 + countOneStars
     }
     var averageRatingString: String {
         return "\(averageRating.rounded(toPlaces: 1))"
     }
     var averageRating: CGFloat {
-        CGFloat(feedbackCounter) / 5
+        CGFloat(feedbackAmountOfPoints) / CGFloat(feedbackCount)
     }
 }
 
@@ -64,7 +64,7 @@ extension ProductReviewsModel {
 private extension ProductReviewsModel {
 
     func calculateRatingConfiguration(_ count: Int) -> CHMRatingReviewsView.Configuration.RatingData {
-        let perсentArea = CGFloat(count) / CGFloat(feedbackCounter)
+        let perсentArea = CGFloat(count) / CGFloat(feedbackCount)
         let ration = CHMRatingReviewsView.Configuration.Kind(rawValue: perсentArea.rounded(toPlaces: 1)) ?? .zero
         let configuration = CHMRatingReviewsView.Configuration.RatingData.basic(ration: ration, count: count)
         return configuration

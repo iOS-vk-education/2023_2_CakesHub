@@ -91,7 +91,7 @@ extension View {
     func blurredSheet<Content: View>(
         _ style: AnyShapeStyle,
         show: Binding<Bool>,
-        onDismiss: @escaping () -> Void,
+        onDismiss: @escaping CHMVoidBlock,
         @ViewBuilder content: @escaping () -> Content
     ) -> some View {
         sheet(isPresented: show, onDismiss: onDismiss) {

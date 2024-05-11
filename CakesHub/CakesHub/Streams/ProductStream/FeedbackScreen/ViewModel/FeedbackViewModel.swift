@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: - FeedbackViewModelProtocol
 
@@ -17,7 +18,7 @@ protocol FeedbackViewModelProtocol: AnyObject {
     func didTapStar(by index: Int)
     func didTapSendFeedbackButton()
     // MARK: Reducers
-    func setModels(root: RootViewModel, nav: Navigation)
+    func setModels(root: RootViewModel, reviewViewModel: ProductReviewsViewModel, dismiss: DismissAction)
 }
 
 // MARK: - FeedbackViewModel
@@ -68,15 +69,24 @@ extension FeedbackViewModel {
             return
         }
 
+        uiProperties.isShowLoading = true
         Task {
             do {
                 let updatedProduct = try await sendFeedback(username: root.currentUser.nickname)
                 await MainActor.run {
                     root.updateExistedProduct(product: updatedProduct)
-                    data.nav?.openPreviousScreen()
+                    uiProperties.isShowLoading = false
+                    let reviewInfo = updatedProduct.reviewInfo.mapper
+                    data.reviewViewModel?.updateProductInfo(with: reviewInfo)
+                    withAnimation {
+                        data.dismiss?()
+                    }
                 }
             } catch {
                 Logger.log(kind: .error, message: error.localizedDescription)
+                await MainActor.run {
+                    uiProperties.isShowLoading = false
+                }
             }
         }
     }
@@ -86,8 +96,9 @@ extension FeedbackViewModel {
 
 extension FeedbackViewModel {
 
-    func setModels(root: RootViewModel, nav: Navigation) {
-        self.data.root = root
-        self.data.nav = nav
+    func setModels(root: RootViewModel, reviewViewModel: ProductReviewsViewModel, dismiss: DismissAction ) {
+        data.root = root
+        data.reviewViewModel = reviewViewModel
+        data.dismiss = dismiss
     }
 }

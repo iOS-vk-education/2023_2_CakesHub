@@ -18,4 +18,8 @@ final class ProductReviewsViewModel: ViewModelProtocol {
         self.data = data
         self.productID = productID
     }
+
+    func updateProductInfo(with info: ProductReviewsModel) {
+        data = info
+    }
 }

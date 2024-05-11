@@ -13,8 +13,7 @@ struct ProductReviewsScreen: View, ViewModelable {
     // MARK: View Model
 
     typealias ViewModel = ProductReviewsViewModel
-    var viewModel: ViewModel
-    @EnvironmentObject var nav: Navigation
+    @State var viewModel: ViewModel
     @State private var isOpenFeedbackView: Bool = false
 
     // MARK: View
@@ -34,7 +33,7 @@ struct ProductReviewsScreen: View, ViewModelable {
     }
 }
 
-// MARK: - Preview
+// MARK: - Action
 
 extension ProductReviewsScreen {
 
@@ -46,8 +45,7 @@ extension ProductReviewsScreen {
 // MARK: - Preview
 
 #Preview {
-    ProductReviewsScreen(viewModel: .init(data: .mockData, productID: "1"))
-    .environmentObject(Navigation())
+    ProductReviewsScreen(viewModel: .mockData)
 }
 
 // MARK: - Constants

@@ -126,7 +126,7 @@ extension ProfileScreen {
                         ),
                         starsViewConfiguration: .basic(
                             kind: .init(rawValue: product.starsCount) ?? .zero,
-                            feedbackCount: product.reviewInfo.feedbackCounter
+                            feedbackCount: product.reviewInfo.feedbackCount
                         )
                     )
                 ) { isSelected in

@@ -7,13 +7,14 @@
 //  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 extension FeedbackViewModel {
 
     struct ScreenData {
         var productID: String
         var root: RootViewModel?
-        var nav: Navigation?
+        var reviewViewModel: ProductReviewsViewModel?
+        var dismiss: DismissAction?
     }
 }

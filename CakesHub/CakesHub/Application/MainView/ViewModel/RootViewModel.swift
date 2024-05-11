@@ -206,6 +206,32 @@ extension RootViewModel {
             return
         }
         productData.products[index] = product
+
+        // Обновляем торт в определённой секции
+        switch determineSection(for: product) {
+        case .news:
+            let sectionIndex = 1
+            let section = productData.sections[sectionIndex]
+            let oldProducts: [ProductModel] = section.products.map {
+                $0.id == product.documentID ? product.mapperToProductModel : $0
+            }
+            productData.sections[sectionIndex] = .news(oldProducts)
+        case .sales:
+            let sectionIndex = 0
+            let section = productData.sections[sectionIndex]
+            let oldProducts: [ProductModel] = section.products.map {
+                $0.id == product.documentID ? product.mapperToProductModel : $0
+            }
+            productData.sections[sectionIndex] = .sales(oldProducts)
+        case .all:
+            let sectionIndex = 2
+            let section = productData.sections[sectionIndex]
+            let oldProducts: [ProductModel] = section.products.map {
+                $0.id == product.documentID ? product.mapperToProductModel : $0
+            }
+            productData.sections[sectionIndex] = .all(oldProducts)
+        }
+
     }
 
     func setContext(context: ModelContext) {

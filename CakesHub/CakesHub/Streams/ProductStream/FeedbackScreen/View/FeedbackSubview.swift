@@ -16,7 +16,7 @@ extension FeedbackView {
             StarsBlock
 
             TitleBlock
-                .padding(.top, 33)
+                .padding(.top, 32)
 
             TextInputBlock
                 .padding(.top, 18)
@@ -25,21 +25,31 @@ extension FeedbackView {
                 .padding(.top, 18)
         }
         .background(Constants.bgColor)
+        .overlay {
+            if viewModel.uiProperties.isShowLoading {
+                ProgressView()
+            }
+        }
     }
 
     var StarsBlock: some View {
-        HStack(spacing: 8) {
-            ForEach(1...5, id: \.self) { index in
-                Image(
-                    index > viewModel.uiProperties.countFillStars ? .starOutline : .starFill
-                )
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(edge: 36)
-                .padding(5)
-                .contentShape(.rect)
-                .onTapGesture {
-                    viewModel.didTapStar(by: index)
+        VStack {
+            Text(Constants.ratingTitle)
+                .style(18, .semibold, Constants.titleColor)
+
+            HStack(spacing: 8) {
+                ForEach(1...5, id: \.self) { index in
+                    Image(
+                        index > viewModel.uiProperties.countFillStars ? .starOutline : .starFill
+                    )
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(edge: 36)
+                    .padding(5)
+                    .contentShape(.rect)
+                    .onTapGesture {
+                        viewModel.didTapStar(by: index)
+                    }
                 }
             }
         }
@@ -55,7 +65,7 @@ extension FeedbackView {
     var TextInputBlock: some View {
         LimitedTextField(
             config: .init(
-                limit: 250,
+                limit: 550,
                 tint: Constants.titleColor,
                 autoResizes: false,
                 allowsExcessTyping: false,
@@ -87,6 +97,7 @@ extension FeedbackView {
         .background(Constants.sendFeedbackButtonColor, in: .rect(cornerRadius: 25))
         .padding(.horizontal)
         .tint(Color.white)
+        .padding(.bottom, 6)
     }
 }
 
@@ -94,6 +105,8 @@ extension FeedbackView {
 
 #Preview {
     FeedbackView(viewModel: .mockData)
+        .environmentObject(Navigation())
+        .environmentObject(RootViewModel.mockData)
 }
 
 // MARK: - Constants
@@ -101,6 +114,7 @@ extension FeedbackView {
 private extension FeedbackView {
 
     enum Constants {
+        static let ratingTitle = "What is you rate?"
         static let title = "Please share your opinion about the product"
         static let feedbackPlaceholder = "Your feedback"
         static let sendFeedbackTitle = "SEND REVIEW"

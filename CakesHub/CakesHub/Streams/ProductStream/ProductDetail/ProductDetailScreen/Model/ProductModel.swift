@@ -86,7 +86,7 @@ extension ProductModel {
             ),
             starsViewConfiguration: .basic(
                 kind: .init(rawValue: starsCount) ?? .zero,
-                feedbackCount: reviewInfo.feedbackCounter
+                feedbackCount: reviewInfo.feedbackCount
             )
         )
     }
@@ -109,7 +109,7 @@ extension ProductModel {
             ),
             starsViewConfiguration: .basic(
                 kind: .init(rawValue: starsCount) ?? .zero,
-                feedbackCount: reviewInfo.feedbackCounter
+                feedbackCount: reviewInfo.feedbackCount
             )
         )
     }
