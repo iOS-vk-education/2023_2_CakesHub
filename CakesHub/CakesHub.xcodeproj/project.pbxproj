@@ -165,6 +165,7 @@
 		E566A6F42BE4D6FA0004D5CF /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E566A6F32BE4D6FA0004D5CF /* NotificationService.swift */; };
 		E566A6F72BE4D8DE0004D5CF /* FBNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E566A6F62BE4D8DE0004D5CF /* FBNotification.swift */; };
 		E56A85112BACCED600E9A387 /* UINavigationController+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A85102BACCED600E9A387 /* UINavigationController+Extenstions.swift */; };
+		E56B53BD2BF055D6006DA0F3 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B53BC2BF055D6006DA0F3 /* LocalNotificationManager.swift */; };
 		E56B70412BD236D700851C05 /* VMRootServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B70402BD236D700851C05 /* VMRootServices.swift */; };
 		E56B70432BD256DD00851C05 /* FBModelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B70422BD256DD00851C05 /* FBModelable.swift */; };
 		E56B70452BD257F600851C05 /* SDModelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B70442BD257F600851C05 /* SDModelable.swift */; };
@@ -225,6 +226,7 @@
 		E5E219D62B9410CE00BE9ACE /* CategoryCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E219D52B9410CE00BE9ACE /* CategoryCardModel.swift */; };
 		E5E219D82B94118000BE9ACE /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E219D72B94118000BE9ACE /* Mockable.swift */; };
 		E5E219DA2B94137500BE9ACE /* CategoriesViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E219D92B94137500BE9ACE /* CategoriesViewModel+Mock.swift */; };
+		E5F025752BF11ED500E15E31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F025742BF11ED500E15E31 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -387,6 +389,7 @@
 		E566A6F32BE4D6FA0004D5CF /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		E566A6F62BE4D8DE0004D5CF /* FBNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBNotification.swift; sourceTree = "<group>"; };
 		E56A85102BACCED600E9A387 /* UINavigationController+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extenstions.swift"; sourceTree = "<group>"; };
+		E56B53BC2BF055D6006DA0F3 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
 		E56B70402BD236D700851C05 /* VMRootServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMRootServices.swift; sourceTree = "<group>"; };
 		E56B70422BD256DD00851C05 /* FBModelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBModelable.swift; sourceTree = "<group>"; };
 		E56B70442BD257F600851C05 /* SDModelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDModelable.swift; sourceTree = "<group>"; };
@@ -442,6 +445,7 @@
 		E5E219D52B9410CE00BE9ACE /* CategoryCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCardModel.swift; sourceTree = "<group>"; };
 		E5E219D72B94118000BE9ACE /* Mockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockable.swift; sourceTree = "<group>"; };
 		E5E219D92B94137500BE9ACE /* CategoriesViewModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoriesViewModel+Mock.swift"; sourceTree = "<group>"; };
+		E5F025742BF11ED500E15E31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1146,6 +1150,7 @@
 				E5B636622BB6750900B2F076 /* MainView */,
 				E51B326E2B7E5DFC0028E8C7 /* CakesHubApp.swift */,
 				E5272FBC2B9A9B1900F181A1 /* Navigation.swift */,
+				E5F025742BF11ED500E15E31 /* AppDelegate.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1408,6 +1413,14 @@
 			path = FBNotification;
 			sourceTree = "<group>";
 		};
+		E56B53BB2BF055BA006DA0F3 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				E56B53BC2BF055D6006DA0F3 /* LocalNotificationManager.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
 		E56CA0752BD01FD7001BE387 /* Substructures */ = {
 			isa = PBXGroup;
 			children = (
@@ -1472,6 +1485,7 @@
 		E59AEC652B92B16400760E61 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				E56B53BB2BF055BA006DA0F3 /* Notifications */,
 				E53767942BCF77A300F83990 /* FileManager */,
 				E535642D2BC7524B001077DF /* WebSocket */,
 				E59AEC732B92B27200760E61 /* Firebase */,
@@ -1830,6 +1844,7 @@
 				E51B331E2B7E60010028E8C7 /* Optional+Extensions.swift in Sources */,
 				E52CDD0A2BB6460E009C08B9 /* ChatSubviews.swift in Sources */,
 				E59AEC7F2B92C4A600760E61 /* FBProductModel+Mock.swift in Sources */,
+				E5F025752BF11ED500E15E31 /* AppDelegate.swift in Sources */,
 				E527227E2BE9314000E4441B /* FBCateoryModel.swift in Sources */,
 				E5727DFE2BEBFA47008543BD /* AllChatsVMScreens.swift in Sources */,
 				E55B5EC12BCA496B00DDDFA4 /* AuthViewModel+Mock.swift in Sources */,
@@ -1838,6 +1853,7 @@
 				E51B32DB2B7E5FEF0028E8C7 /* CHMBigBannerView+Configuration.swift in Sources */,
 				E541F2292BD0F20C00692138 /* VMCreateProductServices.swift in Sources */,
 				E51B32F82B7E5FEF0028E8C7 /* MKRImageView.swift in Sources */,
+				E56B53BD2BF055D6006DA0F3 /* LocalNotificationManager.swift in Sources */,
 				E5C5408A2BEAF7DC0025EBF1 /* AllChatsView.swift in Sources */,
 				E51B33512B7E63090028E8C7 /* ViewModelable.swift in Sources */,
 				E55B5EBF2BCA496B00DDDFA4 /* AuthView.swift in Sources */,
