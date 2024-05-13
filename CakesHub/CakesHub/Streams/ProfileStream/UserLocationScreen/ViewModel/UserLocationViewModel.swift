@@ -59,6 +59,7 @@ extension UserLocationViewModel {
     
     /// Пользователь ввёл данные `поиска`
     func searchPlace() {
+        uiProperties.textInput = .clear
         Task {
             let results = (try? await fetchMapItems()) ?? []
             uiProperties.results = results
