@@ -12,9 +12,17 @@ import MapKit
 extension UserLocationViewModel {
 
     struct UIProperties: ClearConfigurationProtocol {
-        // 55.77142669666473, 37.69194579335664
         var textInput: String = .clear
-        var camera: MapCameraPosition = .automatic
+        var camera: MapCameraPosition = .region(
+            .init(
+                center: CLLocationCoordinate2D(
+                    latitude: 55.76603817707461,
+                    longitude: 37.685015762493904
+                ),
+                latitudinalMeters: 10_000,
+                longitudinalMeters: 10_000
+            )
+        )
         var results: [MKMapItem] = []
         var mapSelection: MKMapItem?
         var showDetails = false

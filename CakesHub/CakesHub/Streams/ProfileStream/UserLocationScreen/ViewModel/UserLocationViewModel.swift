@@ -58,11 +58,12 @@ extension UserLocationViewModel {
 extension UserLocationViewModel {
     
     /// Пользователь ввёл данные `поиска`
+    @MainActor
     func searchPlace() {
-        uiProperties.textInput = .clear
         Task {
             let results = (try? await fetchMapItems()) ?? []
             uiProperties.results = results
+            uiProperties.textInput = .clear
             guard let center = results.first else { return }
             withAnimation {
                 uiProperties.camera = .region(
@@ -89,8 +90,8 @@ extension UserLocationViewModel {
             uiProperties.camera = .region(
                 .init(
                     center: scrollToCoordinate,
-                    latitudinalMeters: 100,
-                    longitudinalMeters: 100
+                    latitudinalMeters: 200,
+                    longitudinalMeters: 200
                 )
             )
         }
