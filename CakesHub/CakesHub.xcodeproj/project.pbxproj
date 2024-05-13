@@ -114,6 +114,7 @@
 		E523BD212BEFA502008B0F70 /* FeedbackVMUIProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E523BD202BEFA502008B0F70 /* FeedbackVMUIProperties.swift */; };
 		E523BD232BEFBC48008B0F70 /* FeedbackVMData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E523BD222BEFBC48008B0F70 /* FeedbackVMData.swift */; };
 		E523BD252BF017EE008B0F70 /* ProductReviewsViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E523BD242BF017EE008B0F70 /* ProductReviewsViewModel+Mock.swift */; };
+		E5253C0E2BF24B1500A8E31E /* LocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5253C0D2BF24B1500A8E31E /* LocationDetailsView.swift */; };
 		E52722752BE8F3A300E4441B /* SDNotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52722742BE8F3A300E4441B /* SDNotificationModel.swift */; };
 		E52722782BE9202B00E4441B /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52722772BE9202B00E4441B /* CategoryService.swift */; };
 		E527227E2BE9314000E4441B /* FBCateoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527227D2BE9314000E4441B /* FBCateoryModel.swift */; };
@@ -178,6 +179,13 @@
 		E58825DB2BEDB3C900929FD1 /* ChatVMData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58825DA2BEDB3C900929FD1 /* ChatVMData.swift */; };
 		E58825DD2BEDD31100929FD1 /* ProfileVMScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58825DC2BEDD31100929FD1 /* ProfileVMScreens.swift */; };
 		E58825DF2BEDD31C00929FD1 /* ProfileVMServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58825DE2BEDD31C00929FD1 /* ProfileVMServices.swift */; };
+		E59A2EA22BF1A7CD009CE507 /* UserLocationVMData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A2E962BF1A7CD009CE507 /* UserLocationVMData.swift */; };
+		E59A2EA32BF1A7CD009CE507 /* UserLocationVMReducers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A2E972BF1A7CD009CE507 /* UserLocationVMReducers.swift */; };
+		E59A2EA42BF1A7CD009CE507 /* UserLocationVMUIProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A2E982BF1A7CD009CE507 /* UserLocationVMUIProperties.swift */; };
+		E59A2EA52BF1A7CD009CE507 /* UserLocationSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A2E9A2BF1A7CD009CE507 /* UserLocationSubview.swift */; };
+		E59A2EA62BF1A7CD009CE507 /* UserLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A2E9C2BF1A7CD009CE507 /* UserLocationView.swift */; };
+		E59A2EA72BF1A7CD009CE507 /* UserLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A2E9E2BF1A7CD009CE507 /* UserLocationViewModel.swift */; };
+		E59A2EAA2BF1AAE4009CE507 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A2EA92BF1AAE4009CE507 /* LocationManager.swift */; };
 		E59AEC592B92AA2900760E61 /* FBProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC582B92AA2900760E61 /* FBProductModel.swift */; };
 		E59AEC5B2B92AE5F00760E61 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E59AEC5A2B92AE5F00760E61 /* GoogleService-Info.plist */; };
 		E59AEC682B92B17200760E61 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC672B92B17200760E61 /* AuthService.swift */; };
@@ -338,6 +346,7 @@
 		E523BD202BEFA502008B0F70 /* FeedbackVMUIProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackVMUIProperties.swift; sourceTree = "<group>"; };
 		E523BD222BEFBC48008B0F70 /* FeedbackVMData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackVMData.swift; sourceTree = "<group>"; };
 		E523BD242BF017EE008B0F70 /* ProductReviewsViewModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductReviewsViewModel+Mock.swift"; sourceTree = "<group>"; };
+		E5253C0D2BF24B1500A8E31E /* LocationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsView.swift; sourceTree = "<group>"; };
 		E52722742BE8F3A300E4441B /* SDNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDNotificationModel.swift; sourceTree = "<group>"; };
 		E52722772BE9202B00E4441B /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
 		E527227D2BE9314000E4441B /* FBCateoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBCateoryModel.swift; sourceTree = "<group>"; };
@@ -401,6 +410,13 @@
 		E58825DA2BEDB3C900929FD1 /* ChatVMData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVMData.swift; sourceTree = "<group>"; };
 		E58825DC2BEDD31100929FD1 /* ProfileVMScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVMScreens.swift; sourceTree = "<group>"; };
 		E58825DE2BEDD31C00929FD1 /* ProfileVMServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVMServices.swift; sourceTree = "<group>"; };
+		E59A2E962BF1A7CD009CE507 /* UserLocationVMData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationVMData.swift; sourceTree = "<group>"; };
+		E59A2E972BF1A7CD009CE507 /* UserLocationVMReducers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationVMReducers.swift; sourceTree = "<group>"; };
+		E59A2E982BF1A7CD009CE507 /* UserLocationVMUIProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationVMUIProperties.swift; sourceTree = "<group>"; };
+		E59A2E9A2BF1A7CD009CE507 /* UserLocationSubview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationSubview.swift; sourceTree = "<group>"; };
+		E59A2E9C2BF1A7CD009CE507 /* UserLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationView.swift; sourceTree = "<group>"; };
+		E59A2E9E2BF1A7CD009CE507 /* UserLocationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationViewModel.swift; sourceTree = "<group>"; };
+		E59A2EA92BF1AAE4009CE507 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E59AEC582B92AA2900760E61 /* FBProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBProductModel.swift; sourceTree = "<group>"; };
 		E59AEC5A2B92AE5F00760E61 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E59AEC672B92B17200760E61 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -467,6 +483,7 @@
 		A332D1652BB2F842007C194D /* ProfileStream */ = {
 			isa = PBXGroup;
 			children = (
+				E59A2EA12BF1A7CD009CE507 /* UserLocationScreen */,
 				E55B5EBE2BCA496B00DDDFA4 /* AuthScreen */,
 				E55B5EAA2BCA491800DDDFA4 /* ProfileScreen */,
 			);
@@ -1470,6 +1487,53 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		E59A2E992BF1A7CD009CE507 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E59A2E962BF1A7CD009CE507 /* UserLocationVMData.swift */,
+				E59A2E972BF1A7CD009CE507 /* UserLocationVMReducers.swift */,
+				E59A2E982BF1A7CD009CE507 /* UserLocationVMUIProperties.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E59A2E9B2BF1A7CD009CE507 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				E5253C0D2BF24B1500A8E31E /* LocationDetailsView.swift */,
+				E59A2E9A2BF1A7CD009CE507 /* UserLocationSubview.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		E59A2E9D2BF1A7CD009CE507 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E59A2E9B2BF1A7CD009CE507 /* Subviews */,
+				E59A2E9C2BF1A7CD009CE507 /* UserLocationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E59A2EA02BF1A7CD009CE507 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E59A2E9E2BF1A7CD009CE507 /* UserLocationViewModel.swift */,
+				E59A2EA92BF1AAE4009CE507 /* LocationManager.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E59A2EA12BF1A7CD009CE507 /* UserLocationScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E59A2E992BF1A7CD009CE507 /* Model */,
+				E59A2EA02BF1A7CD009CE507 /* ViewModel */,
+				E59A2E9D2BF1A7CD009CE507 /* View */,
+			);
+			path = UserLocationScreen;
+			sourceTree = "<group>";
+		};
 		E59AEC572B92A92C00760E61 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -1795,6 +1859,7 @@
 				E556517A2BB9AC6400759839 /* NotificationModel.swift in Sources */,
 				E51B32F22B7E5FEF0028E8C7 /* CHMStarsView+Configuration.swift in Sources */,
 				E55651822BB9DFD200759839 /* NotificationViewModel+Mock.swift in Sources */,
+				E59A2EA32BF1A7CD009CE507 /* UserLocationVMReducers.swift in Sources */,
 				E51B32E12B7E5FEF0028E8C7 /* CHMProductDescriptionView+HandlerConfiguration.swift in Sources */,
 				E51B32DE2B7E5FEF0028E8C7 /* CHMBigBannerView+Preview.swift in Sources */,
 				E51B32D52B7E5FEF0028E8C7 /* CHMNewProductCard+Preview.swift in Sources */,
@@ -1855,6 +1920,7 @@
 				E51B32F82B7E5FEF0028E8C7 /* MKRImageView.swift in Sources */,
 				E56B53BD2BF055D6006DA0F3 /* LocalNotificationManager.swift in Sources */,
 				E5C5408A2BEAF7DC0025EBF1 /* AllChatsView.swift in Sources */,
+				E5253C0E2BF24B1500A8E31E /* LocationDetailsView.swift in Sources */,
 				E51B33512B7E63090028E8C7 /* ViewModelable.swift in Sources */,
 				E55B5EBF2BCA496B00DDDFA4 /* AuthView.swift in Sources */,
 				E58825D92BEDB32400929FD1 /* ChatVMServices.swift in Sources */,
@@ -1880,6 +1946,7 @@
 				E54460AF2BE5600C00B70444 /* WSNotification.swift in Sources */,
 				E51B32D42B7E5FEF0028E8C7 /* CHMNewProductCard+Configuration.swift in Sources */,
 				E51B32E32B7E5FEF0028E8C7 /* CHMProductDescriptionView+Preview.swift in Sources */,
+				E59A2EA62BF1A7CD009CE507 /* UserLocationView.swift in Sources */,
 				E51B332A2B7E602A0028E8C7 /* SwiftUIPreview.swift in Sources */,
 				E5C5407D2BEAE7000025EBF1 /* CHMChatCell+Defaults.swift in Sources */,
 				E5DE81602BBFDC650012BD8E /* CreateProductSubviews.swift in Sources */,
@@ -1912,6 +1979,7 @@
 				E51B32ED2B7E5FEF0028E8C7 /* CHMRatingReviewsView+Configuration.swift in Sources */,
 				E51B326F2B7E5DFC0028E8C7 /* CakesHubApp.swift in Sources */,
 				E50E901F2B7E7C0200C370A9 /* MainViewModel+Mock.swift in Sources */,
+				E59A2EA52BF1A7CD009CE507 /* UserLocationSubview.swift in Sources */,
 				E51B32F42B7E5FEF0028E8C7 /* CHMStarsView+Preview.swift in Sources */,
 				E5DE85842BC0CE5C0013445A /* LimitedTextField.swift in Sources */,
 				E5DC48B52BB322CD000F3EFE /* ProfileViewModel+Mock.swift in Sources */,
@@ -1971,6 +2039,7 @@
 				E59AEC752B92B7A400760E61 /* FBUserModel.swift in Sources */,
 				E5E219D42B940FF000BE9ACE /* CategoriesViewModel.swift in Sources */,
 				E51B332F2B7E603E0028E8C7 /* ClearConfigurationProtocol.swift in Sources */,
+				E59A2EA42BF1A7CD009CE507 /* UserLocationVMUIProperties.swift in Sources */,
 				E51B335B2B7E63300028E8C7 /* UIDevice+Extenstions.swift in Sources */,
 				E5C540952BEAFA630025EBF1 /* ChatCellModel.swift in Sources */,
 				E58825DF2BEDD31C00929FD1 /* ProfileVMServices.swift in Sources */,
@@ -1990,13 +2059,16 @@
 				E5C5407C2BEAE7000025EBF1 /* CHMChatCell+Configuration.swift in Sources */,
 				E51B32CC2B7E5FEF0028E8C7 /* CHMProductButton+Preview.swift in Sources */,
 				E5C5407E2BEAE7000025EBF1 /* CHMChatCell.swift in Sources */,
+				E59A2EA22BF1A7CD009CE507 /* UserLocationVMData.swift in Sources */,
 				E51B32D02B7E5FEF0028E8C7 /* CHMCommentView+Configuration.swift in Sources */,
 				E5DE815E2BBFDC360012BD8E /* CreateProductViewModel+Mock.swift in Sources */,
 				E52722782BE9202B00E4441B /* CategoryService.swift in Sources */,
 				E51B33162B7E60010028E8C7 /* UIColor+Extenstions.swift in Sources */,
 				E55B5EC02BCA496B00DDDFA4 /* AuthViewModel.swift in Sources */,
+				E59A2EA72BF1A7CD009CE507 /* UserLocationViewModel.swift in Sources */,
 				E51B32DA2B7E5FEF0028E8C7 /* CHMNewCategoryView+Preview.swift in Sources */,
 				E51B32DF2B7E5FEF0028E8C7 /* CHMProductDescriptionView+Defaults.swift in Sources */,
+				E59A2EAA2BF1AAE4009CE507 /* LocationManager.swift in Sources */,
 				E5DE815C2BBFDC360012BD8E /* CreateProductView.swift in Sources */,
 				E51B33212B7E60010028E8C7 /* Color+Addition.swift in Sources */,
 				E51B32D72B7E5FEF0028E8C7 /* CHMNewCategoryView+Configuration.swift in Sources */,
@@ -2141,6 +2213,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = CakesHub;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -2171,6 +2244,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = CakesHub;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

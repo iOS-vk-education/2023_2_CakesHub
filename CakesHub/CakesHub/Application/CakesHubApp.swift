@@ -30,9 +30,9 @@ struct CakesHubApp: App {
     init() {
         Logger.print(URL.applicationSupportDirectory.path(percentEncoded: false))
         let fileManagerPath = try? FileManager.default.url(for: .documentDirectory,
-                                          in: .userDomainMask,
-                                          appropriateFor: nil,
-                                          create: true)
+                                                           in: .userDomainMask,
+                                                           appropriateFor: nil,
+                                                           create: true)
         Logger.print(fileManagerPath ?? "FileManager path not found")
     }
 }
