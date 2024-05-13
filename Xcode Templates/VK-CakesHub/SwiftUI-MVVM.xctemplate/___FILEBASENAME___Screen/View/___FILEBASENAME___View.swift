@@ -13,11 +13,7 @@ struct ___VARIABLE_productName:identifier___View: View, ViewModelable {
 
     #warning("Удалите навигацию, если она не требуется")
     @EnvironmentObject private var nav: Navigation
-    @StateObject var viewModel: ViewModel
-
-    init(viewModel: ViewModel = ViewModel()) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
+    @State var viewModel: ViewModel
 
     var body: some View {
         MainView
@@ -25,33 +21,13 @@ struct ___VARIABLE_productName:identifier___View: View, ViewModelable {
     }
 }
 
-// MARK: - Network
+// MARK: - Lifecycle
 
 private extension ___VARIABLE_productName:identifier___View {
 
     #warning("Тут логика при появлении экрана")
     func onAppear() {
-    }
-}
-
-// MARK: - Subviews
-
-private extension ___VARIABLE_productName:identifier___View {
-
-    #warning("Тут должна быть вашь вьюха")
-    var MainView: some View {
-        VStack {
-            MKRImageView(
-                configuration: .basic(
-                    kind: viewModel.image,
-                    imageSize: CGSize(width: Constants.imageSize, height: Constants.imageSize),
-                    imageShape: .roundedRectangle(Constants.imageCornerRadius)
-                )
-            )
-
-            Text(viewModel.title)
-                .style(14, .semibold, Constants.textColor)
-        }
+        viewModel.setNavigation(nav: nav)
     }
 }
 
@@ -61,16 +37,4 @@ private extension ___VARIABLE_productName:identifier___View {
 #Preview {
     ___VARIABLE_productName:identifier___View(viewModel: .mockData)
         .environmentObject(Navigation())
-}
-
-// MARK: - Constants
-
-#warning("Добавляйте сюда все необходимые константы")
-private extension ___VARIABLE_productName:identifier___View {
-
-    enum Constants {
-        static let imageSize: CGFloat = 200
-        static let imageCornerRadius: CGFloat = 20
-        static let textColor: Color = CHMColor<TextPalette>.textPrimary.color
-    }
 }
