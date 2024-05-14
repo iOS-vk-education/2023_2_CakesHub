@@ -17,15 +17,13 @@ struct AuthorizationView: View {
     var body: some View {
         
         VStack {
-            ZStack{
-                Image(.cakeLogo)
-                    .renderingMode(.template)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 120, height: 120)
-                    .foregroundStyle(CHMColor<IconPalette>.iconPrimary.color)
-            }
-            
+            Image(.cakeLogo)
+                .renderingMode(.template)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 120, height: 120)
+                .foregroundStyle(CHMColor<IconPalette>.iconPrimary.color)
+
             VStack{
                 Text("Sign In")
                     .font(.title)

@@ -8,6 +8,8 @@ enum Entrypoint {
         try LoggingSystem.bootstrap(from: &env)
         
         let app = Application(env)
+        app.http.server.configuration.hostname = "192.168.1.39"
+        app.http.server.configuration.port = 2727
         defer { app.shutdown() }
         
         do {
