@@ -1,5 +1,5 @@
 //
-//  UserInputData.swift
+//  VMAuthScreenData.swift
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 13.04.2024.
