@@ -55,7 +55,8 @@ extension ProductReviewsModel {
         return "\(averageRating.rounded(toPlaces: 1))"
     }
     var averageRating: CGFloat {
-        CGFloat(feedbackAmountOfPoints) / CGFloat(feedbackCount)
+        guard feedbackCount > 0 else { return .zero }
+        return CGFloat(feedbackAmountOfPoints) / CGFloat(feedbackCount)
     }
 }
 
