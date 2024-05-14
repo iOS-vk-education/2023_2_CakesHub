@@ -17,6 +17,7 @@
 		E50B61482BCE3DA0003484C7 /* RootViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B61472BCE3DA0003484C7 /* RootViewModel+Mock.swift */; };
 		E50E901E2B7E7C0200C370A9 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50E901C2B7E7C0200C370A9 /* MainViewModel.swift */; };
 		E50E901F2B7E7C0200C370A9 /* MainViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50E901D2B7E7C0200C370A9 /* MainViewModel+Mock.swift */; };
+		E510A4A42BF3992400975E73 /* VMAuthReducers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E510A4A32BF3992400975E73 /* VMAuthReducers.swift */; };
 		E51366282BC2143900B12304 /* AddProductImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51366272BC2143900B12304 /* AddProductImages.swift */; };
 		E513662A2BC21D1A00B12304 /* ProductResultScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51366292BC21D1A00B12304 /* ProductResultScreen.swift */; };
 		E5155CD82BCBA0AC00BF773D /* PreviewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5155CD72BCBA0AC00BF773D /* PreviewContainer.swift */; };
@@ -162,7 +163,7 @@
 		E55B5EC02BCA496B00DDDFA4 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EBB2BCA496B00DDDFA4 /* AuthViewModel.swift */; };
 		E55B5EC12BCA496B00DDDFA4 /* AuthViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EBC2BCA496B00DDDFA4 /* AuthViewModel+Mock.swift */; };
 		E55B5EC32BCA4B1800DDDFA4 /* AuthSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EC22BCA4B1800DDDFA4 /* AuthSubviews.swift */; };
-		E55B5EC52BCA4F4F00DDDFA4 /* VMAuthInputData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EC42BCA4F4F00DDDFA4 /* VMAuthInputData.swift */; };
+		E55B5EC52BCA4F4F00DDDFA4 /* VMAuthScreenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EC42BCA4F4F00DDDFA4 /* VMAuthScreenData.swift */; };
 		E55B5EC82BCA546000DDDFA4 /* SDUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EC72BCA546000DDDFA4 /* SDUserModel.swift */; };
 		E55E77A72BA9157B00B463A0 /* ProductDetailSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E77A62BA9157B00B463A0 /* ProductDetailSubviews.swift */; };
 		E55E77A92BA917BD00B463A0 /* ProductReviewsSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E77A82BA917BD00B463A0 /* ProductReviewsSubviews.swift */; };
@@ -255,6 +256,7 @@
 		E50B61472BCE3DA0003484C7 /* RootViewModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootViewModel+Mock.swift"; sourceTree = "<group>"; };
 		E50E901C2B7E7C0200C370A9 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		E50E901D2B7E7C0200C370A9 /* MainViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainViewModel+Mock.swift"; sourceTree = "<group>"; };
+		E510A4A32BF3992400975E73 /* VMAuthReducers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMAuthReducers.swift; sourceTree = "<group>"; };
 		E51366272BC2143900B12304 /* AddProductImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductImages.swift; sourceTree = "<group>"; };
 		E51366292BC21D1A00B12304 /* ProductResultScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductResultScreen.swift; sourceTree = "<group>"; };
 		E5155CD72BCBA0AC00BF773D /* PreviewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContainer.swift; sourceTree = "<group>"; };
@@ -401,7 +403,7 @@
 		E55B5EBB2BCA496B00DDDFA4 /* AuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		E55B5EBC2BCA496B00DDDFA4 /* AuthViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthViewModel+Mock.swift"; sourceTree = "<group>"; };
 		E55B5EC22BCA4B1800DDDFA4 /* AuthSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSubviews.swift; sourceTree = "<group>"; };
-		E55B5EC42BCA4F4F00DDDFA4 /* VMAuthInputData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMAuthInputData.swift; sourceTree = "<group>"; };
+		E55B5EC42BCA4F4F00DDDFA4 /* VMAuthScreenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMAuthScreenData.swift; sourceTree = "<group>"; };
 		E55B5EC72BCA546000DDDFA4 /* SDUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUserModel.swift; sourceTree = "<group>"; };
 		E55E77A62BA9157B00B463A0 /* ProductDetailSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailSubviews.swift; sourceTree = "<group>"; };
 		E55E77A82BA917BD00B463A0 /* ProductReviewsSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductReviewsSubviews.swift; sourceTree = "<group>"; };
@@ -1412,8 +1414,9 @@
 		E55B5EB82BCA496B00DDDFA4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E55B5EC42BCA4F4F00DDDFA4 /* VMAuthInputData.swift */,
+				E55B5EC42BCA4F4F00DDDFA4 /* VMAuthScreenData.swift */,
 				E50B61412BCE331C003484C7 /* VMAuthServices.swift */,
+				E510A4A32BF3992400975E73 /* VMAuthReducers.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1950,6 +1953,7 @@
 				E5A65EBC2BED29BB0030338C /* ChatInterlocutor.swift in Sources */,
 				E55093772BE9811000F1326E /* CategoriesVMServices.swift in Sources */,
 				E5B636642BB6751400B2F076 /* RootViewModel.swift in Sources */,
+				E510A4A42BF3992400975E73 /* VMAuthReducers.swift in Sources */,
 				E535642F2BC7525A001077DF /* WebSockerManager.swift in Sources */,
 				E51B32F72B7E5FEF0028E8C7 /* MKRImageView+Preview.swift in Sources */,
 				E5DE815D2BBFDC360012BD8E /* CreateProductViewModel.swift in Sources */,
@@ -2037,7 +2041,7 @@
 				E56B70452BD257F600851C05 /* SDModelable.swift in Sources */,
 				E51B33292B7E602A0028E8C7 /* Typealias.swift in Sources */,
 				E50B61422BCE331C003484C7 /* VMAuthServices.swift in Sources */,
-				E55B5EC52BCA4F4F00DDDFA4 /* VMAuthInputData.swift in Sources */,
+				E55B5EC52BCA4F4F00DDDFA4 /* VMAuthScreenData.swift in Sources */,
 				E51B32ED2B7E5FEF0028E8C7 /* CHMRatingReviewsView+Configuration.swift in Sources */,
 				E51B326F2B7E5DFC0028E8C7 /* CakesHubApp.swift in Sources */,
 				E50E901F2B7E7C0200C370A9 /* MainViewModel+Mock.swift in Sources */,
