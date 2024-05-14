@@ -10,7 +10,6 @@
 		A332D1692BB2F842007C194D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1662BB2F842007C194D /* UserModel.swift */; };
 		A332D16A2BB2F842007C194D /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1672BB2F842007C194D /* ProfileScreen.swift */; };
 		A332D16B2BB2F842007C194D /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1682BB2F842007C194D /* ProfileViewModel.swift */; };
-		A3A03F572BB33A730034C0B1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A03F562BB33A730034C0B1 /* SettingsView.swift */; };
 		A3A03F592BB3430D0034C0B1 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A03F582BB3430D0034C0B1 /* NotificationsView.swift */; };
 		E50B61422BCE331C003484C7 /* VMAuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B61412BCE331C003484C7 /* VMAuthServices.swift */; };
 		E50B61442BCE3433003484C7 /* VMRootSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B61432BCE3433003484C7 /* VMRootSection.swift */; };
@@ -151,6 +150,14 @@
 		E55651822BB9DFD200759839 /* NotificationViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55651812BB9DFD200759839 /* NotificationViewModel+Mock.swift */; };
 		E55651842BB9E66F00759839 /* NotificationSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55651832BB9E66F00759839 /* NotificationSubviews.swift */; };
 		E5587ADF2BE8676F00470924 /* ProductDetailVMServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5587ADE2BE8676F00470924 /* ProductDetailVMServices.swift */; };
+		E559911D2BF2D716001412CB /* SettingsVMData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55991112BF2D716001412CB /* SettingsVMData.swift */; };
+		E559911E2BF2D716001412CB /* SettingsVMReducers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55991122BF2D716001412CB /* SettingsVMReducers.swift */; };
+		E559911F2BF2D716001412CB /* SettingsVMUIProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55991132BF2D716001412CB /* SettingsVMUIProperties.swift */; };
+		E55991202BF2D716001412CB /* SettingsSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55991152BF2D716001412CB /* SettingsSubview.swift */; };
+		E55991212BF2D716001412CB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55991172BF2D716001412CB /* SettingsView.swift */; };
+		E55991222BF2D716001412CB /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55991192BF2D716001412CB /* SettingsViewModel.swift */; };
+		E55991232BF2D716001412CB /* SettingsViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E559911A2BF2D716001412CB /* SettingsViewModel+Mock.swift */; };
+		E55991252BF2DBA6001412CB /* SettingsVMServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55991242BF2DBA6001412CB /* SettingsVMServices.swift */; };
 		E55B5EBF2BCA496B00DDDFA4 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EB92BCA496B00DDDFA4 /* AuthView.swift */; };
 		E55B5EC02BCA496B00DDDFA4 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EBB2BCA496B00DDDFA4 /* AuthViewModel.swift */; };
 		E55B5EC12BCA496B00DDDFA4 /* AuthViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5EBC2BCA496B00DDDFA4 /* AuthViewModel+Mock.swift */; };
@@ -241,7 +248,6 @@
 		A332D1662BB2F842007C194D /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		A332D1672BB2F842007C194D /* ProfileScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		A332D1682BB2F842007C194D /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		A3A03F562BB33A730034C0B1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A3A03F582BB3430D0034C0B1 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		E50B61412BCE331C003484C7 /* VMAuthServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMAuthServices.swift; sourceTree = "<group>"; };
 		E50B61432BCE3433003484C7 /* VMRootSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMRootSection.swift; sourceTree = "<group>"; };
@@ -383,6 +389,14 @@
 		E55651812BB9DFD200759839 /* NotificationViewModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationViewModel+Mock.swift"; sourceTree = "<group>"; };
 		E55651832BB9E66F00759839 /* NotificationSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSubviews.swift; sourceTree = "<group>"; };
 		E5587ADE2BE8676F00470924 /* ProductDetailVMServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailVMServices.swift; sourceTree = "<group>"; };
+		E55991112BF2D716001412CB /* SettingsVMData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVMData.swift; sourceTree = "<group>"; };
+		E55991122BF2D716001412CB /* SettingsVMReducers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVMReducers.swift; sourceTree = "<group>"; };
+		E55991132BF2D716001412CB /* SettingsVMUIProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVMUIProperties.swift; sourceTree = "<group>"; };
+		E55991152BF2D716001412CB /* SettingsSubview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSubview.swift; sourceTree = "<group>"; };
+		E55991172BF2D716001412CB /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E55991192BF2D716001412CB /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		E559911A2BF2D716001412CB /* SettingsViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SettingsViewModel+Mock.swift"; sourceTree = "<group>"; };
+		E55991242BF2DBA6001412CB /* SettingsVMServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVMServices.swift; sourceTree = "<group>"; };
 		E55B5EB92BCA496B00DDDFA4 /* AuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		E55B5EBB2BCA496B00DDDFA4 /* AuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		E55B5EBC2BCA496B00DDDFA4 /* AuthViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthViewModel+Mock.swift"; sourceTree = "<group>"; };
@@ -483,6 +497,7 @@
 		A332D1652BB2F842007C194D /* ProfileStream */ = {
 			isa = PBXGroup;
 			children = (
+				E559911C2BF2D716001412CB /* SettingsScreen */,
 				E59A2EA12BF1A7CD009CE507 /* UserLocationScreen */,
 				E55B5EBE2BCA496B00DDDFA4 /* AuthScreen */,
 				E55B5EAA2BCA491800DDDFA4 /* ProfileScreen */,
@@ -1337,6 +1352,53 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
+		E55991142BF2D716001412CB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E55991112BF2D716001412CB /* SettingsVMData.swift */,
+				E55991122BF2D716001412CB /* SettingsVMReducers.swift */,
+				E55991132BF2D716001412CB /* SettingsVMUIProperties.swift */,
+				E55991242BF2DBA6001412CB /* SettingsVMServices.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E55991162BF2D716001412CB /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				E55991152BF2D716001412CB /* SettingsSubview.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		E55991182BF2D716001412CB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E55991162BF2D716001412CB /* Subviews */,
+				E55991172BF2D716001412CB /* SettingsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E559911B2BF2D716001412CB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E55991192BF2D716001412CB /* SettingsViewModel.swift */,
+				E559911A2BF2D716001412CB /* SettingsViewModel+Mock.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E559911C2BF2D716001412CB /* SettingsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E55991142BF2D716001412CB /* Model */,
+				E55991182BF2D716001412CB /* View */,
+				E559911B2BF2D716001412CB /* ViewModel */,
+			);
+			path = SettingsScreen;
+			sourceTree = "<group>";
+		};
 		E55B5EAA2BCA491800DDDFA4 /* ProfileScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -1720,7 +1782,6 @@
 			isa = PBXGroup;
 			children = (
 				A332D1672BB2F842007C194D /* ProfileScreen.swift */,
-				A3A03F562BB33A730034C0B1 /* SettingsView.swift */,
 				A3A03F582BB3430D0034C0B1 /* NotificationsView.swift */,
 			);
 			path = Screens;
@@ -1873,6 +1934,7 @@
 				E51B32D32B7E5FEF0028E8C7 /* CHMNewProductCard+Defaults.swift in Sources */,
 				E59AEC6E2B92B21200760E61 /* LoginUserRequest.swift in Sources */,
 				E52CDD0B2BB6460E009C08B9 /* MessageBubble.swift in Sources */,
+				E55991252BF2DBA6001412CB /* SettingsVMServices.swift in Sources */,
 				E5155CEC2BCCCB6100BF773D /* FBImageKind.swift in Sources */,
 				E5155CEA2BCCCB3F00BF773D /* FBCommentInfoModel.swift in Sources */,
 				E52CDD0D2BB6460E009C08B9 /* ChatViewModel.swift in Sources */,
@@ -1926,6 +1988,7 @@
 				E58825D92BEDB32400929FD1 /* ChatVMServices.swift in Sources */,
 				E51B32E52B7E5FEF0028E8C7 /* CHMBadgeView+Configuration.swift in Sources */,
 				E51B33112B7E60010028E8C7 /* CGSize+Extensions.swift in Sources */,
+				E55991202BF2D716001412CB /* SettingsSubview.swift in Sources */,
 				E556517D2BB9AC6400759839 /* NotificationView.swift in Sources */,
 				E51B32E92B7E5FEF0028E8C7 /* CHMPicker+Configuration.swift in Sources */,
 				A332D16B2BB2F842007C194D /* ProfileViewModel.swift in Sources */,
@@ -1958,7 +2021,6 @@
 				E51B32E62B7E5FEF0028E8C7 /* CHMBadgeView.swift in Sources */,
 				E50B61462BCE377C003484C7 /* VMRootProduct.swift in Sources */,
 				E51B33282B7E602A0028E8C7 /* Modifiy.swift in Sources */,
-				A3A03F572BB33A730034C0B1 /* SettingsView.swift in Sources */,
 				E523BD252BF017EE008B0F70 /* ProductReviewsViewModel+Mock.swift in Sources */,
 				E52CDD0C2BB6460E009C08B9 /* ChatView.swift in Sources */,
 				A3A03F592BB3430D0034C0B1 /* NotificationsView.swift in Sources */,
@@ -1988,6 +2050,7 @@
 				E55E77AF2BA91B5700B463A0 /* ProductDetailCells.swift in Sources */,
 				E51B32CE2B7E5FEF0028E8C7 /* ShimmeringView.swift in Sources */,
 				E51B32EC2B7E5FEF0028E8C7 /* CHMPicker.swift in Sources */,
+				E559911E2BF2D716001412CB /* SettingsVMReducers.swift in Sources */,
 				E51B331C2B7E60010028E8C7 /* String+Extensions.swift in Sources */,
 				E51B32D92B7E5FEF0028E8C7 /* CHMNewCategoryView.swift in Sources */,
 				E51B33152B7E60010028E8C7 /* Image+Additions.swift in Sources */,
@@ -1999,6 +2062,7 @@
 				E50B61482BCE3DA0003484C7 /* RootViewModel+Mock.swift in Sources */,
 				E55651802BB9AC6400759839 /* NotificationViewModel.swift in Sources */,
 				E523BD1F2BEFA187008B0F70 /* FeedbackSubview.swift in Sources */,
+				E55991222BF2D716001412CB /* SettingsViewModel.swift in Sources */,
 				E51B335A2B7E63300028E8C7 /* Optional+Extenstions.swift in Sources */,
 				E5C99DD82B9A833F0000A2A9 /* CustomTabBar.swift in Sources */,
 				E523BD212BEFA502008B0F70 /* FeedbackVMUIProperties.swift in Sources */,
@@ -2009,6 +2073,7 @@
 				E523BD232BEFBC48008B0F70 /* FeedbackVMData.swift in Sources */,
 				E5C5407F2BEAE7000025EBF1 /* CHMChatCell+Preview.swift in Sources */,
 				E52CDD0E2BB6460E009C08B9 /* ChatViewModel+Mock.swift in Sources */,
+				E559911D2BF2D716001412CB /* SettingsVMData.swift in Sources */,
 				E5E219D62B9410CE00BE9ACE /* CategoryCardModel.swift in Sources */,
 				E55E77AC2BA918D200B463A0 /* CategoriesSubviews.swift in Sources */,
 				E51B335C2B7E63300028E8C7 /* View+Extentions.swift in Sources */,
@@ -2018,6 +2083,8 @@
 				E523BD1C2BEFA128008B0F70 /* FeedbackViewModel.swift in Sources */,
 				E51B32EF2B7E5FEF0028E8C7 /* CHMRatingReviewsView+Preview.swift in Sources */,
 				E55651842BB9E66F00759839 /* NotificationSubviews.swift in Sources */,
+				E55991232BF2D716001412CB /* SettingsViewModel+Mock.swift in Sources */,
+				E55991212BF2D716001412CB /* SettingsView.swift in Sources */,
 				E51B32E22B7E5FEF0028E8C7 /* CHMProductDescriptionView.swift in Sources */,
 				E51B32EB2B7E5FEF0028E8C7 /* CHMPicker+Preview.swift in Sources */,
 				E51B334A2B7E62AF0028E8C7 /* ProductDetailScreen+Mock.swift in Sources */,
@@ -2034,6 +2101,7 @@
 				E51B32F52B7E5FEF0028E8C7 /* MKRImageView+Configuration.swift in Sources */,
 				E5E219D82B94118000BE9ACE /* Mockable.swift in Sources */,
 				E51B32D12B7E5FEF0028E8C7 /* CHMCommentView+Defaults.swift in Sources */,
+				E559911F2BF2D716001412CB /* SettingsVMUIProperties.swift in Sources */,
 				E5A65EBE2BED447F0030338C /* Notification.Name+Extenstions.swift in Sources */,
 				E51B33462B7E62AF0028E8C7 /* ProductReviewsModel+Mock.swift in Sources */,
 				E59AEC752B92B7A400760E61 /* FBUserModel.swift in Sources */,

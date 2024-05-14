@@ -121,7 +121,7 @@ extension AuthViewModel {
         let sdUser = SDUserModel(fbModel: user)
         UserDefaults.standard.set(user.uid, forKey: UserDefaultsKeys.currentUser)
         context?.insert(sdUser)
-        do { try self.context?.save(); print("[DEBUG]: Сохранил") }
+        do { try self.context?.save() }
         catch { Logger.log(kind: .error, message: error.localizedDescription) }
     }
 }
