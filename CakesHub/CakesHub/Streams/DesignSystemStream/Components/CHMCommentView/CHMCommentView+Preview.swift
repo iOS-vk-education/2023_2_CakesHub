@@ -14,7 +14,7 @@ struct CHMCommentViewPreview: PreviewProvider {
         Group {
             CHMCommentView(
                 configuration: .basic(
-                    imageKind: .url(.mockProductCard),
+                    imageKind: .uiImage(.mockUser),
                     userName: "description: String",
                     date: "June 5, 2019",
                     description: """

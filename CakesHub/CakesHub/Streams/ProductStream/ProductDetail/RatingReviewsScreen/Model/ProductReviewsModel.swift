@@ -51,7 +51,7 @@ extension ProductReviewsModel {
             twoStarRating: assemleConfiguration(countTwoStars),
             oneStarRating: assemleConfiguration(countOneStars),
             commonRating: averageRatingString,
-            commonCount: String(localized: "reviews") + ": \(feedbackCount)"
+            commonCount: String(localized: "ratings") + ": \(feedbackCount)"
         )
     }
 
