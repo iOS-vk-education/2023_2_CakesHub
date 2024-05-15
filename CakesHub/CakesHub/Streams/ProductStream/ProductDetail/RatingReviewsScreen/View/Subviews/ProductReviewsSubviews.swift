@@ -90,8 +90,6 @@ extension ProductReviewsScreen {
 // MARK: - ReviewCell
 
 fileprivate struct ReviewCell: View {
-    @State private var animateReview = false
-    @State private var reviewSize: CGFloat = .zero
     var comment: ProductReviewsModel.CommentInfo
 
     var body: some View {
@@ -106,33 +104,6 @@ fileprivate struct ReviewCell: View {
                 )
             )
         )
-        .offset(x: animateReview ? 0 : reviewSize)
-        .overlay {
-            AppearanceCalculationsView
-        }
-    }
-}
-
-// MARK: - Helper
-
-private extension ReviewCell {
-
-    var AppearanceCalculationsView: some View {
-        GeometryReader {
-            let size = $0.size
-            let minY = $0.frame(in: .global).minY
-            Color.clear
-                .onAppear {
-                    reviewSize = size.height
-                }
-                .onChange(of: minY) { oldValue, newValue in
-                    if newValue < size.height * 1.4 && !animateReview {
-                        withAnimation(.spring(duration: 0.45)) {
-                            animateReview = true
-                        }
-                    }
-                }
-        }
     }
 }
 
