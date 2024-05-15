@@ -97,7 +97,7 @@ extension ChatView {
 
             } else {
                 Button(action: didTapSendMessageButton, label: {
-                    Image(systemName: Constants.paperplane)
+                    Image(systemName: Constants.paperplaneImg)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 22, height: 22)
@@ -125,8 +125,8 @@ private extension ChatView {
         static let textFieldBackgroundColor = CHMColor<BackgroundPalette>.bgPrimary.color
         static let textFieldStrokeColor = CHMColor<SeparatorPalette>(hexLight: 0xD1D1D1, hexDark: 0x3A3A3C).color
         static let iconColor = Color(red: 127/255, green: 127/255, blue: 127/255)
-        static let placeholder = "Message"
-        static let paperplane = "paperplane"
+        static let placeholder = String(localized: "Message")
+        static let paperplaneImg = "paperplane"
         static let gradientBackgroundColor: [Color] = [
             Color(red: 168/255, green: 255/255, blue: 59/255),
             Color(red: 111/255, green: 135/255, blue: 255/255),

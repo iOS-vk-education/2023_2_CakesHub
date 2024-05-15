@@ -121,7 +121,7 @@ extension ProductDetailScreen {
         VStack {
             Divider()
             Button(action: openRatingReviews, label: {
-                MoreInfoCell(text: ProductDetailCells.ratingReviews.rawValue)
+                MoreInfoCell(text: String(localized: ProductDetailCells.ratingReviews.title))
                     .padding(.horizontal)
             })
 
@@ -129,7 +129,7 @@ extension ProductDetailScreen {
 
             if userIsNotSeller {
                 Button(action: openSellerInfo, label: {
-                    MoreInfoCell(text: ProductDetailCells.sellerInfo.rawValue)
+                    MoreInfoCell(text: String(localized: ProductDetailCells.sellerInfo.title))
                         .padding(.horizontal)
                 })
                 Divider()
@@ -203,7 +203,7 @@ extension ProductDetailScreen {
         Button {
             didTapBuyButton()
         } label: {
-            Text(Constants.buyButtonTitle)
+            Text(Constants.buyButtonTitle.uppercased())
                 .font(.system(size: 14, weight: .medium))
                 .frame(maxWidth: .infinity)
         }
@@ -297,7 +297,7 @@ private extension ProductDetailScreen {
 
     enum Constants {
         static let similarBlockHeaderTitle = String(localized: "You can also like this")
-        static let buyButtonTitle = "MAKE AN ORDER"
+        static let buyButtonTitle = String(localized: "Make an order")
     }
 }
 

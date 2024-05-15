@@ -53,6 +53,6 @@ extension ProductReviewsScreen {
 private extension ProductReviewsScreen {
 
     enum Constants {
-        static let navigationTitle = "Rating&Reviews"
+        static let navigationTitle = String(localized: "Rating&Reviews")
     }
 }

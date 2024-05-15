@@ -16,7 +16,7 @@ extension UserLocationView {
             position: $viewModel.uiProperties.camera,
             selection: $viewModel.uiProperties.mapSelection
         ) {
-            Marker("bmstu".uppercased(), systemImage: "building", coordinate: viewModel.data.towel)
+            Marker(String(localized: "bmstu").uppercased(), systemImage: "building", coordinate: viewModel.data.towel)
                 .tint(.cyan)
 
             if let coordinates = viewModel.data.manager.userLocation {
@@ -111,7 +111,7 @@ private extension UserLocationView {
 
     enum Constants {
         static let sheetHeight: CGFloat = 340
-        static let textFieldPlaceholder = "Поиск"
+        static let textFieldPlaceholder = String(localized: "Search")
         static let locationImg = "location.fill"
         static let backButtonImg = "chevron.left"
     }

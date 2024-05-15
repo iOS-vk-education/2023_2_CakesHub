@@ -113,6 +113,16 @@
         }
       }
     },
+    "Create a product" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создать продукт"
+          }
+        }
+      }
+    },
     "Delete" : {
       "localizations" : {
         "ru" : {
@@ -235,6 +245,16 @@
         }
       }
     },
+    "Make an order" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Заказать"
+          }
+        }
+      }
+    },
     "Me" : {
       "localizations" : {
         "ru" : {
@@ -252,6 +272,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "мужчины"
+          }
+        }
+      }
+    },
+    "Message" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сообщение"
           }
         }
       }
@@ -388,6 +418,16 @@
         }
       }
     },
+    "Please share your opinion about the product" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пожалуйста, поделитесь своим мнением о продукте"
+          }
+        }
+      }
+    },
     "Price, $" : {
       "localizations" : {
         "ru" : {
@@ -425,6 +465,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Профль"
+          }
+        }
+      }
+    },
+    "Rating&Reviews" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Рейтинг и отзывы"
+          }
+        }
+      }
+    },
+    "reviews" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "отзывов"
           }
         }
       }
@@ -477,6 +537,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Выберите фотографии товара"
+          }
+        }
+      }
+    },
+    "Seller info" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Информация о продавце"
+          }
+        }
+      }
+    },
+    "Send review" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отправить отзыв"
           }
         }
       }
@@ -542,6 +622,16 @@
         }
       }
     },
+    "What is you rate?" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Какая ваша оценка?"
+          }
+        }
+      }
+    },
     "women" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -558,7 +648,17 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Напишите описание товара"
+            "value" : "Напишите описание товара..."
+          }
+        }
+      }
+    },
+    "Write a review" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Написать отзыв"
           }
         }
       }
@@ -568,7 +668,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Вам также может понравиться это"
+            "value" : "Вам также может понравиться"
           }
         }
       }
@@ -589,6 +689,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Вы никогда раньше этого не видели!"
+          }
+        }
+      }
+    },
+    "Your feedback" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ваш отзыв"
           }
         }
       }

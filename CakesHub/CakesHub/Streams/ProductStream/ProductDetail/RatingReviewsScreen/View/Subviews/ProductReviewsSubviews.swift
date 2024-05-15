@@ -43,7 +43,7 @@ extension ProductReviewsScreen {
     }
 
     var SectionTitle: some View {
-        Text(Constants.sectionTitle(count: viewModel.data.countOfComments))
+        Text(Constants.sectionTitle(count: viewModel.data.countOfComments).capitalized)
             .style(24, .semibold)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.init(top: 37, leading: 16, bottom: 30, trailing: 32))
@@ -112,8 +112,8 @@ fileprivate struct ReviewCell: View {
 private extension ProductReviewsScreen {
 
     enum Constants {
-        static func sectionTitle(count: Int) -> String { "\(count) reviews" }
-        static let writeReviewButtonTitle = "Write a review"
+        static func sectionTitle(count: Int) -> String { String(localized: "reviews") + ": \(count)" }
+        static let writeReviewButtonTitle = String(localized: "Write a review")
     }
 }
 
