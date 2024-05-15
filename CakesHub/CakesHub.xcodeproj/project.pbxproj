@@ -635,10 +635,10 @@
 		E51B327C2B7E5E180028E8C7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E51209212BF44D53002EA3B8 /* Localizable.xcstrings */,
 				E59AEC5A2B92AE5F00760E61 /* GoogleService-Info.plist */,
 				E51B32722B7E5DFD0028E8C7 /* Assets.xcassets */,
 				E51B32742B7E5DFD0028E8C7 /* Preview Content */,
-				E51209212BF44D53002EA3B8 /* Localizable.xcstrings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";

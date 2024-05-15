@@ -404,7 +404,7 @@ private extension AllChatsViewModel {
     }
 
     func sortCellsByDate(_ cells: [ChatCellModel]) -> [ChatCellModel] {
-        var sortedCells = cells.sorted { cell1, cell2 in
+        let sortedCells = cells.sorted { cell1, cell2 in
             let date1 = cell1.timeMessage
             let date2 = cell2.timeMessage
 
