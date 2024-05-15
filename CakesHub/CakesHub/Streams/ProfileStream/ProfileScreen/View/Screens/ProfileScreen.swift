@@ -99,4 +99,5 @@ extension ProfileScreen {
     ProfileScreen(viewModel: .mockData)
         .environmentObject(Navigation())
         .environmentObject(RootViewModel.mockData)
+        .modelContainer(Preview(SDUserModel.self).container)
 }

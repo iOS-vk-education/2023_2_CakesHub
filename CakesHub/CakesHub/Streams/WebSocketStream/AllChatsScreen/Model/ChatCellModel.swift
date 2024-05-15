@@ -12,14 +12,14 @@ import Foundation
 struct ChatCellModel: Identifiable, ClearConfigurationProtocol {
     var user: User = .clear
     var lastMessage: String = .clear
-    var timeMessage: String = .clear
+    var timeMessage: Date?
     var messages: [Message] = []
 
     var id: String { user.id }
 
     struct Message {
         let id: String
-        let time: String
+        let time: Date?
         let text: String
         let isYou: Bool
     }
