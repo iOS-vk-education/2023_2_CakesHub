@@ -107,8 +107,6 @@ private extension CreateProductView {
         static let textColor = CHMColor<TextPalette>.textPrimary.color
         static let circleColor = CHMColor<IconPalette>.iconRed.color
         static let iconColor = CHMColor<IconPalette>.iconRed.color
-        static let bgColor = LinearGradient(colors: [.blue.opacity(0.6), .cyan],
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing)
+        static let bgColor = CHMColor<BackgroundPalette>.bgMainColor.color
     }
 }

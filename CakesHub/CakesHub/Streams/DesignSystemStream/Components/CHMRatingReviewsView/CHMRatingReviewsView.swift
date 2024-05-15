@@ -59,19 +59,19 @@ private extension CHMRatingReviewsView {
                             CHMImage.starFill
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: 13)
+                                .frame(width: Constants.starSize)
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .frame(width: Constants.starSize * 5 + 12)
 
                     GeometryReader { geometry in
                         RoundedRectangle(cornerRadius: 6)
                             .fill(CHMColor<SeparatorPalette>.redLine.color)
                             .frame(width: geometry.size.width * counter.ration, height: 8)
-                            .padding(.trailing, 100)
                             .offset(y: geometry.size.height * 0.25)
                     }
-
-                    Spacer()
+                    .padding(.trailing, 28)
 
                     Text("\(counter.count)")
                         .font(.system(size: 14, weight: .regular))
@@ -88,14 +88,21 @@ private extension CHMRatingReviewsView {
 #Preview {
     CHMRatingReviewsView(
         configuration: .basic(
-            fiveStarRating: .basic(ration: .hundred, count: 12),
-            fourStarRating: .basic(ration: .sixty, count: 5),
-            threeStarRating: .basic(ration: .thirty, count: 4),
-            twoStarRating: .basic(ration: .twenty, count: 2),
-            oneStarRating: .basic(ration: .zero, count: 0),
-            commonRating: "4.3",
+            fiveStarRating: .basic(ration: .hundred, count: 9),
+            fourStarRating: .basic(ration: .sixty, count: 9),
+            threeStarRating: .basic(ration: .thirty, count: 6),
+            twoStarRating: .basic(ration: .twenty, count: 0),
+            oneStarRating: .basic(ration: .zero, count: 1),
+            commonRating: "4.0",
             commonCount: "23 ratings"
         )
     )
     .padding(.horizontal)
+}
+
+private extension CHMRatingReviewsView {
+
+    enum Constants {
+        static let starSize: CGFloat = 13
+    }
 }

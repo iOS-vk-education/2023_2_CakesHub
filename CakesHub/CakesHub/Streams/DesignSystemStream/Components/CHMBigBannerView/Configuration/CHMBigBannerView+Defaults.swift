@@ -22,7 +22,7 @@ extension CHMBigBannerView.Configuration {
     static func basic(
         imageKind: ImageKind,
         bannerTitle: String,
-        buttonTitle: String
+        buttonTitle: String? = nil
     ) -> Self {
         modify(.clear) {
             $0.imageKind = imageKind

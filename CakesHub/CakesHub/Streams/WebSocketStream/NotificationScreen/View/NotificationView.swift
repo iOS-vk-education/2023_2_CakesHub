@@ -18,6 +18,7 @@ struct NotificationView: View {
     var body: some View {
         MainView
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(CHMColor<BackgroundPalette>.bgMainColor.color)
             .onAppear(perform: onAppear)
             .onReceive(
                 NotificationCenter.default.publisher(

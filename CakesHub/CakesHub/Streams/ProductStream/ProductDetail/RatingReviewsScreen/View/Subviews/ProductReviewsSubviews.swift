@@ -30,15 +30,7 @@ extension ProductReviewsScreen {
 
     var RatingBlock: some View {
         CHMRatingReviewsView(
-            configuration: .basic(
-                fiveStarRating: viewModel.data.fiveStarsConfiguration,
-                fourStarRating: viewModel.data.fourStarsConfiguration,
-                threeStarRating: viewModel.data.threeStarsConfiguration,
-                twoStarRating: viewModel.data.twoStarsConfiguration,
-                oneStarRating: viewModel.data.oneStarsConfiguration,
-                commonRating: viewModel.data.averageRatingString,
-                commonCount: Constants.sectionTitle(count: viewModel.data.feedbackCount)
-            )
+            configuration: viewModel.data.reviewConfiguration
         )
     }
 
