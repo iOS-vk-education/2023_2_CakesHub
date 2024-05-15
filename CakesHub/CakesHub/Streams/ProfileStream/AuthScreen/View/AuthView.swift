@@ -21,7 +21,7 @@ struct AuthView: View, ViewModelable {
     var body: some View {
         MainView
             .onAppear(perform: onAppear)
-            .alert("Ошибка", isPresented: $viewModel.uiProperies.showingAlert) {
+            .alert("Error", isPresented: $viewModel.uiProperies.showingAlert) {
                 Button("OK") {}
             } message: {
                 Text(viewModel.uiProperies.alertMessage ?? .clear)

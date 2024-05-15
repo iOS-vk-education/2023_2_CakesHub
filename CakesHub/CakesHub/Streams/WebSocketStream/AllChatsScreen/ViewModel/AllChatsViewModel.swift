@@ -436,8 +436,8 @@ private extension AllChatsViewModel {
 private extension AllChatsViewModel {
 
     enum Constants {
-        static let emptyCellSubtitleForInterlacutor = "История сообщений пуста"
-        static let emptyCellTitleForYou = "Это вы! 😝"
+        static let emptyCellSubtitleForInterlacutor = String(localized: "Message history is empty")
+        static let emptyCellTitleForYou = String(localized: "It's you! 😝")
         static let dateFormattedString = "HH:mm"
     }
 }

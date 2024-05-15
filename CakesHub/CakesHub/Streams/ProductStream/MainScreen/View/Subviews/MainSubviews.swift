@@ -66,8 +66,8 @@ extension MainView {
         switch section {
         case .sales(let sales):
             SectionView(
-                title: section.title,
-                subtitle: section.subtitle,
+                title: String(localized: section.title),
+                subtitle: String(localized: section.subtitle),
                 buttonTitle: Constants.sectionTitle,
                 cards: sales,
                 badgeKind: .red
@@ -77,8 +77,8 @@ extension MainView {
 
         case .news(let news):
             SectionView(
-                title: section.title,
-                subtitle: section.subtitle,
+                title: String(localized: section.title),
+                subtitle: String(localized: section.subtitle),
                 buttonTitle: Constants.sectionTitle,
                 cards: news,
                 badgeKind: .dark
@@ -89,8 +89,8 @@ extension MainView {
 
         case .all(let all):
             SectionHeader(
-                title: section.title,
-                subtitle: section.subtitle,
+                title: String(localized: section.title),
+                subtitle: String(localized: section.subtitle),
                 buttonTitle: .clear,
                 cards: all
             )
@@ -240,7 +240,7 @@ private extension MainView {
     enum Constants {
         static let bgMainColor: Color = CHMColor<BackgroundPalette>.bgMainColor.color
         static let textSecondary: Color = CHMColor<TextPalette>.textSecondary.color
-        static let sectionTitle = "View all"
+        static let sectionTitle = String(localized: "View all")
         static let intrinsicHPaddings: CGFloat = 18
         static let fractionWidth: CGFloat = 150/375
         static let fractionHeight: CGFloat = 184/812

@@ -16,7 +16,7 @@ extension UserLocationView {
             position: $viewModel.uiProperties.camera,
             selection: $viewModel.uiProperties.mapSelection
         ) {
-            Marker("МГТУ", systemImage: "building", coordinate: viewModel.data.towel)
+            Marker("bmstu".uppercased(), systemImage: "building", coordinate: viewModel.data.towel)
                 .tint(.cyan)
 
             if let coordinates = viewModel.data.manager.userLocation {

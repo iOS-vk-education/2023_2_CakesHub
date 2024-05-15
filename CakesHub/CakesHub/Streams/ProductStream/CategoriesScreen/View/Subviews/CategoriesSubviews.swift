@@ -68,7 +68,7 @@ extension CategoriesView {
         HStack(spacing: 0) {
             ForEach(CategoriesTab.allCases, id: \.rawValue) { tab in
                 HStack(spacing: 10) {
-                    Text(tab.rawValue)
+                    Text(tab.title)
                         .font(.system(size: 16 , weight: .regular))
                 }
                 .frame(maxWidth: .infinity)
@@ -187,7 +187,7 @@ private extension CategoriesView {
 private extension CategoriesView {
 
     enum Constants {
-        static let navigationTitle = "Categories"
-        static let searchTitle = "Search"
+        static let navigationTitle = String(localized: "Categories")
+        static let searchTitle = String(localized: "Search")
     }
 }

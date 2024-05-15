@@ -296,7 +296,7 @@ private extension View {
 private extension ProductDetailScreen {
 
     enum Constants {
-        static let similarBlockHeaderTitle = "You can also like this"
+        static let similarBlockHeaderTitle = String(localized: "You can also like this")
         static let buyButtonTitle = "MAKE AN ORDER"
     }
 }

@@ -85,9 +85,9 @@ extension CreateProductView {
 
     @ViewBuilder
     var AlertButtons: some View {
-        Button("Создать", action: didTapCreateProduct)
-        Button("Отмена", role: .cancel, action: didTapCancelProduct)
-        Button("Удалить", role: .destructive, action: didTapDeleteProduct)
+        Button("Create", action: didTapCreateProduct)
+        Button("Cancel", role: .cancel, action: didTapCancelProduct)
+        Button("Delete", role: .destructive, action: didTapDeleteProduct)
     }
 }
 
