@@ -11,7 +11,7 @@ import Foundation
 protocol WebSockerManagerProtocol: AnyObject {
     func connection(completion: @escaping CHMGenericBlock<Error?>)
     func send<T: Codable>(message: T, completion: @escaping CHMVoidBlock)
-    func receive<T: Decodable>(completion: @escaping CHMGenericBlock<T>)
+    func receive(completion: @escaping CHMGenericBlock<Data>)
     func close()
 }
 
@@ -59,7 +59,7 @@ extension WebSockerManager: WebSockerManagerProtocol {
         }
     }
 
-    func receive<T: Decodable>(completion: @escaping CHMGenericBlock<T>) {
+    func receive(completion: @escaping CHMGenericBlock<Data>) {
         webSocketTask?.receive { [weak self] result in
             guard let self, webSocketTask != nil else { return }
             switch result {
@@ -71,16 +71,9 @@ extension WebSockerManager: WebSockerManagerProtocol {
                 case let .string(stringMessage):
                     Logger.log(message: "Получено сообщение: [ " + stringMessage + " ]")
                     guard let data = stringMessage.data(using: .utf8) else { return }
-                    do {
-                        let message = try JSONDecoder().decode(T.self, from: data)
-                        completion(message)
-                    } catch {
-                        Logger.log(
-                            kind: .error,
-                            message: "Не получилось распарсить сообщение: [ \(stringMessage) ] к типу \(T.Type.self).self.\n [ \(error.localizedDescription) ]"
-                        )
-                    }
-                @unknown default: break
+                    completion(data)
+                @unknown default:
+                    break
                 }
 
             case let .failure(error):

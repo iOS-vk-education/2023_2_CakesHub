@@ -78,12 +78,11 @@ private extension RootView {
     var AllTabBarViews: some View {
         switch nav.activeTab {
         case .house:
-            MainView(viewModel: .init(), size: size)
-        case .shop:
-            CategoriesView(viewModel: .mockData)
-        case .bag:
-            Text("BAG")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            MainView(size: size)
+        case .categories:
+            CategoriesView()
+        case .chat:
+            AllChatsView()
         case .notifications:
             NotificationView()
         case .profile:
@@ -104,5 +103,11 @@ private extension RootView {
     RootView()
         .environmentObject(Navigation())
         .environmentObject(RootViewModel.mockData)
-        .modelContainer(Preview(SDProductModel.self).container)
+        .modelContainer(
+            Preview(
+                SDProductModel.self,
+                SDNotificationModel.self,
+                SDCateoryModel.self
+            ).container
+        )
 }

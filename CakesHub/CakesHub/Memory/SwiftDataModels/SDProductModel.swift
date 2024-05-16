@@ -14,7 +14,7 @@ final class SDProductModel {
     @Attribute(.unique)
     var _id                : String
     var _imageKeys         : [String]
-    var _pickers           : [String]
+    var _categories        : [String]
     var _productName       : String
     var _price             : String
     var _discountedPrice   : String?
@@ -28,7 +28,7 @@ final class SDProductModel {
     init(
         id: String,
         images: [String],
-        pickers: [String],
+        categories: [String],
         productName: String,
         price: String,
         discountedPrice: String? = nil,
@@ -40,7 +40,7 @@ final class SDProductModel {
     ) {
         self._id = id
         self._imageKeys = images
-        self._pickers = pickers
+        self._categories = categories
         self._productName = productName
         self._price = price
         self._discountedPrice = discountedPrice
@@ -72,7 +72,7 @@ extension SDProductModel: SDModelable {
         self.init(
             id: fbModel.documentID,
             images: images,
-            pickers: fbModel.pickers,
+            categories: fbModel.categories,
             productName: fbModel.productName,
             price: fbModel.price,
             discountedPrice: fbModel.discountedPrice,
@@ -89,26 +89,26 @@ extension SDProductModel: SDModelable {
 
 extension SDProductModel {
 
-    var mapperInFBProductModel: FBProductModel {
+    var mapper: FBProductModel {
         FBProductModel(
             documentID: _id,
             images: .strings(_imageKeys),
-            pickers: _pickers,
+            categories: _categories,
             productName: _productName,
             price: _price,
             discountedPrice: _discountedPrice,
             weight: _weight,
             seller: {
-                guard let fbSeller = _seller?.mapperInFBUserModel else {
+                guard let fbSeller = _seller?.mapper else {
                     Logger.log(kind: .dbError, message: "Пользователь в бд isNil. Этого не должно быть")
                     return .clear
                 }
                 return fbSeller
             }(),
             description: _descriptionInfo,
-            similarProducts: _similarProducts.map { $0.mapperInFBProductModel },
+            similarProducts: _similarProducts.map { $0.mapper },
             establishmentDate: _establishmentDate,
-            reviewInfo: _reviewInfo.mapperInFBProductReviews
+            reviewInfo: _reviewInfo.mapper
         )
     }
 }

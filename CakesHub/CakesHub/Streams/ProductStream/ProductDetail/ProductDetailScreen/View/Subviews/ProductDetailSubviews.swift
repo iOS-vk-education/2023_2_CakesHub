@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 19.03.2024.
+//  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -10,6 +11,10 @@ import SwiftUI
 // MARK: - Subviews
 
 extension ProductDetailScreen {
+
+    private var userIsNotSeller: Bool {
+        rootViewModel.currentUser.uid != viewModel.currentProduct.seller.id
+    }
 
     var MainBlock: some View {
         ScrollView {
@@ -31,8 +36,10 @@ extension ProductDetailScreen {
         }
         .makeStyle
         .overlay(alignment: .bottom) {
-            BuyButton
-                .padding(.bottom, UIDevice.isSe ? 16 : .zero)
+            if userIsNotSeller {
+                BuyButton
+                    .padding(.bottom, UIDevice.isSe ? 16 : .zero)
+            }
         }
         .overlay(alignment: .topLeading) {
             NavigationTabBarView
@@ -72,7 +79,7 @@ extension ProductDetailScreen {
 
     var PickersBlock: some View {
         PickersSectionView(
-            pickers: viewModel.currentProduct.pickers.map { .init(title: $0) },
+            pickers: viewModel.currentProduct.categories.map { .init(title: $0) },
             lastSelected: $selectedPicker
         )
         .overlay(alignment: .trailing) {
@@ -93,7 +100,7 @@ extension ProductDetailScreen {
                 description: viewModel.currentProduct.description,
                 starsConfiguration: .basic(
                     kind: .init(rawValue: viewModel.currentProduct.starsCount) ?? .zero,
-                    feedbackCount: viewModel.currentProduct.reviewInfo.feedbackCounter
+                    feedbackCount: viewModel.currentProduct.reviewInfo.feedbackCount
                 )
             )
         )
@@ -120,7 +127,7 @@ extension ProductDetailScreen {
 
             Divider()
 
-            if rootViewModel.currentUser.uid != viewModel.currentProduct.seller.id {
+            if userIsNotSeller {
                 Button(action: openSellerInfo, label: {
                     MoreInfoCell(text: ProductDetailCells.sellerInfo.rawValue)
                         .padding(.horizontal)
@@ -198,8 +205,8 @@ extension ProductDetailScreen {
         } label: {
             Text(Constants.buyButtonTitle)
                 .font(.system(size: 14, weight: .medium))
+                .frame(maxWidth: .infinity)
         }
-        .frame(maxWidth: .infinity)
         .padding(.vertical, 14)
         .background(CHMColor<BackgroundPalette>.bgRed.color)
         .clipShape(.rect(cornerRadius: 25))

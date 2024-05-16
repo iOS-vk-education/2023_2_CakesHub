@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 04.04.2024.
+//  Copyright 2023 © VK Team CakesHub. All rights reserved.
 //
 
 import Foundation
