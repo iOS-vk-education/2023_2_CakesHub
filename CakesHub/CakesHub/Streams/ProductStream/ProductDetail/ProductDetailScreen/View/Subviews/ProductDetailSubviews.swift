@@ -82,12 +82,13 @@ extension ProductDetailScreen {
             pickers: viewModel.currentProduct.categories.map { .init(title: $0) },
             lastSelected: $selectedPicker
         )
-        .overlay(alignment: .trailing) {
-            LikeIcon(isSelected: $isPressedLike) {
-                didTapFavoriteIcon()
-            }
-            .padding(.trailing)
-        }
+        // TODO: Вернуть кнопку лайка
+//        .overlay(alignment: .trailing) {
+//            LikeIcon(isSelected: $isPressedLike) {
+//                didTapFavoriteIcon()
+//            }
+//            .padding(.trailing)
+//        }
     }
 
     var DetailBlock: some View {
