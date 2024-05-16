@@ -14,8 +14,10 @@ extension ___VARIABLE_productName:identifier___ViewModel: Mockable {
 
     #warning("Обновите, добавив недостоющие переменные")
     static let mockData = ___VARIABLE_productName:identifier___ViewModel(
-        title: Constants.mockTitle,
-        image: .url(.mockCake2)
+        data: .init(
+            title: Constants.mockTitle,
+            imageKind: Constants.mockImage
+        )
     )
 }
 
@@ -26,6 +28,7 @@ private extension ___VARIABLE_productName:identifier___ViewModel {
 
     enum Constants {
         static let mockTitle = "Просто моковый заголовок из кодогенерации для пример"
+        static let mockImage: ImageKind = .uiImage(.cake2)
     }
 }
 
