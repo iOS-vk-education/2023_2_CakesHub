@@ -165,9 +165,6 @@ extension AllChatsViewModel {
 
     /// Кэшируем пользователя чата, если он ещё не существует
     func saveUser(fbUser: FBUserModel) {
-        let userID = fbUser.uid
-        let predicate = #Predicate<SDUserModel> { $0._id == userID }
-        let fetchDescriptor = FetchDescriptor(predicate: predicate)
         let sdUser = SDUserModel(fbModel: fbUser)
         reducers.modelContext.insert(sdUser)
         try? reducers.modelContext.save()

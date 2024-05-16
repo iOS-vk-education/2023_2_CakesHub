@@ -30,4 +30,12 @@ extension String {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
         return dateFormatter.date(from: self)
     }
+
+    var toCorrectDate: String {
+        guard let date = self.dateRedescription else {
+            return self
+        }
+        let dateString = date.formatted(.dateTime.year().day().month(.wide))
+        return dateString
+    }
 }

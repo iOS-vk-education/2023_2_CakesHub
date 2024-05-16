@@ -35,7 +35,7 @@ protocol NotificationViewModelProtocol: AnyObject {
 final class NotificationViewModel: ViewModelProtocol, NotificationViewModelProtocol {
 
     private(set) var notifications: [NotificationModel]
-    private(set) var screenIsShimmering: Bool
+    private(set) var isScreenShimmering: Bool
     @ObservationIgnored
     private let services: Services
     @ObservationIgnored
@@ -47,7 +47,7 @@ final class NotificationViewModel: ViewModelProtocol, NotificationViewModelProto
         services: Services = Services()
     ) {
         self.notifications = notifications
-        self.screenIsShimmering = screenIsShimmering
+        self.isScreenShimmering = screenIsShimmering
         self.services = services
     }
 }
@@ -74,13 +74,13 @@ extension NotificationViewModel {
     func onAppear(currentUserID: String) {
         // Достаём данные из сети
         Task {
-            screenIsShimmering = true
+            isScreenShimmering = true
             do {
                 let fbNotifications = try await fetchNotifications(currentUserID: currentUserID)
                 notifications = fbNotifications.map { $0.mapper }
-                if screenIsShimmering {
+                if isScreenShimmering {
                     withAnimation {
-                        screenIsShimmering = false
+                        isScreenShimmering = false
                     }
                 }
 
@@ -98,7 +98,7 @@ extension NotificationViewModel {
         // Достаём закэшированные уведомления
         let memoryNotifications = fetch()
         notifications = memoryNotifications.map { $0.mapper }
-        screenIsShimmering = false
+        isScreenShimmering = false
     }
 
     func deleteNotification(id notificationID: String) {
@@ -131,9 +131,9 @@ extension NotificationViewModel {
         let notification: NotificationModel = wsNotification.mapper
         guard !notifications.contains(where: { $0.id == notification.id }) else { return }
         // Обновляем UI
-        if screenIsShimmering {
+        if isScreenShimmering {
             withAnimation {
-                screenIsShimmering = false
+                isScreenShimmering = false
             }
         }
         notifications.append(notification)

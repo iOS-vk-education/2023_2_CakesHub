@@ -101,7 +101,8 @@ extension FBProductModel.FBProductReviewsModel: Mockable {
         countTwoStars: 2,
         countOneStars: 0,
         countOfComments: [FBProductModel.FBCommentInfoModel].mockData.count,
-        comments: .mockData
+        comments: .mockData,
+        feedbackCount: 23
     )
 }
 
@@ -119,8 +120,7 @@ private extension [FBProductModel.FBCommentInfoModel] {
             description: """
             The dress is great! Very classy and comfortable. It fit perfectly! I'm 5'7" and 130 pounds. I am a 34B chest. This dress would be too long for those who are shorter but could be hemmed. I wouldn't recommend it for those big chested as I am smaller chested and it fit me perfectly. The underarms were not too wide and the dress was made well.
             """,
-            countFillStars: number % 6,
-            feedbackCount: number
+            countFillStars: number % 6
         )
     }
 }
