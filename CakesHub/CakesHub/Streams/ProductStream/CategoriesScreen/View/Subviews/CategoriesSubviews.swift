@@ -104,17 +104,17 @@ extension CategoriesView {
                 LazyHStack(spacing: 0) {
                     ForEach(viewModel.sections) { section in
                         switch section {
-                        case let .men(categories):
-                            ScrollSections(
-                                items: viewModel.filterData(categories: categories)
-                            )
-                            .id(CategoriesTab.men)
-                            .containerRelativeFrame(.horizontal)
                         case let .women(categories):
                             ScrollSections(
                                 items: viewModel.filterData(categories: categories)
                             )
                             .id(CategoriesTab.women)
+                            .containerRelativeFrame(.horizontal)
+                        case let .men(categories):
+                            ScrollSections(
+                                items: viewModel.filterData(categories: categories)
+                            )
+                            .id(CategoriesTab.men)
                             .containerRelativeFrame(.horizontal)
                         case let .kids(categories):
                             ScrollSections(

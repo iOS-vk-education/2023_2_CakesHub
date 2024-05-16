@@ -66,8 +66,8 @@ extension CategoriesViewModel {
                 // Получаем данный категорий из сети
                 let fbSections = try await fetch()
                 sections = [
-                    .men(fbSections[0].items.sorted(by: { $0.title < $1.title }).mapper),
-                    .women(fbSections[1].items.sorted(by: { $0.title < $1.title }).mapper),
+                    .women(fbSections[0].items.sorted(by: { $0.title < $1.title }).mapper),
+                    .men(fbSections[1].items.sorted(by: { $0.title < $1.title }).mapper),
                     .kids(fbSections[2].items.sorted(by: { $0.title < $1.title }).mapper)
                 ]
 
@@ -105,8 +105,8 @@ extension CategoriesViewModel {
         }
 
         return [
-            .men(menCategories.sorted(by: { $0.title < $1.title }).mapper),
             .women(womenCategories.sorted(by: { $0.title < $1.title }).mapper),
+            .men(menCategories.sorted(by: { $0.title < $1.title }).mapper),
             .kids(kidsCategories.sorted(by: { $0.title < $1.title }).mapper)
         ]
     }
@@ -162,8 +162,8 @@ extension CategoriesViewModel {
         async let womenCategories = services.catigoryService.fetch(tags: [.women])
 
         let categories: [FBSection] = [
-            .men(try await menCategories),
             .women(try await womenCategories),
+            .men(try await menCategories),
             .kids(try await kidsCategories)
         ]
 

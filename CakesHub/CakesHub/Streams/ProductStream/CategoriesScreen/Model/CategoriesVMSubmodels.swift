@@ -40,8 +40,8 @@ extension CategoriesViewModel.Section: Identifiable{
 
     var id: Int {
         switch self {
-        case .men: return 1
-        case .women: return 2
+        case .women: return 1
+        case .men: return 2
         case .kids: return 3
         }
     }

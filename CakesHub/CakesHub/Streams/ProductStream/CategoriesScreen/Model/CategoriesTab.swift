@@ -9,8 +9,8 @@
 import Foundation
 
 enum CategoriesTab: String, CaseIterable {
-    case men
     case women
+    case men
     case kids
 
     var title: LocalizedStringResource {
