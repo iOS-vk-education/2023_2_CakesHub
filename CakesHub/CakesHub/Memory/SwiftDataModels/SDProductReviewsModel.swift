@@ -18,6 +18,7 @@ final class SDProductReviewsModel {
     var _countOneStars   : Int
     var _countOfComments : Int
     var _comments        : [SDCommentInfoModel]
+    var _feedbackCount   : Int
 
     init(
         countFiveStars  : Int,
@@ -26,7 +27,8 @@ final class SDProductReviewsModel {
         countTwoStars   : Int,
         countOneStars   : Int,
         countOfComments : Int,
-        comments        : [SDCommentInfoModel]
+        comments        : [SDCommentInfoModel],
+        feedbackCount   : Int
     ) {
         self._countFiveStars = countFiveStars
         self._countFourStars = countFourStars
@@ -35,6 +37,7 @@ final class SDProductReviewsModel {
         self._countOneStars = countOneStars
         self._countOfComments = countOfComments
         self._comments = comments
+        self._feedbackCount = feedbackCount
     }
 }
 
@@ -51,7 +54,8 @@ extension SDProductReviewsModel: SDModelable {
             countTwoStars: fbModel.countTwoStars,
             countOneStars: fbModel.countOneStars,
             countOfComments: fbModel.countOfComments,
-            comments: fbModel.comments.map { .init(fbModel: $0) }
+            comments: fbModel.comments.map { .init(fbModel: $0) },
+            feedbackCount: fbModel.feedbackCount
         )
     }
 }
@@ -60,7 +64,7 @@ extension SDProductReviewsModel: SDModelable {
 
 extension SDProductReviewsModel {
 
-    var mapperInFBProductReviews: FBProductModel.FBProductReviewsModel {
+    var mapper: FBProductModel.FBProductReviewsModel {
         .init(
             countFiveStars: _countFiveStars,
             countFourStars: _countFourStars,
@@ -68,7 +72,8 @@ extension SDProductReviewsModel {
             countTwoStars: _countTwoStars,
             countOneStars: _countOneStars,
             countOfComments: _countOfComments,
-            comments: _comments.map { $0.mapperInFBCommentInfo }
+            comments: _comments.map { $0.mapper },
+            feedbackCount: _feedbackCount
         )
     }
 }

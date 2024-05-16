@@ -13,7 +13,7 @@ struct ProductDetailScreen: View {
     // MARK: View Model
 
     typealias ViewModel = ProductDetailViewModel
-    @StateObject var viewModel: ViewModel
+    @State var viewModel: ViewModel
     @EnvironmentObject var nav: Navigation
     @EnvironmentObject var rootViewModel: RootViewModel
 
@@ -27,7 +27,7 @@ struct ProductDetailScreen: View {
     // MARK: Lifecycle
 
     init(viewModel: ViewModel) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
+        self._viewModel = State(initialValue: viewModel)
         self._isPressedLike = State(initialValue: viewModel.currentProduct.isFavorite)
     }
 
@@ -35,11 +35,13 @@ struct ProductDetailScreen: View {
 
     var body: some View {
         MainBlock
+            .onAppear(perform: onAppear)
             .navigationDestination(for: ProductDetailCells.self) { screen in
                 if screen == .ratingReviews {
                     ProductReviewsScreen(
                         viewModel: ProductReviewsViewModel(
-                            data: viewModel.currentProduct.reviewInfo
+                            data: viewModel.currentProduct.reviewInfo,
+                            productID: viewModel.currentProduct.id
                         )
                     )
                 }
@@ -50,6 +52,10 @@ struct ProductDetailScreen: View {
 // MARK: - Actions
 
 extension ProductDetailScreen {
+
+    func onAppear() {
+        viewModel.setCurrentUser(user: rootViewModel.currentUser)
+    }
 
     func didTapFavoriteIcon() {
         viewModel.currentProduct.isFavorite = false
@@ -66,8 +72,11 @@ extension ProductDetailScreen {
         nav.addScreen(screen: product)
     }
 
+    /// Нажатие кнопки `оформить заказ`
     func didTapBuyButton() {
-        viewModel.didTapBuyButton()
+        viewModel.didTapBuyButton() {
+            nav.openPreviousScreen()
+        }
     }
 
     func openRatingReviews() {
@@ -92,5 +101,5 @@ extension ProductDetailScreen {
 #Preview {
     ProductDetailScreen(viewModel: .mockData)
         .environmentObject(Navigation())
-        .environmentObject(RootViewModel())
+        .environmentObject(RootViewModel.mockData)
 }

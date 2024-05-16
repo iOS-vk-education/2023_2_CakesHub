@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 27.03.2024.
+//  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -17,6 +18,10 @@ extension ChatView {
             ZStack(alignment: .bottom) {
                 ScrollView {
                     MessagesBlock
+
+                    HStack { Spacer() }
+                        .id(Constants.scrollIdentifier)
+                        .padding(.bottom, 50)
                 }
                 .onTapGesture {
                     UIApplication.shared.sendAction(
@@ -32,24 +37,25 @@ extension ChatView {
                     .background(.ultraThinMaterial)
             }
             .frame(maxHeight: .infinity)
-            .onChange(of: viewModel.lastMessageID) { _, id in
-                if let id {
-                    withAnimation {
-                        proxy.scrollTo(id, anchor: .bottom)
-                    }
-                }
-            }
             .background {
                 BackgroundView
                     .ignoresSafeArea()
             }
+            .onAppear {
+                // MARK: Закомментировать для работы превью.
+                proxy.scrollTo(Constants.scrollIdentifier, anchor: .bottom)
+            }
+            .onChange(of: viewModel.data.lastMessageID) { _, _ in
+                withAnimation {
+                    proxy.scrollTo(Constants.scrollIdentifier, anchor: .bottom)
+                }
+            }
         }
-        .onDisappear(perform: viewModel.quitChat)
     }
 
     var MessagesBlock: some View {
         LazyVStack {
-            ForEach(viewModel.messages) { message in
+            ForEach(viewModel.data.messages) { message in
                 MessageBubble(message: message)
                     .padding(.horizontal, 8)
             }
@@ -90,16 +96,13 @@ extension ChatView {
                     .frame(width: 22, height: 22)
 
             } else {
-                Button {
-                    viewModel.sendMessage(message: messageText)
-                    messageText = .clear
-                } label: {
+                Button(action: didTapSendMessageButton, label: {
                     Image(systemName: Constants.paperplane)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 22, height: 22)
                         .foregroundStyle(Constants.iconColor)
-                }
+                })
             }
         }
         .padding(.horizontal, 8)
@@ -111,6 +114,7 @@ extension ChatView {
 private extension ChatView {
 
     enum Constants {
+        static let scrollIdentifier = "EMPTY"
         static let imageSize: CGFloat = 200
         static let imageCornerRadius: CGFloat = 20
         static let tgBackground = Image("tg_layer")

@@ -20,7 +20,7 @@ extension RootViewModel: Mockable {
             ],
             currentUserProducts: .mockData
         ),
-        currentUser: .king
+        currentUser: .poly
     )
 }
 #endif

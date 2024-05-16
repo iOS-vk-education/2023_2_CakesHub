@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Milana Shakhbieva on 25.03.2024.
+//  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -19,6 +20,8 @@ struct UserModel: ClearConfigurationProtocol, Hashable {
 
     static let clear: Self = .init()
 }
+
+// MARK: - Mock Data
 
 #if DEBUG
 
@@ -54,7 +57,7 @@ private extension UserModel {
                 ].shuffled(),
                 isFavorite: [true, false].randomElement()!,
                 isNew: $0.isMultiple(of: 4),
-                pickers: ["Size", "Color"],
+                categories: ["Size", "Color"],
                 seller: .milana,
                 productName: "Торт \($0)",
                 price: "$1\($0).99",

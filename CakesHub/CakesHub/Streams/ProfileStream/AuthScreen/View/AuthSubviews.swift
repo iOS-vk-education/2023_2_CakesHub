@@ -13,9 +13,9 @@ extension AuthView {
     var MainView: some View {
         VStack {
             Group {
-                TextField("Введите nickname", text: $viewModel.inputData.nickName)
-                TextField("Введите email", text: $viewModel.inputData.email)
-                TextField("Введите password", text: $viewModel.inputData.password)
+                TextField("Введите nickname", text: $viewModel.uiProperies.nickName)
+                TextField("Введите email", text: $viewModel.uiProperies.email)
+                TextField("Введите password", text: $viewModel.uiProperies.password)
             }
             .textFieldStyle(.roundedBorder)
             .padding(.horizontal)

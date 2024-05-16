@@ -10,7 +10,7 @@ import UIKit
 
 extension FBProductModel {
 
-    enum FBImageKind: DictionaryConvertible {
+    enum FBImageKind {
         case url([URL?])
         case images([UIImage?])
         case strings([String])
@@ -20,7 +20,7 @@ extension FBProductModel {
 
 // MARK: - DictionaryConvertible
 
-extension FBProductModel.FBImageKind {
+extension FBProductModel.FBImageKind: DictionaryConvertible {
 
     init?(dictionary: [String: Any]) {
         guard let strings = dictionary["strings"] as? [String] else {

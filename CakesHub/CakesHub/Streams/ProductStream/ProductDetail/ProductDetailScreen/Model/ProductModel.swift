@@ -19,8 +19,8 @@ struct ProductModel: Identifiable, Hashable {
     var isFavorite: Bool = false
     /// Флаг если товар новый
     var isNew: Bool = false
-    /// Фильтры торта
-    var pickers: [String] = []
+    /// Категории торта
+    var categories: [String] = []
     /// Информация об продавце
     var seller: SellerInfo = .clear
     /// Название торта
@@ -86,7 +86,7 @@ extension ProductModel {
             ),
             starsViewConfiguration: .basic(
                 kind: .init(rawValue: starsCount) ?? .zero,
-                feedbackCount: reviewInfo.feedbackCounter
+                feedbackCount: reviewInfo.feedbackCount
             )
         )
     }
@@ -109,7 +109,7 @@ extension ProductModel {
             ),
             starsViewConfiguration: .basic(
                 kind: .init(rawValue: starsCount) ?? .zero,
-                feedbackCount: reviewInfo.feedbackCounter
+                feedbackCount: reviewInfo.feedbackCount
             )
         )
     }
@@ -150,6 +150,15 @@ extension ProductModel {
                         return nil
                     }
                 })
+            case .string:
+                return .strings(images.compactMap {
+                    switch $0.kind {
+                    case let .string(string):
+                        return string
+                    default:
+                        return nil
+                    }
+                })
             case .clear:
                 return .clear
             }
@@ -185,7 +194,7 @@ extension ProductModel {
         return FBProductModel(
             documentID: id,
             images: productImages,
-            pickers: pickers,
+            categories: categories,
             productName: productName,
             price: price,
             discountedPrice: discountedPrice,
@@ -207,10 +216,10 @@ extension ProductModel {
                         userName: $0.userName,
                         date: $0.date,
                         description: $0.description,
-                        countFillStars: $0.countFillStars,
-                        feedbackCount: $0.feedbackCount
+                        countFillStars: $0.countFillStars
                     )
-                }
+                },
+                feedbackCount: reviewInfo.feedbackCount
             )
         )
     }

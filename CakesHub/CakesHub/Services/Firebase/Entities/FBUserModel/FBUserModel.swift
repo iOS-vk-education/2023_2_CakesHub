@@ -61,6 +61,7 @@ extension FBUserModel: Mockable {
         nickname: "mightyK1ngRichard",
         email: "dimapermyakov55@gmail.com",
         avatarImage: "https://webmg.ru/wp-content/uploads/2022/10/i-321-1.jpeg",
+        headerImage: headerImage,
         phone: "+7(914)234-12-12"
     )
 
@@ -71,8 +72,11 @@ extension FBUserModel: Mockable {
         nickname: "Полиночка",
         email: "kakashek@gmail.com",
         avatarImage: "https://i.pinimg.com/originals/10/b6/f4/10b6f4ee1fb2909ab75a0636a984ef60.jpg",
+        headerImage: headerImage,
         phone: "+7(914)234-12-12"
     )
+
+    private static let headerImage: String = "https://catherineasquithgallery.com/uploads/posts/2021-12/1639776866_365-catherineasquithgallery-com-p-kartinki-anime-na-fon-telefona-rozovie-486.jpg"
 }
 #endif
 

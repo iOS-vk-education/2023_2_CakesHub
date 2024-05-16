@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 19.03.2024.
+//  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -21,6 +22,10 @@ extension ProductReviewsScreen {
 
             ReviewsBlock
         }
+        .overlay(alignment: .bottomTrailing) {
+            WriteReviewButton
+                .padding(.trailing, 26)
+        }
     }
 
     var RatingBlock: some View {
@@ -32,7 +37,7 @@ extension ProductReviewsScreen {
                 twoStarRating: viewModel.data.twoStarsConfiguration,
                 oneStarRating: viewModel.data.oneStarsConfiguration,
                 commonRating: viewModel.data.averageRatingString,
-                commonCount: Constants.sectionTitle(count: viewModel.data.feedbackCounter)
+                commonCount: Constants.sectionTitle(count: viewModel.data.feedbackCount)
             )
         )
     }
@@ -52,7 +57,33 @@ extension ProductReviewsScreen {
         }
         .padding(.leading, 16)
         .padding(.trailing, 32)
-        .padding(.bottom, 50)
+    }
+
+    var WriteReviewButton: some View {
+        Button(action: didTapWriteReviewButton, label: {
+            HStack(spacing: 9) {
+                Image(.pen)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(edge: 13)
+
+                Text(Constants.writeReviewButtonTitle)
+                    .style(11, .semibold, .white)
+            }
+        })
+        .padding(.horizontal, 10)
+        .padding(.vertical, 12)
+        .background(CHMColor<BackgroundPalette>.bgRed.color, in: .rect(cornerRadius: 25))
+    }
+
+    var SheetView: some View {
+        FeedbackView(
+            viewModel: FeedbackViewModel(
+                data: .init(productID: viewModel.productID)
+            )
+        )
+        .environment(viewModel)
+        .padding(.top)
     }
 }
 
@@ -71,8 +102,7 @@ fileprivate struct ReviewCell: View {
                 date: comment.date,
                 description: comment.description,
                 starsConfiguration: .basic(
-                    kind: .init(rawValue: comment.countFillStars) ?? .zero,
-                    feedbackCount: comment.feedbackCount
+                    kind: .init(rawValue: comment.countFillStars) ?? .zero
                 )
             )
         )
@@ -111,13 +141,16 @@ private extension ReviewCell {
 private extension ProductReviewsScreen {
 
     enum Constants {
-        static func sectionTitle(count: Int) -> String { "\(count) ratings" }
+        static func sectionTitle(count: Int) -> String { "\(count) reviews" }
+        static let writeReviewButtonTitle = "Write a review"
     }
 }
 
 // MARK: - Preview
 
 #Preview {
-    ProductReviewsScreen(viewModel: .init(data: .mockData))
+    NavigationStack {
+        ProductReviewsScreen(viewModel: .mockData)
+    }
     .environmentObject(Navigation())
 }

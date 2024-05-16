@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 17.02.2024.
+//  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -12,34 +13,56 @@ struct CategoriesView: View {
     // MARK: View Model
 
     typealias ViewModel = CategoriesViewModel
-    @StateObject var viewModel: ViewModel
-
-    // MARK: Properties
-    
-    @State var selectedTab: CategoriesTab?
-    @State var tabBarProgess: CGFloat = .zero
-    @State var showSearchBar: Bool = false
-    @State var searchText: String = .clear
-
-    // MARK: Lifecycle
-
-    init(viewModel: ViewModel = ViewModel()) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
+    @State private(set) var viewModel = ViewModel()
+    @EnvironmentObject private var root: RootViewModel
+    @EnvironmentObject private var nav: Navigation
+    @Environment(\.modelContext) private var modelContext
 
     // MARK: View
 
     var body: some View {
         MainViewBlock
-            .onAppear(perform: viewModel.fetchSections)
+            .onAppear(perform: onAppear)
+            .navigationDestination(for: ViewModel.Screens.self) { screen in
+                switch screen {
+                case let .sectionCakes(products):
+                    let productModels: [ProductModel] = products.mapperToProductModel
+                    let vm = AllProductsCategoryViewModel(products: productModels)
+                    AllProductsCategoryView(viewModel: vm)
+                }
+            }
+    }
+}
+
+// MARK: - Network
+
+private extension CategoriesView {
+
+    func onAppear() {
+        viewModel.setRootViewModel(with: root)
+        viewModel.setModelContext(with: modelContext)
+        viewModel.fetchSections()
+    }
+}
+
+// MARK: - Actions
+
+extension CategoriesView {
+
+    /// Нажали на ячейку секции
+    func didTapSectionCell(title: String) {
+        let products = viewModel.didTapSectionCell(title: title)
+        nav.addScreen(screen: ViewModel.Screens.sectionCakes(products))
     }
 }
 
 // MARK: - Preview
 
 #Preview {
-    let viewModel = CategoriesViewModel()
-    return CategoriesView(viewModel: viewModel)
-        .onAppear(perform: viewModel.fetchPreviewData)
+    CategoriesView()
         .environmentObject(Navigation())
+        .environmentObject(RootViewModel.mockData)
+        .modelContainer(
+            Preview(SDCateoryModel.self).container
+        )
 }

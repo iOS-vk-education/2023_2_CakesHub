@@ -3,6 +3,7 @@
 //  CakeHubApplication
 //
 //  Created by Дмитрий Пермяков on 04.10.2023.
+//  Copyright 2023 © VK Team CakesHub. All rights reserved.
 //
 
 import Foundation
@@ -24,14 +25,17 @@ extension String {
 
 extension String {
 
-    var toDate: Date {
+    var dateRedescription: Date? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        return dateFormatter.date(from: self)
+    }
 
-        if let date = dateFormatter.date(from: self) {
-            return date
-        } else {
-            return .now
+    var toCorrectDate: String {
+        guard let date = self.dateRedescription else {
+            return self
         }
+        let dateString = date.formatted(.dateTime.year().day().month(.wide))
+        return dateString
     }
 }

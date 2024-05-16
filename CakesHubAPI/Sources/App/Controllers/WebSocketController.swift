@@ -73,10 +73,10 @@ private extension WebSocketController {
 
     func connectionHandler(ws: WebSocket, data: Data) throws {
         let msg = try JSONDecoder().decode(Message.self, from: data)
-        let newClient = Client(ws: ws, userName: msg.userName, userID: msg.userID)
+        let newClient = Client(ws: ws, userID: msg.userID)
         wsClients.insert(newClient)
         let msgConnection = Message(
-            id: UUID(),
+            id: UUID().uuidString,
             kind: .connection,
             userName: msg.userName,
             userID: msg.userID,
@@ -86,7 +86,7 @@ private extension WebSocketController {
             state: .received
         )
         let msgConnectionString = try msgConnection.encodeMessage()
-        Logger.log(kind: .connection, message: "Пользователь с ником: [ \(msg.userName) ] и id: [ \(msg.userID) ] добавлен в сессию")
+        Logger.log(kind: .connection, message: "Пользователь с id: [ \(msg.userID) ] добавлен в сессию")
         wsClients.forEach {
             $0.ws.send(msgConnectionString)
         }
@@ -99,31 +99,19 @@ private extension WebSocketController {
         
         wsClients.forEach { client in
             if client.userID == msg.receiverID || client.userID == msg.userID {
-                Logger.log(kind: .message, message: "Отправляю сообщение для \(client.userName):\n[\(msg)]")
+                Logger.log(kind: .message, message: "Отправляю сообщение для \(client.userID):\n[\(msg)]")
                 client.ws.send(jsonString)
             }
         }
     }
 
     func closeHandler(ws: WebSocket, client: Client) throws {
-        guard let deletedClient = wsClients.remove(Client(ws: ws, userName: client.userName, userID: client.userID)) else {
-            Logger.log(kind: .error, message: "Не удалось удалить пользователя: [ \(client.userName) ]")
+        guard let deletedClient = wsClients.remove(Client(ws: ws, userID: client.userID)) else {
+            Logger.log(kind: .error, message: "Не удалось удалить пользователя: [ \(client.userID) ]")
             return
         }
 
-        Logger.log(kind: .close, message: "Пользователь с ником: [ \(deletedClient.userName) ] удалён из очереди")
-        let msgConnection = Message(
-            id: UUID(),
-            kind: .close,
-            userName: client.userName,
-            userID: client.userID,
-            receiverID: client.userID,
-            dispatchDate: Date(),
-            message: "",
-            state: .received
-        )
-        let msgConnectionString = try msgConnection.encodeMessage()
-        client.ws.send(msgConnectionString)
+        Logger.log(kind: .close, message: "Пользователь с ником: [ \(deletedClient.userID) ] удалён из очереди")
     }
 }
 
@@ -132,7 +120,7 @@ private extension WebSocketController {
 private extension WebSocketController {
 
     func notificationHandler(ws: WebSocket, data: Data) throws {
-        var notification = try JSONDecoder().decode(Notification.self, from: data)
+        let notification = try JSONDecoder().decode(Notification.self, from: data)
         Logger.log(message: "Полученно уведомление с title:\n\(notification.title)")
 
         let notificationData = try JSONEncoder().encode(notification)

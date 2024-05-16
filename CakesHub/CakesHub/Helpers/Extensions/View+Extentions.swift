@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 04.02.2024.
+//  Copyright 2023 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -90,7 +91,7 @@ extension View {
     func blurredSheet<Content: View>(
         _ style: AnyShapeStyle,
         show: Binding<Bool>,
-        onDismiss: @escaping () -> Void,
+        onDismiss: @escaping CHMVoidBlock,
         @ViewBuilder content: @escaping () -> Content
     ) -> some View {
         sheet(isPresented: show, onDismiss: onDismiss) {

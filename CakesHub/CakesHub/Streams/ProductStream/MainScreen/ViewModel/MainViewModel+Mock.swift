@@ -75,7 +75,7 @@ extension [ProductModel] {
             badgeText: "NEW",
             isFavorite: $0.isMultiple(of: 2),
             isNew: true,
-            pickers: Constants.pickers,
+            categories: Constants.categories,
             seller: .king,
             productName: "Boston cream pie",
             price: "$\($0).99",
@@ -98,7 +98,7 @@ extension [ProductModel] {
             badgeText: "-\($0)%",
             isFavorite: $0.isMultiple(of: 2),
             isNew: false,
-            pickers: Constants.pickers,
+            categories: Constants.categories,
             seller: .poly,
             productName: Constants.productName,
             price: "$\($0).99",
@@ -121,7 +121,7 @@ extension [ProductModel] {
             ].shuffled(),
             isFavorite: $0.isMultiple(of: 2),
             isNew: false,
-            pickers: Constants.pickers,
+            categories: Constants.categories,
             seller: .milana,
             productName: "Battenberg cake",
             price: "$\($0).99",
@@ -144,7 +144,7 @@ extension [ProductModel] {
             badgeText: "NEW",
             isFavorite: $0.isMultiple(of: 2),
             isNew: true,
-            pickers: Constants.pickers,
+            categories: Constants.categories,
             seller: .poly,
             productName: Constants.productName,
             price: "$\($0).99",
@@ -167,7 +167,7 @@ private extension [ProductModel] {
         static let previewDescription = """
         Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.
         """
-        static let pickers = ["Size", "Color"]
+        static let categories = ["День рождения", "Свадьба"]
     }
 }
 

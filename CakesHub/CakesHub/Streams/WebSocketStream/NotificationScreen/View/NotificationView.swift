@@ -7,15 +7,24 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NotificationView: View {
 
-    @StateObject var viewModel = NotificationViewModel()
+    @State var viewModel = NotificationViewModel()
+    @EnvironmentObject var rootView: RootViewModel
+    @Environment(\.modelContext) private var modelContext
 
     var body: some View {
         MainView
-            .onAppear {
-                viewModel.setupWebSocket()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .onAppear(perform: onAppear)
+            .onReceive(
+                NotificationCenter.default.publisher(
+                    for: .WebSocketNames.notification
+                )
+            ) { output in
+                viewModel.getNotificationsFromWebSocketLayer(output: output)
             }
     }
 }
@@ -23,10 +32,15 @@ struct NotificationView: View {
 // MARK: - Actions
 
 extension NotificationView {
-    
+
+    func onAppear() {
+        viewModel.setModelContext(with: modelContext)
+        viewModel.onAppear(currentUserID: rootView.currentUser.uid)
+    }
+
     /// Удаление уведомления свайпом
     /// - Parameter notificationID: ID уведомления
-    func didDeleteNotification(notificationID: Int) {
+    func didDeleteNotification(notificationID: String) {
         viewModel.deleteNotification(id: notificationID)
     }
 }
@@ -34,6 +48,9 @@ extension NotificationView {
 // MARK: - Preview
 
 #Preview {
-    NotificationView(viewModel: .mockData)
-        .environmentObject(NotificationViewModel())
+    NavigationStack {
+        NotificationView()
+            .environmentObject(RootViewModel.mockData)
+            .modelContainer(for: [SDNotificationModel.self])
+    }
 }

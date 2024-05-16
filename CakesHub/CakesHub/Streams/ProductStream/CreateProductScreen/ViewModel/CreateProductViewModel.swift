@@ -119,8 +119,7 @@ private extension CreateProductViewModel {
         FBProductModel(
             documentID: UUID().uuidString,
             images: .images(inputProductData.productImages.map { $0 }),
-            pickers: [],
-            // TODO: iOS-18: Добавить экран с выбором пикеров
+            categories: [], // TODO: iOS-23: Добавить выборку пикеров
             productName: inputProductData.productName,
             price: inputProductData.productPrice,
             discountedPrice: {
@@ -136,7 +135,7 @@ private extension CreateProductViewModel {
             seller: rootViewModel.currentUser,
             description: inputProductData.productDescription,
             similarProducts: [],
-            establishmentDate: Date.now.formattedString(format: "yyyy-MM-dd HH:mm:ss"),
+            establishmentDate: Date().description,
             reviewInfo: .clear
         )
     }

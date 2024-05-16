@@ -14,10 +14,10 @@ import Observation
 
 protocol AuthViewModelProtocol: AnyObject {
     // MARK: Actions
-    func didTapRegisterButton() async throws
-    func didTapSignInButton() async throws
+    func didTapRegisterButton()
+    func didTapSignInButton()
     // MARK: Memory
-    func saveUserInMemory(user: SDUserModel)
+    func saveUserInMemory(user: FBUserModel)
     // MARK: Reducers
     func setContext(context: ModelContext)
     func setRootViewModel(viewModel: RootViewModel)
@@ -27,20 +27,20 @@ protocol AuthViewModelProtocol: AnyObject {
 
 @Observable
 final class AuthViewModel: ViewModelProtocol, AuthViewModelProtocol {
-    var inputData: VMAuthInputData
-    private(set) var rootViewModel: RootViewModel? = nil
+    var uiProperies: ScreenData
     @ObservationIgnored
-    private(set) var context: ModelContext?
+    private var services: VMAuthServices
     @ObservationIgnored
-    private let services: VMAuthServices
+    private var reducers: Reducers
 
     init(
-        inputData: VMAuthInputData = .clear,
-        authService: AuthServiceProtocol = AuthService.shared,
-        userService: UserServiceProtocol = UserService.shared
+        uiProperies: ScreenData = .clear,
+        services: VMAuthServices = .clear,
+        reducers: Reducers = .clear
     ) {
-        self.inputData = inputData
-        self.services = VMAuthServices(authService: authService, userService: userService)
+        self.uiProperies = uiProperies
+        self.services = services
+        self.reducers = reducers
     }
 }
 
@@ -50,34 +50,58 @@ extension AuthViewModel {
     
     /// Нажали кнопку  `регистрация`
     @MainActor
-    func didTapRegisterButton() async throws {
-        // Регестрируем пользователя
-        let uid = try await services.authService.registeUser(with: inputData.mapper)
+    func didTapRegisterButton() {
+        Task {
+            do {
+                // Регестрируем пользователя
+                let uid = try await services.authService.registeUser(with: uiProperies.mapper)
 
-        // Сохраняем данные о пользователе на устройстве
-        let user = SDUserModel(id: uid, nickName: inputData.nickName, email: inputData.email)
-        saveUserInMemory(user: user)
+                // Устанавливаем Web Socket соединение
+                startWebSocketLink(userID: uid)
 
-        // Обновляем рутового пользователя. Должно выполняться на главном потоке
-        rootViewModel?.setCurrentUser(for: user.mapperInFBUserModel)
+                // Сохраняем данные о пользователе на устройстве
+                let fbUser = FBUserModel(uid: uid, nickname: uiProperies.nickName, email: uiProperies.email)
+                saveUserInMemory(user: fbUser)
+
+                // Обновляем рутового пользователя. Должно выполняться на главном потоке
+                reducers.rootViewModel.setCurrentUser(for: fbUser)
+            } catch {
+                generateErrorMessage(error: error)
+            }
+        }
     }
 
     /// Нажали кнопку  `войти`
     @MainActor
-    func didTapSignInButton() async throws {
-        // Проверяем, зарегестрирован ли пользователь
-        let userUID = try await services.authService.loginUser(
-            with: LoginUserRequest(email: inputData.email, password: inputData.password)
-        )
+    func didTapSignInButton() {
+        Task {
+            do {
+                // Проверяем, зарегестрирован ли пользователь
+                let userUID = try await services.authService.loginUser(
+                    with: LoginUserRequest(email: uiProperies.email, password: uiProperies.password)
+                )
 
-        // Получаем все данные пользователя
-        let userInfo = try await services.userService.getUserInfo(uid: userUID)
+                // Устанавливаем Web Socket соединение
+                startWebSocketLink(userID: userUID)
 
-        // Обновляем рутового пользователя. Должно выполняться на главном потоке
-        rootViewModel?.setCurrentUser(for: userInfo)
+                // Получаем все данные пользователя
+                let userInfo = try await services.userService.getUserInfo(uid: userUID)
 
-        // Сохраняем новые данные на устройстве
-        saveUserInMemory(user: SDUserModel(fbModel: userInfo))
+                // Обновляем рутового пользователя. Должно выполняться на главном потоке
+                reducers.rootViewModel.setCurrentUser(for: userInfo)
+
+                // Сохраняем новые данные на устройстве
+                saveUserInMemory(user: userInfo)
+            } catch {
+                generateErrorMessage(error: error)
+            }
+        }
+    }
+
+    private func generateErrorMessage(error: any Error) {
+        uiProperies.showingAlert = true
+        uiProperies.alertMessage = error.localizedDescription
+        Logger.log(kind: .error, message: error)
     }
 }
 
@@ -87,26 +111,38 @@ extension AuthViewModel {
 
     /// Достаём данные о `пользователе` из устройства
     func fetchUserInfo() {
-        let fetchDescriptor = FetchDescriptor<SDUserModel>()
+        guard
+            let userID = UserDefaults.standard.string(forKey: UserDefaultsKeys.currentUser)
+        else {
+            Logger.log(kind: .error, message: "UserID is nil")
+            return
+        }
+
+        var fetchDescriptor = FetchDescriptor<SDUserModel>(
+            predicate: #Predicate { $0._id == userID }
+        )
+        fetchDescriptor.fetchLimit = 1
 
         do {
-            guard let userInfo = try context?.fetch(fetchDescriptor).first else { return }
-            rootViewModel?.setCurrentUser(for: userInfo.mapperInFBUserModel)
-        } catch {
-            Logger.log(kind: .error, message: error)
+            let sdUsers = try reducers.context.fetch(fetchDescriptor)
+            guard let sdCurrentUser = sdUsers.first else {
+                Logger.log(kind: .error, message: "Текущий пользователь не найден в БД, но обладает userID в UserDefauls")
+                return
+            }
+            reducers.rootViewModel.setCurrentUser(for: sdCurrentUser.mapper)
+        }
+        catch {
+            Logger.log(kind: .error, message: error.localizedDescription)
         }
     }
 
     /// Сохраняем данные о `пользователе` на устройство
-    func saveUserInMemory(user: SDUserModel) {
-        DispatchQueue.global(qos: .utility).async {
-            self.context?.insert(user)
-            do {
-                try self.context?.save()
-            } catch {
-                Logger.log(kind: .error, message: error)
-            }
-        }
+    func saveUserInMemory(user: FBUserModel) {
+        let sdUser = SDUserModel(fbModel: user)
+        UserDefaults.standard.set(user.uid, forKey: UserDefaultsKeys.currentUser)
+        reducers.context.insert(sdUser)
+        do { try reducers.context.save() }
+        catch { Logger.log(kind: .error, message: error.localizedDescription) }
     }
 }
 
@@ -115,12 +151,71 @@ extension AuthViewModel {
 extension AuthViewModel {
 
     func setContext(context: ModelContext) {
-        if self.context.isNil {
-            self.context = context
-        }
+        reducers.context = context
     }
 
     func setRootViewModel(viewModel: RootViewModel) {
-        self.rootViewModel = viewModel
+        reducers.rootViewModel = viewModel
+    }
+}
+
+// MARK: - User Defaults Keys
+
+extension AuthViewModel {
+
+    enum UserDefaultsKeys {
+        static let currentUser = "com.vk.AuthViewModel.currentUserID"
+    }
+}
+
+// MARK: - Inner Methods
+
+private extension AuthViewModel {
+
+    func startWebSocketLink(userID: String) {
+        services.wsService.connection { [weak self] error in
+            guard let self else { return }
+            if let error {
+                if error is APIError {
+                    Logger.log(kind: .error, message: error.localizedDescription)
+                } else {
+                    Logger.log(kind: .error, message: error)
+                }
+                return
+            }
+
+            services.wsService.send(
+                message: WSMessage.connectionMessage(userID: userID)
+            ) { [weak self] in
+                guard let self else { return }
+                Logger.log(kind: .webSocket, message: "Соединение установленно через Auth View")
+
+                services.wsService.receive { data in
+                    do {
+                        let message = try JSONDecoder().decode(WSMessage.self, from: data)
+                        DispatchQueue.main.async {
+                            NotificationCenter.default.post(
+                                name: .WebSocketNames.message,
+                                object: message
+                            )
+                        }
+                        return
+                    } catch {
+                        do {
+                            let notification = try JSONDecoder().decode(WSNotification.self, from: data)
+                            DispatchQueue.main.async {
+                                NotificationCenter.default.post(
+                                    name: .WebSocketNames.notification,
+                                    object: notification
+                                )
+                            }
+                            return
+                        } catch {
+                            Logger.log(kind: .error, message: error.localizedDescription)
+                        }
+                    }
+                }
+            }
+        }
     }
 }

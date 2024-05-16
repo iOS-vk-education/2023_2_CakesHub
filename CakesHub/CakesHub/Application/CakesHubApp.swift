@@ -8,15 +8,8 @@
 
 import SwiftUI
 import FirebaseCore
+import UIKit
 import SwiftData
-
-final class AppDelegate: NSObject, UIApplicationDelegate {
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        FirebaseApp.configure()
-        return true
-    }
-}
 
 @main
 struct CakesHubApp: App {
@@ -27,8 +20,19 @@ struct CakesHubApp: App {
             RootView()
         }
         .modelContainer(for: [
-            SDUserModel.self,
-            SDProductModel.self
+            SDProductModel.self,
+            SDNotificationModel.self,
+            SDCateoryModel.self,
+            SDChatMessageModel.self,
         ])
+    }
+
+    init() {
+        Logger.print(URL.applicationSupportDirectory.path(percentEncoded: false))
+        let fileManagerPath = try? FileManager.default.url(for: .documentDirectory,
+                                                           in: .userDomainMask,
+                                                           appropriateFor: nil,
+                                                           create: true)
+        Logger.print(fileManagerPath ?? "FileManager path not found")
     }
 }

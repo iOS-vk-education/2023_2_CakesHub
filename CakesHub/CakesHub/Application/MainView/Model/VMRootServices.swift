@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 19.04.2024.
+//  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
 import Foundation
@@ -11,14 +12,14 @@ extension RootViewModel {
 
     struct Services: ClearConfigurationProtocol {
         let cakeService: CakeServiceProtocol
-        var swiftDataService: SwiftDataServiceProtocol?
+        let wbManager: WebSockerManagerProtocol
 
         init(
             cakeService: CakeServiceProtocol = CakeService.shared,
-            swiftDataService: SwiftDataServiceProtocol? = nil
+            wbManager: WebSockerManagerProtocol = WebSockerManager.shared
         ) {
             self.cakeService = cakeService
-            self.swiftDataService = swiftDataService
+            self.wbManager = wbManager
         }
 
         static let clear: RootViewModel.Services = .init()

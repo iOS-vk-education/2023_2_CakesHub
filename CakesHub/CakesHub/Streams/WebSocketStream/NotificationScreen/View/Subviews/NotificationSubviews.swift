@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 31.03.2024.
+//  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -13,7 +14,7 @@ extension NotificationView {
 
     @ViewBuilder
     var MainView: some View {
-        if viewModel.screenIsShimmering {
+        if viewModel.isScreenShimmering {
             ProgressScreen
         } else if viewModel.notifications.count == 0 {
             NotificationsNotFound
@@ -41,23 +42,26 @@ extension NotificationView {
                     .frame(maxWidth: .infinity, maxHeight: 90)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
             }
+
             Spacer()
         }
     }
 
     var NotificationsNotFound: some View {
-        VStack {
-            Constants.emptyImageName
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 50)
+        GroupBox {
+            VStack {
+                Constants.emptyImageName
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 50)
 
-            Text(Constants.emptyString)
-                .font(.headline)
-                .padding(.top)
+                Text(Constants.emptyString)
+                    .font(.headline)
+                    .padding(.top)
+            }
+            .padding(.vertical, 10)
+            .padding(.horizontal)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Constants.bgColor)
     }
 }
 
@@ -65,12 +69,14 @@ extension NotificationView {
 
 #Preview {
     NotificationView(viewModel: .mockData)
-        .environmentObject(NotificationViewModel())
+        .environmentObject(RootViewModel.mockData)
+        .modelContainer(for: [SDNotificationModel.self])
 }
 
 #Preview {
     NotificationView()
-        .environmentObject(NotificationViewModel())
+        .environmentObject(RootViewModel.mockData)
+        .modelContainer(for: [SDNotificationModel.self])
 }
 
 // MARK: - Constants
