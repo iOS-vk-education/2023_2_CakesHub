@@ -45,7 +45,7 @@ extension ChatView {
                 // MARK: Закомментировать для работы превью.
                 proxy.scrollTo(Constants.scrollIdentifier, anchor: .bottom)
             }
-            .onChange(of: viewModel.lastMessageID) { _, _ in
+            .onChange(of: viewModel.data.lastMessageID) { _, _ in
                 withAnimation {
                     proxy.scrollTo(Constants.scrollIdentifier, anchor: .bottom)
                 }
@@ -55,7 +55,7 @@ extension ChatView {
 
     var MessagesBlock: some View {
         LazyVStack {
-            ForEach(viewModel.messages) { message in
+            ForEach(viewModel.data.messages) { message in
                 MessageBubble(message: message)
                     .padding(.horizontal, 8)
             }
@@ -96,16 +96,13 @@ extension ChatView {
                     .frame(width: 22, height: 22)
 
             } else {
-                Button {
-                    viewModel.sendMessage(message: messageText)
-                    messageText = .clear
-                } label: {
+                Button(action: didTapSendMessageButton, label: {
                     Image(systemName: Constants.paperplane)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 22, height: 22)
                         .foregroundStyle(Constants.iconColor)
-                }
+                })
             }
         }
         .padding(.horizontal, 8)

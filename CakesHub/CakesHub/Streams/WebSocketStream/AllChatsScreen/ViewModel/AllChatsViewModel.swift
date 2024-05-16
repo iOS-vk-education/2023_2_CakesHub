@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 import SwiftData
 
 // MARK: - AllChatsViewModelProtocol
@@ -17,7 +18,11 @@ protocol AllChatsViewModelProtocol: AnyObject {
     // MARK: Lifecycle
     func onAppear()
     // MARK: Action
-    func didTapCell(with cellInfo: ChatCellIModel)
+    func didTapCell(with cellInfo: ChatCellModel)
+    // MARK: Memory
+    func saveUser(fbUser: FBUserModel)
+    func saveMessages(messages: [FBChatMessageModel])
+    func fetchMessages() async -> [ChatCellModel]
     // MARK: Reducers
     func setReducers(modelContext: ModelContext, root: RootViewModel, nav: Navigation)
 }
@@ -28,12 +33,12 @@ protocol AllChatsViewModelProtocol: AnyObject {
 final class AllChatsViewModel: ViewModelProtocol, AllChatsViewModelProtocol {
 
     var uiProperties: UIProperties
-    private(set) var chatCells: [ChatCellIModel]
+    private(set) var chatCells: [ChatCellModel]
     private let services: Services
     private var reducers: Reducers
 
     init(
-        chatCells: [ChatCellIModel] = [],
+        chatCells: [ChatCellModel] = [],
         services: Services = .clear,
         uiProperties: UIProperties = .clear,
         reducers: Reducers = .clear
@@ -46,7 +51,7 @@ final class AllChatsViewModel: ViewModelProtocol, AllChatsViewModelProtocol {
 
     // MARK: Computed Properties
 
-    var filterInputText: [ChatCellIModel] {
+    var filterInputText: [ChatCellModel] {
         uiProperties.searchText.isEmpty
         ? chatCells
         : chatCells.filter {
@@ -70,26 +75,44 @@ extension AllChatsViewModel {
 
 extension AllChatsViewModel {
 
+    @MainActor
     func onAppear() {
         guard chatCells.isEmpty else { return }
+
+        // Достаём данные из памяти устройства
         Task {
             uiProperties.showLoader = true
+            chatCells = await fetchMessages()
+            withAnimation {
+                uiProperties.showLoader = false
+            }
+        }
+
+        // Получаем данные из сети
+        Task {
             let userMessages = try await getUserMessages()
+
+            // Кэшируем сообщения в памяти устройства
+            saveMessages(messages: userMessages)
+
             chatCells = await assembleMessagesInfoCells(messages: userMessages)
-            uiProperties.showLoader = false
+            withAnimation {
+                uiProperties.showLoader = false
+            }
         }
     }
 
+    /// Получение сообщения из Web Socket слоя
     func receiveMessage(output: NotificationCenter.Publisher.Output) {
-        guard let wsMessage = output.object as? WSMessage, wsMessage.state == .received else {
+        guard
+            let wsMessage = output.object as? WSMessage, wsMessage.kind == .message,
+            let index = chatCells.firstIndex(where: { $0.user.id == wsMessage.userID })
+        else {
             return
         }
-        guard let index = chatCells.firstIndex(where: { $0.user.id == wsMessage.userID }) else {
-            return
-        }
-        let newMessage = ChatCellIModel.Message(
+        let newMessage = ChatCellModel.Message(
             id: wsMessage.id,
-            time: wsMessage.dispatchDate.formattedString(format: "HH:mm"),
+            time: wsMessage.dispatchDate.formattedString(format: Constants.dateFormattedString),
             text: wsMessage.message,
             isYou: wsMessage.userID == currentUserID
         )
@@ -102,7 +125,7 @@ extension AllChatsViewModel {
 
 extension AllChatsViewModel {
 
-    func didTapCell(with cellInfo: ChatCellIModel) {
+    func didTapCell(with cellInfo: ChatCellModel) {
         let messages: [ChatMessage] = cellInfo.messages.map { message in
             let messageUserName: String = message.isYou ? currentUser.nickname : cellInfo.user.nickname
             let messageUserImage = message.isYou
@@ -122,7 +145,7 @@ extension AllChatsViewModel {
             )
         }
 
-        var user: ChatCellIModel.User { cellInfo.user }
+        var user: ChatCellModel.User { cellInfo.user }
         reducers.nav.addScreen(
             screen: Screens.chat(
                 messages: messages,
@@ -133,6 +156,80 @@ extension AllChatsViewModel {
                 )
             )
         )
+    }
+}
+
+// MARK: - Memory
+
+extension AllChatsViewModel {
+
+    /// Кэшируем пользователя чата, если он ещё не существует
+    func saveUser(fbUser: FBUserModel) {
+        let sdUser = SDUserModel(fbModel: fbUser)
+        reducers.modelContext.insert(sdUser)
+        try? reducers.modelContext.save()
+    }
+
+    /// Кэшируем все сообщения
+    func saveMessages(messages: [FBChatMessageModel]) {
+        messages.forEach { message in
+            let sdMessage = SDChatMessageModel(fbModel: message)
+            reducers.modelContext.insert(sdMessage)
+        }
+        try? reducers.modelContext.save()
+    }
+
+    @MainActor
+    /// Достаем истории чатов со всеми пользователями
+    func fetchMessages() async -> [ChatCellModel] {
+        // Достаём сообщения из памяти устройства
+        let fetchDescriptor = FetchDescriptor<SDChatMessageModel>()
+        guard let messages = try? reducers.modelContext.fetch(fetchDescriptor) else {
+            return []
+        }
+        let fbMessages = messages.map { $0.mapper }
+
+        // Получаем уникальных пользователей
+        let usersIDsSet = getAllInterlocutorsIDs(messages: fbMessages)
+
+        // Асинхронно группируем по ячейкам чата
+        async let chatMessages = interlocutorsMessages(
+            usersIDsSet: usersIDsSet,
+            messages: fbMessages
+        )
+
+        // Дожидаемся выполнения задачи группировки и получения данных пользоветлей из памяти устройства
+        let result = await (fetchUsersInfoFromMemory(userIDsSet: usersIDsSet), chatMessages)
+
+        // Мёржим данные пользователей и истории сообщений
+        let chatCells: [ChatCellModel] = result.0.compactMap { fbUser in
+            guard let chatCell = result.1.first(where: { $0.user.id == fbUser.uid }) else {
+                return nil
+            }
+            return ChatCellModel(
+                user: .init(
+                    id: fbUser.uid,
+                    nickname: fbUser.nickname,
+                    imageKind: .string(fbUser.avatarImage ?? .clear)
+                ),
+                lastMessage: chatCell.lastMessage,
+                timeMessage: chatCell.timeMessage,
+                messages: chatCell.messages
+            )
+        }
+
+        return chatCells
+    }
+
+    @MainActor
+    /// Достаём информацию о пользователях из памяти устройства
+    func fetchUsersInfoFromMemory(userIDsSet: Set<String>) -> [FBUserModel] {
+        let sdUsers = userIDsSet.compactMap { userID in
+            let predicate = #Predicate<SDUserModel> { $0._id == userID }
+            let fetchDescriptor = FetchDescriptor(predicate: predicate)
+            return (try? reducers.modelContext.fetch(fetchDescriptor))?.first
+        }
+        return sdUsers.map { $0.mapper }
     }
 }
 
@@ -152,13 +249,13 @@ extension AllChatsViewModel {
 private extension AllChatsViewModel {
 
     /// Получаем собеседников и полную историю сообщений с ним
-    func assembleMessagesInfoCells(messages: [FBChatMessageModel]) async -> [ChatCellIModel] {
+    func assembleMessagesInfoCells(messages: [FBChatMessageModel]) async -> [ChatCellModel] {
         let usersIDsSet = getAllInterlocutorsIDs(messages: messages)
 
         let chatCells = await withTaskGroup(
-            of: [ChatCellIModel].self,
-            returning: [ChatCellIModel].self
-        ) { taskGroup -> [ChatCellIModel] in
+            of: [ChatCellModel].self,
+            returning: [ChatCellModel].self
+        ) { taskGroup -> [ChatCellModel] in
             taskGroup.addTask {
                 await self.getUsersInfo(usersIDsSet: usersIDsSet)
             }
@@ -166,7 +263,7 @@ private extension AllChatsViewModel {
                 await self.interlocutorsMessages(usersIDsSet: usersIDsSet, messages: messages)
             }
 
-            var chatCellsArray: [[ChatCellIModel]] = []
+            var chatCellsArray: [[ChatCellModel]] = []
             for await task in taskGroup {
                 chatCellsArray.append(task)
             }
@@ -176,7 +273,7 @@ private extension AllChatsViewModel {
             // Один массив будет содержать информацию о пользователе из интернета, но не будет содержать историю чата.
             // Второй будет содержать историю чата, но не будет содержать информацию об пользователе из интернета.
             // Задача смёржить все эти две ячейки в одну полноценную.
-            var mergedChatCells: [ChatCellIModel] = []
+            var mergedChatCells: [ChatCellModel] = []
             for chatCell in chatCells {
                 // Если в массиве уже есть ячейка с текущим ID, значит надо дополнить вторую часть информации по ней
                 // Иначе это только первая часть информации и мы просто добавляем её в массив и идём дальше
@@ -191,7 +288,7 @@ private extension AllChatsViewModel {
                 let timeMessage = oldChatCell.timeMessage.isEmpty ? chatCell.timeMessage : oldChatCell.timeMessage
                 let messages = oldChatCell.messages.isEmpty ? chatCell.messages : oldChatCell.messages
 
-                let newChatCell = ChatCellIModel(
+                let newChatCell = ChatCellModel(
                     user: user,
                     lastMessage: lastMessage,
                     timeMessage: timeMessage,
@@ -211,16 +308,17 @@ private extension AllChatsViewModel {
         var usersIDsSet: Set<String> = Set()
         for message in messages {
             usersIDsSet.insert(message.receiverID)
+            usersIDsSet.insert(message.userID)
         }
 
         return usersIDsSet
     }
 
     /// Получаем данные пользователей
-    func getUsersInfo(usersIDsSet: Set<String>) async -> [ChatCellIModel] {
+    func getUsersInfo(usersIDsSet: Set<String>) async -> [ChatCellModel] {
         let usersCells = await withThrowingTaskGroup(
             of: FBUserModel?.self,
-            returning: [ChatCellIModel].self
+            returning: [ChatCellModel].self
         ) { taskGroup in
             for userID in usersIDsSet {
                 taskGroup.addTask { [weak self] in
@@ -228,15 +326,21 @@ private extension AllChatsViewModel {
                 }
             }
 
-            var users: [ChatCellIModel] = []
+            var users: [ChatCellModel] = []
             while let userInfo = try? await taskGroup.next() {
                 guard let userInfo else { continue }
-                let user: ChatCellIModel.User = .init(
+
+                // Кэшируем пользователя в памяти устройства
+                await MainActor.run {
+                    self.saveUser(fbUser: userInfo)
+                }
+
+                let user: ChatCellModel.User = .init(
                     id: userInfo.uid,
                     nickname: userInfo.nickname,
                     imageKind: .string(userInfo.avatarImage ?? .clear)
                 )
-                let chatCell = ChatCellIModel(user: user)
+                let chatCell = ChatCellModel(user: user)
                 users.append(chatCell)
             }
             return users
@@ -249,11 +353,11 @@ private extension AllChatsViewModel {
     func interlocutorsMessages(
         usersIDsSet: Set<String>,
         messages: [FBChatMessageModel]
-    ) async -> [ChatCellIModel] {
-        var chatsMessages: [ChatCellIModel] = []
+    ) async -> [ChatCellModel] {
+        var chatsMessages: [ChatCellModel] = []
         for userID in usersIDsSet {
             if userID == currentUserID {
-                let chatCell = ChatCellIModel(
+                let chatCell = ChatCellModel(
                     user: .init(id: userID),
                     lastMessage: Constants.emptyCellSubtitleForYou
                 )
@@ -268,7 +372,7 @@ private extension AllChatsViewModel {
 
             // Сортируем сообщения по дате отправления
             let sortedMessages = sortMessagesByDate(theirMessages).map {
-                ChatCellIModel.Message(
+                ChatCellModel.Message(
                     id: $0.id,
                     time: $0.dispatchDate.dateRedescription?.formattedString(format: Constants.dateFormattedString) ?? .clear,
                     text: $0.message,
@@ -277,7 +381,7 @@ private extension AllChatsViewModel {
             }
 
             let lastMessageInfo = sortedMessages.last
-            let chatCell = ChatCellIModel(
+            let chatCell = ChatCellModel(
                 user: .init(id: userID),
                 lastMessage: lastMessageInfo?.text ?? Constants.emptyCellSubtitleForInterlator,
                 timeMessage: lastMessageInfo?.time ?? .clear,

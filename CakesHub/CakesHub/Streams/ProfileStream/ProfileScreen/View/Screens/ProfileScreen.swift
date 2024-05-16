@@ -15,27 +15,30 @@ struct ProfileScreen: View {
     @EnvironmentObject private var nav: Navigation
     @EnvironmentObject var rootViewModel: RootViewModel
 
-    init(viewModel: ViewModel = ViewModel()) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
-    
     var body: some View {
         MainView
+            .onAppear(perform: onAppear)
             .navigationDestination(for: ViewModel.Screens.self) { screen in
                 switch screen {
-                case .message:
+                case let .message(messages):
                     let interlocutor: ChatViewModel.Interlocutor = .init(
                         id: viewModel.user.id,
                         image: viewModel.user.userImage,
                         nickname: viewModel.user.name
                     )
+                    // FIXME: Тут надо фетчить историю сообщений из FB
                     let vm = ChatViewModel(
-                        interlocutor: interlocutor,
-                        user: rootViewModel.currentUser.mapper
+                        data: .init(
+                            messages: messages,
+                            lastMessageID: messages.last?.id,
+                            interlocutor: interlocutor,
+                            user: rootViewModel.currentUser.mapper
+                        )
                     )
                     ChatView(viewModel: vm)
-                case .notifications:
-                    Text("Экран уведомлений")
+                case .location:
+                    UserLocationView()
+                        .navigationBarBackButtonHidden()
                 case .settings:
                     SettingsView()
                 case .createProduct:
@@ -53,9 +56,15 @@ struct ProfileScreen: View {
 
 extension ProfileScreen {
 
+    func onAppear() {
+        viewModel.setRootUser(rootUser: rootViewModel.currentUser)
+    }
+
     /// Нажатие на кнопку открытия чата
     func didTapOpenMessageScreen() {
-        nav.addScreen(screen: ViewModel.Screens.message)
+        viewModel.didTapOpenChatWithInterlocutor() { messages in
+            nav.addScreen(screen: ViewModel.Screens.message(messages))
+        }
     }
 
     /// Нажатие на кнопку создания товара
@@ -70,7 +79,7 @@ extension ProfileScreen {
 
     /// Нажатие на кнопку открытия уведомлений
     func didTapOpenNotifications() {
-        nav.addScreen(screen: ViewModel.Screens.notifications)
+        nav.addScreen(screen: ViewModel.Screens.location)
     }
 
     /// Нажали на карточку товара

@@ -46,18 +46,3 @@ extension WSNotification {
         )
     }
 }
-
-// MARK: - Helper
-
-private extension String {
-
-    var toCorrectDate: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-        if let date = dateFormatter.date(from: self) {
-            return date.formatted(.dateTime.year().day().month(.wide))
-        } else {
-            return self
-        }
-    }
-}

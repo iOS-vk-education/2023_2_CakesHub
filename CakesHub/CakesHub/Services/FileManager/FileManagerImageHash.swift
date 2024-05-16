@@ -21,6 +21,8 @@ final class FileManagerImageHash {
     static let shared = FileManagerImageHash()
     private let fileManager = FileManager.default
     private let saveQueue = DispatchQueue(label: "com.vk.FileManagerImageHash.saveImages", qos: .utility, attributes: [.concurrent])
+
+    private init() {}
 }
 
 // MARK: - FileManagerImageHashProtocol

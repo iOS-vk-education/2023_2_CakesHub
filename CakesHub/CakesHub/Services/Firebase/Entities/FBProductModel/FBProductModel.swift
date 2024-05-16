@@ -97,15 +97,23 @@ extension FBProductModel {
 extension FBProductModel {
 
     var isNew: Bool {
-        // Получаем разницу нынешней даты и даты создания объявления
-        guard let dif = Calendar.current.dateComponents(
-            [.day],
-            from: establishmentDate.toDate,
+        guard let productDate = establishmentDate.dateRedescription else {
+            return false
+        }
+        let componentsDif = Calendar.current.dateComponents(
+            [.year, .month, .day],
+            from: productDate,
             to: Date.now
-        ).day else { return false }
+        )
+        guard componentsDif.month == 0 && componentsDif.year == 0 else {
+            return false
+        }
+
+        // Получаем разницу нынешней даты и даты создания объявления
+        guard let difDay = componentsDif.day else { return false }
 
         // Если разница ниже 8, объявление считается новым
-        return dif < 8
+        return difDay < 8
     }
 
     var badgeText: String {

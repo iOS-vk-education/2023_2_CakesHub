@@ -51,7 +51,7 @@ extension AllChatsView {
         }
     }
 
-    func CellView(cell: ChatCellIModel) -> some View {
+    func CellView(cell: ChatCellModel) -> some View {
         VStack {
             CHMChatCell(
                 configuration: .basic(

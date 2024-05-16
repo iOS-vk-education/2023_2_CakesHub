@@ -16,6 +16,7 @@ import SwiftUI
 protocol CakeServiceProtocol {
     func getCakesList() async throws -> [FBProductModel]
     func createCake(cake: FBProductModel, completion: @escaping (Error?) -> Void)
+    func sendFeedback(productID: String, text feedbackText: String, count countFilledStar: Int, username: String) async throws -> FBProductModel
 }
 
 // MARK: - CakeService
@@ -26,6 +27,7 @@ final class CakeService {
     private let storage = Storage.storage()
     private let firestore = Firestore.firestore()
     private let userService: UserServiceProtocol = UserService.shared
+    private let collection = FirestoreCollections.products.rawValue
 
     private init() {}
 }
@@ -36,12 +38,12 @@ extension CakeService: CakeServiceProtocol {
 
     /// Getting a list of cakes
     func getCakesList() async throws -> [FBProductModel] {
-        let snapshot = try await firestore.collection(FirestoreCollections.products.rawValue).getDocuments()
+        let snapshot = try await firestore.collection(collection).getDocuments()
 
         let correctProductModels = await withThrowingTaskGroup(of: FBProductModel?.self, returning: [FBProductModel].self) { taskGroup in
             for productSnapshot in snapshot.documents {
                 taskGroup.addTask {
-                    try? await self.converToCorrectFBProductModel(productSnapshot: productSnapshot)
+                    try? await self.converToCorrectFBProductModel(productDict: productSnapshot.data())
                 }
             }
 
@@ -68,7 +70,7 @@ extension CakeService: CakeServiceProtocol {
                 dispatchGroup.enter()
                 createImage(
                     image: image,
-                    directoryName: "cake/\(cake.seller.email)/\(cake.productName)",
+                    directoryName: "cakes",
                     imageName: generateUniqueFileName(userID: cake.seller.uid)
                 ) { result in
                     switch result {
@@ -92,11 +94,68 @@ extension CakeService: CakeServiceProtocol {
             firebaseCakeDocument.images = .strings(images)
             let productDocument = self.getProductDict(product: firebaseCakeDocument)
 
-            self.firestore.collection(FirestoreCollections.products.rawValue).document(cake.documentID).setData(
+            self.firestore.collection(self.collection).document(cake.documentID).setData(
                 productDocument,
                 completion: completion
             )
         }
+    }
+
+    func sendFeedback(
+        productID: String,
+        text feedbackText: String,
+        count countFilledStar: Int,
+        username: String
+    ) async throws -> FBProductModel {
+        // Получаем старую информацию о продукте
+        let docomuntRef = firestore.collection(collection).document(productID)
+        let snapshot = try await docomuntRef.getDocument()
+        
+        guard let productDict = snapshot.data() else {
+            throw APIError.responseIsNil
+        }
+        var fbProduct = try await converToCorrectFBProductModel(productDict: productDict)
+
+        // Добавляем комментарий, если имеется текст
+        if !feedbackText.isEmpty {
+            let newComment = FBProductModel.FBCommentInfoModel(
+                id: UUID().uuidString,
+                userName: username,
+                date: Date().description,
+                description: feedbackText,
+                countFillStars: countFilledStar
+            )
+            fbProduct.reviewInfo.comments.append(newComment)
+            fbProduct.reviewInfo.feedbackCount += 1
+            fbProduct.reviewInfo.countOfComments += 1
+        }
+
+        // Обновляем рейтинг
+        switch countFilledStar {
+        case 1:
+            fbProduct.reviewInfo.countOneStars += 1
+        case 2:
+            fbProduct.reviewInfo.countTwoStars += 1
+        case 3:
+            fbProduct.reviewInfo.countThreeStars += 1
+        case 4:
+            fbProduct.reviewInfo.countFourStars += 1
+        case 5:
+            fbProduct.reviewInfo.countFiveStars += 1
+        default:
+            break
+        }
+
+        let fbProductDict = converToCorrectToCorrectDict(product: fbProduct)
+        guard let newComments = fbProductDict["reviewInfo"] else {
+            throw APIError.innerError
+        }
+
+        try await firestore.collection(collection).document(productID).updateData([
+            "reviewInfo": newComments
+        ])
+        
+        return fbProduct
     }
 }
 
@@ -115,7 +174,7 @@ private extension CakeService {
             completion(.failure(.badParameters))
             return
         }
-        let storageRef = storage.reference().child("images/\(directoryName)/\(imageName).jpg")
+        let storageRef = storage.reference().child("\(directoryName)/\(imageName).jpg")
         guard let imageData = image.jpegData(compressionQuality: 1) else {
             completion(.failure(.badParameters))
             return
@@ -162,17 +221,23 @@ private extension CakeService {
     }
     
     /// Конвертируем снэпшот в модель продукта с подменной sellerID в seller
-    func converToCorrectFBProductModel(productSnapshot: QueryDocumentSnapshot) async throws -> FBProductModel {
-        var productDict = productSnapshot.data()
+    func converToCorrectFBProductModel(productDict: [String: Any]) async throws -> FBProductModel {
+        var productDictCopy = productDict
         guard let sellerID = productDict["sellerID"] as? String else {
             throw APIError.badParameters
         }
         let fbUser = try await userService.getUserInfo(uid: sellerID)
-        productDict["seller"] = fbUser.dictionaryRepresentation
-        guard let productModel = FBProductModel(dictionary: productDict) else {
+        productDictCopy["seller"] = fbUser.dictionaryRepresentation
+        guard let productModel = FBProductModel(dictionary: productDictCopy) else {
             throw APIError.dataIsNil
         }
         return productModel
+    }
+
+    func converToCorrectToCorrectDict(product: FBProductModel) -> [String: Any] {
+        var dict = product.dictionaryRepresentation
+        dict["sellerID"] = product.seller.uid
+        return dict
     }
 }
 
@@ -182,13 +247,6 @@ private extension CakeService {
 /// - Parameter userID: seller uid
 /// - Returns: file name
 private func generateUniqueFileName(userID: String) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyyMMdd_HHmmssSSS"
-
-    let currentDateTime = Date()
-    let formattedDate = dateFormatter.string(from: currentDateTime)
-
-    let uniqueFileName = "photo_\(userID)_\(formattedDate)"
-
+    let uniqueFileName = "\(userID)_\(UUID().uuidString)"
     return uniqueFileName
 }

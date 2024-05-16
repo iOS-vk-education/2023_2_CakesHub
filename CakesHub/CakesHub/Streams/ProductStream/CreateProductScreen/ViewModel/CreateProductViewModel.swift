@@ -135,7 +135,7 @@ private extension CreateProductViewModel {
             seller: rootViewModel.currentUser,
             description: inputProductData.productDescription,
             similarProducts: [],
-            establishmentDate: Date.now.formattedString(format: "yyyy-MM-dd HH:mm:ss"),
+            establishmentDate: Date().description,
             reviewInfo: .clear
         )
     }

@@ -11,8 +11,9 @@ import Foundation
 import FirebaseFirestore
 
 protocol ChatServiceProtocol: AnyObject {
+    func fetchUserHistoryMessageWithInterlocutor(userID: String, interlocutorID: String) async throws -> [FBChatMessageModel]
     func fetchUserMessages(userID: String) async throws -> [FBChatMessageModel]
-    func create(message: FBChatMessageModel) async throws
+    func send(message: FBChatMessageModel) async throws
 }
 
 // MARK: - ChatService
@@ -47,8 +48,31 @@ extension ChatService: ChatServiceProtocol {
     }
     
     /// Отправка сообщения
-    func create(message: FBChatMessageModel) async throws {
+    func send(message: FBChatMessageModel) async throws {
         let documentRef = firestore.collection(collection).document(message.id)
         try await documentRef.setData(message.dictionaryRepresentation)
+    }
+
+    func fetchUserHistoryMessageWithInterlocutor(
+        userID: String,
+        interlocutorID: String
+    ) async throws -> [FBChatMessageModel] {
+        let query = firestore.collection(collection).whereFilter(
+            .orFilter([
+                .andFilter([
+                    .whereField("receiverID", isEqualTo: interlocutorID),
+                    .whereField("userID", isEqualTo: userID)
+                ]),
+                .andFilter([
+                    .whereField("receiverID", isEqualTo: userID),
+                    .whereField("userID", isEqualTo: interlocutorID)
+                ])
+            ])
+        )
+        let snapshots = try await query.getDocuments()
+        let messages = snapshots.documents.compactMap {
+            FBChatMessageModel(dictionary: $0.data())
+        }
+        return messages
     }
 }

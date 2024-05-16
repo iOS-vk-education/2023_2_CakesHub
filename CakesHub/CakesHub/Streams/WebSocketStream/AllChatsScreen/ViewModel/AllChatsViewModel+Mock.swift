@@ -22,7 +22,7 @@ extension AllChatsViewModel: Mockable {
 private extension AllChatsViewModel {
 
     enum Constants {
-        static let cells: [ChatCellIModel] = [
+        static let cells: [ChatCellModel] = [
             .init(
                 user: .init(id: king.uid, nickname: king.nickname, imageKind: .string(king.avatarImage ?? .clear)),
                 lastMessage: "Привет! Это последнее сообщение",

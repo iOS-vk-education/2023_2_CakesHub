@@ -20,9 +20,7 @@ struct AllChatsView: View, ViewModelable {
         MainOrLoadingView
             .onAppear(perform: onAppear)
             .onReceive(
-                NotificationCenter.default.publisher(
-                    for: .WebSocketNames.message
-                )
+                NotificationCenter.default.publisher(for: .WebSocketNames.message)
             ) { output in
                 viewModel.receiveMessage(output: output)
             }
@@ -31,10 +29,12 @@ struct AllChatsView: View, ViewModelable {
                 case let .chat(messages, interlocutor):
                     let lastMessageID = messages.last?.id
                     let vm = ChatViewModel(
-                        messages: messages,
-                        lastMessageID: lastMessageID,
-                        interlocutor: interlocutor,
-                        user: root.currentUser.mapper
+                        data: .init(
+                            messages: messages,
+                            lastMessageID: lastMessageID,
+                            interlocutor: interlocutor,
+                            user: root.currentUser.mapper
+                        )
                     )
                     ChatView(viewModel: vm)
                 }
@@ -56,7 +56,7 @@ private extension AllChatsView {
 
 extension AllChatsView {
 
-    func didTapCell(with cellInfo: ChatCellIModel) {
+    func didTapCell(with cellInfo: ChatCellModel) {
         viewModel.didTapCell(with: cellInfo)
     }
 }
