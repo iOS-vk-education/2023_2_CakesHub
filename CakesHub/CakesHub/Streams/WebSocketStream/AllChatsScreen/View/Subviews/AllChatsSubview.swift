@@ -58,7 +58,7 @@ extension AllChatsView {
                     imageKind: cell.user.imageKind,
                     title: cell.user.nickname,
                     subtitle: cell.lastMessage,
-                    time: cell.timeMessage
+                    time: cell.timeMessage?.formattedString(format: "HH:mm") ?? .clear
                 )
             )
             .padding(.horizontal)

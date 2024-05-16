@@ -78,11 +78,12 @@ extension AllChatsViewModel {
     @MainActor
     func onAppear() {
         guard chatCells.isEmpty else { return }
+        uiProperties.showLoader = true
 
         // Достаём данные из памяти устройства
         Task {
-            uiProperties.showLoader = true
             chatCells = await fetchMessages()
+            if !uiProperties.showLoader { return }
             withAnimation {
                 uiProperties.showLoader = false
             }
@@ -96,6 +97,7 @@ extension AllChatsViewModel {
             saveMessages(messages: userMessages)
 
             chatCells = await assembleMessagesInfoCells(messages: userMessages)
+            if !uiProperties.showLoader { return }
             withAnimation {
                 uiProperties.showLoader = false
             }
@@ -112,7 +114,7 @@ extension AllChatsViewModel {
         }
         let newMessage = ChatCellModel.Message(
             id: wsMessage.id,
-            time: wsMessage.dispatchDate.formattedString(format: Constants.dateFormattedString),
+            time: wsMessage.dispatchDate,
             text: wsMessage.message,
             isYou: wsMessage.userID == currentUserID
         )
@@ -140,7 +142,7 @@ extension AllChatsViewModel {
                     name: messageUserName,
                     image: messageUserImage
                 ),
-                time: message.time,
+                time: message.time?.formattedString(format: Constants.dateFormattedString) ?? .clear,
                 state: .received
             )
         }
@@ -218,7 +220,8 @@ extension AllChatsViewModel {
             )
         }
 
-        return chatCells
+        let sortedCells = sortCellsByDate(chatCells)
+        return sortedCells
     }
 
     @MainActor
@@ -285,7 +288,7 @@ private extension AllChatsViewModel {
                 let oldChatCell = mergedChatCells[oldChatCellIndex]
                 let user = oldChatCell.user.nickname.isEmpty ? chatCell.user : oldChatCell.user
                 let lastMessage = oldChatCell.lastMessage.isEmpty ? chatCell.lastMessage : oldChatCell.lastMessage
-                let timeMessage = oldChatCell.timeMessage.isEmpty ? chatCell.timeMessage : oldChatCell.timeMessage
+                let timeMessage = oldChatCell.timeMessage.isNil ? chatCell.timeMessage : oldChatCell.timeMessage
                 let messages = oldChatCell.messages.isEmpty ? chatCell.messages : oldChatCell.messages
 
                 let newChatCell = ChatCellModel(
@@ -297,7 +300,8 @@ private extension AllChatsViewModel {
                 mergedChatCells[oldChatCellIndex] = newChatCell
             }
 
-            return mergedChatCells
+            let sortedCells = sortCellsByDate(mergedChatCells)
+            return sortedCells
         }
 
         return chatCells
@@ -356,15 +360,6 @@ private extension AllChatsViewModel {
     ) async -> [ChatCellModel] {
         var chatsMessages: [ChatCellModel] = []
         for userID in usersIDsSet {
-            if userID == currentUserID {
-                let chatCell = ChatCellModel(
-                    user: .init(id: userID),
-                    lastMessage: Constants.emptyCellSubtitleForYou
-                )
-                chatsMessages.append(chatCell)
-                continue
-            }
-
             // Фильтруем сообщения только текущего пользователя и собеседника
             let theirMessages = messages.filter {
                 ($0.receiverID == userID && $0.userID == currentUserID) || ($0.userID == userID && $0.receiverID == currentUserID)
@@ -374,7 +369,7 @@ private extension AllChatsViewModel {
             let sortedMessages = sortMessagesByDate(theirMessages).map {
                 ChatCellModel.Message(
                     id: $0.id,
-                    time: $0.dispatchDate.dateRedescription?.formattedString(format: Constants.dateFormattedString) ?? .clear,
+                    time: $0.dispatchDate.dateRedescription,
                     text: $0.message,
                     isYou: $0.userID == currentUserID
                 )
@@ -383,8 +378,8 @@ private extension AllChatsViewModel {
             let lastMessageInfo = sortedMessages.last
             let chatCell = ChatCellModel(
                 user: .init(id: userID),
-                lastMessage: lastMessageInfo?.text ?? Constants.emptyCellSubtitleForInterlator,
-                timeMessage: lastMessageInfo?.time ?? .clear,
+                lastMessage: lastMessageInfo?.text ?? Constants.emptyCellSubtitleForInterlacutor,
+                timeMessage: lastMessageInfo?.time,
                 messages: sortedMessages
             )
             chatsMessages.append(chatCell)
@@ -407,6 +402,33 @@ private extension AllChatsViewModel {
         }
         return sortedDates
     }
+
+    func sortCellsByDate(_ cells: [ChatCellModel]) -> [ChatCellModel] {
+        var sortedCells = cells.sorted { cell1, cell2 in
+            let date1 = cell1.timeMessage
+            let date2 = cell2.timeMessage
+
+            if let date1, let date2 {
+                return date1 > date2
+            } else {
+                return true
+            }
+        }
+
+        // Переставляем ячейку текущего пользователя на самый вверх
+        var currentUserCell: ChatCellModel?
+        var cellsWithoutCurrentUser = sortedCells.compactMap { cell in
+            guard cell.user.id == currentUserID else {
+                return cell
+            }
+            currentUserCell = cell
+            return nil
+        }
+        guard var currentUserCell else { return sortedCells }
+        currentUserCell.user.nickname = Constants.emptyCellTitleForYou
+        cellsWithoutCurrentUser.insert(currentUserCell, at: 0)
+        return cellsWithoutCurrentUser
+    }
 }
 
 // MARK: - Constants
@@ -414,8 +436,8 @@ private extension AllChatsViewModel {
 private extension AllChatsViewModel {
 
     enum Constants {
-        static let emptyCellSubtitleForInterlator = "История сообщений пуста"
-        static let emptyCellSubtitleForYou = "Это вы! 😝"
+        static let emptyCellSubtitleForInterlacutor = "История сообщений пуста"
+        static let emptyCellTitleForYou = "Это вы! 😝"
         static let dateFormattedString = "HH:mm"
     }
 }
