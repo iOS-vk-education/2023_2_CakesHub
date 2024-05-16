@@ -65,13 +65,11 @@ extension CategoriesViewModel {
             do {
                 // Получаем данный категорий из сети
                 let fbSections = try await fetch()
-                withAnimation {
-                    sections = [
-                        .men(fbSections[0].items.sorted(by: { $0.title < $1.title }).mapper),
-                        .women(fbSections[1].items.sorted(by: { $0.title < $1.title }).mapper),
-                        .kids(fbSections[2].items.sorted(by: { $0.title < $1.title }).mapper)
-                    ]
-                }
+                sections = [
+                    .men(fbSections[0].items.sorted(by: { $0.title < $1.title }).mapper),
+                    .women(fbSections[1].items.sorted(by: { $0.title < $1.title }).mapper),
+                    .kids(fbSections[2].items.sorted(by: { $0.title < $1.title }).mapper)
+                ]
 
                 // Кэшируем данные категорий
                 let memorySectionsArray = fbSections.map { $0.items }
@@ -85,9 +83,7 @@ extension CategoriesViewModel {
         }
         
         // Получаем данный категорий из памяти устройства
-        withAnimation {
-            sections = fetchSectionsFromMemory()
-        }
+        sections = fetchSectionsFromMemory()
     }
 
     func fetchSectionsFromMemory() -> [Section] {

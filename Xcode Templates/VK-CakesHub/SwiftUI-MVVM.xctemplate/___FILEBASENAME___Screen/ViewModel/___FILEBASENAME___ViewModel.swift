@@ -7,24 +7,42 @@
 //
 
 import Foundation
+import Observation
 
-// MARK: - ___VARIABLE_productName:identifier___ViewModelProtocol
-
-protocol ___VARIABLE_productName:identifier___ViewModelProtocol: AnyObject {}
+protocol ___VARIABLE_productName:identifier___ViewModelProtocol: AnyObject {
+    // MARK: Reducers
+    func setNavigation(nav: Navigation)
+}
 
 // MARK: - ___VARIABLE_productName:identifier___ViewModel
 
 #warning("Замените переменные на необходимые")
-final class ___VARIABLE_productName:identifier___ViewModel: ObservableObject, ViewModelProtocol {
-    @Published private(set) var title: String
-    @Published private(set) var image: ImageKind
+@Observable
+final class ___VARIABLE_productName:identifier___ViewModel: ViewModelProtocol, ___VARIABLE_productName:identifier___ViewModelProtocol {
+    var uiProperties: UIProperties
+    private(set) var data: ScreenData
+    private var reducers: Reducers
 
-    init(title: String = .clear, image: ImageKind = .clear) {
-        self.title = title
-        self.image = image
+    init(
+        uiProperties: UIProperties = .clear,
+        data: ScreenData = .clear,
+        reducers: Reducers = .clear
+    ) {
+        self.uiProperties = uiProperties
+        self.data = data
+        self.reducers = reducers
     }
 }
 
 // MARK: - Actions
 
-extension ___VARIABLE_productName:identifier___ViewModel: ___VARIABLE_productName:identifier___ViewModelProtocol {}
+extension ___VARIABLE_productName:identifier___ViewModel {}
+
+// MARK: - Reducers
+
+extension ___VARIABLE_productName:identifier___ViewModel {
+
+    func setNavigation(nav: Navigation) {
+        reducers.nav = nav
+    }
+}

@@ -40,7 +40,8 @@ struct ProductDetailScreen: View {
                 if screen == .ratingReviews {
                     ProductReviewsScreen(
                         viewModel: ProductReviewsViewModel(
-                            data: viewModel.currentProduct.reviewInfo
+                            data: viewModel.currentProduct.reviewInfo,
+                            productID: viewModel.currentProduct.id
                         )
                     )
                 }

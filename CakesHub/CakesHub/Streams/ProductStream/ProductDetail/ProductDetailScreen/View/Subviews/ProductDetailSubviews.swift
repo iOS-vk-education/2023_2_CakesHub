@@ -100,7 +100,7 @@ extension ProductDetailScreen {
                 description: viewModel.currentProduct.description,
                 starsConfiguration: .basic(
                     kind: .init(rawValue: viewModel.currentProduct.starsCount) ?? .zero,
-                    feedbackCount: viewModel.currentProduct.reviewInfo.feedbackCounter
+                    feedbackCount: viewModel.currentProduct.reviewInfo.feedbackCount
                 )
             )
         )
