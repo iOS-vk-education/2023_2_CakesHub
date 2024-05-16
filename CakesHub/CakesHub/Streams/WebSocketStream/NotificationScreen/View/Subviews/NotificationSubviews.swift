@@ -85,7 +85,7 @@ private extension NotificationView {
 
     enum Constants {
         static let emptyImageName = Image(systemName: "envelope")
-        static let emptyString = "Уведомлений нет!"
+        static let emptyString = String(localized: "No notifications!")
         static let bgColor = CHMColor<BackgroundPalette>.bgMainColor.color
     }
 }

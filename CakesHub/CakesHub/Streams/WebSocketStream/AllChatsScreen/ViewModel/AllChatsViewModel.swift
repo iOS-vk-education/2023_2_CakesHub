@@ -404,7 +404,7 @@ private extension AllChatsViewModel {
     }
 
     func sortCellsByDate(_ cells: [ChatCellModel]) -> [ChatCellModel] {
-        var sortedCells = cells.sorted { cell1, cell2 in
+        let sortedCells = cells.sorted { cell1, cell2 in
             let date1 = cell1.timeMessage
             let date2 = cell2.timeMessage
 
@@ -436,8 +436,8 @@ private extension AllChatsViewModel {
 private extension AllChatsViewModel {
 
     enum Constants {
-        static let emptyCellSubtitleForInterlacutor = "История сообщений пуста"
-        static let emptyCellTitleForYou = "Это вы! 😝"
+        static let emptyCellSubtitleForInterlacutor = String(localized: "Message history is empty")
+        static let emptyCellTitleForYou = String(localized: "It's you! 😝")
         static let dateFormattedString = "HH:mm"
     }
 }

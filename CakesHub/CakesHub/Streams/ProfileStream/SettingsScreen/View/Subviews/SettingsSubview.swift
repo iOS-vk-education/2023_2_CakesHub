@@ -21,47 +21,47 @@ extension SettingsView {
             ButtonsBlock
         }
         .scrollContentBackground(.hidden)
-        .navigationTitle("Настройки")
+        .navigationTitle("Settings")
         .background(Constants.bgColor)
     }
 
     var PersonalSection: some View {
-        Section(header: Text("Персональные данные")) {
+        Section(header: Text("Personal information")) {
             Button(action: {}) {
-                Label("Пароль", systemImage: "lock")
+                Label("Password", systemImage: "lock")
                     .foregroundColor(Constants.textColor)
             }
 
             Button(action: {}) {
-                Label("Почта", systemImage: "envelope")
+                Label("Mail", systemImage: "envelope")
                     .foregroundColor(Constants.textColor)
             }
 
             Button(action: {}) {
-                Label("Удалить аккаунт", systemImage: "trash")
+                Label("Delete account", systemImage: "trash")
                     .foregroundColor(Constants.deleteColor)
             }
         }
     }
 
     var NotificationSection: some View {
-        Section(header: Text("Уведомления")) {
+        Section(header: Text("Notifications")) {
             Button(action: {}) {
-                Label("Уведомления", systemImage: "bell")
+                Label("Notifications", systemImage: "bell")
                     .foregroundColor(Constants.textColor)
             }
         }
     }
 
     var DocumentsSection: some View {
-        Section(header: Text("Документы")) {
+        Section(header: Text("Documents")) {
             Button(action: {}) {
-                Label("Политика конфиденциальности", systemImage: "doc.text")
+                Label("Privacy Policy", systemImage: "doc.text")
                     .foregroundColor(Constants.textColor)
             }
 
             Button(action: {}) {
-                Label("Пользовательское соглашение", systemImage: "doc.text")
+                Label("User Agreement", systemImage: "doc.text")
                     .foregroundColor(Constants.textColor)
             }
         }

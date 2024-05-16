@@ -25,21 +25,21 @@ struct NotificationsView: View {
             Section() {
                 Group {
                     Toggle(isOn: $chatIsOn){
-                        Label("Чаты", systemImage: "message")
+                        Label("Chats", systemImage: "message")
                     }
                     .onChange(of: chatIsOn) { _, newValue in
                         Logger.log(message: newValue)
                     }
 
                     Toggle(isOn: $ordersIsOn){
-                        Label("Заказы", systemImage: "book")
+                        Label("Orders", systemImage: "book")
                     }
                     .onChange(of: ordersIsOn) { _, newValue in
                         Logger.log(message: newValue)
                     }
 
                     Toggle(isOn: $orderStatusIsOn){
-                        Label("Статус заказа", systemImage: "goforward.15")
+                        Label("Order status", systemImage: "goforward.15")
                     }
                     .onChange(of: orderStatusIsOn) { _, newValue in
                         Logger.log(message: newValue)
@@ -49,7 +49,7 @@ struct NotificationsView: View {
                 .foregroundStyle(Constants.textColor)
             }
         }
-        .navigationTitle("Уведомления")
+        .navigationTitle("Notifications")
         .background(Constants.bgColor)
     }
 }

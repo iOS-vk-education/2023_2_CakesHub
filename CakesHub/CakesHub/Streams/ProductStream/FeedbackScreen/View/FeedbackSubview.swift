@@ -89,7 +89,7 @@ extension FeedbackView {
 
     var SendFeedbackButtonView: some View {
         Button(action: viewModel.didTapSendFeedbackButton, label: {
-            Text(Constants.sendFeedbackTitle)
+            Text(Constants.sendFeedbackTitle.uppercased())
                 .font(.system(size: 14, weight: .medium))
                 .frame(maxWidth: .infinity)
         })
@@ -114,10 +114,10 @@ extension FeedbackView {
 private extension FeedbackView {
 
     enum Constants {
-        static let ratingTitle = "What is you rate?"
-        static let title = "Please share your opinion about the product"
-        static let feedbackPlaceholder = "Your feedback"
-        static let sendFeedbackTitle = "SEND REVIEW"
+        static let ratingTitle = String(localized: "What is you rate?")
+        static let title = String(localized: "Please share your opinion about the product")
+        static let feedbackPlaceholder = String(localized: "Your feedback")
+        static let sendFeedbackTitle = String(localized: "Send review")
         static let titleColor = CHMColor<TextPalette>.textPrimary.color
         static let bgColor = CHMColor<BackgroundPalette>.bgMainColor.color
         static let sendFeedbackButtonColor = CHMColor<BackgroundPalette>.bgRed.color

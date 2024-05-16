@@ -22,7 +22,7 @@ struct AddProductImages: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading)
 
-            Text("Выберите фотографии товара")
+            Text("Select product photos")
                 .style(18, .semibold, CHMColor<TextPalette>.textPrimary.color)
                 .padding(.top)
 

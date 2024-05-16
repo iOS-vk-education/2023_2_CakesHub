@@ -28,10 +28,10 @@ struct CreateProductView: View, ViewModelable {
             .navigationBarBackButtonHidden(true)
             .environmentObject(viewModel)
             .onAppear(perform: onAppear)
-            .alert("Создание товара", isPresented: $showAlert) {
+            .alert("Product creation", isPresented: $showAlert) {
                 AlertButtons
             } message: {
-                Text("Вы уверенны, что хотите создать объявление о продаже?")
+                Text("Are you sure you want to create a sale listing?")
             }
     }
 }

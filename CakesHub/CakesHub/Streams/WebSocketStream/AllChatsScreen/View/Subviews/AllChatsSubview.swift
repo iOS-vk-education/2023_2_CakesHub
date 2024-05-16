@@ -108,6 +108,6 @@ private extension AllChatsView {
         static let imageSize: CGFloat = 200
         static let imageCornerRadius: CGFloat = 20
         static let bgColor: Color = CHMColor<BackgroundPalette>.bgMainColor.color
-        static let searchTitle = "Search"
+        static let searchTitle = String(localized: "Search")
     }
 }

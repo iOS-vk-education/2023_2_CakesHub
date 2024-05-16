@@ -9,6 +9,15 @@
 import Foundation
 
 enum ProductDetailCells: String {
-    case ratingReviews = "Rating&Reviews"
-    case sellerInfo = "Seller info"
+    case ratingReviews
+    case sellerInfo
+
+    var title: LocalizedStringResource {
+        switch self {
+        case .ratingReviews:
+            return "Rating&Reviews"
+        case .sellerInfo:
+            return "Seller info"
+        }
+    }
 }

@@ -190,9 +190,9 @@ private extension ProfileScreen {
         static let bgColor = CHMColor<BackgroundPalette>.bgMainColor.color
         static let gearButtonImg = UIImage(systemName: "gear")
         static let notificationImg = UIImage(systemName: "location.north.circle")
-        static let createProductTitle = "Создать товар"
+        static let createProductTitle = String(localized: "Create a product")
         static let createProductImg = "plus.circle"
-        static let writeMessageTitle = "Cообщение"
+        static let writeMessageTitle = String(localized: "Message")
         static let writeMessageImg = "message"
     }
 }

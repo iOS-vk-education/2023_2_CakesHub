@@ -43,7 +43,7 @@ extension RootViewModel.Section {
         }
     }
 
-    var title: String {
+    var title: LocalizedStringResource {
         switch self {
         case .news:
             return "New"
@@ -54,7 +54,7 @@ extension RootViewModel.Section {
         }
     }
 
-    var subtitle: String {
+    var subtitle: LocalizedStringResource {
         switch self {
         case .news:
             return "You’ve never seen it before!"

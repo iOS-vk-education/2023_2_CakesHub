@@ -114,7 +114,7 @@ private extension CreateCakeInfoView {
     @ViewBuilder
     var KeyboardToolBarItems: some View {
         HStack {
-            Button("Закрыть") {
+            Button("Close") {
                 focusedField = nil
             }
 
@@ -166,11 +166,11 @@ private extension CreateCakeInfoView {
         static let cornderRadius: CGFloat = 8
         static let priceLimit = 40
         static let descriptionLimit = 900
-        static let pricePlaceholder = "Цена, $"
-        static let procductNamePlaceholder = "Название торта"
-        static let procductDescriptionPlaceholder = "Напишите описание товара.."
-        static let discountedPriceBar = "* Необязательное поле"
-        static let discountedPricePlaceholder = "Цена со скидкой"
+        static let pricePlaceholder = String(localized: "Price, $")
+        static let procductNamePlaceholder = String(localized: "Cake name")
+        static let procductDescriptionPlaceholder = String(localized: "Write a description of the product...")
+        static let discountedPriceBar = "* " + String(localized: "Optional field")
+        static let discountedPricePlaceholder = String(localized: "Discounted price")
         static let logoImage = Image(.cakeLogo)
         static let logoColor = CHMColor<IconPalette>.iconRed.color.gradient
     }
