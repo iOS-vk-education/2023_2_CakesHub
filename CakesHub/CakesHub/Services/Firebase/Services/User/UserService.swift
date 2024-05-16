@@ -16,6 +16,7 @@ protocol UserServiceProtocol {
     func updateUserInfo(with user: FBUserModel) async throws
     func deleteUserInfo(uid: String) async throws
     func createUserInfo(for user: FBUserModel) async throws
+    func addUserAddress(for userID: String, address: String) async throws
 }
 
 // MARK: - UserService
@@ -63,5 +64,10 @@ extension UserService: UserServiceProtocol {
     func createUserInfo(for user: FBUserModel) async throws {
         let docRef = db.collection(collection).document(user.uid)
         try await docRef.setData(user.dictionaryRepresentation)
+    }
+
+    func addUserAddress(for userID: String, address: String) async throws {
+        let docRef = db.collection(collection).document(userID)
+        try await docRef.updateData(["address": address])
     }
 }

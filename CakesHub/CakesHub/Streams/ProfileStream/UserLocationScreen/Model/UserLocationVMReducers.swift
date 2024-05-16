@@ -7,11 +7,14 @@
 //
 
 import Foundation
+import SwiftData
 
 extension UserLocationViewModel {
 
     struct Reducers: ClearConfigurationProtocol {
         var nav: Navigation!
+        var root: RootViewModel!
+        var modelContext: ModelContext!
 
         static let clear = Reducers()
     }

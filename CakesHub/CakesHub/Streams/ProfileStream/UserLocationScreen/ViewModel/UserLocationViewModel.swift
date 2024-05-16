@@ -8,6 +8,7 @@
 
 import Observation
 import SwiftUI
+import SwiftData
 import MapKit
 
 protocol UserLocationViewModelProtocol: AnyObject {
@@ -19,7 +20,7 @@ protocol UserLocationViewModelProtocol: AnyObject {
     func didTapBackButton()
     func didSelectAddress(mapItem: MKMapItem?)
     // MARK: Reducers
-    func setNavigation(nav: Navigation)
+    func setReducers(nav: Navigation, root: RootViewModel, modelContext: ModelContext)
 }
 
 // MARK: - UserLocationViewModel
@@ -29,15 +30,18 @@ final class UserLocationViewModel: ViewModelProtocol, UserLocationViewModelProto
     var uiProperties: UIProperties
     private(set) var data: ScreenData
     private var reducers: Reducers
+    private let userService: UserServiceProtocol
 
     init(
         uiProperties: UIProperties = .clear,
         data: ScreenData = .clear,
-        reducers: Reducers = .clear
+        reducers: Reducers = .clear,
+        userService: UserServiceProtocol = UserService.shared
     ) {
         self.uiProperties = uiProperties
         self.data = data
         self.reducers = reducers
+        self.userService = userService
     }
 }
 
@@ -104,9 +108,30 @@ extension UserLocationViewModel {
 
     /// Выбран адрес
     func didSelectAddress(mapItem: MKMapItem?) {
-        // TODO: Добавить запрос в сеть на обновления адреса заказа для пользователя
-        guard let title = mapItem?.placemark.title else { return }
-        Logger.print("Выбрали: \(title)")
+        guard let placemark = mapItem?.placemark else { return }
+        let userAddress = placemark.description
+        Task {
+            do {
+                try await userService.addUserAddress(for: reducers.root.currentUser.uid, address: userAddress)
+            } catch {
+                Logger.log(kind: .error, message: error.localizedDescription)
+            }
+        }
+        uiProperties.mapSelection = nil
+
+        // Кэшируем адрес пользователя
+        let userID = reducers.root.currentUser.uid
+        let fetchDescriptor = FetchDescriptor<SDUserModel>(predicate: #Predicate { $0._id == userID })
+        guard var sdUser = try? reducers.modelContext.fetch(fetchDescriptor).first else {
+            return
+        }
+        sdUser._address = userAddress
+        reducers.modelContext.insert(sdUser)
+        do {
+            try reducers.modelContext.save()
+        } catch {
+            Logger.log(kind: .error, message: error.localizedDescription)
+        }
     }
 }
 
@@ -114,7 +139,9 @@ extension UserLocationViewModel {
 
 extension UserLocationViewModel {
 
-    func setNavigation(nav: Navigation) {
+    func setReducers(nav: Navigation, root: RootViewModel, modelContext: ModelContext) {
         reducers.nav = nav
+        reducers.root = root
+        reducers.modelContext = modelContext
     }
 }

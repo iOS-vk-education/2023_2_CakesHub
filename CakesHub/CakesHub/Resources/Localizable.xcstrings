@@ -604,6 +604,9 @@
         }
       }
     },
+    "update" : {
+
+    },
     "User Agreement" : {
       "localizations" : {
         "ru" : {

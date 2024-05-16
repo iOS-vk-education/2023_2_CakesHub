@@ -12,6 +12,8 @@ struct UserLocationView: View, ViewModelable {
     typealias ViewModel = UserLocationViewModel
 
     @EnvironmentObject private var nav: Navigation
+    @EnvironmentObject private var root: RootViewModel
+    @Environment(\.modelContext) private var modelContext
     @State var viewModel = ViewModel()
     @State var locationManager = LocationManager()
 
@@ -26,7 +28,7 @@ struct UserLocationView: View, ViewModelable {
 private extension UserLocationView {
 
     func onAppear() {
-        viewModel.setNavigation(nav: nav)
+        viewModel.setReducers(nav: nav, root: root, modelContext: modelContext)
     }
 }
 
@@ -35,4 +37,5 @@ private extension UserLocationView {
 #Preview {
     UserLocationView()
         .environmentObject(Navigation())
+        .environmentObject(RootViewModel.mockData)
 }
