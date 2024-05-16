@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A31AE2412BF3895E008C9597 /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31AE2402BF3895E008C9597 /* AuthorizationView.swift */; };
 		A332D1692BB2F842007C194D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1662BB2F842007C194D /* UserModel.swift */; };
 		A332D16A2BB2F842007C194D /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1672BB2F842007C194D /* ProfileScreen.swift */; };
 		A332D16B2BB2F842007C194D /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1682BB2F842007C194D /* ProfileViewModel.swift */; };
@@ -246,6 +247,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A31AE2402BF3895E008C9597 /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
 		A332D1662BB2F842007C194D /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		A332D1672BB2F842007C194D /* ProfileScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		A332D1682BB2F842007C194D /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -1426,6 +1428,7 @@
 			children = (
 				E55B5EB92BCA496B00DDDFA4 /* AuthView.swift */,
 				E55B5EC22BCA4B1800DDDFA4 /* AuthSubviews.swift */,
+				A31AE2402BF3895E008C9597 /* AuthorizationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2004,6 +2007,7 @@
 				E5E219DA2B94137500BE9ACE /* CategoriesViewModel+Mock.swift in Sources */,
 				E54460B12BE560D000B70444 /* WSMessageKind.swift in Sources */,
 				E51B33492B7E62AF0028E8C7 /* ProductModel.swift in Sources */,
+				A31AE2412BF3895E008C9597 /* AuthorizationView.swift in Sources */,
 				E550937B2BE990E400F1326E /* CategoriesVMSubmodels.swift in Sources */,
 				E52C88802BA709730056FC51 /* MainSubviews.swift in Sources */,
 				E53528A32BAF134100A1ADC3 /* Text+Extenstions.swift in Sources */,
