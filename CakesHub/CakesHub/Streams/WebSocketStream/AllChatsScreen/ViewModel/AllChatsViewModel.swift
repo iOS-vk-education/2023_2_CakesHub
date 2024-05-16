@@ -106,12 +106,18 @@ extension AllChatsViewModel {
 
     /// Получение сообщения из Web Socket слоя
     func receiveMessage(output: NotificationCenter.Publisher.Output) {
-        guard
-            let wsMessage = output.object as? WSMessage, wsMessage.kind == .message,
-            let index = chatCells.firstIndex(where: { $0.user.id == wsMessage.userID })
-        else {
+        guard let wsMessage = output.object as? WSMessage, wsMessage.kind == .message else {
             return
         }
+
+        var index: Int?
+        if wsMessage.userID == currentUserID {
+            index = chatCells.firstIndex(where: { $0.user.id == wsMessage.receiverID })
+        } else {
+            index = chatCells.firstIndex(where: { $0.user.id == wsMessage.userID })
+        }
+        guard let index else { return }
+
         let newMessage = ChatCellModel.Message(
             id: wsMessage.id,
             time: wsMessage.dispatchDate,
