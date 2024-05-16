@@ -18,16 +18,13 @@ struct AuthView: View, ViewModelable {
     @Environment(\.modelContext) var context
     @State var viewModel = ViewModel()
 
-    @State private var showingAlert = false
-    @State private var alertMessage: String?
-
     var body: some View {
         MainView
             .onAppear(perform: onAppear)
-            .alert("Ошибка", isPresented: $showingAlert) {
+            .alert("Ошибка", isPresented: $viewModel.uiProperies.showingAlert) {
                 Button("OK") {}
             } message: {
-                Text(alertMessage ?? .clear)
+                Text(viewModel.uiProperies.alertMessage ?? .clear)
             }
     }
 }
@@ -49,30 +46,12 @@ extension AuthView {
     
     /// Нажатие кнопки `регистрация`
     func didTapRegisterButton() {
-        Task {
-            do {
-                try await viewModel.didTapRegisterButton()
-            } catch {
-                generateErrorMessage(error: error)
-            }
-        }
+        viewModel.didTapRegisterButton()
     }
 
     /// Нажатие кнопки `Войти`
     func didTapSignInButton() {
-        Task {
-            do {
-                try await viewModel.didTapSignInButton()
-            } catch {
-                generateErrorMessage(error: error)
-            }
-        }
-    }
-
-    private func generateErrorMessage(error: any Error) {
-        showingAlert = true
-        alertMessage = error.localizedDescription
-        Logger.log(kind: .error, message: error)
+        viewModel.didTapSignInButton()
     }
 }
 

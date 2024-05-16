@@ -61,6 +61,9 @@ private extension AllProductsCategoryView {
             Text(Constants.emptyText)
                 .font(.system(size: 18, weight: .semibold, design: .rounded))
         }
+        .backgroundStyle(
+            CHMColor<BackgroundPalette>.bgCommentView.color
+        )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Constants.bgColor)
     }
@@ -74,7 +77,7 @@ private extension AllProductsCategoryView {
                 Section {
                     ForEach(viewModel.products) { product in
                         CHMNewProductCard(
-                            configuration: product.mapperToProductCardConfiguration(height: 184),
+                            configuration: product.mapperToProductCardConfiguration(height: 204),
                             didTapButton: didTapProductLike
                         )
                         .contentShape(.rect)
@@ -83,7 +86,9 @@ private extension AllProductsCategoryView {
                         }
                         .padding(.bottom)
                     }
-                } header: {}
+                } header: {
+                    // TODO: Добавить секцию фильтров
+                }
             }
             .padding(.horizontal, 8)
         }

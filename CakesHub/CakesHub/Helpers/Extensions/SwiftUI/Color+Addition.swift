@@ -3,6 +3,7 @@
 //  CHMUIKIT
 //
 //  Created by Dmitriy Permyakov on 27.01.2024.
+//  Copyright 2023 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -48,7 +49,7 @@ enum PreviewPalette: Hashable {}
 extension CHMColor where Palette == BackgroundPalette {
 
     /// Красный задний фон. Ex: Кнопка покупки
-    static let bgRed = CHMColor(hexLight: 0xDB3022, hexDark: 0xFF3E3E)
+    static let bgRed = CHMColor(hexLight: 0xDB3022, hexDark: 0xEF3651)
     /// Тёмный задний фон. Ex: Бейдж новых продктов
     static let bgDark = CHMColor(hexLight: 0x222222, hexDark: 0x1E1F28)
     /// Задний фон икноки корзины, кнопки баннера

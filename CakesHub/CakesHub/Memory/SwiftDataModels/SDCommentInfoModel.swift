@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 16.04.2024.
+//  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftData
@@ -16,22 +17,19 @@ extension SDProductReviewsModel {
         var _date               : String
         var _descriptionComment : String
         var _countFillStars     : Int
-        var _feedbackCount      : Int
 
         init(
             id             : String,
             userName       : String,
             date           : String,
             description    : String,
-            countFillStars : Int,
-            feedbackCount  : Int
+            countFillStars : Int
         ) {
             self._id = id
             self._userName = userName
             self._date = date
             self._descriptionComment = description
             self._countFillStars = countFillStars
-            self._feedbackCount = feedbackCount
         }
     }
 }
@@ -47,8 +45,7 @@ extension SDProductReviewsModel.SDCommentInfoModel: SDModelable {
             userName: fbModel.userName,
             date: fbModel.date,
             description: fbModel.description,
-            countFillStars: fbModel.countFillStars,
-            feedbackCount: fbModel.feedbackCount
+            countFillStars: fbModel.countFillStars
         )
     }
 }
@@ -63,8 +60,7 @@ extension SDProductReviewsModel.SDCommentInfoModel {
             userName: _userName,
             date: _date,
             description: _descriptionComment,
-            countFillStars: _countFillStars,
-            feedbackCount: _feedbackCount
+            countFillStars: _countFillStars
         )
     }
 }

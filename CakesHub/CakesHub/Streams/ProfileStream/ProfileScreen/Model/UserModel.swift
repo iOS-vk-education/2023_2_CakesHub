@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Milana Shakhbieva on 25.03.2024.
+//  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -19,6 +20,8 @@ struct UserModel: ClearConfigurationProtocol, Hashable {
 
     static let clear: Self = .init()
 }
+
+// MARK: - Mock Data
 
 #if DEBUG
 

@@ -12,27 +12,27 @@ struct ChatView: View, ViewModelable {
     typealias ViewModel = ChatViewModel
 
     @EnvironmentObject private var nav: Navigation
-    @StateObject var viewModel: ViewModel
+    @State var viewModel: ViewModel
     @State var messageText: String = .clear
-
-    init(viewModel: ViewModel) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
 
     var body: some View {
         MainView
-            .onAppear(perform: onAppear)
+            .onReceive(
+                NotificationCenter.default.publisher(for: .WebSocketNames.message)
+            ) { output in
+                viewModel.receivedMessage(output: output)
+            }
     }
 }
 
-// MARK: - Network
+// MARK: - Actions
 
-private extension ChatView {
-
-    func onAppear() {
-        viewModel.connectWebSocket {
-            nav.openPreviousScreen()
-        }
+extension ChatView {
+    
+    /// Нажали кнопку `отправить` сообщение
+    func didTapSendMessageButton() {
+        viewModel.sendMessage(message: messageText)
+        messageText = .clear
     }
 }
 

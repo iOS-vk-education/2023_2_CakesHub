@@ -86,7 +86,7 @@ extension ProductModel {
             ),
             starsViewConfiguration: .basic(
                 kind: .init(rawValue: starsCount) ?? .zero,
-                feedbackCount: reviewInfo.feedbackCounter
+                feedbackCount: reviewInfo.feedbackCount
             )
         )
     }
@@ -109,7 +109,7 @@ extension ProductModel {
             ),
             starsViewConfiguration: .basic(
                 kind: .init(rawValue: starsCount) ?? .zero,
-                feedbackCount: reviewInfo.feedbackCounter
+                feedbackCount: reviewInfo.feedbackCount
             )
         )
     }
@@ -146,6 +146,15 @@ extension ProductModel {
                     switch $0.kind {
                     case let .uiImage(uiImage):
                         return uiImage
+                    default:
+                        return nil
+                    }
+                })
+            case .string:
+                return .strings(images.compactMap {
+                    switch $0.kind {
+                    case let .string(string):
+                        return string
                     default:
                         return nil
                     }
@@ -207,10 +216,10 @@ extension ProductModel {
                         userName: $0.userName,
                         date: $0.date,
                         description: $0.description,
-                        countFillStars: $0.countFillStars,
-                        feedbackCount: $0.feedbackCount
+                        countFillStars: $0.countFillStars
                     )
-                }
+                },
+                feedbackCount: reviewInfo.feedbackCount
             )
         )
     }

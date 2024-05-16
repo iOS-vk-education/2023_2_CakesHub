@@ -76,7 +76,7 @@ private extension WebSocketController {
         let newClient = Client(ws: ws, userID: msg.userID)
         wsClients.insert(newClient)
         let msgConnection = Message(
-            id: UUID(),
+            id: UUID().uuidString,
             kind: .connection,
             userName: msg.userName,
             userID: msg.userID,
@@ -120,7 +120,7 @@ private extension WebSocketController {
 private extension WebSocketController {
 
     func notificationHandler(ws: WebSocket, data: Data) throws {
-        var notification = try JSONDecoder().decode(Notification.self, from: data)
+        let notification = try JSONDecoder().decode(Notification.self, from: data)
         Logger.log(message: "Полученно уведомление с title:\n\(notification.title)")
 
         let notificationData = try JSONEncoder().encode(notification)

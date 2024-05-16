@@ -16,15 +16,13 @@ extension FBProductModel {
         var date           : String
         var description    : String
         var countFillStars : Int
-        var feedbackCount  : Int
         
         static let clear = FBCommentInfoModel(
             id: .clear,
             userName: .clear,
             date: .clear,
             description: .clear,
-            countFillStars: 0,
-            feedbackCount: 0
+            countFillStars: 0
         )
     }
 }
@@ -40,36 +38,12 @@ extension FBProductModel.FBCommentInfoModel {
             userName: dictionary["userName"] as? String ?? .clear,
             date: dictionary["date"] as? String ?? .clear,
             description: dictionary["description"] as? String ?? .clear,
-            countFillStars: dictionary["countFillStars"] as? Int ?? 0,
-            feedbackCount: dictionary["feedbackCount"] as? Int ?? 0
+            countFillStars: dictionary["countFillStars"] as? Int ?? 0
         )
     }
 }
 
-// MARK: - Mapper
-
-extension FBProductModel.FBCommentInfoModel {
-
-    var mapper: ProductReviewsModel.CommentInfo {
-        .init(
-            id: id,
-            userName: userName,
-            date: date,
-            description: description,
-            countFillStars: countFillStars,
-            feedbackCount: feedbackCount
-        )
-    }
-}
-
-extension [FBProductModel.FBCommentInfoModel] {
-
-    var mapper: [ProductReviewsModel.CommentInfo] {
-        map { $0.mapper }
-    }
-}
-
-// MARK: - <#text#>
+// MARK: - Equatable
 
 extension FBProductModel.FBCommentInfoModel: Equatable {
 
@@ -81,7 +55,6 @@ extension FBProductModel.FBCommentInfoModel: Equatable {
         lhs.userName       == rhs.userName &&
         lhs.date           == rhs.date &&
         lhs.description    == rhs.description &&
-        lhs.countFillStars == rhs.countFillStars &&
-        lhs.feedbackCount  == rhs.feedbackCount
+        lhs.countFillStars == rhs.countFillStars
     }
 }

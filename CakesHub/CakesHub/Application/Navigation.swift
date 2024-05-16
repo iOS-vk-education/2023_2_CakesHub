@@ -24,6 +24,13 @@ extension Navigation {
         guard path.count - 1 >= 0 else { return }
         path.removeLast()
     }
+
+    func goToRoot() {
+        while path.count > 0 {
+            path.removeLast()
+        }
+        activeTab = .house
+    }
 }
 
 // MARK: - TabBarItem

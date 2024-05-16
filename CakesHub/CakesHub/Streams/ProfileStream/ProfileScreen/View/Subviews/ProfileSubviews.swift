@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Milana Shakhbieva on 03.04.2024.
+//  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -34,7 +35,7 @@ extension ProfileScreen {
                                   action: didTapCreateProduct)
 
                     Cbutton(iconname: Constants.gearButtonImg, action: didTapOpenSettings)
-                    Cbutton(iconname: .bell, action: didTapOpenNotifications)
+                    Cbutton(iconname: Constants.notificationImg, action: didTapOpenNotifications)
                 } else {
                     MessageButton(title: Constants.writeMessageTitle,
                                   imgString: Constants.writeMessageImg,
@@ -125,7 +126,7 @@ extension ProfileScreen {
                         ),
                         starsViewConfiguration: .basic(
                             kind: .init(rawValue: product.starsCount) ?? .zero,
-                            feedbackCount: product.reviewInfo.feedbackCounter
+                            feedbackCount: product.reviewInfo.feedbackCount
                         )
                     )
                 ) { isSelected in
@@ -170,9 +171,9 @@ fileprivate struct Cbutton: View {
             Image(uiImage: iconname ?? UIImage())
                 .renderingMode(.template)
                 .resizable()
-                .scaledToFill()
+                .scaledToFit()
                 .foregroundStyle(CHMColor<IconPalette>.iconSecondary.color)
-                .frame(width: 23, height: 23)
+                .frame(edge: 23)
                 .padding(10)
                 .background(.ultraThinMaterial, in: Circle())
         }
@@ -188,6 +189,7 @@ private extension ProfileScreen {
         static let userMailColor = CHMColor<TextPalette>.textPrimary.color
         static let bgColor = CHMColor<BackgroundPalette>.bgMainColor.color
         static let gearButtonImg = UIImage(systemName: "gear")
+        static let notificationImg = UIImage(systemName: "location.north.circle")
         static let createProductTitle = "Создать товар"
         static let createProductImg = "plus.circle"
         static let writeMessageTitle = "Cообщение"
