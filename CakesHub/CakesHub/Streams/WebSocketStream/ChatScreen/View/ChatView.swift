@@ -15,25 +15,24 @@ struct ChatView: View, ViewModelable {
     @State var viewModel: ViewModel
     @State var messageText: String = .clear
 
-    init(viewModel: ViewModel) {
-        Logger.print("INIT ChatView: \(UIDevice.current.name)")
-        self._viewModel = State(initialValue: viewModel)
-    }
-
     var body: some View {
         MainView
-            .onAppear(perform: onAppear)
+            .onReceive(
+                NotificationCenter.default.publisher(for: .WebSocketNames.message)
+            ) { output in
+                viewModel.receivedMessage(output: output)
+            }
     }
 }
 
-// MARK: - Network
+// MARK: - Actions
 
-private extension ChatView {
-
-    func onAppear() {
-        viewModel.connectWebSocket {
-            nav.openPreviousScreen()
-        }
+extension ChatView {
+    
+    /// Нажали кнопку `отправить` сообщение
+    func didTapSendMessageButton() {
+        viewModel.sendMessage(message: messageText)
+        messageText = .clear
     }
 }
 

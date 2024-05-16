@@ -23,6 +23,7 @@ protocol CategoriesViewModelProtocol {
     func fetchSectionsFromMemory() -> [CategoriesViewModel.Section]
     // MARK: Actions
     func didTapSectionCell(title: String) -> [FBProductModel]
+    func filterData(categories: [CategoryCardModel]) -> [CategoryCardModel]
     // MARK: Reducers
     func setRootViewModel(with rootViewModel: RootViewModel)
     func setModelContext(with context: ModelContext)
@@ -64,13 +65,11 @@ extension CategoriesViewModel {
             do {
                 // Получаем данный категорий из сети
                 let fbSections = try await fetch()
-                withAnimation {
-                    sections = [
-                        .men(fbSections[0].items.sorted(by: { $0.title < $1.title }).mapper),
-                        .women(fbSections[1].items.sorted(by: { $0.title < $1.title }).mapper),
-                        .kids(fbSections[2].items.sorted(by: { $0.title < $1.title }).mapper)
-                    ]
-                }
+                sections = [
+                    .men(fbSections[0].items.sorted(by: { $0.title < $1.title }).mapper),
+                    .women(fbSections[1].items.sorted(by: { $0.title < $1.title }).mapper),
+                    .kids(fbSections[2].items.sorted(by: { $0.title < $1.title }).mapper)
+                ]
 
                 // Кэшируем данные категорий
                 let memorySectionsArray = fbSections.map { $0.items }
@@ -84,9 +83,7 @@ extension CategoriesViewModel {
         }
         
         // Получаем данный категорий из памяти устройства
-        withAnimation {
-            sections = fetchSectionsFromMemory()
-        }
+        sections = fetchSectionsFromMemory()
     }
 
     func fetchSectionsFromMemory() -> [Section] {
@@ -123,6 +120,15 @@ extension CategoriesViewModel {
     func didTapSectionCell(title: String) -> [FBProductModel] {
         rootViewModel.productData.products.filter { product in
             product.categories.contains(title)
+        }
+    }
+
+    /// Фильтруем данные при вводе
+    func filterData(categories: [CategoryCardModel]) -> [CategoryCardModel] {
+        uiProperties.searchText.isEmpty
+        ? categories
+        : categories.filter {
+            $0.title.lowercased().contains(uiProperties.searchText.lowercased())
         }
     }
 }

@@ -19,6 +19,13 @@ struct NotificationView: View {
         MainView
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .onAppear(perform: onAppear)
+            .onReceive(
+                NotificationCenter.default.publisher(
+                    for: .WebSocketNames.notification
+                )
+            ) { output in
+                viewModel.getNotificationsFromWebSocketLayer(output: output)
+            }
     }
 }
 

@@ -28,13 +28,13 @@ final class Logger {
     }
 
     enum Kind: String, Hashable {
-        case info
-        case error
-        case dbError
-        case dbInfo
-        case debug
-        case warning
-        case imageError
-        case webSocket
+        case info  = "ℹ️ info"
+        case error = "⛔️ error"
+        case dbError = "📀 db error"
+        case dbInfo = "📀 db info"
+        case debug = "⚙️ debug"
+        case warning = "⚠️ warning"
+        case imageError = "image error"
+        case webSocket = "web socket"
     }
 }

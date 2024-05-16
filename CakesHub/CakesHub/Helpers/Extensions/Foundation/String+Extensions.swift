@@ -25,20 +25,17 @@ extension String {
 
 extension String {
 
-    var toDate: Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-
-        if let date = dateFormatter.date(from: self) {
-            return date
-        } else {
-            return .now
-        }
-    }
-
     var dateRedescription: Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
         return dateFormatter.date(from: self)
+    }
+
+    var toCorrectDate: String {
+        guard let date = self.dateRedescription else {
+            return self
+        }
+        let dateString = date.formatted(.dateTime.year().day().month(.wide))
+        return dateString
     }
 }

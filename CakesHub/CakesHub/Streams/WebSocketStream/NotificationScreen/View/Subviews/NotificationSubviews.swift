@@ -14,7 +14,7 @@ extension NotificationView {
 
     @ViewBuilder
     var MainView: some View {
-        if viewModel.screenIsShimmering {
+        if viewModel.isScreenShimmering {
             ProgressScreen
         } else if viewModel.notifications.count == 0 {
             NotificationsNotFound

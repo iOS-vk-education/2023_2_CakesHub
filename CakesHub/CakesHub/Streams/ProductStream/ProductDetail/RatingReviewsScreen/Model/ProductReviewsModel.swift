@@ -18,6 +18,7 @@ struct ProductReviewsModel {
     var countOneStars   : Int = 0
     var countOfComments : Int = 0
     var comments        : [CommentInfo] = []
+    var feedbackCount   : Int = 0
 
     struct CommentInfo: Identifiable {
         var id             : String = .clear
@@ -25,7 +26,6 @@ struct ProductReviewsModel {
         var date           : String = .clear
         var description    : String = .clear
         var countFillStars : Int = 0
-        var feedbackCount  : Int = 0
     }
 }
 
@@ -48,25 +48,48 @@ extension ProductReviewsModel {
     var oneStarsConfiguration: CHMRatingReviewsView.Configuration.RatingData {
         calculateRatingConfiguration(countOneStars)
     }
-    var feedbackCounter: Int {
-        countFiveStars + countFourStars + countThreeStars + countTwoStars + countOneStars
+    var feedbackAmountOfPoints: Int {
+        countFiveStars * 5 + countFourStars * 4 + countThreeStars * 3 + countTwoStars * 2 + countOneStars
     }
     var averageRatingString: String {
         return "\(averageRating.rounded(toPlaces: 1))"
     }
     var averageRating: CGFloat {
-        CGFloat(feedbackCounter) / 5
+        guard feedbackCount > 0 else { return .zero }
+        return CGFloat(feedbackAmountOfPoints) / CGFloat(feedbackCount)
     }
 }
 
-// MARK: Inner logic
+// MARK: - Inner logic
 
 private extension ProductReviewsModel {
 
     func calculateRatingConfiguration(_ count: Int) -> CHMRatingReviewsView.Configuration.RatingData {
-        let perсentArea = CGFloat(count) / CGFloat(feedbackCounter)
+        let perсentArea = CGFloat(count) / CGFloat(feedbackCount)
         let ration = CHMRatingReviewsView.Configuration.Kind(rawValue: perсentArea.rounded(toPlaces: 1)) ?? .zero
         let configuration = CHMRatingReviewsView.Configuration.RatingData.basic(ration: ration, count: count)
         return configuration
+    }
+}
+
+// MARK: - Mapper
+
+extension FBProductModel.FBCommentInfoModel {
+
+    var mapper: ProductReviewsModel.CommentInfo {
+        .init(
+            id: id,
+            userName: userName,
+            date: date.toCorrectDate,
+            description: description,
+            countFillStars: countFillStars
+        )
+    }
+}
+
+extension [FBProductModel.FBCommentInfoModel] {
+
+    var mapper: [ProductReviewsModel.CommentInfo] {
+        map { $0.mapper }
     }
 }

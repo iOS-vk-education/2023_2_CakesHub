@@ -1,5 +1,5 @@
 //
-//  UserInputData.swift
+//  VMAuthScreenData.swift
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 13.04.2024.
@@ -10,18 +10,20 @@ import Foundation
 
 extension AuthViewModel {
 
-    struct VMAuthInputData: ClearConfigurationProtocol {
-        var nickName: String
-        var password: String
-        var email: String
+    struct ScreenData: ClearConfigurationProtocol {
+        var nickName: String = .clear
+        var password: String = .clear
+        var email: String = .clear
+        var showingAlert = false
+        var alertMessage: String?
 
-        static let clear = VMAuthInputData(nickName: .clear, password: .clear, email: .clear)
+        static let clear = ScreenData()
     }
 }
 
 // MARK: - Mapper
 
-extension AuthViewModel.VMAuthInputData {
+extension AuthViewModel.ScreenData {
 
     var mapper: RegisterUserRequest {
         RegisterUserRequest(nickname: nickName, email: email, password: password)

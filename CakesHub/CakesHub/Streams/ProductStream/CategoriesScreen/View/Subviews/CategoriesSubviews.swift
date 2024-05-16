@@ -106,19 +106,19 @@ extension CategoriesView {
                         switch section {
                         case let .men(categories):
                             ScrollSections(
-                                items: filterData(categories: categories)
+                                items: viewModel.filterData(categories: categories)
                             )
                             .id(CategoriesTab.men)
                             .containerRelativeFrame(.horizontal)
                         case let .women(categories):
                             ScrollSections(
-                                items: filterData(categories: categories)
+                                items: viewModel.filterData(categories: categories)
                             )
                             .id(CategoriesTab.women)
                             .containerRelativeFrame(.horizontal)
                         case let .kids(categories):
                             ScrollSections(
-                                items: filterData(categories: categories)
+                                items: viewModel.filterData(categories: categories)
                             )
                             .id(CategoriesTab.kids)
                             .containerRelativeFrame(.horizontal)
@@ -171,15 +171,6 @@ private extension CategoriesView {
                     .preference(key: OffsetKey.self, value: minX)
                     .onPreferenceChange(OffsetKey.self, perform: completion)
             }
-        }
-    }
-
-    /// Фильтруем данные при вводе
-    func filterData(categories: [CategoryCardModel]) -> [CategoryCardModel] {
-        viewModel.uiProperties.searchText.isEmpty
-        ? categories
-        : categories.filter {
-            $0.title.contains(viewModel.uiProperties.searchText)
         }
     }
 }

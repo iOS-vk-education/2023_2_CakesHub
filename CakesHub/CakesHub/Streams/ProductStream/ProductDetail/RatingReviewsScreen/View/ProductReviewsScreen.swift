@@ -13,8 +13,8 @@ struct ProductReviewsScreen: View, ViewModelable {
     // MARK: View Model
 
     typealias ViewModel = ProductReviewsViewModel
-    var viewModel: ViewModel
-    @EnvironmentObject var nav: Navigation
+    @State var viewModel: ViewModel
+    @State private var isOpenFeedbackView: Bool = false
 
     // MARK: View
 
@@ -23,14 +23,29 @@ struct ProductReviewsScreen: View, ViewModelable {
             .background(CHMColor<BackgroundPalette>.bgMainColor.color)
             .navigationTitle(Constants.navigationTitle)
             .toolbarTitleDisplayMode(.large)
+            .blurredSheet(
+                .init(CHMColor<BackgroundPalette>.bgMainColor.color),
+                show: $isOpenFeedbackView
+            ) {} content: {
+                SheetView
+                    .presentationDetents([.medium, .large])
+            }
+    }
+}
+
+// MARK: - Action
+
+extension ProductReviewsScreen {
+
+    func didTapWriteReviewButton() {
+        isOpenFeedbackView = true
     }
 }
 
 // MARK: - Preview
 
 #Preview {
-    ProductReviewsScreen(viewModel: .init(data: .mockData))
-    .environmentObject(Navigation())
+    ProductReviewsScreen(viewModel: .mockData)
 }
 
 // MARK: - Constants

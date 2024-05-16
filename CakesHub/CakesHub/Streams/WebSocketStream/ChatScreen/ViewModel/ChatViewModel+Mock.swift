@@ -12,9 +12,15 @@ import Foundation
 extension ChatViewModel: Mockable {
 
     static let mockData = ChatViewModel(
-        messages: messages,
-        interlocutor: .init(id: UUID().uuidString, image: .uiImage(.bestGirl), nickname: "Poly"),
-        user: .king
+        data: ScreenData(
+            messages: messages,
+            interlocutor: .init(
+                id: UUID().uuidString,
+                image: .uiImage(.bestGirl),
+                nickname: "Poly"
+            ),
+            user: .king
+        )
     )
 
     private static let messages: [ChatMessage] = [

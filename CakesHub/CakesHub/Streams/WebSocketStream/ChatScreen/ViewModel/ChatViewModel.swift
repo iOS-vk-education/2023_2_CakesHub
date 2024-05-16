@@ -11,99 +11,109 @@ import Foundation
 // MARK: - ChatViewModelProtocol
 
 protocol ChatViewModelProtocol: AnyObject {
-    func connectWebSocket(completion: @escaping CHMVoidBlock)
+    // MARK: Network
+    func sendMessage(message: FBChatMessageModel) async throws
+    // MARK: Actions
     func sendMessage(message: String)
+    // MARK: Web Socket Layer
+    func receivedMessage(output: NotificationCenter.Publisher.Output)
 }
 
 // MARK: - ChatViewModel
 
 @Observable
-final class ChatViewModel: ViewModelProtocol {
- 
-    private(set) var messages: [ChatMessage]
-    private(set) var lastMessageID: String?
-    private(set) var interlocutor: Interlocutor
-    private(set) var user: ProductModel.SellerInfo
-    private(set) var wsSocket: WebSockerManagerProtocol?
+final class ChatViewModel: ViewModelProtocol, ChatViewModelProtocol {
+
+    private(set) var data: ScreenData
+    private var services: Services
 
     init(
-        messages: [ChatMessage] = [], 
-        lastMessageID: String? = nil,
-        interlocutor: Interlocutor = .clear,
-        user: ProductModel.SellerInfo,
-        wsSocket: WebSockerManagerProtocol = WebSockerManager.shared
+        data: ScreenData = .clear,
+        services: Services = .clear
     ) {
-        Logger.print("INIT ChatViewModel")
-        self.messages = messages
-        self.lastMessageID = lastMessageID
-        self.interlocutor = interlocutor
-        self.user = user
-        self.wsSocket = wsSocket
-        print("count: \(messages.count)")
-    }
-
-    deinit {
-        Logger.print("DEINIT ChatViewModel")
+        
+        self.data = data
+        self.services = services
     }
 }
 
-// MARK: - ChatViewModelProtocol
+// MARK: - Network
 
-extension ChatViewModel: ChatViewModelProtocol {
+extension ChatViewModel {
 
-    /// Create web socket connection with the server
-    func connectWebSocket(completion: @escaping CHMVoidBlock) {
-        receiveWebSocketData()
+    func sendMessage(message: FBChatMessageModel) async throws {
+        try await services.chatService.send(message: message)
     }
+}
 
-    /// Sending message to the server
-    /// - Parameter message: message data
+// MARK: - Actions
+
+extension ChatViewModel {
+
+    /// Нажали кнопку `отправить` сообщение
     func sendMessage(message: String) {
+        // Формируем дату сообщения
+        let messageID = UUID().uuidString
+        let userID = data.user.id
+        let interlocuterID = data.interlocutor.id
+        let messageDate = Date()
+
+        // Отправляем сообщение по веб сокет протоколу
         let msg = WSMessage(
-            id: UUID().uuidString,
+            id: messageID,
             kind: .message,
-            userName: user.name,
-            userID: user.id,
-            receiverID: interlocutor.id,
+            userName: data.user.name,
+            userID: userID,
+            receiverID: interlocuterID,
             dispatchDate: Date(),
             message: message,
             state: .progress
         )
-        lastMessageID = msg.id
-        let chatMsg = msg.mapper(name: user.name, userImage: user.userImage)
-        messages.append(chatMsg)
-        wsSocket?.send(message: msg, completion: {})
+        data.lastMessageID = msg.id
+        let chatMsg = msg.mapper(name: data.user.name, userImage: data.user.userImage)
+        data.messages.append(chatMsg)
+        services.wsManager.send(message: msg, completion: {})
+
+        // Отправляем сообщение в firebase хранилище
+        Task {
+            let fbMessage = FBChatMessageModel(
+                id: messageID,
+                message: message,
+                receiverID: interlocuterID,
+                userID: userID,
+                dispatchDate: messageDate.description
+            )
+            try? await sendMessage(message: fbMessage)
+        }
     }
 }
 
-// MARK: - Private Methods
+// MARK: - Web Socket Layer
 
-private extension ChatViewModel {
-
-    /// Getting new message
-    func receiveWebSocketData() {
-        wsSocket?.receive { [weak self] (message: WSMessage) in
-            guard let self, message.kind == .message else { return }
-            let image: ImageKind = message.userID == user.id ? user.userImage : interlocutor.image
-            let chatMessage = ChatMessage(
-                id: message.id,
-                isYou: message.userID == user.id,
-                message: message.message,
-                user: .init(name: message.userName, image: image),
-                time: message.dispatchDate.formattedString(format: "HH:mm"),
-                state: message.state
-            )
-            // Если сообщение не найденно, значит добавляем его
-            guard let index = messages.firstIndex(where: { $0.id == chatMessage.id }) else {
-                DispatchQueue.main.async {
-                    self.messages.append(chatMessage)
-                    self.lastMessageID = chatMessage.id
-                }
-                return
-            }
-            DispatchQueue.main.async {
-                self.messages[index] = chatMessage
-            }
+extension ChatViewModel {
+    
+    /// Получение сообщения из Web Socket слоя
+    func receivedMessage(output: NotificationCenter.Publisher.Output) {
+        guard let wsMessage = output.object as? WSMessage, wsMessage.kind == .message else {
+            return
         }
+
+        let image: ImageKind = wsMessage.userID == data.user.id ? data.user.userImage : data.interlocutor.image
+        let chatMessage = ChatMessage(
+            id: wsMessage.id,
+            isYou: wsMessage.userID == data.user.id,
+            message: wsMessage.message,
+            user: .init(name: wsMessage.userName, image: image),
+            time: wsMessage.dispatchDate.formattedString(format: "HH:mm"),
+            state: wsMessage.state
+        )
+
+        // Если сообщение не найденно, значит добавляем его
+        guard let index = data.messages.firstIndex(where: { $0.id == chatMessage.id }) else {
+            data.messages.append(chatMessage)
+            data.lastMessageID = chatMessage.id
+            return
+        }
+        data.messages[index] = chatMessage
     }
 }
