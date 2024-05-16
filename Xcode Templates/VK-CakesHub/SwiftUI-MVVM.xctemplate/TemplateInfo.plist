@@ -64,7 +64,7 @@
 			<key>Path</key>
 			<string>___FILEBASENAME___/ViewModel/___FILEBASENAME___ViewModel+Mock.swift</string>
 		</dict>
-		<key>___FILEBASENAME___/View/___FILEBASENAME___ViewController.swift</key>
+		<key>___FILEBASENAME___/View/___FILEBASENAME___View.swift</key>
 		<dict>
 			<key>Path</key>
 			<string>___FILEBASENAME___/View/___FILEBASENAME___View.swift</string>
@@ -74,12 +74,14 @@
 				<string>View</string>
 			</array>
 		</dict>
-		<key>___FILEBASENAME___/Coordinator/___FILEBASENAME___ViewControllerCordinator.swift</key>
+		<key>___FILEBASENAME___/View/___FILEBASENAME___Subview.swift</key>
 		<dict>
+			<key>Path</key>
+			<string>___FILEBASENAME___/View/___FILEBASENAME___Subview.swift</string>
 			<key>Group</key>
 			<array>
 				<string>___FILEBASENAME___</string>
-				<string>Model</string>
+				<string>View</string>
 			</array>
 		</dict>
 	</dict>

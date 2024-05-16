@@ -21,6 +21,7 @@ protocol RootViewModelProtocol: AnyObject {
     func addProductInMemory(product: FBProductModel)
     // MARK: Reducers
     func setCurrentUser(for user: FBUserModel)
+    func resetUser()
     func addNewProduct(product: FBProductModel)
     func setContext(context: ModelContext)
     func updateExistedProduct(product: FBProductModel)
@@ -160,6 +161,11 @@ extension RootViewModel {
         currentUser = user
         // Фильтруем данные только текущего пользователя
         productData.currentUserProducts = productData.products.filter { $0.seller.uid == currentUser.uid }
+    }
+
+    func resetUser() {
+        currentUser = .clear
+        productData.currentUserProducts = []
     }
 
     func addNewProduct(product: FBProductModel) {

@@ -13,7 +13,7 @@ extension ProfileViewModel {
 
     enum Screens: Hashable {
         case message([ChatMessage])
-        case notifications
+        case location
         case settings
         case createProduct
     }

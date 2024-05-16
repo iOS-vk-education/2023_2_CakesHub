@@ -15,10 +15,6 @@ struct ProfileScreen: View {
     @EnvironmentObject private var nav: Navigation
     @EnvironmentObject var rootViewModel: RootViewModel
 
-    init(viewModel: ViewModel = ViewModel()) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
-    
     var body: some View {
         MainView
             .onAppear(perform: onAppear)
@@ -40,8 +36,9 @@ struct ProfileScreen: View {
                         )
                     )
                     ChatView(viewModel: vm)
-                case .notifications:
-                    Text("Экран уведомлений")
+                case .location:
+                    UserLocationView()
+                        .navigationBarBackButtonHidden()
                 case .settings:
                     SettingsView()
                 case .createProduct:
@@ -82,7 +79,7 @@ extension ProfileScreen {
 
     /// Нажатие на кнопку открытия уведомлений
     func didTapOpenNotifications() {
-        nav.addScreen(screen: ViewModel.Screens.notifications)
+        nav.addScreen(screen: ViewModel.Screens.location)
     }
 
     /// Нажали на карточку товара
