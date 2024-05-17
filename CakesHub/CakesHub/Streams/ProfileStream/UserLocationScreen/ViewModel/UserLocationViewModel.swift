@@ -122,7 +122,7 @@ extension UserLocationViewModel {
         // Кэшируем адрес пользователя
         let userID = reducers.root.currentUser.uid
         let fetchDescriptor = FetchDescriptor<SDUserModel>(predicate: #Predicate { $0._id == userID })
-        guard var sdUser = try? reducers.modelContext.fetch(fetchDescriptor).first else {
+        guard let sdUser = try? reducers.modelContext.fetch(fetchDescriptor).first else {
             return
         }
         sdUser._address = userAddress

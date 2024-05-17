@@ -86,13 +86,11 @@ private extension RootView {
         case .notifications:
             NotificationView()
         case .profile:
-            ProfileScreen(
-                viewModel: .init(
-                    user: viewModel.currentUser.mapper.mapper(
-                        products: viewModel.productData.currentUserProducts.mapperToProductModel
-                    )
-                )
-            )
+            let fbUser = viewModel.currentUser
+            let sellerInfo = fbUser.mapper
+            let userProducts = viewModel.productData.currentUserProducts.mapperToProductModel
+            let userModel = sellerInfo.mapper(products: userProducts)
+            ProfileScreen(viewModel: .init(user: userModel))
         }
     }
 }
@@ -107,7 +105,7 @@ private extension RootView {
             Preview(
                 SDProductModel.self,
                 SDNotificationModel.self,
-                SDCateoryModel.self
+                SDCategoryModel.self
             ).container
         )
 }

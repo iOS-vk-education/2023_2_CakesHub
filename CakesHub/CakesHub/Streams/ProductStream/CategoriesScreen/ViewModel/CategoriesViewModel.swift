@@ -16,8 +16,8 @@ protocol CategoriesViewModelProtocol {
     // MARK: Network
     func fetch() async throws -> [CategoriesViewModel.FBSection]
     // MARK: Memory CRUD
-    func save(categories: Set<FBCateoryModel>)
-    func fetch() -> [FBCateoryModel]
+    func save(categories: Set<FBCategoryModel>)
+    func fetch() -> [FBCategoryModel]
     // MARK: Lifecycle
     func fetchSections()
     func fetchSectionsFromMemory() -> [CategoriesViewModel.Section]
@@ -89,9 +89,9 @@ extension CategoriesViewModel {
     func fetchSectionsFromMemory() -> [Section] {
         let memoryCategories = fetch()
 
-        var menCategories: [FBCateoryModel] = []
-        var womenCategories: [FBCateoryModel] = []
-        var kidsCategories: [FBCateoryModel] = []
+        var menCategories: [FBCategoryModel] = []
+        var womenCategories: [FBCategoryModel] = []
+        var kidsCategories: [FBCategoryModel] = []
         for category in memoryCategories {
             if category.tags.contains(.men) {
                 menCategories.append(category)
@@ -137,16 +137,16 @@ extension CategoriesViewModel {
 
 extension CategoriesViewModel {
 
-    func save(categories: Set<FBCateoryModel>) {
+    func save(categories: Set<FBCategoryModel>) {
         categories.forEach { category in
-            let sdModel = SDCateoryModel(fbModel: category)
+            let sdModel = SDCategoryModel(fbModel: category)
             modelContext.insert(sdModel)
         }
         try? modelContext.save()
     }
 
-    func fetch() -> [FBCateoryModel] {
-        let fetchDescriptor = FetchDescriptor<SDCateoryModel>()
+    func fetch() -> [FBCategoryModel] {
+        let fetchDescriptor = FetchDescriptor<SDCategoryModel>()
         let sdModels = (try? modelContext.fetch(fetchDescriptor)) ?? []
         return sdModels.map { $0.mapper }
     }

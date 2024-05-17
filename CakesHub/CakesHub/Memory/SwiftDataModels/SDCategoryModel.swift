@@ -1,5 +1,5 @@
 //
-//  SDCateoryModel.swift
+//  SDCategoryModel.swift
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 07.05.2024.
@@ -9,7 +9,7 @@
 import SwiftData
 
 @Model
-final class SDCateoryModel {
+final class SDCategoryModel {
     @Attribute(.unique)
     let _id       : String
     let _title    : String
@@ -31,8 +31,8 @@ final class SDCateoryModel {
 
 // MARK: - SDModelable
 
-extension SDCateoryModel: SDModelable {
-    typealias FBModelType = FBCateoryModel
+extension SDCategoryModel: SDModelable {
+    typealias FBModelType = FBCategoryModel
 
     convenience init(fbModel: FBModelType) {
         self.init(
@@ -46,10 +46,10 @@ extension SDCateoryModel: SDModelable {
 
 // MARK: - Mapper
 
-extension SDCateoryModel {
+extension SDCategoryModel {
 
-    var mapper: FBCateoryModel {
-        FBCateoryModel(
+    var mapper: FBCategoryModel {
+        FBCategoryModel(
             id: _id,
             title: _title,
             imageURL: _imageURL,

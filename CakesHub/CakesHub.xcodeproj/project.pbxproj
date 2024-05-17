@@ -118,7 +118,7 @@
 		E5253C0E2BF24B1500A8E31E /* LocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5253C0D2BF24B1500A8E31E /* LocationDetailsView.swift */; };
 		E52722752BE8F3A300E4441B /* SDNotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52722742BE8F3A300E4441B /* SDNotificationModel.swift */; };
 		E52722782BE9202B00E4441B /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52722772BE9202B00E4441B /* CategoryService.swift */; };
-		E527227E2BE9314000E4441B /* FBCateoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527227D2BE9314000E4441B /* FBCateoryModel.swift */; };
+		E527227E2BE9314000E4441B /* FBCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527227D2BE9314000E4441B /* FBCategoryModel.swift */; };
 		E52722802BE9316500E4441B /* FBCategoryTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527227F2BE9316500E4441B /* FBCategoryTag.swift */; };
 		E5272FBD2B9A9B1900F181A1 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5272FBC2B9A9B1900F181A1 /* Navigation.swift */; };
 		E5272FBF2B9A9F0100F181A1 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5272FBE2B9A9F0100F181A1 /* RootView.swift */; };
@@ -208,7 +208,7 @@
 		E59AEC7F2B92C4A600760E61 /* FBProductModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59AEC7E2B92C4A600760E61 /* FBProductModel+Mock.swift */; };
 		E5A65EBC2BED29BB0030338C /* ChatInterlocutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A65EBB2BED29BB0030338C /* ChatInterlocutor.swift */; };
 		E5A65EBE2BED447F0030338C /* Notification.Name+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A65EBD2BED447F0030338C /* Notification.Name+Extenstions.swift */; };
-		E5A8E85E2BEA4324004FD3DA /* SDCateoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A8E85D2BEA4324004FD3DA /* SDCateoryModel.swift */; };
+		E5A8E85E2BEA4324004FD3DA /* SDCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A8E85D2BEA4324004FD3DA /* SDCategoryModel.swift */; };
 		E5A8E8602BEABCB3004FD3DA /* SDChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A8E85F2BEABCB3004FD3DA /* SDChatMessageModel.swift */; };
 		E5A8E8632BEABCDC004FD3DA /* FBChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A8E8622BEABCDC004FD3DA /* FBChatMessageModel.swift */; };
 		E5B636642BB6751400B2F076 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B636632BB6751400B2F076 /* RootViewModel.swift */; };
@@ -359,7 +359,7 @@
 		E5253C0D2BF24B1500A8E31E /* LocationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsView.swift; sourceTree = "<group>"; };
 		E52722742BE8F3A300E4441B /* SDNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDNotificationModel.swift; sourceTree = "<group>"; };
 		E52722772BE9202B00E4441B /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
-		E527227D2BE9314000E4441B /* FBCateoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBCateoryModel.swift; sourceTree = "<group>"; };
+		E527227D2BE9314000E4441B /* FBCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBCategoryModel.swift; sourceTree = "<group>"; };
 		E527227F2BE9316500E4441B /* FBCategoryTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBCategoryTag.swift; sourceTree = "<group>"; };
 		E5272FBC2B9A9B1900F181A1 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		E5272FBE2B9A9F0100F181A1 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -448,7 +448,7 @@
 		E59AEC7E2B92C4A600760E61 /* FBProductModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FBProductModel+Mock.swift"; sourceTree = "<group>"; };
 		E5A65EBB2BED29BB0030338C /* ChatInterlocutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInterlocutor.swift; sourceTree = "<group>"; };
 		E5A65EBD2BED447F0030338C /* Notification.Name+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+Extenstions.swift"; sourceTree = "<group>"; };
-		E5A8E85D2BEA4324004FD3DA /* SDCateoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDCateoryModel.swift; sourceTree = "<group>"; };
+		E5A8E85D2BEA4324004FD3DA /* SDCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDCategoryModel.swift; sourceTree = "<group>"; };
 		E5A8E85F2BEABCB3004FD3DA /* SDChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDChatMessageModel.swift; sourceTree = "<group>"; };
 		E5A8E8622BEABCDC004FD3DA /* FBChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBChatMessageModel.swift; sourceTree = "<group>"; };
 		E5B636632BB6751400B2F076 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
@@ -1175,7 +1175,7 @@
 		E527227C2BE9313B00E4441B /* FBCateoryModel */ = {
 			isa = PBXGroup;
 			children = (
-				E527227D2BE9314000E4441B /* FBCateoryModel.swift */,
+				E527227D2BE9314000E4441B /* FBCategoryModel.swift */,
 				E527227F2BE9316500E4441B /* FBCategoryTag.swift */,
 			);
 			path = FBCateoryModel;
@@ -1461,7 +1461,7 @@
 				E5155CE22BCBFDB900BF773D /* SDProductReviewsModel.swift */,
 				E55EFD0C2BCEA14C00493686 /* SDCommentInfoModel.swift */,
 				E52722742BE8F3A300E4441B /* SDNotificationModel.swift */,
-				E5A8E85D2BEA4324004FD3DA /* SDCateoryModel.swift */,
+				E5A8E85D2BEA4324004FD3DA /* SDCategoryModel.swift */,
 			);
 			path = SwiftDataModels;
 			sourceTree = "<group>";
@@ -1981,7 +1981,7 @@
 				E52CDD0A2BB6460E009C08B9 /* ChatSubviews.swift in Sources */,
 				E59AEC7F2B92C4A600760E61 /* FBProductModel+Mock.swift in Sources */,
 				E5F025752BF11ED500E15E31 /* AppDelegate.swift in Sources */,
-				E527227E2BE9314000E4441B /* FBCateoryModel.swift in Sources */,
+				E527227E2BE9314000E4441B /* FBCategoryModel.swift in Sources */,
 				E5727DFE2BEBFA47008543BD /* AllChatsVMScreens.swift in Sources */,
 				E55B5EC12BCA496B00DDDFA4 /* AuthViewModel+Mock.swift in Sources */,
 				E51B33202B7E60010028E8C7 /* URL+Extensions.swift in Sources */,
@@ -2149,7 +2149,7 @@
 				E5DE815C2BBFDC360012BD8E /* CreateProductView.swift in Sources */,
 				E51B33212B7E60010028E8C7 /* Color+Addition.swift in Sources */,
 				E51B32D72B7E5FEF0028E8C7 /* CHMNewCategoryView+Configuration.swift in Sources */,
-				E5A8E85E2BEA4324004FD3DA /* SDCateoryModel.swift in Sources */,
+				E5A8E85E2BEA4324004FD3DA /* SDCategoryModel.swift in Sources */,
 				E5DBD6D62BBDB49B002ACFB2 /* ProfileSubviews.swift in Sources */,
 				E51B32F12B7E5FEF0028E8C7 /* CHMStarsView+Defaults.swift in Sources */,
 				E59AEC6A2B92B1D500760E61 /* APIError.swift in Sources */,

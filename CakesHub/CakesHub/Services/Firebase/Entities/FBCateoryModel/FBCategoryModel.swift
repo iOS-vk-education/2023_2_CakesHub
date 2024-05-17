@@ -1,5 +1,5 @@
 //
-//  FBCateoryModel.swift
+//  FBCategoryModel.swift
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 06.05.2024.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-struct FBCateoryModel: FBModelable {
+struct FBCategoryModel: FBModelable {
     let id       : String
     let title    : String
     let imageURL : String
     let tags     : [Tag]
 
-    static let clear = FBCateoryModel(
+    static let clear = FBCategoryModel(
         id: .clear,
         title: .clear,
         imageURL: .clear,
@@ -24,7 +24,7 @@ struct FBCateoryModel: FBModelable {
 
 // MARK: - DictionaryConvertible
 
-extension FBCateoryModel {
+extension FBCategoryModel {
 
     init?(dictionary: [String: Any]) {
         guard
@@ -48,13 +48,13 @@ extension FBCateoryModel {
 
 // MARK: - Hashable
 
-extension FBCateoryModel: Hashable {
+extension FBCategoryModel: Hashable {
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
 
-    static func == (lhs: FBCateoryModel, rhs: FBCateoryModel) -> Bool {
+    static func == (lhs: FBCategoryModel, rhs: FBCategoryModel) -> Bool {
         lhs.id == rhs.id
     }
 }

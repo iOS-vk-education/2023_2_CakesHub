@@ -19,11 +19,11 @@ extension CategoriesViewModel {
     }
 
     enum FBSection {
-        case men([FBCateoryModel])
-        case women([FBCateoryModel])
-        case kids([FBCateoryModel])
+        case men([FBCategoryModel])
+        case women([FBCategoryModel])
+        case kids([FBCategoryModel])
 
-        var items: [FBCateoryModel] {
+        var items: [FBCategoryModel] {
             switch self {
             case let .men(items):
                 return items
