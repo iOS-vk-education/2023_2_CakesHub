@@ -11,6 +11,9 @@
 		A332D16A2BB2F842007C194D /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1672BB2F842007C194D /* ProfileScreen.swift */; };
 		A332D16B2BB2F842007C194D /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1682BB2F842007C194D /* ProfileViewModel.swift */; };
 		A3A02C962BF8D4EC004FE474 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A02C952BF8D4EC004FE474 /* RegisterView.swift */; };
+		A37BC6DA2BF10E4400385FA4 /* EditNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37BC6D92BF10E4400385FA4 /* EditNameView.swift */; };
+		A37BC6DC2BF10E6100385FA4 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37BC6DB2BF10E6100385FA4 /* EditProfileView.swift */; };
+		A3A03F572BB33A730034C0B1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A03F562BB33A730034C0B1 /* SettingsView.swift */; };
 		A3A03F592BB3430D0034C0B1 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A03F582BB3430D0034C0B1 /* NotificationsView.swift */; };
 		E50B61422BCE331C003484C7 /* VMAuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B61412BCE331C003484C7 /* VMAuthServices.swift */; };
 		E50B61442BCE3433003484C7 /* VMRootSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B61432BCE3433003484C7 /* VMRootSection.swift */; };
@@ -261,6 +264,9 @@
 		A332D1672BB2F842007C194D /* ProfileScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		A332D1682BB2F842007C194D /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		A3A02C952BF8D4EC004FE474 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		A37BC6D92BF10E4400385FA4 /* EditNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNameView.swift; sourceTree = "<group>"; };
+		A37BC6DB2BF10E6100385FA4 /* EditProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		A3A03F562BB33A730034C0B1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A3A03F582BB3430D0034C0B1 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		E50B61412BCE331C003484C7 /* VMAuthServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMAuthServices.swift; sourceTree = "<group>"; };
 		E50B61432BCE3433003484C7 /* VMRootSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMRootSection.swift; sourceTree = "<group>"; };
@@ -1857,6 +1863,8 @@
 		E5DBD6D72BBDB4D2002ACFB2 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A37BC6DB2BF10E6100385FA4 /* EditProfileView.swift */,
+				A37BC6D92BF10E4400385FA4 /* EditNameView.swift */,
 				A332D1672BB2F842007C194D /* ProfileScreen.swift */,
 				A3A03F582BB3430D0034C0B1 /* NotificationsView.swift */,
 			);
@@ -2046,6 +2054,7 @@
 				E51B32E42B7E5FEF0028E8C7 /* CHMBadgeView+Defaults.swift in Sources */,
 				E57128FE2BF7325500C96846 /* NotificationDetailVMUIProperties.swift in Sources */,
 				E55B5EC32BCA4B1800DDDFA4 /* AuthSubviews.swift in Sources */,
+				A37BC6DC2BF10E6100385FA4 /* EditProfileView.swift in Sources */,
 				E5C540732BEAD81B0025EBF1 /* ChatService.swift in Sources */,
 				E5272FBD2B9A9B1900F181A1 /* Navigation.swift in Sources */,
 				E59AEC7C2B92BF9F00760E61 /* Logger.swift in Sources */,
@@ -2172,6 +2181,7 @@
 				E55651842BB9E66F00759839 /* NotificationSubviews.swift in Sources */,
 				E55991232BF2D716001412CB /* SettingsViewModel+Mock.swift in Sources */,
 				E55991212BF2D716001412CB /* SettingsView.swift in Sources */,
+				A37BC6DA2BF10E4400385FA4 /* EditNameView.swift in Sources */,
 				E51B32E22B7E5FEF0028E8C7 /* CHMProductDescriptionView.swift in Sources */,
 				E51B32EB2B7E5FEF0028E8C7 /* CHMPicker+Preview.swift in Sources */,
 				E51B334A2B7E62AF0028E8C7 /* ProductDetailScreen+Mock.swift in Sources */,
