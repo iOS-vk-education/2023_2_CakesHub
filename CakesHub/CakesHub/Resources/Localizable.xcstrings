@@ -31,6 +31,16 @@
         }
       }
     },
+    "Already have account?" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Аккаунт уже создан?"
+          }
+        }
+      }
+    },
     "Are you sure you want to create a sale listing?" : {
       "localizations" : {
         "ru" : {
@@ -213,6 +223,16 @@
         }
       }
     },
+    "Fill in all the fields." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Заполните все поля."
+          }
+        }
+      }
+    },
     "Home" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -226,6 +246,16 @@
     },
     "ID: %@" : {
 
+    },
+    "Invalid email format." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неверный формат email"
+          }
+        }
+      }
     },
     "It's you! 😝" : {
       "localizations" : {
@@ -326,6 +356,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Новые"
+          }
+        }
+      }
+    },
+    "Nickname" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Никнейм"
           }
         }
       }
@@ -552,6 +592,26 @@
         }
       }
     },
+    "Register" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Регистрация"
+          }
+        }
+      }
+    },
+    "Repeat Password" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Повторите пароль"
+          }
+        }
+      }
+    },
     "reviews" : {
       "localizations" : {
         "ru" : {
@@ -680,6 +740,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Поддержка"
+          }
+        }
+      }
+    },
+    "The password format is incorrect." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неверный формат пароля"
+          }
+        }
+      }
+    },
+    "The passwords don't match." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароли не совпадают"
           }
         }
       }

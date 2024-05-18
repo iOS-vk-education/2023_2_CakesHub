@@ -12,13 +12,17 @@ extension AuthView {
 
     @ViewBuilder
     var MainView: some View {
-        if !viewModel.uiProperies.isRegister {
-            SignInView
-                .transition(.flip)
-        } else {
-            RegisterView
-                .transition(.reverseFlip)
+        Group {
+            if !viewModel.uiProperies.isRegister {
+                SignInView
+                    .transition(.flip)
+            } else {
+                RegisterView
+                    .transition(.reverseFlip)
+            }
         }
+        .frame(maxHeight: .infinity)
+        .background(Constants.bgColor)
     }
 
     var SignInView: some View {
@@ -26,13 +30,13 @@ extension AuthView {
             LogoView
 
             VStack {
-                TitleView(title: "Sign In")
+                TitleView(title: Constants.signInTitle)
 
                 InputEmailBlock
 
                 InputPasswordBlock
 
-                AuthRegisterToggleButton(title: "Don't have account?")
+                AuthRegisterToggleButton(title: Constants.dontHaveAccountTitle)
 
                 NextButtonView
             }
@@ -46,25 +50,25 @@ extension AuthView {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 120, height: 120)
-            .foregroundStyle(CHMColor<IconPalette>.iconPrimary.color)
+            .foregroundStyle(Constants.iconColor)
     }
 
     func TitleView(title: String) -> some View {
         Text(title)
             .font(.title)
             .fontWeight(.bold)
-            .foregroundStyle(Constants.textColor)
+            .foregroundStyle(Constants.titleColor)
             .kerning(1.9)
             .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     var InputEmailBlock: some View {
         VStack(alignment: .leading, spacing: 8, content: {
-            Text("Email")
+            Text(Constants.emailTitle)
                 .fontWeight(.bold)
                 .foregroundColor(.gray)
 
-            TextField("Email", text: $viewModel.uiProperies.email)
+            TextField(Constants.emailTitle, text: $viewModel.uiProperies.email)
                 .font(.system(size: 20, weight: .semibold))
                 .foregroundStyle(Constants.textColor)
                 .padding(.top, 5)
@@ -76,11 +80,11 @@ extension AuthView {
 
     var InputPasswordBlock: some View {
         VStack(alignment: .leading, spacing: 8, content: {
-            Text("Password")
+            Text(Constants.passwordTitle)
                 .fontWeight(.bold)
                 .foregroundColor(.gray)
 
-            SecureField("Password", text: $viewModel.uiProperies.password)
+            SecureField(Constants.passwordTitle, text: $viewModel.uiProperies.password)
                 .font(.system(size: 20, weight: .semibold))
                 .foregroundStyle(Constants.textColor)
                 .padding(.top, 5)
@@ -104,9 +108,9 @@ extension AuthView {
         Button(action: didTapNextButton, label: {
             Image(systemName: "arrow.right")
                 .font(.system(size: 24, weight: .bold))
-                .foregroundStyle(Color.white)
+                .foregroundStyle(Constants.iconColor)
                 .padding()
-                .background(Color.black)
+                .background(Constants.bgColor)
                 .clipShape(Circle())
                 .shadow(color: Color.gray.opacity(0.6), radius: 5, x: 0, y: 0)
 
@@ -130,7 +134,17 @@ extension AuthView {
 extension AuthView {
 
     enum Constants {
+        static let titleColor = CHMColor<TextPalette>.textRed.color
         static let textColor = CHMColor<TextPalette>.textPrimary.color
-        static let iconColor = CHMColor<IconPalette>.iconPrimary.color
+        static let iconColor = CHMColor<IconPalette>.iconRed.color.gradient
+        static let bgColor = CHMColor<BackgroundPalette>.bgMainColor.color
+        static let nicknameTitle = String(localized: "Nickname")
+        static let passwordTitle = String(localized: "Password")
+        static let repeatPasswordTitle = String(localized: "Repeat Password")
+        static let emailTitle = String(localized: "Email")
+        static let signInTitle = String(localized: "Sign In")
+        static let registerTitle = String(localized: "Register")
+        static let dontHaveAccountTitle = String(localized: "Don't have account?")
+        static let haveAccountTitle = String(localized: "Already have account?")
     }
 }

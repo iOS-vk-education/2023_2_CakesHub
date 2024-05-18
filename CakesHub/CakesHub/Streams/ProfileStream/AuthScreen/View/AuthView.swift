@@ -21,13 +21,24 @@ struct AuthView: View, ViewModelable {
     var body: some View {
         ZStack {
             MainView
+                .clipShape(
+                    .rect(
+                        cornerRadius: showRoundedRectangle ? 26 : 0
+                    )
+                )
         }
+        .background(CHMColor<BackgroundPalette>.bgMainColor.color.gradient)
+        .ignoresSafeArea()
         .onAppear(perform: onAppear)
-        .alert("Error", isPresented: $viewModel.uiProperies.showingAlert) {
+        .alert(String(localized: "Error"), isPresented: $viewModel.uiProperies.showingAlert) {
             Button("OK") {}
         } message: {
             Text(viewModel.uiProperies.alertMessage ?? .clear)
         }
+    }
+
+    private var showRoundedRectangle: Bool {
+        UIScreen.current?.displayCornerRadius ?? 0 > 26
     }
 }
 

@@ -12,10 +12,12 @@ extension AuthView {
 
     var RegisterView: some View {
         VStack {
-            LogoView
+            if !UIDevice.isSe {
+                LogoView
+            }
 
             VStack {
-                TitleView(title: String(localized: "Register"))
+                TitleView(title: Constants.registerTitle)
 
                 InputNicknameBlock
 
@@ -25,7 +27,7 @@ extension AuthView {
 
                 InputRepeatPasswordBlock
 
-                AuthRegisterToggleButton(title: String(localized: "Already have account?"))
+                AuthRegisterToggleButton(title: Constants.haveAccountTitle)
 
                 NextButtonView
             }
@@ -35,11 +37,11 @@ extension AuthView {
 
     var InputNicknameBlock: some View {
         VStack(alignment: .leading, spacing: 8, content: {
-            Text(String(localized: "Nickname"))
+            Text(Constants.nicknameTitle)
                 .fontWeight(.bold)
                 .foregroundColor(.gray)
 
-            TextField("Nickname", text: $viewModel.uiProperies.nickName)
+            TextField(Constants.nicknameTitle, text: $viewModel.uiProperies.nickName)
                 .font(.system(size: 20, weight: .semibold))
                 .foregroundStyle(Constants.textColor)
                 .padding(.top, 5)
@@ -51,11 +53,11 @@ extension AuthView {
 
     var InputRepeatPasswordBlock: some View {
         VStack(alignment: .leading, spacing: 8, content: {
-            Text("Repeat Password")
+            Text(Constants.repeatPasswordTitle)
                 .fontWeight(.bold)
                 .foregroundColor(.gray)
 
-            SecureField("Password", text: $viewModel.uiProperies.repeatPassword)
+            SecureField(Constants.passwordTitle, text: $viewModel.uiProperies.repeatPassword)
                 .font(.system(size: 20, weight: .semibold))
                 .foregroundStyle(Constants.textColor)
                 .padding(.top, 5)
