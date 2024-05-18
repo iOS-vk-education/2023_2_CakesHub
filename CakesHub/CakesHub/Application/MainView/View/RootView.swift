@@ -105,6 +105,7 @@ private extension RootView {
             Preview(
                 SDProductModel.self,
                 SDNotificationModel.self,
+                SDChatMessageModel.self,
                 SDCategoryModel.self
             ).container
         )

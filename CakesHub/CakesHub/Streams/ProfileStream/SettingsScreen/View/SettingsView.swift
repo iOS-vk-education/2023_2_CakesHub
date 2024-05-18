@@ -36,4 +36,5 @@ private extension SettingsView {
 #Preview {
     SettingsView(viewModel: .mockData)
         .environmentObject(Navigation())
+        .environmentObject(RootViewModel.mockData)
 }

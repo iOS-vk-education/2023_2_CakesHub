@@ -12,13 +12,16 @@ extension SettingsView {
 
     var MainView: some View {
         List {
-            PersonalSection
+            Group {
+                PersonalSection
 
-            NotificationSection
+                NotificationSection
 
-            DocumentsSection
+                DocumentsSection
 
-            ButtonsBlock
+                ButtonsBlock
+            }
+            .listRowBackground(Constants.rowColor)
         }
         .scrollContentBackground(.hidden)
         .navigationTitle("Settings")
@@ -87,6 +90,7 @@ extension SettingsView {
         SettingsView(viewModel: .mockData)
     }
     .environmentObject(Navigation())
+    .environmentObject(RootViewModel.mockData)
 }
 
 // MARK: - Constants
@@ -98,5 +102,6 @@ private extension SettingsView {
         static let deleteColor = CHMColor<TextPalette>.textWild.color
         static let userMailColor = CHMColor<TextPalette>.textPrimary.color
         static let bgColor = CHMColor<BackgroundPalette>.bgMainColor.color
+        static let rowColor = CHMColor<BackgroundPalette>.bgCommentView.color
     }
 }

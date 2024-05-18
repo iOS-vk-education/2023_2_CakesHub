@@ -58,3 +58,7 @@ extension FBNotification {
         )
     }
 }
+
+// MARK: - Hashable
+
+extension FBNotification: Hashable {}

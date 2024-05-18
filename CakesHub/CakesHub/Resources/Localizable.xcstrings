@@ -123,6 +123,16 @@
         }
       }
     },
+    "Customer" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Покупатель"
+          }
+        }
+      }
+    },
     "Delete" : {
       "localizations" : {
         "ru" : {
@@ -139,6 +149,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Удалить аккаунт"
+          }
+        }
+      }
+    },
+    "Delivery address" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Адрес доставки"
           }
         }
       }
@@ -203,6 +223,9 @@
           }
         }
       }
+    },
+    "ID: %@" : {
+
     },
     "It's you! 😝" : {
       "localizations" : {
@@ -338,6 +361,16 @@
         }
       }
     },
+    "Notification content" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Содержимое уведомления"
+          }
+        }
+      }
+    },
     "Notifications" : {
       "localizations" : {
         "ru" : {
@@ -374,6 +407,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Необязательно поле"
+          }
+        }
+      }
+    },
+    "Order" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Заказ"
+          }
+        }
+      }
+    },
+    "Order date" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дата заказа"
           }
         }
       }
@@ -448,6 +501,16 @@
         }
       }
     },
+    "Product" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продукт"
+          }
+        }
+      }
+    },
     "Product creation" : {
       "localizations" : {
         "ru" : {
@@ -480,7 +543,14 @@
       }
     },
     "ratings" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "рейтинг"
+          }
+        }
+      }
     },
     "reviews" : {
       "localizations" : {
@@ -540,6 +610,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Выберите фотографии товара"
+          }
+        }
+      }
+    },
+    "Seller" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продавец"
           }
         }
       }
@@ -604,8 +684,15 @@
         }
       }
     },
-    "update" : {
-
+    "User address not found" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Адрес пользователя не найден"
+          }
+        }
+      }
     },
     "User Agreement" : {
       "localizations" : {
