@@ -12,10 +12,12 @@ extension AuthView {
 
     @ViewBuilder
     var MainView: some View {
-        if !isRegister {
+        if !viewModel.uiProperies.isRegister {
             SignInView
+                .transition(.flip)
         } else {
             RegisterView
+                .transition(.reverseFlip)
         }
     }
 
@@ -31,25 +33,6 @@ extension AuthView {
                 InputPasswordBlock
 
                 AuthRegisterToggleButton(title: "Don't have account?")
-
-                NextButtonView
-            }
-            .padding()
-        }
-    }
-
-    var RegisterView: some View {
-        VStack {
-            LogoView
-
-            VStack {
-                TitleView(title: "Register")
-
-                InputEmailBlock
-
-                InputPasswordBlock
-
-                AuthRegisterToggleButton(title: "Already have account?")
 
                 NextButtonView
             }
@@ -144,7 +127,7 @@ extension AuthView {
 
 // MARK: - Constants
 
-private extension AuthView {
+extension AuthView {
 
     enum Constants {
         static let textColor = CHMColor<TextPalette>.textPrimary.color

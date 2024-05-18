@@ -16,17 +16,18 @@ struct AuthView: View, ViewModelable {
     @EnvironmentObject private var nav: Navigation
     @EnvironmentObject private var rootViewModel: RootViewModel
     @Environment(\.modelContext) var context
-    @State var isRegister = false
     @State var viewModel = ViewModel()
 
     var body: some View {
-        MainView
-            .onAppear(perform: onAppear)
-            .alert("Error", isPresented: $viewModel.uiProperies.showingAlert) {
-                Button("OK") {}
-            } message: {
-                Text(viewModel.uiProperies.alertMessage ?? .clear)
-            }
+        ZStack {
+            MainView
+        }
+        .onAppear(perform: onAppear)
+        .alert("Error", isPresented: $viewModel.uiProperies.showingAlert) {
+            Button("OK") {}
+        } message: {
+            Text(viewModel.uiProperies.alertMessage ?? .clear)
+        }
     }
 }
 
@@ -47,7 +48,7 @@ extension AuthView {
 
     /// Нажатие кнопки `дальше`
     func didTapNextButton() {
-        if isRegister {
+        if viewModel.uiProperies.isRegister {
             Logger.log(message: "Нажали кнопку регистрация")
             viewModel.didTapRegisterButton()
         } else {
@@ -58,15 +59,19 @@ extension AuthView {
 
     /// Нажатие кнопки `нет аккаунта`
     func didTapNoAccount() {
-        isRegister.toggle()
+        withAnimation(.bouncy(duration: 2)) {
+            viewModel.uiProperies.isRegister.toggle()
+        }
     }
 }
 
 // MARK: - Preview
 
 #Preview {
-    AuthView(viewModel: .mockData)
-        .environmentObject(Navigation())
-        .environmentObject(RootViewModel.mockData)
-        .modelContainer(Preview(SDUserModel.self).container)
+    NavigationStack {
+        AuthView(viewModel: .mockData)
+    }
+    .environmentObject(Navigation())
+    .environmentObject(RootViewModel.mockData)
+    .modelContainer(Preview(SDUserModel.self).container)
 }
