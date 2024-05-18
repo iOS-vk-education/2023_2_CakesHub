@@ -10,18 +10,46 @@ import SwiftUI
 
 extension AuthView {
 
+    @ViewBuilder
     var MainView: some View {
+        if !isRegister {
+            SignInView
+        } else {
+            RegisterView
+        }
+    }
+
+    var SignInView: some View {
         VStack {
             LogoView
 
             VStack {
-                SignInTitle
+                TitleView(title: "Sign In")
 
                 InputEmailBlock
 
                 InputPasswordBlock
 
-                DontHaveButtonView
+                AuthRegisterToggleButton(title: "Don't have account?")
+
+                NextButtonView
+            }
+            .padding()
+        }
+    }
+
+    var RegisterView: some View {
+        VStack {
+            LogoView
+
+            VStack {
+                TitleView(title: "Register")
+
+                InputEmailBlock
+
+                InputPasswordBlock
+
+                AuthRegisterToggleButton(title: "Already have account?")
 
                 NextButtonView
             }
@@ -38,8 +66,8 @@ extension AuthView {
             .foregroundStyle(CHMColor<IconPalette>.iconPrimary.color)
     }
 
-    var SignInTitle: some View {
-        Text("Sign In")
+    func TitleView(title: String) -> some View {
+        Text(title)
             .font(.title)
             .fontWeight(.bold)
             .foregroundStyle(Constants.textColor)
@@ -79,10 +107,9 @@ extension AuthView {
         .padding(.top, 20)
     }
 
-    var DontHaveButtonView: some View {
-        // FIXME: Тут висит регистарция для РК3. Тут должен быть переключатель экранов регистрация <-> войти
-        Button(action: didTapRegisterButton, label: {
-            Text("Don't have account?")
+    func AuthRegisterToggleButton(title: String) -> some View {
+        Button(action: didTapNoAccount, label: {
+            Text(title)
                 .fontWeight(.bold)
                 .foregroundStyle(.gray)
         })
@@ -91,7 +118,7 @@ extension AuthView {
     }
 
     var NextButtonView: some View {
-        Button(action: didTapSignInButton, label: {
+        Button(action: didTapNextButton, label: {
             Image(systemName: "arrow.right")
                 .font(.system(size: 24, weight: .bold))
                 .foregroundStyle(Color.white)
