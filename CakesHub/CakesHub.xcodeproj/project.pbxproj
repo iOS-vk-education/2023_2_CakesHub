@@ -182,8 +182,6 @@
 		E56B70452BD257F600851C05 /* SDModelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B70442BD257F600851C05 /* SDModelable.swift */; };
 		E56D0FF72B80CF6500B803EF /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56D0FF62B80CF6500B803EF /* CategoriesView.swift */; };
 		E56D0FF92B80D0A100B803EF /* CategoriesTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56D0FF82B80D0A100B803EF /* CategoriesTab.swift */; };
-		E5719F542BF9318B009A5917 /* AnyTransition+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5719F532BF9318B009A5917 /* AnyTransition+Extenstions.swift */; };
-		E5719F562BF931AD009A5917 /* FlipTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5719F552BF931AD009A5917 /* FlipTransaction.swift */; };
 		E57128FC2BF7325500C96846 /* NotificationDetailVMData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57128F02BF7325500C96846 /* NotificationDetailVMData.swift */; };
 		E57128FD2BF7325500C96846 /* NotificationDetailVMReducers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57128F12BF7325500C96846 /* NotificationDetailVMReducers.swift */; };
 		E57128FE2BF7325500C96846 /* NotificationDetailVMUIProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57128F22BF7325500C96846 /* NotificationDetailVMUIProperties.swift */; };
@@ -191,6 +189,8 @@
 		E57129002BF7325500C96846 /* NotificationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57128F62BF7325500C96846 /* NotificationDetailView.swift */; };
 		E57129012BF7325500C96846 /* NotificationDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57128F82BF7325500C96846 /* NotificationDetailViewModel.swift */; };
 		E57129022BF7325500C96846 /* NotificationDetailViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57128F92BF7325500C96846 /* NotificationDetailViewModel+Mock.swift */; };
+		E5719F542BF9318B009A5917 /* AnyTransition+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5719F532BF9318B009A5917 /* AnyTransition+Extenstions.swift */; };
+		E5719F562BF931AD009A5917 /* FlipTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5719F552BF931AD009A5917 /* FlipTransaction.swift */; };
 		E5727DF72BEBA3A0008543BD /* AllChatsVMReducers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5727DF62BEBA3A0008543BD /* AllChatsVMReducers.swift */; };
 		E5727DFE2BEBFA47008543BD /* AllChatsVMScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5727DFD2BEBFA47008543BD /* AllChatsVMScreens.swift */; };
 		E57C920F2B93C5CB00EC90F5 /* SwiftPrettyPrint in Frameworks */ = {isa = PBXBuildFile; productRef = E57C920E2B93C5CB00EC90F5 /* SwiftPrettyPrint */; };
@@ -433,8 +433,6 @@
 		E56B70442BD257F600851C05 /* SDModelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDModelable.swift; sourceTree = "<group>"; };
 		E56D0FF62B80CF6500B803EF /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		E56D0FF82B80D0A100B803EF /* CategoriesTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTab.swift; sourceTree = "<group>"; };
-		E5719F532BF9318B009A5917 /* AnyTransition+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyTransition+Extenstions.swift"; sourceTree = "<group>"; };
-		E5719F552BF931AD009A5917 /* FlipTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipTransaction.swift; sourceTree = "<group>"; };
 		E57128F02BF7325500C96846 /* NotificationDetailVMData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailVMData.swift; sourceTree = "<group>"; };
 		E57128F12BF7325500C96846 /* NotificationDetailVMReducers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailVMReducers.swift; sourceTree = "<group>"; };
 		E57128F22BF7325500C96846 /* NotificationDetailVMUIProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailVMUIProperties.swift; sourceTree = "<group>"; };
@@ -442,6 +440,8 @@
 		E57128F62BF7325500C96846 /* NotificationDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailView.swift; sourceTree = "<group>"; };
 		E57128F82BF7325500C96846 /* NotificationDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailViewModel.swift; sourceTree = "<group>"; };
 		E57128F92BF7325500C96846 /* NotificationDetailViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NotificationDetailViewModel+Mock.swift"; sourceTree = "<group>"; };
+		E5719F532BF9318B009A5917 /* AnyTransition+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyTransition+Extenstions.swift"; sourceTree = "<group>"; };
+		E5719F552BF931AD009A5917 /* FlipTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipTransaction.swift; sourceTree = "<group>"; };
 		E5727DF62BEBA3A0008543BD /* AllChatsVMReducers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChatsVMReducers.swift; sourceTree = "<group>"; };
 		E5727DFD2BEBFA47008543BD /* AllChatsVMScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChatsVMScreens.swift; sourceTree = "<group>"; };
 		E58825D82BEDB32400929FD1 /* ChatVMServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVMServices.swift; sourceTree = "<group>"; };

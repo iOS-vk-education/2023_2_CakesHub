@@ -64,6 +64,7 @@ private extension MainView {
             .overlay(alignment: .top) {
                 if viewModel.showLoader {
                     ProgressView()
+                        .tint(CHMColor<IconPalette>.iconRed.color)
                 }
             }
             .refreshable {

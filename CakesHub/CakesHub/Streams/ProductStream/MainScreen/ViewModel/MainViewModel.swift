@@ -19,8 +19,8 @@ protocol MainViewModelProtocol: AnyObject {
 // MARK: - MainViewModel
 
 final class MainViewModel: ObservableObject, ViewModelProtocol {
-    @Published var showLoader: Bool = false
-    @Published var root: RootViewModel!
+    @Published private(set) var showLoader: Bool = false
+    @Published private var root: RootViewModel!
 }
 
 // MARK: - MainViewModelProtocol
