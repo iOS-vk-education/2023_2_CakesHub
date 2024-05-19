@@ -11,35 +11,39 @@ struct EditNameView: View {
     @State private var oldusername = ""
     @State private var newusername = ""
     
-    private var isLoginButtleDisabled: Bool {
-        oldusername.isEmpty || newusername.isEmpty
-    }
+    private func validateUsername(_ username: String) -> Bool {
+            let regex = "[a-zA-Z]+"
+            return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: username)
+        }
 
     var body: some View {
         VStack {
             VStack(spacing: 16) {
-                TextField("Старый никнейм", text: $oldusername)
+                Text("MILANA")
                     .customStyle()
                 TextField("Новый никнейм", text: $newusername)
                     .customStyle()
+                    .onChange(of: newusername) { newValue in
+                        if !validateUsername(newValue) {
+                            Alert(title: Text("Ошибка"), message: Text("Никнейм должен состоять только из латинских букв и цифр без пробелов."), dismissButton:.default(Text("ОК")))
+                        }
+                    }
             }
             .padding(.top, 30)
             
             Button(action: {}) {
-                Text("Sign In")
+                Text("Сохранить")
                     .foregroundStyle(.white)
                     .font(.title2)
                     .bold()
             }
             .frame(width: 320, height: 60)
-            .background(isLoginButtleDisabled ? Color.gray.opacity(0.6) : /*CHMColor<BackgroundPalette>.bgMainColor.color*/ Color.pink.opacity(0.6))
-            .clipShape(RoundedRectangle(cornerRadius: 15))
-            .disabled(isLoginButtleDisabled )
+            .background(CHMColor<BackgroundPalette>.bgRed.color)         .clipShape(RoundedRectangle(cornerRadius: 45))
             .padding()
          }
         .padding(110)
         Spacer()
-        .navigationTitle("Редактирование")
+        .navigationTitle("Настройки")
     }
 }
 

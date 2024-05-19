@@ -31,6 +31,10 @@ extension SettingsView {
     var PersonalSection: some View {
         Section(header: Text("Personal information")) {
             Button(action: {}) {
+                Label("Profile", systemImage: "person")
+                    .foregroundColor(Constants.textColor)
+            }
+            Button(action: {}) {
                 Label("Password", systemImage: "lock")
                     .foregroundColor(Constants.textColor)
             }
