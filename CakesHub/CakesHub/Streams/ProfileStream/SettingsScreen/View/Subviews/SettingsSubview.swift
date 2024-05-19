@@ -9,7 +9,7 @@
 import SwiftUI
 
 extension SettingsView {
-
+    
     var MainView: some View {
         List {
             Group {
@@ -43,11 +43,23 @@ extension SettingsView {
                 Label("Mail", systemImage: "envelope")
                     .foregroundColor(Constants.textColor)
             }
-
-            Button(action: {}) {
+            
+            Button(action: {
+                self.showAlert = true
+            }) {
                 Label("Delete account", systemImage: "trash")
                     .foregroundColor(Constants.deleteColor)
             }
+            .alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text("Вы действительно хотите удалить аккаунт?"),
+                    primaryButton:.destructive(Text("Да")) {
+                        //код для удаления аккаунта
+                    },
+                    secondaryButton:.cancel()
+                )
+            }
+            
         }
     }
 
@@ -62,12 +74,20 @@ extension SettingsView {
 
     var DocumentsSection: some View {
         Section(header: Text("Documents")) {
-            Button(action: {}) {
+            Button(action: {
+                if let url = URL(string: "https://www.apple.com/ru/legal/privacy/ru/") {
+                    UIApplication.shared.open(url)
+                }
+            }) {
                 Label("Privacy Policy", systemImage: "doc.text")
                     .foregroundColor(Constants.textColor)
             }
 
-            Button(action: {}) {
+            Button(action: {
+                if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/ru/terms.html") {
+                    UIApplication.shared.open(url)
+                }
+            }) {
                 Label("User Agreement", systemImage: "doc.text")
                     .foregroundColor(Constants.textColor)
             }
@@ -76,7 +96,12 @@ extension SettingsView {
 
     @ViewBuilder
     var ButtonsBlock: some View {
-        Button(action: {}) {
+        Button(action: {
+            guard let url = URL(string: "https://t.me/ms_shakhbieva") else {
+                return
+            }
+            UIApplication.shared.open(url)
+        }) {
             Label("Support", systemImage: "questionmark.circle")
         }
 

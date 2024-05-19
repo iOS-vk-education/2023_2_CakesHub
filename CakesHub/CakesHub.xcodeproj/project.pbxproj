@@ -11,6 +11,8 @@
 		A332D16A2BB2F842007C194D /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1672BB2F842007C194D /* ProfileScreen.swift */; };
 		A332D16B2BB2F842007C194D /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1682BB2F842007C194D /* ProfileViewModel.swift */; };
 		A339C5542BF9743C00786696 /* EditStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339C5532BF9743C00786696 /* EditStatusView.swift */; };
+		A339C5562BF9EB1B00786696 /* EditPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339C5552BF9EB1B00786696 /* EditPasswordView.swift */; };
+		A339C5582BF9F25200786696 /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339C5572BF9F25200786696 /* SupportView.swift */; };
 		A37BC6DA2BF10E4400385FA4 /* EditNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37BC6D92BF10E4400385FA4 /* EditNameView.swift */; };
 		A37BC6DC2BF10E6100385FA4 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37BC6DB2BF10E6100385FA4 /* EditProfileView.swift */; };
 		A3A02C962BF8D4EC004FE474 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A02C952BF8D4EC004FE474 /* RegisterView.swift */; };
@@ -264,6 +266,8 @@
 		A332D1672BB2F842007C194D /* ProfileScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		A332D1682BB2F842007C194D /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		A339C5532BF9743C00786696 /* EditStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStatusView.swift; sourceTree = "<group>"; };
+		A339C5552BF9EB1B00786696 /* EditPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordView.swift; sourceTree = "<group>"; };
+		A339C5572BF9F25200786696 /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
 		A37BC6D92BF10E4400385FA4 /* EditNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNameView.swift; sourceTree = "<group>"; };
 		A37BC6DB2BF10E6100385FA4 /* EditProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		A3A02C952BF8D4EC004FE474 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -1868,6 +1872,8 @@
 				A332D1672BB2F842007C194D /* ProfileScreen.swift */,
 				A3A03F582BB3430D0034C0B1 /* NotificationsView.swift */,
 				A339C5532BF9743C00786696 /* EditStatusView.swift */,
+				A339C5552BF9EB1B00786696 /* EditPasswordView.swift */,
+				A339C5572BF9F25200786696 /* SupportView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -2118,6 +2124,7 @@
 				E52CDD0C2BB6460E009C08B9 /* ChatView.swift in Sources */,
 				A3A03F592BB3430D0034C0B1 /* NotificationsView.swift in Sources */,
 				E51B32CB2B7E5FEF0028E8C7 /* CHMProductButton+Defaults.swift in Sources */,
+				A339C5582BF9F25200786696 /* SupportView.swift in Sources */,
 				E5727DF72BEBA3A0008543BD /* AllChatsVMReducers.swift in Sources */,
 				E523BD1B2BEFA128008B0F70 /* FeedbackView.swift in Sources */,
 				E5272FBF2B9A9F0100F181A1 /* RootView.swift in Sources */,
@@ -2127,6 +2134,7 @@
 				E5C5408B2BEAF7DC0025EBF1 /* AllChatsViewModel.swift in Sources */,
 				E57129002BF7325500C96846 /* NotificationDetailView.swift in Sources */,
 				E5A8E8602BEABCB3004FD3DA /* SDChatMessageModel.swift in Sources */,
+				A339C5562BF9EB1B00786696 /* EditPasswordView.swift in Sources */,
 				E51B334B2B7E62AF0028E8C7 /* ProductDetailScreen.swift in Sources */,
 				E51B33472B7E62AF0028E8C7 /* ProductReviewsScreen.swift in Sources */,
 				E56B70452BD257F600851C05 /* SDModelable.swift in Sources */,
