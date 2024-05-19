@@ -13,20 +13,34 @@ import SwiftUI
 protocol MainViewModelProtocol: AnyObject {
     func pullToRefresh()
     func didTapFavoriteButton(id: String, section: RootViewModel.Section, isSelected: Bool)
+    func setRoot(root: RootViewModel)
 }
 
 // MARK: - MainViewModel
 
 final class MainViewModel: ObservableObject, ViewModelProtocol {
+    @Published var showLoader: Bool = false
+    @Published var root: RootViewModel!
 }
 
-// MARK: - Actions
+// MARK: - MainViewModelProtocol
 
 extension MainViewModel: MainViewModelProtocol {
 
-    func pullToRefresh() {}
+    @MainActor
+    func pullToRefresh() {
+        showLoader = true
+        Task {
+            try? await root.pullToRefresh()
+            showLoader = false
+        }
+    }
 
     func didTapFavoriteButton(id: String, section: RootViewModel.Section, isSelected: Bool) {
         Logger.log(message: "id: \(id) | section: \(section.title) | isSelected: \(isSelected)")
+    }
+
+    func setRoot(root: RootViewModel) {
+        self.root = root
     }
 }

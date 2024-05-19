@@ -18,6 +18,7 @@ struct MainView: View, ViewModelable {
 
     var body: some View {
         MainBlock
+            .onAppear(perform: onAppear)
             .navigationDestination(for: [ProductModel].self) { products in
                 AllProductsCategoryView(viewModel: .init(products: products))
             }
@@ -27,7 +28,11 @@ struct MainView: View, ViewModelable {
 // MARK: - Actions
 
 extension MainView {
-    
+
+    func onAppear() {
+        viewModel.setRoot(root: rootViewModel)
+    }
+
     /// Нажатие на кнопку лайка карточки
     func didTapFavoriteButton(id: String, section: RootViewModel.Section, isSelected: Bool) {
         viewModel.didTapFavoriteButton(id: id, section: section, isSelected: isSelected)
@@ -56,6 +61,14 @@ private extension MainView {
     @ViewBuilder
     var MainBlock: some View {
         ScrollViewBlock
+            .overlay(alignment: .top) {
+                if viewModel.showLoader {
+                    ProgressView()
+                }
+            }
+            .refreshable {
+                viewModel.pullToRefresh()
+            }
     }
 }
 
