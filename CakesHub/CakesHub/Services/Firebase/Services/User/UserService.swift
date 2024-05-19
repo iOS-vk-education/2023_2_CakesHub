@@ -26,6 +26,7 @@ protocol UserServiceProtocol {
 final class UserService {
     
     static let shared: UserServiceProtocol = UserService()
+
     private let storage = Storage.storage()
     private let db = Firestore.firestore()
     private let collection = FirestoreCollections.users.rawValue
