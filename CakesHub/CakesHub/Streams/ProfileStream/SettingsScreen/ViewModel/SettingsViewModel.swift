@@ -15,6 +15,8 @@ protocol SettingsViewModelProtocol: AnyObject {
     func signOut() throws
     // MARK: Actions
     func didTapSignOutButton()
+    // MARK: Memory
+    func deleteChatHistoryFromMemory()
     // MARK: Reducers
     func setNavigation(nav: Navigation, modelContext: ModelContext, root: RootViewModel)
 }
@@ -47,6 +49,7 @@ extension SettingsViewModel {
 
     func signOut() throws {
         try services.authService.logoutUser()
+        deleteChatHistoryFromMemory()
     }
 }
 
@@ -67,6 +70,16 @@ extension SettingsViewModel {
         reducers.nav.goToRoot()
     }
 }
+
+// MARK: - Memory
+
+extension SettingsViewModel {
+
+    func deleteChatHistoryFromMemory() {
+        try? reducers.modelContext.delete(model: SDChatMessageModel.self)
+    }
+}
+
 
 // MARK: - Reducers
 

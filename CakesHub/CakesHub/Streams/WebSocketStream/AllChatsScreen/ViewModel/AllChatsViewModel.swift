@@ -83,7 +83,9 @@ extension AllChatsViewModel {
         // Достаём данные из памяти устройства
         Task {
             chatCells = await fetchMessages()
-            uiProperties.showLoader = false
+            withAnimation {
+                uiProperties.showLoader = false
+            }
         }
 
         // Получаем данные из сети
@@ -94,7 +96,9 @@ extension AllChatsViewModel {
             saveMessages(messages: userMessages)
 
             chatCells = await assembleMessagesInfoCells(messages: userMessages)
-            uiProperties.showLoader = false
+            withAnimation {
+                uiProperties.showLoader = false
+            }
         }
     }
 

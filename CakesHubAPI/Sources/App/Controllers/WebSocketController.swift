@@ -9,7 +9,7 @@ import Vapor
 
 // MARK: - WebSocketController
 
-final class WebSocketController: RouteCollection {
+final class WebSocketController: RouteCollection, @unchecked Sendable {
 
     // MARK: Private Values
 
@@ -28,6 +28,7 @@ final class WebSocketController: RouteCollection {
 
 private extension WebSocketController {
 
+    @Sendable
     func handleSocketUpgrade(req: Request, ws: WebSocket) {
         Logger.log(message: "Подключение")
 
