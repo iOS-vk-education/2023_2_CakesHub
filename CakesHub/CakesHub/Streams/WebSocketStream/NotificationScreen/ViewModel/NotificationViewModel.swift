@@ -72,16 +72,15 @@ extension NotificationViewModel {
 
     @MainActor
     func onAppear(currentUserID: String) {
+        guard notifications.isEmpty else { return }
+        isScreenShimmering = true
         // Достаём данные из сети
         Task {
-            isScreenShimmering = true
             do {
                 let fbNotifications = try await fetchNotifications(currentUserID: currentUserID)
                 notifications = fbNotifications.map { $0.mapper }
-                if isScreenShimmering {
-                    withAnimation {
-                        isScreenShimmering = false
-                    }
+                withAnimation {
+                    isScreenShimmering = false
                 }
 
                 // Кэшируем новые уведомления
@@ -98,7 +97,9 @@ extension NotificationViewModel {
         // Достаём закэшированные уведомления
         let memoryNotifications = fetch()
         notifications = memoryNotifications.map { $0.mapper }
-        isScreenShimmering = false
+        withAnimation {
+            isScreenShimmering = false
+        }
     }
 
     func deleteNotification(id notificationID: String) {
