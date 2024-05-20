@@ -13,6 +13,9 @@ struct EditPasswordView: View {
     @State private var oldpassword = ""
     @State private var newpassword = ""
     @State private var showingAlert = false
+    @State private var alertMessage = ""
+    @EnvironmentObject private var root: RootViewModel
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack {
@@ -30,8 +33,23 @@ struct EditPasswordView: View {
 
             Button(action: {
                 showingAlert = !validatePassword(oldpassword) || !validatePassword(newpassword)
+                if showingAlert {
+                    alertMessage = Constants.errorMessage
+                }
                 if showingAlert { return }
-                // TODO: Добавить смену пароля
+                Task {
+                    do {
+                        try await AuthService.shared.updatePassword(
+                            email: root.currentUser.email,
+                            oldPassword: oldpassword,
+                            newPassword: newpassword
+                        )
+                        dismiss()
+                    } catch {
+                        showingAlert = true
+                        alertMessage = error.localizedDescription
+                    }
+                }
             }) {
                 Text(String(localized: "Save"))
                     .modifier(SettingButtonsModifier(kind: .button))
@@ -43,11 +61,20 @@ struct EditPasswordView: View {
         .alert(String(localized: "Error"), isPresented: $showingAlert) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text(String(localized: "The password must consist only of Latin letters and numbers without spaces."))
+            Text(alertMessage)
         }
     }
+}
 
-    private func validatePassword(_ password: String) -> Bool {
+private extension EditPasswordView {
+
+    enum Constants {
+        static let errorMessage = String(
+            localized: "The password must consist only of Latin letters and numbers without spaces."
+        )
+    }
+
+    func validatePassword(_ password: String) -> Bool {
         let passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d).{6,}$"
         return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: password)
     }

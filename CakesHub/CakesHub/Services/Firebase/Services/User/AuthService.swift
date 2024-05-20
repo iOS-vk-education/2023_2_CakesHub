@@ -16,6 +16,7 @@ protocol AuthServiceProtocol: AnyObject {
     func loginUser(with userRequest: LoginUserRequest) async throws -> String
     func logoutUser() throws
     func deleteUser() async throws
+    func updatePassword(email: String, oldPassword: String, newPassword: String) async throws
 }
 
 // MARK: - AuthService
@@ -56,5 +57,14 @@ extension AuthService: AuthServiceProtocol {
         }
         
         try await currentUser.delete()
+    }
+
+    func updatePassword(email: String, oldPassword: String, newPassword: String) async throws {
+        guard let currentUser = auth.currentUser else {
+            throw APIError.userIsNil
+        }
+        let credential = EmailAuthProvider.credential(withEmail: email, password: oldPassword)
+        let _ = try await currentUser.reauthenticate(with: credential)
+        try await currentUser.updatePassword(to: newPassword)
     }
 }

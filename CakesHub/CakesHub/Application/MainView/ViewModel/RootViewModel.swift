@@ -89,7 +89,10 @@ extension RootViewModel: RootViewModelProtocol {
         }
 
         // Получаем данные пользователя
-        let fbUser = try await services.userService.getUserInfo(uid: currentUser.uid)
+        guard let userID = UserDefaults.standard.string(forKey: AuthViewModel.UserDefaultsKeys.currentUser) else {
+            return
+        }
+        let fbUser = try await services.userService.getUserInfo(uid: userID)
         currentUser = fbUser
         saveUserInMemory(user: fbUser)
     }
@@ -188,17 +191,20 @@ extension RootViewModel {
 
 extension RootViewModel {
 
+    @MainActor
     func setCurrentUser(for user: FBUserModel) {
         currentUser = user
         // Фильтруем данные только текущего пользователя
         productData.currentUserProducts = productData.products.filter { $0.seller.uid == currentUser.uid }
     }
 
+    @MainActor
     func resetUser() {
         currentUser = .clear
         productData.currentUserProducts = []
     }
 
+    @MainActor
     func addNewProduct(product: FBProductModel) {
         productData.products.append(product)
         productData.currentUserProducts.append(product)
@@ -235,6 +241,7 @@ extension RootViewModel {
     }
 
     /// Обновляем данные существующего товара, если таковой имеется
+    @MainActor
     func updateExistedProduct(product: FBProductModel) {
         guard
             let index = productData.products.firstIndex(where: { $0.documentID == product.documentID })
@@ -271,19 +278,23 @@ extension RootViewModel {
 
     }
 
+    @MainActor
     func setContext(context: ModelContext) {
         guard self.context.isNil else { return }
         self.context = context
     }
 
+    @MainActor
     func updateUserImage(newAvatarString: String?) {
         currentUser.avatarImage = newAvatarString
     }
 
+    @MainActor
     func updateUserHeaderImage(newHeaderString: String?) {
         currentUser.headerImage = newHeaderString
     }
 
+    @MainActor
     func updateUserName(newNickname: String) {
         currentUser.nickname = newNickname
     }
