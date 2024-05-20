@@ -319,9 +319,11 @@ extension RootViewModel {
             }
         }
 
+        // Удаляем торт из товаров пользователя
         let userProducts = productData.currentUserProducts
         productData.currentUserProducts = userProducts.filter({ $0.documentID != id })
 
+        // Удаляем торт из памяти устройства
         do {
             try context?.delete(model: SDProductModel.self, where: #Predicate { $0._id == id })
             try context?.save()
