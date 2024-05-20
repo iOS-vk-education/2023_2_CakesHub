@@ -19,13 +19,26 @@ struct AuthView: View, ViewModelable {
     @State var viewModel = ViewModel()
 
     var body: some View {
-        MainView
-            .onAppear(perform: onAppear)
-            .alert("Error", isPresented: $viewModel.uiProperies.showingAlert) {
-                Button("OK") {}
-            } message: {
-                Text(viewModel.uiProperies.alertMessage ?? .clear)
-            }
+        ZStack {
+            MainView
+                .clipShape(
+                    .rect(
+                        cornerRadius: showRoundedRectangle ? 26 : 0
+                    )
+                )
+        }
+        .background(CHMColor<BackgroundPalette>.bgMainColor.color.gradient)
+        .ignoresSafeArea()
+        .onAppear(perform: onAppear)
+        .alert(String(localized: "Error"), isPresented: $viewModel.uiProperies.showingAlert) {
+            Button("OK") {}
+        } message: {
+            Text(viewModel.uiProperies.alertMessage ?? .clear)
+        }
+    }
+
+    private var showRoundedRectangle: Bool {
+        UIScreen.current?.displayCornerRadius ?? 0 > 26
     }
 }
 
@@ -43,23 +56,33 @@ private extension AuthView {
 // MARK: - Actions
 
 extension AuthView {
-    
-    /// Нажатие кнопки `регистрация`
-    func didTapRegisterButton() {
-        viewModel.didTapRegisterButton()
+
+    /// Нажатие кнопки `дальше`
+    func didTapNextButton() {
+        if viewModel.uiProperies.isRegister {
+            Logger.log(message: "Нажали кнопку регистрация")
+            viewModel.didTapRegisterButton()
+        } else {
+            Logger.log(message: "Нажали кнопку войти")
+            viewModel.didTapSignInButton()
+        }
     }
 
-    /// Нажатие кнопки `Войти`
-    func didTapSignInButton() {
-        viewModel.didTapSignInButton()
+    /// Нажатие кнопки `нет аккаунта`
+    func didTapNoAccount() {
+        withAnimation(.bouncy(duration: 2)) {
+            viewModel.uiProperies.isRegister.toggle()
+        }
     }
 }
 
 // MARK: - Preview
 
 #Preview {
-    AuthView(viewModel: .mockData)
-        .environmentObject(Navigation())
-        .environmentObject(RootViewModel.mockData)
-        .modelContainer(Preview(SDUserModel.self).container)
+    NavigationStack {
+        AuthView(viewModel: .mockData)
+    }
+    .environmentObject(Navigation())
+    .environmentObject(RootViewModel.mockData)
+    .modelContainer(Preview(SDUserModel.self).container)
 }

@@ -25,7 +25,7 @@ extension FBNotification: Mockable {
         id: "123",
         title: "Вы заказали у нас торт",
         date: Date().description,
-        message: "Это просто описание уведомления",
+        message: "Это просто описание уведомления с каким-то очень большим текстом, который не влезает в одну строку",
         productID: "1",
         receiverID: "2",
         creatorID: "3"

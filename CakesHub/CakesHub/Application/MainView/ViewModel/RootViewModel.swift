@@ -25,6 +25,7 @@ protocol RootViewModelProtocol: AnyObject {
     func addNewProduct(product: FBProductModel)
     func setContext(context: ModelContext)
     func updateExistedProduct(product: FBProductModel)
+    func updateUserName(newNickname: String)
 }
 
 // MARK: - RootViewModel
@@ -72,6 +73,32 @@ extension RootViewModel: RootViewModelProtocol {
             isShimmering = sections.isEmpty
         }
 
+        // Достаём данные из сети
+        let newFBProducts = try await services.cakeService.getCakesList()
+        productData.products = newFBProducts
+        filterCurrentUserProducts()
+
+        // Кэшируем данные
+        saveProductsInMemory(products: newFBProducts)
+
+        // Группируем данные по секциям
+        groupDataBySection(data: newFBProducts) { [weak self] sections in
+            guard let self else { return }
+            productData.sections = sections
+            isShimmering = false
+        }
+
+        // Получаем данные пользователя
+        guard let userID = UserDefaults.standard.string(forKey: AuthViewModel.UserDefaultsKeys.currentUser) else {
+            return
+        }
+        let fbUser = try await services.userService.getUserInfo(uid: userID)
+        currentUser = fbUser
+        saveUserInMemory(user: fbUser)
+    }
+
+    @MainActor
+    func pullToRefresh() async throws {
         // Достаём данные из сети
         let newFBProducts = try await services.cakeService.getCakesList()
         productData.products = newFBProducts
@@ -151,23 +178,33 @@ extension RootViewModel {
         do { try self.context?.save() }
         catch { Logger.log(kind: .error, message: "context.save() выдал ошибку: \(error.localizedDescription)") }
     }
+
+    /// Кэшируем данные пользователя
+    func saveUserInMemory(user: FBUserModel) {
+        let sdUser = SDUserModel(fbModel: user)
+        context?.insert(sdUser)
+        try? context?.save()
+    }
 }
 
 // MARK: - Reducers
 
 extension RootViewModel {
 
+    @MainActor
     func setCurrentUser(for user: FBUserModel) {
         currentUser = user
         // Фильтруем данные только текущего пользователя
         productData.currentUserProducts = productData.products.filter { $0.seller.uid == currentUser.uid }
     }
 
+    @MainActor
     func resetUser() {
         currentUser = .clear
         productData.currentUserProducts = []
     }
 
+    @MainActor
     func addNewProduct(product: FBProductModel) {
         productData.products.append(product)
         productData.currentUserProducts.append(product)
@@ -204,6 +241,7 @@ extension RootViewModel {
     }
 
     /// Обновляем данные существующего товара, если таковой имеется
+    @MainActor
     func updateExistedProduct(product: FBProductModel) {
         guard
             let index = productData.products.firstIndex(where: { $0.documentID == product.documentID })
@@ -240,9 +278,25 @@ extension RootViewModel {
 
     }
 
+    @MainActor
     func setContext(context: ModelContext) {
         guard self.context.isNil else { return }
         self.context = context
+    }
+
+    @MainActor
+    func updateUserImage(newAvatarString: String?) {
+        currentUser.avatarImage = newAvatarString
+    }
+
+    @MainActor
+    func updateUserHeaderImage(newHeaderString: String?) {
+        currentUser.headerImage = newHeaderString
+    }
+
+    @MainActor
+    func updateUserName(newNickname: String) {
+        currentUser.nickname = newNickname
     }
 }
 

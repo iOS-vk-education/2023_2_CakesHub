@@ -27,14 +27,14 @@ protocol AuthViewModelProtocol: AnyObject {
 
 @Observable
 final class AuthViewModel: ViewModelProtocol, AuthViewModelProtocol {
-    var uiProperies: ScreenData
+    var uiProperies: UIProperties
     @ObservationIgnored
     private var services: VMAuthServices
     @ObservationIgnored
     private var reducers: Reducers
 
     init(
-        uiProperies: ScreenData = .clear,
+        uiProperies: UIProperties = .clear,
         services: VMAuthServices = .clear,
         reducers: Reducers = .clear
     ) {
@@ -44,13 +44,12 @@ final class AuthViewModel: ViewModelProtocol, AuthViewModelProtocol {
     }
 }
 
-// MARK: - Actions
+// MARK: - Network
 
 extension AuthViewModel {
-    
-    /// Нажали кнопку  `регистрация`
+
     @MainActor
-    func didTapRegisterButton() {
+    func registerUser() {
         Task {
             do {
                 // Регестрируем пользователя
@@ -81,6 +80,9 @@ extension AuthViewModel {
                     with: LoginUserRequest(email: uiProperies.email, password: uiProperies.password)
                 )
 
+                // Очищаем все поля
+                resetUIProperties()
+
                 // Устанавливаем Web Socket соединение
                 startWebSocketLink(userID: userUID)
 
@@ -103,6 +105,35 @@ extension AuthViewModel {
         uiProperies.alertMessage = error.localizedDescription
         Logger.log(kind: .error, message: error)
     }
+
+    private func resetUIProperties() {
+        uiProperies = .clear
+    }
+}
+
+// MARK: - Actions
+
+extension AuthViewModel {
+
+    /// Нажали кнопку  `регистрация`
+    @MainActor
+    func didTapRegisterButton() {
+        if uiProperies.nickName.isEmpty || uiProperies.email.isEmpty || uiProperies.password.isEmpty {
+            uiProperies.showingAlert = true
+            uiProperies.alertMessage = String(localized: "Fill in all the fields.")
+        } else if uiProperies.password != uiProperies.repeatPassword {
+            uiProperies.showingAlert = true
+            uiProperies.alertMessage = String(localized: "The passwords don't match.")
+        } else if !isValidEmail(uiProperies.email) {
+            uiProperies.showingAlert = true
+            uiProperies.alertMessage = String(localized: "Invalid email format.")
+        } else if !isValidPassword(uiProperies.password) {
+            uiProperies.showingAlert = true
+            uiProperies.alertMessage = String(localized: "The password format is incorrect.")
+        } else {
+            registerUser()
+        }
+    }
 }
 
 // MARK: - Memory CRUD
@@ -110,6 +141,7 @@ extension AuthViewModel {
 extension AuthViewModel {
 
     /// Достаём данные о `пользователе` из устройства
+    @MainActor 
     func fetchUserInfo() {
         guard
             let userID = UserDefaults.standard.string(forKey: UserDefaultsKeys.currentUser)
@@ -217,5 +249,16 @@ private extension AuthViewModel {
                 }
             }
         }
+    }
+
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$"
+        let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
+
+    func isValidPassword(_ password: String) -> Bool {
+        let passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d).{6,}$"
+        return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: password)
     }
 }

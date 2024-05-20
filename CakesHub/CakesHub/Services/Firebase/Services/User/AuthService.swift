@@ -57,4 +57,13 @@ extension AuthService: AuthServiceProtocol {
         
         try await currentUser.delete()
     }
+
+    func updatePassword(email: String, oldPassword: String, newPassword: String) async throws {
+        guard let currentUser = auth.currentUser else {
+            throw APIError.userIsNil
+        }
+        let credential = EmailAuthProvider.credential(withEmail: email, password: oldPassword)
+        let _ = try await currentUser.reauthenticate(with: credential)
+        try await currentUser.updatePassword(to: newPassword)
+    }
 }

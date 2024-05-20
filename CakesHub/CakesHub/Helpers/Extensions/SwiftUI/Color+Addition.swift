@@ -80,6 +80,8 @@ extension CHMColor where Palette == TextPalette {
     static let textDescription = CHMColor(hexLight: 0x222222, hexDark: 0xF5F5F5)
     /// Выделенный красный текст: Ex: Цена при скидке
     static let textWild = CHMColor(hexLight: 0xDB3022, hexDark: 0xFF3E3E)
+    /// Красный текст
+    static let textRed = CHMColor(hexLight: 0xDB3022, hexDark: 0xEF3651)
 }
 
 // MARK: - Icon Colors

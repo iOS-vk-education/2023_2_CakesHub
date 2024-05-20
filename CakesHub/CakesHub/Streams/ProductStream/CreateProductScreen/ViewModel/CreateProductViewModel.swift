@@ -88,6 +88,7 @@ extension CreateProductViewModel: CreateProductViewModelProtocol {
     }
     
     /// Нажали кнопку `создать`
+    @MainActor 
     func didTapCreateProductButton() {
         // Создаём локальную карточку продукта
         let newProduct = configurationProductModel

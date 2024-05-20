@@ -42,7 +42,13 @@ extension MainView {
         GeometryReader { geo in
             let minY = geo.frame(in: .global).minY
             let iscrolling = minY > 0
-            CHMBigBannerView(configuration: .mockData, didTapButton: didTapBannerButton)
+            CHMBigBannerView(
+                configuration: .basic(
+                    imageKind: .uiImage(.bannerCake),
+                    bannerTitle: "Cakes\nHub"
+                ),
+                didTapButton: didTapBannerButton
+            )
             .frame(
                 width: geo.size.width,
                 height: iscrolling
