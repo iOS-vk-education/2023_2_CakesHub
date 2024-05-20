@@ -26,7 +26,6 @@ struct ProfileScreen: View {
                         image: viewModel.user.userImage,
                         nickname: viewModel.user.name
                     )
-                    // FIXME: Тут надо фетчить историю сообщений из FB
                     let vm = ChatViewModel(
                         data: .init(
                             messages: messages,

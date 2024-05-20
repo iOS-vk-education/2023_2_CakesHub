@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct SettingsView: View, ViewModelable {
-    @State var showAlert = false
     typealias ViewModel = SettingsViewModel
 
     @EnvironmentObject private var nav: Navigation

@@ -11,6 +11,8 @@ import Foundation
 extension SettingsViewModel {
 
     struct UIProperties: ClearConfigurationProtocol {
+        var showAlert: Bool = false
+
         static let clear = UIProperties()
     }
 }

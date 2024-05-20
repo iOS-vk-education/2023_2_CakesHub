@@ -30,42 +30,42 @@ extension SettingsView {
 
     var PersonalSection: some View {
         Section(header: Text("Personal information")) {
-            Button(action: {}) {
+            NavigationLink(destination: EditProfileView()) {
                 Label("Profile", systemImage: "person")
                     .foregroundColor(Constants.textColor)
             }
-            Button(action: {}) {
+
+            NavigationLink(destination: EditPasswordView()) {
                 Label("Password", systemImage: "lock")
                     .foregroundColor(Constants.textColor)
             }
 
-            Button(action: {}) {
+            NavigationLink(destination: EditProfileView()) {
                 Label("Mail", systemImage: "envelope")
                     .foregroundColor(Constants.textColor)
             }
             
             Button(action: {
-                self.showAlert = true
+                viewModel.uiProperties.showAlert = true
             }) {
                 Label("Delete account", systemImage: "trash")
                     .foregroundColor(Constants.deleteColor)
             }
-            .alert(isPresented: $showAlert) {
+            .alert(isPresented: $viewModel.uiProperties.showAlert) {
                 Alert(
                     title: Text("Вы действительно хотите удалить аккаунт?"),
-                    primaryButton:.destructive(Text("Да")) {
-                        //код для удаления аккаунта
+                    primaryButton: .destructive(Text("Да")) {
+                        // Удалить акк
                     },
-                    secondaryButton:.cancel()
+                    secondaryButton: .cancel()
                 )
             }
-            
         }
     }
 
     var NotificationSection: some View {
         Section(header: Text("Notifications")) {
-            Button(action: {}) {
+            NavigationLink(destination: NotificationsView()) {
                 Label("Notifications", systemImage: "bell")
                     .foregroundColor(Constants.textColor)
             }

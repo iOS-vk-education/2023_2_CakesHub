@@ -246,6 +246,7 @@
 		E5C99DD82B9A833F0000A2A9 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C99DD72B9A833F0000A2A9 /* CustomTabBar.swift */; };
 		E5DBD6D62BBDB49B002ACFB2 /* ProfileSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DBD6D42BBDB49B002ACFB2 /* ProfileSubviews.swift */; };
 		E5DC48B52BB322CD000F3EFE /* ProfileViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DC48B42BB322CD000F3EFE /* ProfileViewModel+Mock.swift */; };
+		E5DE7BC22BFAC3AC006CE374 /* SettingButtonsModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE7BC12BFAC3AC006CE374 /* SettingButtonsModifier.swift */; };
 		E5DE815C2BBFDC360012BD8E /* CreateProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE81562BBFDC360012BD8E /* CreateProductView.swift */; };
 		E5DE815D2BBFDC360012BD8E /* CreateProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE81582BBFDC360012BD8E /* CreateProductViewModel.swift */; };
 		E5DE815E2BBFDC360012BD8E /* CreateProductViewModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE81592BBFDC360012BD8E /* CreateProductViewModel+Mock.swift */; };
@@ -497,6 +498,7 @@
 		E5C99DD72B9A833F0000A2A9 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		E5DBD6D42BBDB49B002ACFB2 /* ProfileSubviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSubviews.swift; sourceTree = "<group>"; };
 		E5DC48B42BB322CD000F3EFE /* ProfileViewModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileViewModel+Mock.swift"; sourceTree = "<group>"; };
+		E5DE7BC12BFAC3AC006CE374 /* SettingButtonsModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButtonsModifier.swift; sourceTree = "<group>"; };
 		E5DE81562BBFDC360012BD8E /* CreateProductView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateProductView.swift; sourceTree = "<group>"; };
 		E5DE81582BBFDC360012BD8E /* CreateProductViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateProductViewModel.swift; sourceTree = "<group>"; };
 		E5DE81592BBFDC360012BD8E /* CreateProductViewModel+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CreateProductViewModel+Mock.swift"; sourceTree = "<group>"; };
@@ -1412,6 +1414,7 @@
 		E55991182BF2D716001412CB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E5DE7BC02BFAAF15006CE374 /* DeprecatedSubviews */,
 				E55991162BF2D716001412CB /* Subviews */,
 				E55991172BF2D716001412CB /* SettingsView.swift */,
 			);
@@ -1867,15 +1870,23 @@
 		E5DBD6D72BBDB4D2002ACFB2 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A332D1672BB2F842007C194D /* ProfileScreen.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		E5DE7BC02BFAAF15006CE374 /* DeprecatedSubviews */ = {
+			isa = PBXGroup;
+			children = (
+				A3A03F582BB3430D0034C0B1 /* NotificationsView.swift */,
 				A37BC6DB2BF10E6100385FA4 /* EditProfileView.swift */,
 				A37BC6D92BF10E4400385FA4 /* EditNameView.swift */,
-				A332D1672BB2F842007C194D /* ProfileScreen.swift */,
-				A3A03F582BB3430D0034C0B1 /* NotificationsView.swift */,
 				A339C5532BF9743C00786696 /* EditStatusView.swift */,
 				A339C5552BF9EB1B00786696 /* EditPasswordView.swift */,
 				A339C5572BF9F25200786696 /* SupportView.swift */,
+				E5DE7BC12BFAC3AC006CE374 /* SettingButtonsModifier.swift */,
 			);
-			path = Screens;
+			path = DeprecatedSubviews;
 			sourceTree = "<group>";
 		};
 		E5DE81552BBFDC360012BD8E /* Model */ = {
@@ -2113,6 +2124,7 @@
 				E5C5407D2BEAE7000025EBF1 /* CHMChatCell+Defaults.swift in Sources */,
 				E5DE81602BBFDC650012BD8E /* CreateProductSubviews.swift in Sources */,
 				E5155CE32BCBFDB900BF773D /* SDProductReviewsModel.swift in Sources */,
+				E5DE7BC22BFAC3AC006CE374 /* SettingButtonsModifier.swift in Sources */,
 				E51B32D62B7E5FEF0028E8C7 /* CHMNewProductCard.swift in Sources */,
 				E50E901E2B7E7C0200C370A9 /* MainViewModel.swift in Sources */,
 				E530C7302B935DCD00658817 /* DictionaryConvertible.swift in Sources */,
