@@ -9,12 +9,12 @@
 import SwiftUI
 
 struct SettingsView: View, ViewModelable {
-    @State var showAlert = false
     typealias ViewModel = SettingsViewModel
 
     @EnvironmentObject private var nav: Navigation
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var root: RootViewModel
+    @EnvironmentObject var profileVM: ProfileViewModel
     @State var viewModel = ViewModel()
 
     var body: some View {
@@ -36,6 +36,7 @@ private extension SettingsView {
 
 #Preview {
     SettingsView(viewModel: .mockData)
+        .environmentObject(ProfileViewModel())
         .environmentObject(Navigation())
         .environmentObject(RootViewModel.mockData)
 }

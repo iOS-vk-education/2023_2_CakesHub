@@ -18,7 +18,7 @@ protocol UserServiceProtocol {
     func deleteUserInfo(uid: String) async throws
     func createUserInfo(for user: FBUserModel) async throws
     func addUserAddress(for userID: String, address: String) async throws
-    func updateUserImage(userID: String, uiImage: UIImage, kind: UserService.UserImageKind) async throws
+    func updateUserImage(userID: String, imageData: Data, kind: UserService.UserImageKind) async throws -> URL
 }
 
 // MARK: - UserService
@@ -83,13 +83,12 @@ extension UserService: UserServiceProtocol {
     }
     
     /// Обновление фотографии пользователя
-    func updateUserImage(userID: String, uiImage: UIImage, kind: UserImageKind) async throws {
-        guard let imageData = uiImage.jpegData(compressionQuality: 1) else {
-            throw APIError.badParameters
-        }
+    @discardableResult
+    func updateUserImage(userID: String, imageData: Data, kind: UserImageKind) async throws -> URL {
         let imageURL = try await createImage(imageData: imageData)
         let docRef = db.collection(collection).document(userID)
         try await docRef.updateData([kind.rawValue: imageURL.absoluteString])
+        return imageURL
     }
 }
 

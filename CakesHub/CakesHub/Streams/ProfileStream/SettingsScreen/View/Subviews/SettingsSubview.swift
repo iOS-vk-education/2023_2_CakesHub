@@ -23,6 +23,27 @@ extension SettingsView {
             }
             .listRowBackground(Constants.rowColor)
         }
+        .sheet(isPresented: $viewModel.uiProperties.openSheet, onDismiss: {
+            viewModel.uiProperties.selectedScreen = nil
+        }) {
+            ZStack(alignment: .top) {
+                switch viewModel.uiProperties.selectedScreen {
+                case .updatePassword:
+                    EditPasswordView()
+                case .updateEmail:
+                    EditEmailView()
+                case .none:
+                    Text("Error")
+                }
+
+                RoundedRectangle(cornerRadius: 3)
+                    .fill(CHMColor<SeparatorPalette>.divider.color)
+                    .frame(width: 60, height: 6)
+                    .offset(y: 15)
+            }
+            .presentationDetents([.medium])
+            .presentationCornerRadius(12)
+        }
         .scrollContentBackground(.hidden)
         .navigationTitle("Settings")
         .background(Constants.bgColor)
@@ -30,42 +51,50 @@ extension SettingsView {
 
     var PersonalSection: some View {
         Section(header: Text("Personal information")) {
-            Button(action: {}) {
+            NavigationLink(
+                destination: EditProfileView().environmentObject(profileVM)
+            ) {
                 Label("Profile", systemImage: "person")
                     .foregroundColor(Constants.textColor)
             }
-            Button(action: {}) {
+
+            Button(action: {
+                viewModel.uiProperties.selectedScreen = .updatePassword
+                viewModel.uiProperties.openSheet = true
+            }) {
                 Label("Password", systemImage: "lock")
                     .foregroundColor(Constants.textColor)
             }
 
-            Button(action: {}) {
+            Button(action: {
+                viewModel.uiProperties.selectedScreen = .updateEmail
+                viewModel.uiProperties.openSheet = true
+            }) {
                 Label("Mail", systemImage: "envelope")
                     .foregroundColor(Constants.textColor)
             }
             
             Button(action: {
-                self.showAlert = true
+                viewModel.uiProperties.showAlert = true
             }) {
                 Label("Delete account", systemImage: "trash")
                     .foregroundColor(Constants.deleteColor)
             }
-            .alert(isPresented: $showAlert) {
+            .alert(isPresented: $viewModel.uiProperties.showAlert) {
                 Alert(
-                    title: Text("Вы действительно хотите удалить аккаунт?"),
-                    primaryButton:.destructive(Text("Да")) {
-                        //код для удаления аккаунта
+                    title: Text(String(localized: "Do you really want to delete your account?")),
+                    primaryButton: .destructive(Text(String(localized: "Yes"))) {
+                        viewModel.didTapDeleteAccount()
                     },
-                    secondaryButton:.cancel()
+                    secondaryButton: .cancel()
                 )
             }
-            
         }
     }
 
     var NotificationSection: some View {
         Section(header: Text("Notifications")) {
-            Button(action: {}) {
+            NavigationLink(destination: NotificationsView()) {
                 Label("Notifications", systemImage: "bell")
                     .foregroundColor(Constants.textColor)
             }

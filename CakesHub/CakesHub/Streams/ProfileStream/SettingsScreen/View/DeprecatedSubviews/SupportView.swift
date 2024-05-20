@@ -15,17 +15,17 @@ struct SupportScreen: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 20) {
-                Text("Опишите Вашу проблему")
+                Text("Describe your problem")
                     .font(.title)
                    .padding(.top, 10)
-                TextField("Введите описание проблемы", text: $problemDescription)
+                TextField("Enter a description of the problem", text: $problemDescription)
                    .frame(height: 300)
                    .padding(.top, 10)
                    .padding()
                    .border(Color.gray, width: 0.5)
                 Spacer()
                 Button(action: {}) {
-                    Text("Отправить")
+                    Text("Send")
                         .foregroundStyle(.white)
                         .font(.title2)
                         .bold()

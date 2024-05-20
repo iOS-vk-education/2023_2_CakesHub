@@ -26,7 +26,6 @@ struct ProfileScreen: View {
                         image: viewModel.user.userImage,
                         nickname: viewModel.user.name
                     )
-                    // FIXME: Тут надо фетчить историю сообщений из FB
                     let vm = ChatViewModel(
                         data: .init(
                             messages: messages,
@@ -41,6 +40,7 @@ struct ProfileScreen: View {
                         .navigationBarBackButtonHidden()
                 case .settings:
                     SettingsView()
+                        .environmentObject(viewModel)
                 case .createProduct:
                     let vc = CreateProductViewModel(
                         rootViewModel: rootViewModel,
