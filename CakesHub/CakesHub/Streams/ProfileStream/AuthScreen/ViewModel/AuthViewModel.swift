@@ -80,6 +80,9 @@ extension AuthViewModel {
                     with: LoginUserRequest(email: uiProperies.email, password: uiProperies.password)
                 )
 
+                // Очищаем все поля
+                resetUIProperties()
+
                 // Устанавливаем Web Socket соединение
                 startWebSocketLink(userID: userUID)
 
@@ -101,6 +104,10 @@ extension AuthViewModel {
         uiProperies.showingAlert = true
         uiProperies.alertMessage = error.localizedDescription
         Logger.log(kind: .error, message: error)
+    }
+
+    private func resetUIProperties() {
+        uiProperies = .clear
     }
 }
 
@@ -134,6 +141,7 @@ extension AuthViewModel {
 extension AuthViewModel {
 
     /// Достаём данные о `пользователе` из устройства
+    @MainActor 
     func fetchUserInfo() {
         guard
             let userID = UserDefaults.standard.string(forKey: UserDefaultsKeys.currentUser)
