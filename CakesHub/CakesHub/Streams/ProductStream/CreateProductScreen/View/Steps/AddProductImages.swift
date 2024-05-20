@@ -19,8 +19,8 @@ struct AddProductImages: View {
     var body: some View {
         VStack {
             BackButton
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.trailing, 8)
 
             Text("Select product photos")
                 .style(18, .semibold, CHMColor<TextPalette>.textPrimary.color)

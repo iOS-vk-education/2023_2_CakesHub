@@ -38,14 +38,16 @@ struct CHMBigBannerView: View {
                     .font(.system(size: 48, weight: .black))
                     .foregroundStyle(.white)
 
-                Button {
-                    didTapButton?()
-                } label: {
-                    Text(configuration.buttonTitle)
-                        .style(14, .medium, .white)
-                        .frame(width: 160, height: 36)
-                        .background(CHMColor<BackgroundPalette>.bgBasketColor.color)
-                        .clipShape(.rect(cornerRadius: 25))
+                if let title = configuration.buttonTitle {
+                    Button {
+                        didTapButton?()
+                    } label: {
+                        Text(title)
+                            .style(14, .medium, .white)
+                            .frame(width: 160, height: 36)
+                            .background(CHMColor<BackgroundPalette>.bgBasketColor.color)
+                            .clipShape(.rect(cornerRadius: 25))
+                    }
                 }
             }
             .padding(.leading, 15)

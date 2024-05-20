@@ -37,8 +37,8 @@ struct ProductResultScreen: View {
         }
         .scrollIndicators(.hidden)
         .background(CHMColor<BackgroundPalette>.bgMainColor.color)
-        .overlay(alignment: .topLeading) {
-            BackButton.padding(.leading)
+        .overlay(alignment: .topTrailing) {
+            BackButton.padding(.trailing, 8)
         }
     }
 }

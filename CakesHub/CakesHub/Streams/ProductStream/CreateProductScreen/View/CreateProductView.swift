@@ -11,7 +11,7 @@ import SwiftUI
 struct CreateProductView: View, ViewModelable {
     typealias ViewModel = CreateProductViewModel
 
-    @EnvironmentObject private var nav: Navigation
+    @EnvironmentObject var nav: Navigation
     @EnvironmentObject private var root: RootViewModel
     @StateObject var viewModel: ViewModel
 
@@ -91,6 +91,11 @@ extension CreateProductView {
 
     /// Нажали кнопку `отмена`
     func didTapCancelProduct() {}
+    
+    /// Нажали кнопку `назад` для всего экарана
+    func didTapBackSreen() {
+        nav.openPreviousScreen()
+    }
 }
 
 // MARK: - Preview

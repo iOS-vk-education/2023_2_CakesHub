@@ -31,6 +31,9 @@ extension CreateProductView {
                     .transition(.scale)
             }
         }
+        .overlay(alignment: .topLeading) {
+            BackButton
+        }
         .overlay(alignment: .bottom) {
             let isEnable = (
                 !cakeName.isEmpty
@@ -71,6 +74,18 @@ extension CreateProductView {
         })
     }
 
+    var BackButton: some View {
+        Button(action: didTapBackSreen, label: {
+            Image(systemName: Constants.backImg)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(edge: 23)
+                .bold()
+                .padding(.leading, 8)
+                .padding(.top, 10)
+        })
+    }
+
     var CircleBlock: some View {
         ZStack {
             Circle()
@@ -107,8 +122,7 @@ private extension CreateProductView {
         static let textColor = CHMColor<TextPalette>.textPrimary.color
         static let circleColor = CHMColor<IconPalette>.iconRed.color
         static let iconColor = CHMColor<IconPalette>.iconRed.color
-        static let bgColor = LinearGradient(colors: [.blue.opacity(0.6), .cyan],
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing)
+        static let bgColor = CHMColor<BackgroundPalette>.bgMainColor.color
+        static let backImg = "chevron.left"
     }
 }

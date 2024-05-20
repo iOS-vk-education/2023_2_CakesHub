@@ -126,9 +126,9 @@ extension CakeService: CakeServiceProtocol {
                 countFillStars: countFilledStar
             )
             fbProduct.reviewInfo.comments.append(newComment)
-            fbProduct.reviewInfo.feedbackCount += 1
             fbProduct.reviewInfo.countOfComments += 1
         }
+        fbProduct.reviewInfo.feedbackCount += 1
 
         // Обновляем рейтинг
         switch countFilledStar {

@@ -87,15 +87,9 @@ private extension NotificationCell {
                 }
             }
         }
-        .padding(.vertical, 20)
+        .padding()
         .background(Constants.notificationBgColor)
-        .cornerRadius(20)
-        .overlay(alignment: .top) {
-            Rectangle()
-                .fill(Constants.topLineColor)
-                .frame(maxWidth: .infinity, maxHeight: 0.8)
-                .padding(.trailing, 25)
-        }
+        .clipShape(.rect(cornerRadius: 16))
         .padding(.horizontal)
     }
     
@@ -123,14 +117,7 @@ private extension NotificationCell {
             startPoint: .leading,
             endPoint: .trailing
         )
-        static let notificationBgColor = LinearGradient(
-            stops: [
-                Gradient.Stop(color: Color.pink.opacity(0), location: 0.00),
-                Gradient.Stop(color: .purple.opacity(0.51), location: 1.00),
-            ],
-            startPoint: UnitPoint(x: 0, y: 0.72),
-            endPoint: UnitPoint(x: 1.3, y: 0.75)
-        )
+        static let notificationBgColor = CHMColor<BackgroundPalette>.bgCommentView.color
         static var maxOffsetX: CGFloat = 80
     }
 }
