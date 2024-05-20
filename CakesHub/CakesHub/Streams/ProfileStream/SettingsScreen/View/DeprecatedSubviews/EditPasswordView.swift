@@ -35,8 +35,9 @@ struct EditPasswordView: View {
                 showingAlert = !validatePassword(oldpassword) || !validatePassword(newpassword)
                 if showingAlert {
                     alertMessage = Constants.errorMessage
+                    return
                 }
-                if showingAlert { return }
+
                 Task {
                     do {
                         try await AuthService.shared.updatePassword(
@@ -54,6 +55,7 @@ struct EditPasswordView: View {
                 Text(String(localized: "Save"))
                     .modifier(SettingButtonsModifier(kind: .button))
                     .foregroundStyle(.white)
+                    .padding(.bottom, 5)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -65,6 +67,8 @@ struct EditPasswordView: View {
         }
     }
 }
+
+// MARK: - Constants
 
 private extension EditPasswordView {
 

@@ -23,6 +23,27 @@ extension SettingsView {
             }
             .listRowBackground(Constants.rowColor)
         }
+        .sheet(isPresented: $viewModel.uiProperties.openSheet, onDismiss: {
+            viewModel.uiProperties.selectedScreen = nil
+        }) {
+            ZStack(alignment: .top) {
+                switch viewModel.uiProperties.selectedScreen {
+                case .updatePassword:
+                    EditPasswordView()
+                case .updateEmail:
+                    EditEmailView()
+                case .none:
+                    Text("Error")
+                }
+
+                RoundedRectangle(cornerRadius: 3)
+                    .fill(CHMColor<SeparatorPalette>.divider.color)
+                    .frame(width: 60, height: 6)
+                    .offset(y: 15)
+            }
+            .presentationDetents([.medium])
+            .presentationCornerRadius(12)
+        }
         .scrollContentBackground(.hidden)
         .navigationTitle("Settings")
         .background(Constants.bgColor)
@@ -37,14 +58,18 @@ extension SettingsView {
                     .foregroundColor(Constants.textColor)
             }
 
-            NavigationLink(
-                destination: EditPasswordView()
-            ) {
+            Button(action: {
+                viewModel.uiProperties.selectedScreen = .updatePassword
+                viewModel.uiProperties.openSheet = true
+            }) {
                 Label("Password", systemImage: "lock")
                     .foregroundColor(Constants.textColor)
             }
 
-            NavigationLink(destination: EditEmailView()) {
+            Button(action: {
+                viewModel.uiProperties.selectedScreen = .updateEmail
+                viewModel.uiProperties.openSheet = true
+            }) {
                 Label("Mail", systemImage: "envelope")
                     .foregroundColor(Constants.textColor)
             }

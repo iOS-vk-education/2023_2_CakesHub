@@ -16,7 +16,6 @@ protocol AuthServiceProtocol: AnyObject {
     func loginUser(with userRequest: LoginUserRequest) async throws -> String
     func logoutUser() throws
     func deleteUser() async throws
-    func updatePassword(email: String, oldPassword: String, newPassword: String) async throws
 }
 
 // MARK: - AuthService
