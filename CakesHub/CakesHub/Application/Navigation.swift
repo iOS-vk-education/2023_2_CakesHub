@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 08.03.2024.
+//  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -20,7 +21,15 @@ extension Navigation {
     }
 
     func openPreviousScreen() {
+        guard path.count - 1 >= 0 else { return }
         path.removeLast()
+    }
+
+    func goToRoot() {
+        while path.count > 0 {
+            path.removeLast()
+        }
+        activeTab = .house
     }
 }
 
@@ -28,23 +37,23 @@ extension Navigation {
 
 enum TabBarItem: String, CaseIterable {
     case house = "house"
-    case shop = "cart"
-    case bag = "handbag"
+    case categories = "cart"
+    case chat = "message"
     case notifications = "bell.and.waves.left.and.right"
     case profile = "person"
 
-    var title: String {
+    var title: LocalizedStringResource {
         switch self {
         case .house:
             return "Home"
-        case .shop:
-            return "Shop"
-        case .bag:
-            return "apps"
+        case .categories:
+            return "Categories"
+        case .chat:
+            return "Chats"
         case .notifications:
-            return "notifications"
+            return "Notifications"
         case .profile:
-            return "profile"
+            return "Profile"
         }
     }
 }

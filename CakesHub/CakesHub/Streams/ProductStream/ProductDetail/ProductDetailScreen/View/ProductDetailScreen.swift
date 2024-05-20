@@ -13,21 +13,21 @@ struct ProductDetailScreen: View {
     // MARK: View Model
 
     typealias ViewModel = ProductDetailViewModel
-    @StateObject var viewModel: ViewModel
+    @State var viewModel: ViewModel
     @EnvironmentObject var nav: Navigation
-    
+    @EnvironmentObject var rootViewModel: RootViewModel
+
     // MARK: Properties
 
     @State var topPadding: CGFloat = .zero
     @State var selectedPicker: PickersSectionView.PickersItem?
     @State var showSheetView = false
     @State var isPressedLike: Bool = false
-    @State private var openReviewScreen = false
 
     // MARK: Lifecycle
 
     init(viewModel: ViewModel) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
+        self._viewModel = State(initialValue: viewModel)
         self._isPressedLike = State(initialValue: viewModel.currentProduct.isFavorite)
     }
 
@@ -35,25 +35,15 @@ struct ProductDetailScreen: View {
 
     var body: some View {
         MainBlock
+            .onAppear(perform: onAppear)
             .navigationDestination(for: ProductDetailCells.self) { screen in
                 if screen == .ratingReviews {
                     ProductReviewsScreen(
                         viewModel: ProductReviewsViewModel(
-                            data: viewModel.currentProduct.reviewInfo
-                        ), 
-                        screenIsAppeared: $openReviewScreen
+                            data: viewModel.currentProduct.reviewInfo,
+                            productID: viewModel.currentProduct.id
+                        )
                     )
-                }
-            }
-            .onAppear {
-                withAnimation {
-                    nav.hideTabBar = true
-                }
-            }
-            .onDisappear {
-                withAnimation {
-                    // Прячем таббар только при открытии экрана рейтинга
-                    nav.hideTabBar = openReviewScreen
                 }
             }
     }
@@ -63,6 +53,10 @@ struct ProductDetailScreen: View {
 
 extension ProductDetailScreen {
 
+    func onAppear() {
+        viewModel.setCurrentUser(user: rootViewModel.currentUser)
+    }
+
     func didTapFavoriteIcon() {
         viewModel.currentProduct.isFavorite = false
         viewModel.didTapLikeButton(isSelected: isPressedLike) {
@@ -70,7 +64,7 @@ extension ProductDetailScreen {
         }
     }
 
-    func didTapLikeSimilarProductCard(id: UUID, isSelected: Bool) {
+    func didTapLikeSimilarProductCard(id: String, isSelected: Bool) {
         print("id: \(id) | isSelected: \(isSelected)")
     }
 
@@ -78,17 +72,27 @@ extension ProductDetailScreen {
         nav.addScreen(screen: product)
     }
 
+    /// Нажатие кнопки `оформить заказ`
     func didTapBuyButton() {
-        viewModel.didTapBuyButton()
+        viewModel.didTapBuyButton() {
+            nav.openPreviousScreen()
+        }
     }
 
     func openRatingReviews() {
-        openReviewScreen = true
         nav.addScreen(screen: ProductDetailCells.ratingReviews)
     }
 
     func openPreviousView() {
         nav.openPreviousScreen()
+    }
+
+    func openSellerInfo() {
+        let userProducts = rootViewModel.productData.products.filter {
+            $0.seller.uid == viewModel.currentProduct.seller.id
+        }
+        let seller = viewModel.currentProduct.seller.mapper(products: userProducts.mapperToProductModel)
+        nav.addScreen(screen: seller)
     }
 }
 
@@ -97,4 +101,5 @@ extension ProductDetailScreen {
 #Preview {
     ProductDetailScreen(viewModel: .mockData)
         .environmentObject(Navigation())
+        .environmentObject(RootViewModel.mockData)
 }

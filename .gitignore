@@ -5,7 +5,6 @@
 ## User settings
 xcuserdata/
 .DS_Store
-PlaygroundView.swift
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint
@@ -90,3 +89,13 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+CakesHub/CakesHub/Streams/UIPlayground
+CakesHub/CakesHub/Resources/Preview Content/Preview Assets.xcassets/SecretImages
+Packages
+db.sqlite
+.swiftpm
+.env
+.env.*
+! .env.example
+.vscode
+

@@ -7,15 +7,19 @@
 //
 
 import Foundation
+import Observation
 
-protocol ProductReviewsViewModelProtocol: ViewModelProtocol {}
-
+@Observable
 final class ProductReviewsViewModel: ViewModelProtocol {
     var data: ProductReviewsModel
+    var productID: String = .clear
 
-    init(data: ProductReviewsModel) {
+    init(data: ProductReviewsModel, productID: String) {
         self.data = data
+        self.productID = productID
+    }
+
+    func updateProductInfo(with info: ProductReviewsModel) {
+        data = info
     }
 }
-
-extension ProductReviewsViewModel: ProductReviewsViewModelProtocol {}

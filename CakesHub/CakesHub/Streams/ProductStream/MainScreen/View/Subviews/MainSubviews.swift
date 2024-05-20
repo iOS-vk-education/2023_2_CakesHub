@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 17.03.2024.
+//  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -14,20 +15,21 @@ extension MainView {
     var ScrollViewBlock: some View {
         ScrollView {
             VStack {
-                ForEach(viewModel.sections, id: \.self.id) { section in
-                    SectionsBlock(section: section)
+                BannerSectionView
+
+                VStack(spacing: 0) {
+                    ForEach(rootViewModel.productData.sections, id: \.self.id) { section in
+                        SectionsBlock(section: section)
+                    }
                 }
+                .padding(.vertical, 13)
+                .background(Constants.bgMainColor)
+                .clipShape(.rect(cornerRadius: 16))
             }
-            .padding(.vertical, 13)
-            .background(Constants.bgMainColor)
-            .clipShape(.rect(cornerRadius: 16))
-            .padding(.top, Constants.bannerPadding(size.height) - 15)
+            .padding(.bottom, 150)
         }
+        .ignoresSafeArea()
         .scrollIndicators(.hidden)
-        .background(alignment: .top) {
-            CHMBigBannerView(configuration: .mockData)
-                .frame(height: Constants.bannerPadding(size.height))
-        }
         .background(Constants.bgMainColor)
     }
 }
@@ -36,14 +38,43 @@ extension MainView {
 
 extension MainView {
 
+    var BannerSectionView: some View {
+        GeometryReader { geo in
+            let minY = geo.frame(in: .global).minY
+            let iscrolling = minY > 0
+            CHMBigBannerView(
+                configuration: .basic(
+                    imageKind: .uiImage(.bannerCake),
+                    bannerTitle: "Cakes\nHub"
+                ),
+                didTapButton: didTapBannerButton
+            )
+            .frame(
+                width: geo.size.width,
+                height: iscrolling
+                ? Constants.bannerPadding(size.height) + minY
+                : Constants.bannerPadding(size.height)
+            )
+            .offset(y: -minY)
+            .blur(radius: iscrolling ? 0 + minY / 60 : 0)
+            .scaleEffect(iscrolling ? 1 + minY / 2000 : 1)
+
+            Constants.bgMainColor
+                .frame(height: Constants.bannerPadding(size.height))
+                .offset(y: -minY)
+                .opacity(-minY >= Constants.bannerPadding(size.height) ? 1 : 0)
+        }
+        .frame(height: max(0, Constants.bannerPadding(size.height) - 20))
+    }
+
     @ViewBuilder
-    func SectionsBlock(section: MainViewModel.Section) -> some View {
+    func SectionsBlock(section: RootViewModel.Section) -> some View {
         switch section {
         case .sales(let sales):
             SectionView(
-                title: section.title,
-                subtitle: section.subtitle,
-                buttonTitle: "View all",
+                title: String(localized: section.title),
+                subtitle: String(localized: section.subtitle),
+                buttonTitle: Constants.sectionTitle,
                 cards: sales,
                 badgeKind: .red
             ) { id, isSelected in
@@ -52,9 +83,9 @@ extension MainView {
 
         case .news(let news):
             SectionView(
-                title: section.title,
-                subtitle: section.subtitle,
-                buttonTitle: "View all",
+                title: String(localized: section.title),
+                subtitle: String(localized: section.subtitle),
+                buttonTitle: Constants.sectionTitle,
                 cards: news,
                 badgeKind: .dark
             ) { id, isSelected in
@@ -64,9 +95,10 @@ extension MainView {
 
         case .all(let all):
             SectionHeader(
-                title: section.title,
-                subtitle: section.subtitle,
-                buttonTitle: .clear
+                title: String(localized: section.title),
+                subtitle: String(localized: section.subtitle),
+                buttonTitle: .clear,
+                cards: all
             )
             .padding(.horizontal, Constants.intrinsicHPaddings)
             .padding(.top, 30)
@@ -81,11 +113,17 @@ extension MainView {
         buttonTitle: String,
         cards: [ProductModel],
         badgeKind: CHMBadgeView.Configuration.Kind,
-        complection: @escaping (UUID, Bool) -> Void
+        complection: @escaping (String, Bool) -> Void
     ) -> some View {
         VStack {
-            SectionHeader(title: title, subtitle: subtitle, buttonTitle: buttonTitle)
-                .padding(.horizontal, Constants.intrinsicHPaddings)
+            SectionHeader(
+                title: title,
+                subtitle: subtitle,
+                buttonTitle: buttonTitle,
+                cards: cards
+            )
+            .padding(.horizontal, Constants.intrinsicHPaddings)
+
             SectionCardsView(
                 cards: cards,
                 badgeKind: badgeKind,
@@ -98,7 +136,8 @@ extension MainView {
     func SectionHeader(
         title: String,
         subtitle: String,
-        buttonTitle: String
+        buttonTitle: String,
+        cards: [ProductModel]
     ) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
@@ -108,7 +147,7 @@ extension MainView {
                 Spacer()
 
                 Button {
-                    didTapSection(sectionTitle: title)
+                    didTapSection(products: cards)
                 } label: {
                     Text(buttonTitle)
                         .style(11, .regular)
@@ -127,7 +166,7 @@ extension MainView {
         cards: [ProductModel],
         badgeKind: CHMBadgeView.Configuration.Kind,
         sectionTitle: String,
-        complection: @escaping (UUID, Bool) -> Void
+        complection: @escaping (String, Bool) -> Void
     ) -> some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 16) {
@@ -137,6 +176,7 @@ extension MainView {
                         badgeConfiguration: .basic(text: card.badgeText, kind: badgeKind),
                         complection: complection
                     )
+                    .frame(width: size.width * Constants.fractionWidth)
                 }
             }
             .padding(.horizontal, Constants.intrinsicHPaddings)
@@ -152,35 +192,17 @@ extension MainView {
     func ProductCard(
         for card: ProductModel,
         badgeConfiguration: CHMBadgeView.Configuration,
-        complection: @escaping (UUID, Bool) -> Void
+        complection: @escaping (String, Bool) -> Void
     ) -> some View {
-        if viewModel.isShimmering {
+        if rootViewModel.isShimmering {
             CHMNewProductCard(
-                configuration: .shimmering(
-                    imageSize: CGSize(width: size.width * Constants.fractionWidth,
-                                      height: size.height * Constants.fractionHeight)
-                )
+                configuration: .shimmering(imageHeight: size.height * Constants.fractionHeight)
             )
         } else {
             CHMNewProductCard(
-                configuration: .basic(
-                    imageKind: card.images.first?.kind ?? .clear,
-                    imageSize: CGSize(width: size.width * Constants.fractionWidth,
-                                      height: size.height * Constants.fractionHeight),
-                    productText: .init(
-                        seller: card.sellerName,
-                        productName: card.productName,
-                        productPrice: card.price,
-                        productOldPrice: card.oldPrice
-                    ),
-                    badgeViewConfiguration: badgeConfiguration,
-                    productButtonConfiguration: .basic(
-                        kind: .favorite(isSelected: card.isFavorite)
-                    ),
-                    starsViewConfiguration: .basic(
-                        kind: .init(rawValue: card.starsCount) ?? .zero,
-                        feedbackCount: card.reviewInfo.feedbackCounter
-                    )
+                configuration: card.mapperToProductCardConfiguration(
+                    height: size.height * Constants.fractionHeight,
+                    badgeConfiguration: badgeConfiguration
                 )
             ) { isSelected in
                 complection(card.id, isSelected)
@@ -195,12 +217,8 @@ extension MainView {
     func SectinoAllCardsBlock(
         cards: [ProductModel]
     ) -> some View {
-        let width = size.width * 0.5 - Constants.intrinsicHPaddings
         LazyVGrid(
-            columns: [
-                GridItem(.fixed(width)),
-                GridItem(.fixed(width)),
-            ],
+            columns: Array(repeating:  GridItem(), count: 2),
             spacing: Constants.intrinsicHPaddings
         ) {
             ForEach(cards) { card in
@@ -209,16 +227,16 @@ extension MainView {
                 }
             }
         }
+        .padding(.horizontal)
     }
 }
 
 // MARK: - Preview
 
 #Preview {
-    let vm = MainView.ViewModel()
-    vm.fetchPreviewData()
-    return MainView(viewModel: vm)
+    MainView(viewModel: .mockData, size: CGSize(width: 400, height: 800))
         .environmentObject(Navigation())
+        .environmentObject(RootViewModel.mockData)
 }
 
 // MARK: - Constants
@@ -228,6 +246,7 @@ private extension MainView {
     enum Constants {
         static let bgMainColor: Color = CHMColor<BackgroundPalette>.bgMainColor.color
         static let textSecondary: Color = CHMColor<TextPalette>.textSecondary.color
+        static let sectionTitle = String(localized: "View all")
         static let intrinsicHPaddings: CGFloat = 18
         static let fractionWidth: CGFloat = 150/375
         static let fractionHeight: CGFloat = 184/812

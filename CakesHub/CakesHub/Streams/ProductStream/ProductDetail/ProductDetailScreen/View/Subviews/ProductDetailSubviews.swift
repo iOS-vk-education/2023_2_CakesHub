@@ -3,6 +3,7 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 19.03.2024.
+//  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
@@ -10,6 +11,10 @@ import SwiftUI
 // MARK: - Subviews
 
 extension ProductDetailScreen {
+
+    private var userIsNotSeller: Bool {
+        rootViewModel.currentUser.uid != viewModel.currentProduct.seller.id
+    }
 
     var MainBlock: some View {
         ScrollView {
@@ -31,8 +36,10 @@ extension ProductDetailScreen {
         }
         .makeStyle
         .overlay(alignment: .bottom) {
-            BuyButton
-                .padding(.bottom, UIDevice.isSe ? 16 : .zero)
+            if userIsNotSeller {
+                BuyButton
+                    .padding(.bottom, UIDevice.isSe ? 16 : .zero)
+            }
         }
         .overlay(alignment: .topLeading) {
             NavigationTabBarView
@@ -59,10 +66,10 @@ extension ProductDetailScreen {
                         MKRImageView(
                             configuration: .basic(
                                 kind: image.kind,
-                                imageSize: CGSize(width: 275, height: 413),
                                 imageShape: .rectangle
                             )
                         )
+                        .frame(width: 275, height: 413)
                     }
                 }
             }
@@ -72,27 +79,29 @@ extension ProductDetailScreen {
 
     var PickersBlock: some View {
         PickersSectionView(
-            pickers: viewModel.currentProduct.pickers.map { .init(title: $0) },
+            pickers: viewModel.currentProduct.categories.map { .init(title: $0) },
             lastSelected: $selectedPicker
         )
-        .overlay(alignment: .trailing) {
-            LikeIcon(isSelected: $isPressedLike) {
-                didTapFavoriteIcon()
-            }
-            .padding(.trailing)
-        }
+        // TODO: Вернуть кнопку лайка
+//        .overlay(alignment: .trailing) {
+//            LikeIcon(isSelected: $isPressedLike) {
+//                didTapFavoriteIcon()
+//            }
+//            .padding(.trailing)
+//        }
     }
 
     var DetailBlock: some View {
         CHMProductDescriptionView(
             configuration: .basic(
                 title: viewModel.currentProduct.productName,
-                price: viewModel.currentProduct.price,
-                subtitle: viewModel.currentProduct.sellerName,
+                price: viewModel.currentProduct.price, 
+                discountedPrice: viewModel.currentProduct.discountedPrice,
+                subtitle: viewModel.currentProduct.seller.name,
                 description: viewModel.currentProduct.description,
                 starsConfiguration: .basic(
                     kind: .init(rawValue: viewModel.currentProduct.starsCount) ?? .zero,
-                    feedbackCount: viewModel.currentProduct.reviewInfo.feedbackCounter
+                    feedbackCount: viewModel.currentProduct.reviewInfo.feedbackCount
                 )
             )
         )
@@ -112,17 +121,20 @@ extension ProductDetailScreen {
     var MoreInfoBlock: some View {
         VStack {
             Divider()
-            // FIXME: iOS-17: Применить корректный паттерн роутинга
-            Button {
-                openRatingReviews()
-            } label: {
-                MoreInfoCell(text: ProductDetailCells.ratingReviews.rawValue)
+            Button(action: openRatingReviews, label: {
+                MoreInfoCell(text: String(localized: ProductDetailCells.ratingReviews.title))
                     .padding(.horizontal)
+            })
+
+            Divider()
+
+            if userIsNotSeller {
+                Button(action: openSellerInfo, label: {
+                    MoreInfoCell(text: String(localized: ProductDetailCells.sellerInfo.title))
+                        .padding(.horizontal)
+                })
+                Divider()
             }
-            Divider()
-            MoreInfoCell(text: ProductDetailCells.sellerInfo.rawValue)
-                .padding(.horizontal)
-            Divider()
         }
     }
 
@@ -145,23 +157,11 @@ extension ProductDetailScreen {
             HStack(spacing: 11) {
                 ForEach(viewModel.currentProduct.similarProducts) { product in
                     CHMNewProductCard(
-                        configuration: .basic(
-                            imageKind: product.images.first?.kind ?? .clear,
-                            imageSize: CGSize(width: 148, height: 184),
-                            productText: .init(
-                                seller: product.sellerName,
-                                productName: product.productName,
-                                productPrice: product.price
-                            ),
-                            productButtonConfiguration: .basic(kind: .favorite()),
-                            starsViewConfiguration: .basic(
-                                kind: .init(rawValue: product.starsCount) ?? .zero,
-                                feedbackCount: product.reviewInfo.feedbackCounter
-                            )
-                        )
+                        configuration: product.mapperToProductCardConfiguration(height: 184)
                     ) { isSelected in
                         didTapLikeSimilarProductCard(id: product.id, isSelected: isSelected)
                     }
+                    .frame(width: 148)
                     .onTapGesture {
                         didTapSimilarProductCard(product: product)
                     }
@@ -204,10 +204,10 @@ extension ProductDetailScreen {
         Button {
             didTapBuyButton()
         } label: {
-            Text(Constants.buyButtonTitle)
+            Text(Constants.buyButtonTitle.uppercased())
                 .font(.system(size: 14, weight: .medium))
+                .frame(maxWidth: .infinity)
         }
-        .frame(maxWidth: .infinity)
         .padding(.vertical, 14)
         .background(CHMColor<BackgroundPalette>.bgRed.color)
         .clipShape(.rect(cornerRadius: 25))
@@ -274,7 +274,7 @@ private struct ViewPreferenceKey: PreferenceKey {
 }
 
 private extension View {
-
+    
     var makeStyle: some View {
         scrollIndicators(.hidden)
             .background(CHMColor<BackgroundPalette>.bgMainColor.color)
@@ -297,8 +297,8 @@ private extension View {
 private extension ProductDetailScreen {
 
     enum Constants {
-        static let similarBlockHeaderTitle = "You can also like this"
-        static let buyButtonTitle = "MAKE AN ORDER"
+        static let similarBlockHeaderTitle = String(localized: "You can also like this")
+        static let buyButtonTitle = String(localized: "Make an order")
     }
 }
 
@@ -306,4 +306,12 @@ private extension ProductDetailScreen {
 
 #Preview {
     ProductDetailScreen(viewModel: .mockData)
+        .environmentObject(Navigation())
+        .environmentObject(RootViewModel(currentUser: .king))
+}
+
+#Preview {
+    ProductDetailScreen(viewModel: .mockData)
+        .environmentObject(Navigation())
+        .environmentObject(RootViewModel(currentUser: .poly))
 }

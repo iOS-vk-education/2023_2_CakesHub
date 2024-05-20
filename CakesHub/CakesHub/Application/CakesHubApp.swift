@@ -3,18 +3,13 @@
 //  CakesHub
 //
 //  Created by Dmitriy Permyakov on 15.02.2024.
+//  Copyright 2024 © VK Team CakesHub. All rights reserved.
 //
 
 import SwiftUI
 import FirebaseCore
-
-final class AppDelegate: NSObject, UIApplicationDelegate {
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        FirebaseApp.configure()
-        return true
-    }
-}
+import UIKit
+import SwiftData
 
 @main
 struct CakesHubApp: App {
@@ -24,5 +19,20 @@ struct CakesHubApp: App {
         WindowGroup {
             RootView()
         }
+        .modelContainer(for: [
+            SDProductModel.self,
+            SDNotificationModel.self,
+            SDCategoryModel.self,
+            SDChatMessageModel.self,
+        ])
+    }
+
+    init() {
+        Logger.print(URL.applicationSupportDirectory.path(percentEncoded: false))
+        let fileManagerPath = try? FileManager.default.url(for: .documentDirectory,
+                                                           in: .userDomainMask,
+                                                           appropriateFor: nil,
+                                                           create: true)
+        Logger.print(fileManagerPath ?? "FileManager path not found")
     }
 }
