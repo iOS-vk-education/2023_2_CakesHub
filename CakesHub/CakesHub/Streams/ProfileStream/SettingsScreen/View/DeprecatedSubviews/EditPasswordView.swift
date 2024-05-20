@@ -19,47 +19,42 @@ struct EditPasswordView: View {
             Spacer()
 
             VStack(spacing: 16) {
-                SecureField("Старый пароль", text: $oldpassword)
+                SecureField(String(localized: "Old password"), text: $oldpassword)
                     .modifier(SettingButtonsModifier(kind: .textField))
-                    .onChange(of: oldpassword) { _, newValue in
-                        showingAlert = !validatePassword(newValue)
-                    }
 
-                SecureField("Новый пароль", text: $newpassword)
+                SecureField(String(localized: "New password"), text: $newpassword)
                     .modifier(SettingButtonsModifier(kind: .textField))
-                    .onChange(of: newpassword) { _, newValue in
-                        showingAlert = !validatePassword(newValue)
-                    }
             }
 
             Spacer()
 
             Button(action: {
-                
+                showingAlert = !validatePassword(oldpassword) || !validatePassword(newpassword)
+                if showingAlert { return }
+                // TODO: Добавить смену пароля
             }) {
-                Text("Сохранить")
+                Text(String(localized: "Save"))
                     .modifier(SettingButtonsModifier(kind: .button))
                     .foregroundStyle(.white)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(CHMColor<BackgroundPalette>.bgMainColor.color)
-        .navigationTitle("Настройки")
         .alert(String(localized: "Error"), isPresented: $showingAlert) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("Пароль должен состоять только из латинских букв и цифр без пробелов.")
+            Text(String(localized: "The password must consist only of Latin letters and numbers without spaces."))
         }
     }
 
     private func validatePassword(_ password: String) -> Bool {
-        let regex = "[a-zA-Z]+"
-        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: password)
+        let passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d).{6,}$"
+        return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: password)
     }
 }
 
+// MARK: - Preview
+
 #Preview {
-    NavigationStack {
-        EditPasswordView()
-    }
+    EditPasswordView()
 }

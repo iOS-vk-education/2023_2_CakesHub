@@ -40,6 +40,7 @@ struct ProfileScreen: View {
                         .navigationBarBackButtonHidden()
                 case .settings:
                     SettingsView()
+                        .environmentObject(viewModel)
                 case .createProduct:
                     let vc = CreateProductViewModel(
                         rootViewModel: rootViewModel,

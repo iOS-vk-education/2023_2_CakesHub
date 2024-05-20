@@ -10,7 +10,7 @@
 		A332D1692BB2F842007C194D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1662BB2F842007C194D /* UserModel.swift */; };
 		A332D16A2BB2F842007C194D /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1672BB2F842007C194D /* ProfileScreen.swift */; };
 		A332D16B2BB2F842007C194D /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332D1682BB2F842007C194D /* ProfileViewModel.swift */; };
-		A339C5542BF9743C00786696 /* EditStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339C5532BF9743C00786696 /* EditStatusView.swift */; };
+		A339C5542BF9743C00786696 /* EditEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339C5532BF9743C00786696 /* EditEmailView.swift */; };
 		A339C5562BF9EB1B00786696 /* EditPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339C5552BF9EB1B00786696 /* EditPasswordView.swift */; };
 		A339C5582BF9F25200786696 /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339C5572BF9F25200786696 /* SupportView.swift */; };
 		A37BC6DA2BF10E4400385FA4 /* EditNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37BC6D92BF10E4400385FA4 /* EditNameView.swift */; };
@@ -267,7 +267,7 @@
 		A332D1662BB2F842007C194D /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		A332D1672BB2F842007C194D /* ProfileScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		A332D1682BB2F842007C194D /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		A339C5532BF9743C00786696 /* EditStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStatusView.swift; sourceTree = "<group>"; };
+		A339C5532BF9743C00786696 /* EditEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEmailView.swift; sourceTree = "<group>"; };
 		A339C5552BF9EB1B00786696 /* EditPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordView.swift; sourceTree = "<group>"; };
 		A339C5572BF9F25200786696 /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
 		A37BC6D92BF10E4400385FA4 /* EditNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNameView.swift; sourceTree = "<group>"; };
@@ -1830,8 +1830,8 @@
 		E5C89A4E2BB3214A00D06BA7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E5DBD6D72BBDB4D2002ACFB2 /* Screens */,
 				E5DBD6D52BBDB49B002ACFB2 /* Subviews */,
+				A332D1672BB2F842007C194D /* ProfileScreen.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1870,21 +1870,13 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
-		E5DBD6D72BBDB4D2002ACFB2 /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				A332D1672BB2F842007C194D /* ProfileScreen.swift */,
-			);
-			path = Screens;
-			sourceTree = "<group>";
-		};
 		E5DE7BC02BFAAF15006CE374 /* DeprecatedSubviews */ = {
 			isa = PBXGroup;
 			children = (
 				A3A03F582BB3430D0034C0B1 /* NotificationsView.swift */,
 				A37BC6DB2BF10E6100385FA4 /* EditProfileView.swift */,
 				A37BC6D92BF10E4400385FA4 /* EditNameView.swift */,
-				A339C5532BF9743C00786696 /* EditStatusView.swift */,
+				A339C5532BF9743C00786696 /* EditEmailView.swift */,
 				A339C5552BF9EB1B00786696 /* EditPasswordView.swift */,
 				A339C5572BF9F25200786696 /* SupportView.swift */,
 				E5DE7BC12BFAC3AC006CE374 /* SettingButtonsModifier.swift */,
@@ -2268,7 +2260,7 @@
 				E5DBD6D62BBDB49B002ACFB2 /* ProfileSubviews.swift in Sources */,
 				E51B32F12B7E5FEF0028E8C7 /* CHMStarsView+Defaults.swift in Sources */,
 				E59AEC6A2B92B1D500760E61 /* APIError.swift in Sources */,
-				A339C5542BF9743C00786696 /* EditStatusView.swift in Sources */,
+				A339C5542BF9743C00786696 /* EditEmailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

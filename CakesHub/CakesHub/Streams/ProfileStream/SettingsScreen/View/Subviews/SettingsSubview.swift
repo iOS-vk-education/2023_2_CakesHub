@@ -30,17 +30,19 @@ extension SettingsView {
 
     var PersonalSection: some View {
         Section(header: Text("Personal information")) {
-            NavigationLink(destination: EditProfileView()) {
+            NavigationLink(
+                destination: EditProfileView().environmentObject(profileVM)
+            ) {
                 Label("Profile", systemImage: "person")
                     .foregroundColor(Constants.textColor)
             }
 
-            NavigationLink(destination: EditPasswordView()) {
-                Label("Password", systemImage: "lock")
-                    .foregroundColor(Constants.textColor)
-            }
+//            NavigationLink(destination: EditPasswordView()) {
+//                Label("Password", systemImage: "lock")
+//                    .foregroundColor(Constants.textColor)
+//            }
 
-            NavigationLink(destination: EditProfileView()) {
+            NavigationLink(destination: EditEmailView()) {
                 Label("Mail", systemImage: "envelope")
                     .foregroundColor(Constants.textColor)
             }
@@ -53,8 +55,8 @@ extension SettingsView {
             }
             .alert(isPresented: $viewModel.uiProperties.showAlert) {
                 Alert(
-                    title: Text("Вы действительно хотите удалить аккаунт?"),
-                    primaryButton: .destructive(Text("Да")) {
+                    title: Text(String(localized: "Do you really want to delete your account?")),
+                    primaryButton: .destructive(Text(String(localized: "Yes"))) {
                         // Удалить акк
                     },
                     secondaryButton: .cancel()

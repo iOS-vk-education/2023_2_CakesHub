@@ -14,36 +14,38 @@ struct EditProfileView: View {
         case avatar
         case header
     }
-    @State var selectedItem: PhotosPickerItem?
-    @State var avatarData: Data?
-    @State var headerData: Data?
+
+    @State private var selectedItem: PhotosPickerItem?
+    @State private var avatarData: Data?
+    @State private var headerData: Data?
     @State private var showPicker = false
     @State private var selectedMode: Modes?
     @EnvironmentObject private var root: RootViewModel
+    @EnvironmentObject private var profileVM: ProfileViewModel
 
     var body: some View {
         List {
-            Section("Аватарка") {
+            Section("Avatar") {
                 AvatarBlock
                     .listRowInsets(.init())
                     .frame(maxWidth: .infinity)
                     .listRowBackground(Color.clear)
             }
 
-            Section("Шапка профиля") {
+            Section("Profile Header") {
                 HeaderBlock
                     .listRowInsets(.init())
                     .frame(maxWidth: .infinity)
                     .listRowBackground(Color.clear)
             }
 
-            Section(header: Text("Редактирование профиля")) {
+            Section(header: Text("Editing a profile")) {
                 Group {
                     Button(action: {
                         showPicker = true
                         selectedMode = .avatar
                     }) {
-                        Text("Сменить аватар")
+                        Text("Change your avatar")
                             .foregroundStyle(CHMColor<TextPalette>.textSecondary.color)
                     }
 
@@ -51,12 +53,12 @@ struct EditProfileView: View {
                         showPicker = true
                         selectedMode = .header
                     }) {
-                        Text("Сменить шапку профиля")
+                        Text("Change the profile header")
                             .foregroundStyle(CHMColor<TextPalette>.textSecondary.color)
                     }
 
-                    NavigationLink(destination: EditNameView()) {
-                        Text("Редактировать никнейм")
+                    NavigationLink(destination: EditNameView().environmentObject(profileVM) ) {
+                        Text("Edit a nickname")
                             .foregroundStyle(CHMColor<TextPalette>.textSecondary.color)
                     }
                 }
@@ -69,12 +71,24 @@ struct EditProfileView: View {
 
             item.loadTransferable(type: Data.self) { result in
                 switch result {
-                case let.success(data):
+                case let .success(data):
+                    guard let data else { return }
+
                     switch selectedMode {
                     case .avatar:
                         self.avatarData = data
+                        if let uiImage = UIImage(data: data) {
+                            profileVM.updateUserAvatar(imageKind: .uiImage(uiImage))
+                        }
+
+                        updateImage(data: data, kind: .avatar)
                     case .header:
                         self.headerData = data
+                        if let uiImage = UIImage(data: data) {
+                            profileVM.updateUserHeader(imageKind: .uiImage(uiImage))
+                        }
+
+                        updateImage(data: data, kind: .header)
                     case .none:
                         break
                     }
@@ -84,7 +98,7 @@ struct EditProfileView: View {
                 }
             }
         }
-        .photosPicker(isPresented: $showPicker, selection: $selectedItem, matching:.images)
+        .photosPicker(isPresented: $showPicker, selection: $selectedItem, matching: .images)
         .background(CHMColor<BackgroundPalette>.bgMainColor.color)
     }
 
@@ -132,14 +146,21 @@ struct EditProfileView: View {
 
 extension EditProfileView {
 
-    func updateHeaderImage(data: Data) {
+    func updateImage(data: Data?, kind: UserService.UserImageKind) {
+        guard let data else { return }
         Task {
-//            UserService.shared.addUserAddress(for:address:)
+            let url = try? await UserService.shared.updateUserImage(
+                userID: root.currentUser.uid,
+                imageData: data,
+                kind: kind
+            )
+            if kind == .avatar {
+                let newImageString = url?.absoluteString
+                root.updateUserImage(newAvatarString: newImageString)
+            } else if kind == .header {
+                root.updateUserHeaderImage(newHeaderString: url?.absoluteString)
+            }
         }
-    }
-
-    func updateAvatarImage(data: Data) {
-
     }
 }
 

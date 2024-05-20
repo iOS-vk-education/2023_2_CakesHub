@@ -51,6 +51,16 @@
         }
       }
     },
+    "Avatar" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Аватарка"
+          }
+        }
+      }
+    },
     "bmstu" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -89,6 +99,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Категории"
+          }
+        }
+      }
+    },
+    "Change the profile header" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Замените вашу шапку профиля"
+          }
+        }
+      }
+    },
+    "Change your avatar" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Замените вашу аватарку"
           }
         }
       }
@@ -173,12 +203,32 @@
         }
       }
     },
+    "Describe your problem" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Опишите вашу проблему"
+          }
+        }
+      }
+    },
     "Discounted price" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Цена со скидкой"
+          }
+        }
+      }
+    },
+    "Do you really want to delete your account?" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вы действительно хотите удалить аккаунт?"
           }
         }
       }
@@ -203,12 +253,52 @@
         }
       }
     },
+    "Edit a nickname" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Редактировать имя"
+          }
+        }
+      }
+    },
+    "Editing a profile" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Редактировать профиль"
+          }
+        }
+      }
+    },
     "Email" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Email"
+          }
+        }
+      }
+    },
+    "Enter a description of the problem" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите описание проблемы"
+          }
+        }
+      }
+    },
+    "Enter your email address" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите адрес электронной почты"
           }
         }
       }
@@ -360,6 +450,26 @@
         }
       }
     },
+    "New nickname" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новый никнейм"
+          }
+        }
+      }
+    },
+    "New password" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новый пароль"
+          }
+        }
+      }
+    },
     "Nickname" : {
       "localizations" : {
         "ru" : {
@@ -427,6 +537,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Хорошо"
+          }
+        }
+      }
+    },
+    "Old password" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Старый пароль"
           }
         }
       }
@@ -572,6 +692,16 @@
         }
       }
     },
+    "Profile Header" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Шапка профиля"
+          }
+        }
+      }
+    },
     "Rating&Reviews" : {
       "localizations" : {
         "ru" : {
@@ -629,6 +759,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Скидки"
+          }
+        }
+      }
+    },
+    "Save" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сохранить"
           }
         }
       }
@@ -694,6 +834,16 @@
         }
       }
     },
+    "Send" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отправить"
+          }
+        }
+      }
+    },
     "Send review" : {
       "localizations" : {
         "ru" : {
@@ -744,12 +894,32 @@
         }
       }
     },
+    "The chat history is empty" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "История чатов пуста"
+          }
+        }
+      }
+    },
     "The password format is incorrect." : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Неверный формат пароля"
+          }
+        }
+      }
+    },
+    "The password must consist only of Latin letters and numbers without spaces." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароль должен состоять только из латинских букв и цифр без пробелов."
           }
         }
       }
@@ -836,6 +1006,16 @@
         }
       }
     },
+    "Yes" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Да"
+          }
+        }
+      }
+    },
     "You can also like this" : {
       "localizations" : {
         "ru" : {
@@ -875,63 +1055,6 @@
           }
         }
       }
-    },
-    "Аватарка" : {
-
-    },
-    "Введите описание проблемы" : {
-
-    },
-    "Введите статус" : {
-
-    },
-    "Вы действительно хотите удалить аккаунт?" : {
-
-    },
-    "Да" : {
-
-    },
-    "Настройки" : {
-
-    },
-    "Никнейм должен состоять только из латинских букв и цифр без пробелов." : {
-
-    },
-    "Новый никнейм" : {
-
-    },
-    "Новый пароль" : {
-
-    },
-    "Опишите Вашу проблему" : {
-
-    },
-    "Отправить" : {
-
-    },
-    "Пароль должен состоять только из латинских букв и цифр без пробелов." : {
-
-    },
-    "Редактирование профиля" : {
-
-    },
-    "Редактировать никнейм" : {
-
-    },
-    "Сменить аватар" : {
-
-    },
-    "Сменить шапку профиля" : {
-
-    },
-    "Сохранить" : {
-
-    },
-    "Старый пароль" : {
-
-    },
-    "Шапка профиля" : {
-
     }
   },
   "version" : "1.0"

@@ -25,6 +25,7 @@ protocol RootViewModelProtocol: AnyObject {
     func addNewProduct(product: FBProductModel)
     func setContext(context: ModelContext)
     func updateExistedProduct(product: FBProductModel)
+    func updateUserName(newNickname: String)
 }
 
 // MARK: - RootViewModel
@@ -86,6 +87,11 @@ extension RootViewModel: RootViewModelProtocol {
             productData.sections = sections
             isShimmering = false
         }
+
+        // Получаем данные пользователя
+        let fbUser = try await services.userService.getUserInfo(uid: currentUser.uid)
+        currentUser = fbUser
+        saveUserInMemory(user: fbUser)
     }
 
     @MainActor
@@ -168,6 +174,13 @@ extension RootViewModel {
         sdProduct._seller = seller
         do { try self.context?.save() }
         catch { Logger.log(kind: .error, message: "context.save() выдал ошибку: \(error.localizedDescription)") }
+    }
+
+    /// Кэшируем данные пользователя
+    func saveUserInMemory(user: FBUserModel) {
+        let sdUser = SDUserModel(fbModel: user)
+        context?.insert(sdUser)
+        try? context?.save()
     }
 }
 
@@ -261,6 +274,18 @@ extension RootViewModel {
     func setContext(context: ModelContext) {
         guard self.context.isNil else { return }
         self.context = context
+    }
+
+    func updateUserImage(newAvatarString: String?) {
+        currentUser.avatarImage = newAvatarString
+    }
+
+    func updateUserHeaderImage(newHeaderString: String?) {
+        currentUser.headerImage = newHeaderString
+    }
+
+    func updateUserName(newNickname: String) {
+        currentUser.nickname = newNickname
     }
 }
 

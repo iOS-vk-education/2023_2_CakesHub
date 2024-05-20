@@ -9,44 +9,44 @@ import SwiftUI
 
 struct EditNameView: View {
     @State private var newusername = ""
-    @State private var showingAlert = false
+    @EnvironmentObject private var root: RootViewModel
+    @EnvironmentObject private var profileVM: ProfileViewModel
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack {
             Spacer()
 
-            TextField("Новый никнейм", text: $newusername)
+            TextField("New nickname", text: $newusername)
                 .modifier(SettingButtonsModifier(kind: .textField))
-                .onChange(of: newusername) { _, newValue in
-                    showingAlert = !validateUsername(newValue)
-                }
 
             Spacer()
 
-            Button(action: {}) {
-                Text("Сохранить")
+            Button(action: {
+                root.updateUserName(newNickname: newusername)
+                profileVM.updateUsername(name: newusername)
+                Task {
+                    var oldUserInfo = root.currentUser
+                    oldUserInfo.nickname = newusername
+                    try? await UserService.shared.updateUserInfo(with: oldUserInfo)
+                    dismiss()
+                }
+            }) {
+                Text(String(localized: "Save"))
                     .modifier(SettingButtonsModifier(kind: .button))
                     .foregroundStyle(.white)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(CHMColor<BackgroundPalette>.bgMainColor.color)
-        .navigationTitle("Настройки")
-        .alert(String(localized: "Error"), isPresented: $showingAlert) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text("Никнейм должен состоять только из латинских букв и цифр без пробелов.")
+        .onAppear {
+            newusername = profileVM.user.name
         }
-    }
-
-    private func validateUsername(_ username: String) -> Bool {
-        let regex = "[a-zA-Z]+"
-        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: username)
     }
 }
 
+// MARK: - Preview
+
 #Preview {
-    NavigationStack {
-        EditNameView()
-    }
+    EditNameView()
 }
