@@ -21,9 +21,8 @@ extension MainViewModel: Mockable {
 extension CHMBigBannerView.Configuration: Mockable {
 
     static let mockData = CHMBigBannerView.Configuration.basic(
-        imageKind: .uiImage(UIImage(named: "Big Banner")),
-        bannerTitle: "Fashion\nsale",
-        buttonTitle: "Check"
+        imageKind: .uiImage(.bannerCake),
+        bannerTitle: "Cakes\nHub"
     )
 }
 

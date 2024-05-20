@@ -13,6 +13,7 @@ extension RootViewModel: Mockable {
 
     static let mockData = RootViewModel(
         productsData: ProductsData(
+            products: .mockData, 
             sections: [
                 .sales(.mockSalesData),
                 .news(.mockNewsData),
@@ -20,7 +21,7 @@ extension RootViewModel: Mockable {
             ],
             currentUserProducts: .mockData
         ),
-        currentUser: .poly
+        currentUser: .king
     )
 }
 #endif

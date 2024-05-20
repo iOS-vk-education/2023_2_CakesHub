@@ -42,7 +42,7 @@ enum TabBarItem: String, CaseIterable {
     case notifications = "bell.and.waves.left.and.right"
     case profile = "person"
 
-    var title: String {
+    var title: LocalizedStringResource {
         switch self {
         case .house:
             return "Home"

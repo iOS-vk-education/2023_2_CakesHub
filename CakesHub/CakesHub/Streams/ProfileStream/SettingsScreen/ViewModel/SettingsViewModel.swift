@@ -15,6 +15,9 @@ protocol SettingsViewModelProtocol: AnyObject {
     func signOut() throws
     // MARK: Actions
     func didTapSignOutButton()
+    func didTapDeleteAccount()
+    // MARK: Memory
+    func deleteChatHistoryFromMemory()
     // MARK: Reducers
     func setNavigation(nav: Navigation, modelContext: ModelContext, root: RootViewModel)
 }
@@ -45,8 +48,21 @@ final class SettingsViewModel: ViewModelProtocol, SettingsViewModelProtocol {
 
 extension SettingsViewModel {
 
+    @MainActor 
     func signOut() throws {
         try services.authService.logoutUser()
+        deleteChatHistoryFromMemory()
+    }
+
+    func deleteUser() async throws {
+        let userID = reducers.root.currentUser.uid
+        Task.detached {
+            try await self.services.cakeService.deleteUserProducts(sellerID: userID)
+        }
+        Task.detached {
+            try await self.services.userService.deleteUserInfo(uid: userID)
+        }
+        try await services.authService.deleteUser()
     }
 }
 
@@ -54,9 +70,27 @@ extension SettingsViewModel {
 
 extension SettingsViewModel {
 
+    @MainActor 
     func didTapSignOutButton() {
         // Отправляе запрос на Firebase
-        try? signOut()
+        do {
+            try signOut()
+            resetData()
+        } catch {
+            Logger.log(kind: .error, message: error.localizedDescription)
+        }
+    }
+
+    func didTapDeleteAccount() {
+        Task {
+            try? await deleteUser()
+            await deleteChatHistoryFromMemory()
+            await resetData()
+        }
+    }
+
+    @MainActor
+    private func resetData() {
         // Сбрасываем информацию текущего пользователя
         reducers.root.resetUser()
         // Удаляем id текущего пользователя из user defaults
@@ -67,6 +101,17 @@ extension SettingsViewModel {
         reducers.nav.goToRoot()
     }
 }
+
+// MARK: - Memory
+
+extension SettingsViewModel {
+
+    @MainActor
+    func deleteChatHistoryFromMemory() {
+        try? reducers.modelContext.delete(model: SDChatMessageModel.self)
+    }
+}
+
 
 // MARK: - Reducers
 

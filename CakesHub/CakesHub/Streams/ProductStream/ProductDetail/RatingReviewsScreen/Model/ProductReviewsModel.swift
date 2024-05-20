@@ -33,25 +33,32 @@ struct ProductReviewsModel {
 
 extension ProductReviewsModel {
 
-    var fiveStarsConfiguration: CHMRatingReviewsView.Configuration.RatingData {
-        calculateRatingConfiguration(countFiveStars)
+    var reviewConfiguration: CHMRatingReviewsView.Configuration {
+        let maxStar = max(countFiveStars, countFourStars, countThreeStars, countTwoStars, countOneStars)
+
+        let assemleConfiguration: (Int) -> CHMRatingReviewsView.Configuration.RatingData = { number in
+            let perсentArea = CGFloat(number) / CGFloat(maxStar)
+            return .basic(
+                ration: CHMRatingReviewsView.Configuration.Kind(rawValue: (perсentArea).rounded(toPlaces: 1)) ?? .zero,
+                count: number
+            )
+        }
+
+        return CHMRatingReviewsView.Configuration.basic(
+            fiveStarRating: assemleConfiguration(countFiveStars),
+            fourStarRating: assemleConfiguration(countFourStars),
+            threeStarRating: assemleConfiguration(countThreeStars),
+            twoStarRating: assemleConfiguration(countTwoStars),
+            oneStarRating: assemleConfiguration(countOneStars),
+            commonRating: averageRatingString,
+            commonCount: String(localized: "ratings") + ": \(feedbackCount)"
+        )
     }
-    var fourStarsConfiguration: CHMRatingReviewsView.Configuration.RatingData {
-        calculateRatingConfiguration(countFourStars)
-    }
-    var threeStarsConfiguration: CHMRatingReviewsView.Configuration.RatingData { 
-        calculateRatingConfiguration(countThreeStars)
-    }
-    var twoStarsConfiguration: CHMRatingReviewsView.Configuration.RatingData {
-        calculateRatingConfiguration(countTwoStars)
-    }
-    var oneStarsConfiguration: CHMRatingReviewsView.Configuration.RatingData {
-        calculateRatingConfiguration(countOneStars)
-    }
-    var feedbackAmountOfPoints: Int {
+
+    private var feedbackAmountOfPoints: Int {
         countFiveStars * 5 + countFourStars * 4 + countThreeStars * 3 + countTwoStars * 2 + countOneStars
     }
-    var averageRatingString: String {
+    private var averageRatingString: String {
         return "\(averageRating.rounded(toPlaces: 1))"
     }
     var averageRating: CGFloat {

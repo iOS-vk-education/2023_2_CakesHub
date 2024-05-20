@@ -68,7 +68,7 @@ extension CategoriesView {
         HStack(spacing: 0) {
             ForEach(CategoriesTab.allCases, id: \.rawValue) { tab in
                 HStack(spacing: 10) {
-                    Text(tab.rawValue)
+                    Text(tab.title)
                         .font(.system(size: 16 , weight: .regular))
                 }
                 .frame(maxWidth: .infinity)
@@ -104,17 +104,17 @@ extension CategoriesView {
                 LazyHStack(spacing: 0) {
                     ForEach(viewModel.sections) { section in
                         switch section {
-                        case let .men(categories):
-                            ScrollSections(
-                                items: viewModel.filterData(categories: categories)
-                            )
-                            .id(CategoriesTab.men)
-                            .containerRelativeFrame(.horizontal)
                         case let .women(categories):
                             ScrollSections(
                                 items: viewModel.filterData(categories: categories)
                             )
                             .id(CategoriesTab.women)
+                            .containerRelativeFrame(.horizontal)
+                        case let .men(categories):
+                            ScrollSections(
+                                items: viewModel.filterData(categories: categories)
+                            )
+                            .id(CategoriesTab.men)
                             .containerRelativeFrame(.horizontal)
                         case let .kids(categories):
                             ScrollSections(
@@ -187,7 +187,7 @@ private extension CategoriesView {
 private extension CategoriesView {
 
     enum Constants {
-        static let navigationTitle = "Categories"
-        static let searchTitle = "Search"
+        static let navigationTitle = String(localized: "Categories")
+        static let searchTitle = String(localized: "Search")
     }
 }

@@ -9,7 +9,18 @@
 import Foundation
 
 enum CategoriesTab: String, CaseIterable {
-    case men
     case women
+    case men
     case kids
+
+    var title: LocalizedStringResource {
+        switch self {
+        case .men:
+            return "men"
+        case .women:
+            return "women"
+        case .kids:
+            return "kids"
+        }
+    }
 }

@@ -11,9 +11,9 @@ import Firebase
 import FirebaseFirestore
 
 protocol CategoryServiceProtocol: AnyObject {
-    func fetch() async throws -> [FBCateoryModel]
-    func create(with category: FBCateoryModel) async throws
-    func fetch(tags: Set<FBCateoryModel.Tag>) async throws -> [FBCateoryModel]
+    func fetch() async throws -> [FBCategoryModel]
+    func create(with category: FBCategoryModel) async throws
+    func fetch(tags: Set<FBCategoryModel.Tag>) async throws -> [FBCategoryModel]
 }
 
 // MARK: - CategoryService
@@ -31,26 +31,26 @@ final class CategoryService {
 
 extension CategoryService: CategoryServiceProtocol {
 
-    func fetch() async throws -> [FBCateoryModel] {
+    func fetch() async throws -> [FBCategoryModel] {
         let snapshot = try await firestore.collection(collection).getDocuments()
         let categories = snapshot.documents.compactMap {
-            FBCateoryModel(dictionary: $0.data())
+            FBCategoryModel(dictionary: $0.data())
         }
         return categories
     }
 
-    func create(with category: FBCateoryModel) async throws {
+    func create(with category: FBCategoryModel) async throws {
         let documentRef = firestore.collection(collection).document(category.id)
         var categoryDictionary = category.dictionaryRepresentation
         categoryDictionary["tags"] = category.tags.map { $0.rawValue }
         try await documentRef.setData(categoryDictionary)
     }
 
-    func fetch(tags: Set<FBCateoryModel.Tag>) async throws -> [FBCateoryModel] {
+    func fetch(tags: Set<FBCategoryModel.Tag>) async throws -> [FBCategoryModel] {
         let query = firestore.collection(collection).whereField("tags", arrayContainsAny: tags.map { $0.rawValue })
         let snapshot = try await query.getDocuments()
         let categories = snapshot.documents.compactMap {
-            FBCateoryModel(dictionary: $0.data())
+            FBCategoryModel(dictionary: $0.data())
         }
         return categories
     }

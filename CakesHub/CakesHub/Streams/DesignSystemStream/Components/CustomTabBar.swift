@@ -46,11 +46,7 @@ private extension CustomTabBarView {
                 .contentShape(.rect)
                 .onTapGesture {
                     withAnimation(.bouncy, completionCriteria: .logicallyComplete) {
-                        if animatedTab.TabBarItem == .notifications {
-                            tabBarColor = Constants.notificationBgColor
-                        } else if tabBarColor != Constants.defaultBgColor {
-                            tabBarColor = Constants.defaultBgColor
-                        }
+                        tabBarColor = Constants.defaultBgColor
                         nav.activeTab = TabBarItem
                         animatedTab.isAnimating = true
                     } completion: {
@@ -87,8 +83,7 @@ private extension View {
 
     @ViewBuilder
     func setUpTab(_ TabBarItem: TabBarItem) -> some View {
-        self
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        frame(maxWidth: .infinity, maxHeight: .infinity)
             .tag(TabBarItem)
             .toolbar(.hidden, for: .tabBar)
     }
@@ -100,6 +95,5 @@ private extension CustomTabBarView {
         static let iconSelectedColor: Color = CHMColor<IconPalette>.iconRed.color
         static let iconUnselectedColor: Color = CHMColor<IconPalette>.iconGray.color
         static let defaultBgColor: Color = CHMColor<BackgroundPalette>.bgMainColor.color
-        static let notificationBgColor: Color = CHMColor<BackgroundPalette>(hexLight: 0xF9F9F9, hexDark: 0x000000).color
     }
 }

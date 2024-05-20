@@ -22,7 +22,7 @@ struct CakesHubApp: App {
         .modelContainer(for: [
             SDProductModel.self,
             SDNotificationModel.self,
-            SDCateoryModel.self,
+            SDCategoryModel.self,
             SDChatMessageModel.self,
         ])
     }

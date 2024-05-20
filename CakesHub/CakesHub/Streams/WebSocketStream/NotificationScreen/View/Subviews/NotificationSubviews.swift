@@ -27,8 +27,14 @@ extension NotificationView {
         ScrollView {
             LazyVStack {
                 ForEach(viewModel.notifications) { notification in
-                    NotificationCell(notification: notification, 
-                                     deleteHandler: didDeleteNotification)
+                    NotificationCell(
+                        notification: notification,
+                        deleteHandler: didDeleteNotification
+                    )
+                    .contentShape(.rect)
+                    .onTapGesture {
+                        didTapNotificationCell(notification: notification)
+                    }
                 }
             }
             .padding(.bottom, 100)
@@ -62,6 +68,7 @@ extension NotificationView {
             .padding(.vertical, 10)
             .padding(.horizontal)
         }
+        .backgroundStyle(Constants.placeholderColor)
     }
 }
 
@@ -85,7 +92,8 @@ private extension NotificationView {
 
     enum Constants {
         static let emptyImageName = Image(systemName: "envelope")
-        static let emptyString = "Уведомлений нет!"
+        static let emptyString = String(localized: "No notifications!")
         static let bgColor = CHMColor<BackgroundPalette>.bgMainColor.color
+        static let placeholderColor = CHMColor<BackgroundPalette>.bgCommentView.color
     }
 }

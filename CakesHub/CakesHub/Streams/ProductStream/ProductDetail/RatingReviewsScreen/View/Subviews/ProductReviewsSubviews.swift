@@ -30,20 +30,12 @@ extension ProductReviewsScreen {
 
     var RatingBlock: some View {
         CHMRatingReviewsView(
-            configuration: .basic(
-                fiveStarRating: viewModel.data.fiveStarsConfiguration,
-                fourStarRating: viewModel.data.fourStarsConfiguration,
-                threeStarRating: viewModel.data.threeStarsConfiguration,
-                twoStarRating: viewModel.data.twoStarsConfiguration,
-                oneStarRating: viewModel.data.oneStarsConfiguration,
-                commonRating: viewModel.data.averageRatingString,
-                commonCount: Constants.sectionTitle(count: viewModel.data.feedbackCount)
-            )
+            configuration: viewModel.data.reviewConfiguration
         )
     }
 
     var SectionTitle: some View {
-        Text(Constants.sectionTitle(count: viewModel.data.countOfComments))
+        Text(Constants.sectionTitle(count: viewModel.data.countOfComments).capitalized)
             .style(24, .semibold)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.init(top: 37, leading: 16, bottom: 30, trailing: 32))
@@ -90,14 +82,12 @@ extension ProductReviewsScreen {
 // MARK: - ReviewCell
 
 fileprivate struct ReviewCell: View {
-    @State private var animateReview = false
-    @State private var reviewSize: CGFloat = .zero
     var comment: ProductReviewsModel.CommentInfo
 
     var body: some View {
         CHMCommentView(
             configuration: .basic(
-                imageKind: .url(.mockProductCard),
+                imageKind: .uiImage(.mockUser),
                 userName: comment.userName,
                 date: comment.date,
                 description: comment.description,
@@ -106,33 +96,6 @@ fileprivate struct ReviewCell: View {
                 )
             )
         )
-        .offset(x: animateReview ? 0 : reviewSize)
-        .overlay {
-            AppearanceCalculationsView
-        }
-    }
-}
-
-// MARK: - Helper
-
-private extension ReviewCell {
-
-    var AppearanceCalculationsView: some View {
-        GeometryReader {
-            let size = $0.size
-            let minY = $0.frame(in: .global).minY
-            Color.clear
-                .onAppear {
-                    reviewSize = size.height
-                }
-                .onChange(of: minY) { oldValue, newValue in
-                    if newValue < size.height * 1.4 && !animateReview {
-                        withAnimation(.spring(duration: 0.45)) {
-                            animateReview = true
-                        }
-                    }
-                }
-        }
     }
 }
 
@@ -141,8 +104,8 @@ private extension ReviewCell {
 private extension ProductReviewsScreen {
 
     enum Constants {
-        static func sectionTitle(count: Int) -> String { "\(count) reviews" }
-        static let writeReviewButtonTitle = "Write a review"
+        static func sectionTitle(count: Int) -> String { String(localized: "reviews") + ": \(count)" }
+        static let writeReviewButtonTitle = String(localized: "Write a review")
     }
 }
 

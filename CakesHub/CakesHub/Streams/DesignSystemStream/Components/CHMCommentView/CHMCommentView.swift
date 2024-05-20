@@ -98,7 +98,7 @@ private extension Text {
 #Preview {
     CHMCommentView(
         configuration: .basic(
-            imageKind: .url(.mockProductCard),
+            imageKind: .uiImage(.mockUser),
             userName: "Helene Moore",
             date: "June 5, 2019",
             description: """

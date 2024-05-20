@@ -11,7 +11,7 @@ import SwiftUI
 struct CreateProductView: View, ViewModelable {
     typealias ViewModel = CreateProductViewModel
 
-    @EnvironmentObject private var nav: Navigation
+    @EnvironmentObject var nav: Navigation
     @EnvironmentObject private var root: RootViewModel
     @StateObject var viewModel: ViewModel
 
@@ -28,10 +28,10 @@ struct CreateProductView: View, ViewModelable {
             .navigationBarBackButtonHidden(true)
             .environmentObject(viewModel)
             .onAppear(perform: onAppear)
-            .alert("Создание товара", isPresented: $showAlert) {
+            .alert("Product creation", isPresented: $showAlert) {
                 AlertButtons
             } message: {
-                Text("Вы уверенны, что хотите создать объявление о продаже?")
+                Text("Are you sure you want to create a sale listing?")
             }
     }
 }
@@ -91,6 +91,11 @@ extension CreateProductView {
 
     /// Нажали кнопку `отмена`
     func didTapCancelProduct() {}
+    
+    /// Нажали кнопку `назад` для всего экарана
+    func didTapBackSreen() {
+        nav.openPreviousScreen()
+    }
 }
 
 // MARK: - Preview

@@ -13,15 +13,16 @@ import SwiftData
 extension AuthViewModel: Mockable {
 
     static let mockData = AuthViewModel(
-        uiProperies: ScreenData(
+        uiProperies: UIProperties(
             nickName: "mightyK1ngRichard",
             password: "123456789",
-            email: "dimapermyakov55@gmail.com"
+            email: "dimapermyakov55@gmail.com",
+            isRegister: true
         )
     )
 
     static let poly = AuthViewModel(
-        uiProperies: ScreenData(
+        uiProperies: UIProperties(
             nickName: "Полиночка",
             password: "123456789",
             email: "kakashek@gmail.com"

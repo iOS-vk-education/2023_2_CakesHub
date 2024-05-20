@@ -17,6 +17,7 @@ class SDUserModel {
     var _userImageURL       : String?
     var _userHeaderImageURL : String?
     var _phone              : String?
+    var _address            : String?
 
     @Relationship(deleteRule:  .cascade, inverse: \SDProductModel._seller)
     var products: [SDProductModel]?
@@ -27,7 +28,8 @@ class SDUserModel {
         email              : String,
         userImageURL       : String? = nil,
         userHeaderImageURL : String? = nil,
-        phone              : String? = nil
+        phone              : String? = nil,
+        address            : String? = nil
     ) {
         self._id = id
         self._nickName = nickName
@@ -35,6 +37,7 @@ class SDUserModel {
         self._userImageURL = userImageURL
         self._userHeaderImageURL = userHeaderImageURL
         self._phone = phone
+        self._address = address
     }
 }
 
@@ -50,7 +53,8 @@ extension SDUserModel: SDModelable {
             email: fbModel.email,
             userImageURL: fbModel.avatarImage,
             userHeaderImageURL: fbModel.headerImage,
-            phone: fbModel.phone
+            phone: fbModel.phone,
+            address: fbModel.address
         )
     }
 }
@@ -66,7 +70,8 @@ extension SDUserModel {
             email: _email,
             avatarImage: _userImageURL,
             headerImage: _userHeaderImageURL,
-            phone: _phone
+            phone: _phone,
+            address: _address
         )
     }
 }

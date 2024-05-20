@@ -19,6 +19,6 @@ extension CHMBigBannerView {
         /// Title of the banner
         var bannerTitle: String = .clear
         /// Title of the button
-        var buttonTitle: String = .clear
+        var buttonTitle: String?
     }
 }

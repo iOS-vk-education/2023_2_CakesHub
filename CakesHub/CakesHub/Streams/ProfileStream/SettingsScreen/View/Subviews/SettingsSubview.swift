@@ -9,59 +9,115 @@
 import SwiftUI
 
 extension SettingsView {
-
+    
     var MainView: some View {
         List {
-            PersonalSection
+            Group {
+                PersonalSection
 
-            NotificationSection
+                NotificationSection
 
-            DocumentsSection
+                DocumentsSection
 
-            ButtonsBlock
+                ButtonsBlock
+            }
+            .listRowBackground(Constants.rowColor)
+        }
+        .sheet(isPresented: $viewModel.uiProperties.openSheet, onDismiss: {
+            viewModel.uiProperties.selectedScreen = nil
+        }) {
+            ZStack(alignment: .top) {
+                switch viewModel.uiProperties.selectedScreen {
+                case .updatePassword:
+                    EditPasswordView()
+                case .updateEmail:
+                    EditEmailView()
+                case .none:
+                    Text("Error")
+                }
+
+                RoundedRectangle(cornerRadius: 3)
+                    .fill(CHMColor<SeparatorPalette>.divider.color)
+                    .frame(width: 60, height: 6)
+                    .offset(y: 15)
+            }
+            .presentationDetents([.medium])
+            .presentationCornerRadius(12)
         }
         .scrollContentBackground(.hidden)
-        .navigationTitle("Настройки")
+        .navigationTitle("Settings")
         .background(Constants.bgColor)
     }
 
     var PersonalSection: some View {
-        Section(header: Text("Персональные данные")) {
-            Button(action: {}) {
-                Label("Пароль", systemImage: "lock")
+        Section(header: Text("Personal information")) {
+            NavigationLink(
+                destination: EditProfileView().environmentObject(profileVM)
+            ) {
+                Label("Profile", systemImage: "person")
                     .foregroundColor(Constants.textColor)
             }
 
-            Button(action: {}) {
-                Label("Почта", systemImage: "envelope")
+            Button(action: {
+                viewModel.uiProperties.selectedScreen = .updatePassword
+                viewModel.uiProperties.openSheet = true
+            }) {
+                Label("Password", systemImage: "lock")
                     .foregroundColor(Constants.textColor)
             }
 
-            Button(action: {}) {
-                Label("Удалить аккаунт", systemImage: "trash")
+            Button(action: {
+                viewModel.uiProperties.selectedScreen = .updateEmail
+                viewModel.uiProperties.openSheet = true
+            }) {
+                Label("Mail", systemImage: "envelope")
+                    .foregroundColor(Constants.textColor)
+            }
+            
+            Button(action: {
+                viewModel.uiProperties.showAlert = true
+            }) {
+                Label("Delete account", systemImage: "trash")
                     .foregroundColor(Constants.deleteColor)
+            }
+            .alert(isPresented: $viewModel.uiProperties.showAlert) {
+                Alert(
+                    title: Text(String(localized: "Do you really want to delete your account?")),
+                    primaryButton: .destructive(Text(String(localized: "Yes"))) {
+                        viewModel.didTapDeleteAccount()
+                    },
+                    secondaryButton: .cancel()
+                )
             }
         }
     }
 
     var NotificationSection: some View {
-        Section(header: Text("Уведомления")) {
-            Button(action: {}) {
-                Label("Уведомления", systemImage: "bell")
+        Section(header: Text("Notifications")) {
+            NavigationLink(destination: NotificationsView()) {
+                Label("Notifications", systemImage: "bell")
                     .foregroundColor(Constants.textColor)
             }
         }
     }
 
     var DocumentsSection: some View {
-        Section(header: Text("Документы")) {
-            Button(action: {}) {
-                Label("Политика конфиденциальности", systemImage: "doc.text")
+        Section(header: Text("Documents")) {
+            Button(action: {
+                if let url = URL(string: "https://www.apple.com/ru/legal/privacy/ru/") {
+                    UIApplication.shared.open(url)
+                }
+            }) {
+                Label("Privacy Policy", systemImage: "doc.text")
                     .foregroundColor(Constants.textColor)
             }
 
-            Button(action: {}) {
-                Label("Пользовательское соглашение", systemImage: "doc.text")
+            Button(action: {
+                if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/ru/terms.html") {
+                    UIApplication.shared.open(url)
+                }
+            }) {
+                Label("User Agreement", systemImage: "doc.text")
                     .foregroundColor(Constants.textColor)
             }
         }
@@ -69,7 +125,12 @@ extension SettingsView {
 
     @ViewBuilder
     var ButtonsBlock: some View {
-        Button(action: {}) {
+        Button(action: {
+            guard let url = URL(string: "https://t.me/ms_shakhbieva") else {
+                return
+            }
+            UIApplication.shared.open(url)
+        }) {
             Label("Support", systemImage: "questionmark.circle")
         }
 
@@ -87,6 +148,7 @@ extension SettingsView {
         SettingsView(viewModel: .mockData)
     }
     .environmentObject(Navigation())
+    .environmentObject(RootViewModel.mockData)
 }
 
 // MARK: - Constants
@@ -98,5 +160,6 @@ private extension SettingsView {
         static let deleteColor = CHMColor<TextPalette>.textWild.color
         static let userMailColor = CHMColor<TextPalette>.textPrimary.color
         static let bgColor = CHMColor<BackgroundPalette>.bgMainColor.color
+        static let rowColor = CHMColor<BackgroundPalette>.bgCommentView.color
     }
 }

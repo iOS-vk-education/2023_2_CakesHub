@@ -26,12 +26,12 @@ private extension AllChatsViewModel {
             .init(
                 user: .init(id: king.uid, nickname: king.nickname, imageKind: .string(king.avatarImage ?? .clear)),
                 lastMessage: "Привет! Это последнее сообщение",
-                timeMessage: "03:12"
+                timeMessage: Date()
             ),
             .init(
                 user: .init(id: poly.uid, nickname: poly.nickname, imageKind: .string(poly.avatarImage ?? .clear)),
                 lastMessage: "А это ещё одно сообщение",
-                timeMessage: "02:12"
+                timeMessage: Date()
             )
         ]
 

@@ -109,7 +109,7 @@ private extension AllProductsCategoryView {
 
     enum Constants {
         static let bgColor: Color = CHMColor<BackgroundPalette>.bgMainColor.color
-        static let emptyText = "Ничего не найденно"
+        static let emptyText = String(localized: "Nothing found")
         static let emptyImageColor = CHMColor<IconPalette>.iconPrimary.color
     }
 }
