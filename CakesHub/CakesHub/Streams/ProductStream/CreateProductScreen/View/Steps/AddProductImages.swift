@@ -26,8 +26,6 @@ struct AddProductImages: View {
                 .style(18, .semibold, CHMColor<TextPalette>.textPrimary.color)
                 .padding(.top)
 
-            PhotoPicker
-
             ScrollView(.horizontal) {
                 HStack {
                     ForEach(selectedPhotosData, id: \.self) { data in
@@ -35,7 +33,7 @@ struct AddProductImages: View {
                             Image(uiImage: uiImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: 200, height: 200)
+                                .frame(width: 250, height: 250)
                                 .clipShape(.rect(cornerRadius: 16))
                         }
                     }
@@ -48,6 +46,10 @@ struct AddProductImages: View {
 
             Spacer()
         }
+        .overlay(alignment: .bottom) {
+            PhotoPicker
+        }
+        .ignoresSafeArea(edges: .bottom)
         .onAppear {
             selectedPhotosData = viewModel.inputProductData.productImages.compactMap { $0.pngData() }
         }
@@ -82,10 +84,12 @@ private extension AddProductImages {
         }
         .foregroundStyle(.red)
         .onChange(of: selectedItems) { oldValue, newValue in
+            guard oldValue.count != newValue.count else { return }
+
             if oldValue.count > newValue.count {
                 oldValue.forEach { item in
-                    Task {
-                        if !newValue.contains(item), 
+                    Task(priority: .high) {
+                        if !newValue.contains(item),
                             let data = try? await item.loadTransferable(type: Data.self) {
                             if let index = selectedPhotosData.firstIndex(where: { $0 == data }) {
                                 selectedPhotosData.remove(at: index)
@@ -96,17 +100,16 @@ private extension AddProductImages {
                 return
             }
 
-            let setData = Set(selectedPhotosData)
-            newValue.forEach { item in
-                Task {
-                    if let data = try? await item.loadTransferable(type: Data.self), !setData.contains(data) {
-                        selectedPhotosData.append(data)
-                    }
-                }
+            Task(priority: .high) {
+                guard
+                    let newImage = newValue.last,
+                    let data = try? await newImage.loadTransferable(type: Data.self)
+                else { return }
+                selectedPhotosData.append(data)
             }
         }
-        .photosPickerStyle(.compact)
-        .frame(height: 150)
+        .photosPickerStyle(.inline)
+        .frame(height: 350)
         .photosPickerDisabledCapabilities([.selectionActions])
         .photosPickerAccessoryVisibility(.hidden)
     }

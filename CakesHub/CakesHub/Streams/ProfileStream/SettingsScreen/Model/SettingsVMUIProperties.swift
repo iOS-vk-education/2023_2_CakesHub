@@ -11,6 +11,15 @@ import Foundation
 extension SettingsViewModel {
 
     struct UIProperties: ClearConfigurationProtocol {
+        enum Screen {
+            case updatePassword
+            case updateEmail
+        }
+
+        var showAlert: Bool = false
+        var selectedScreen: Screen?
+        var openSheet: Bool = false
+
         static let clear = UIProperties()
     }
 }

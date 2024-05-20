@@ -22,18 +22,23 @@ extension AllChatsView {
         }
     }
 
+    @ViewBuilder
     var MainView: some View {
-        ScrollView {
-            LazyVStack(pinnedViews: [.sectionHeaders]) {
-                Section {
-                    CellsBlock
-                } header: {
-                    SearchBarView
-                        .padding(.bottom)
+        if viewModel.chatCells.isEmpty {
+            EmptyBlock
+        } else {
+            ScrollView {
+                LazyVStack(pinnedViews: [.sectionHeaders]) {
+                    Section {
+                        CellsBlock
+                    } header: {
+                        SearchBarView
+                            .padding(.bottom)
+                    }
                 }
             }
+            .background(Constants.bgColor)
         }
-        .background(Constants.bgColor)
     }
 
     var LoadingView: some View {
@@ -84,6 +89,26 @@ extension AllChatsView {
         .background(CHMColor<BackgroundPalette>.bgSearchBar.color, in: .capsule)
         .padding(.horizontal)
     }
+
+    var EmptyBlock: some View {
+        GroupBox {
+            Image(.cakeLogo)
+                .renderingMode(.template)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(edge: 200)
+                .foregroundStyle(Constants.emptyImageColor)
+                .padding(.horizontal)
+
+            Text(Constants.emptyText)
+                .font(.system(size: 18, weight: .semibold, design: .rounded))
+        }
+        .backgroundStyle(
+            CHMColor<BackgroundPalette>.bgCommentView.color
+        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Constants.bgColor)
+    }
 }
 
 // MARK: - Preview
@@ -108,6 +133,8 @@ private extension AllChatsView {
         static let imageSize: CGFloat = 200
         static let imageCornerRadius: CGFloat = 20
         static let bgColor: Color = CHMColor<BackgroundPalette>.bgMainColor.color
+        static let emptyImageColor = CHMColor<IconPalette>.iconPrimary.color
         static let searchTitle = String(localized: "Search")
+        static let emptyText = String(localized: "The chat history is empty")
     }
 }

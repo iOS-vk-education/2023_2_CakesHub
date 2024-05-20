@@ -18,6 +18,9 @@ protocol ProfileViewModelProtocol: AnyObject {
     // MARK: Reducers
     func setRootUser(rootUser: FBUserModel)
     func updateUserProducts(products: [ProductModel])
+    func updateUserAvatar(imageKind: ImageKind)
+    func updateUserHeader(imageKind: ImageKind)
+    func updateUsername(name: String)
 }
 
 // MARK: - ProfileViewModelProtocol
@@ -110,5 +113,20 @@ extension ProfileViewModel {
 
     func updateUserProducts(products: [ProductModel]) {
         user.products = products
+    }
+
+    @MainActor
+    func updateUserAvatar(imageKind: ImageKind) {
+        user.userImage = imageKind
+    }
+
+    @MainActor
+    func updateUserHeader(imageKind: ImageKind) {
+        user.userHeaderImage = imageKind
+    }
+
+    @MainActor
+    func updateUsername(name: String) {
+        user.name = name
     }
 }

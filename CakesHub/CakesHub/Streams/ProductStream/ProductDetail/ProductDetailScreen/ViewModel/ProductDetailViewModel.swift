@@ -160,7 +160,7 @@ private extension ProductDetailViewModel {
             kind: .notification,
             title: "Вы заказали торт: \"\(productName)\"",
             date: date,
-            message: "Вы заказали торт: \"\(productName)\" по цене $\(productPrice) у продавца: \(sellerName)",
+            message: "Вы заказали торт: \"\(productName)\" по цене \(productPrice) у продавца: \(sellerName)",
             productID: productID,
             userID: sellerID,
             receiverID: customerID

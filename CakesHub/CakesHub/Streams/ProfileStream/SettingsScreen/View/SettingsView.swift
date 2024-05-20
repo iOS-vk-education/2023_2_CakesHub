@@ -14,6 +14,7 @@ struct SettingsView: View, ViewModelable {
     @EnvironmentObject private var nav: Navigation
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var root: RootViewModel
+    @EnvironmentObject var profileVM: ProfileViewModel
     @State var viewModel = ViewModel()
 
     var body: some View {
@@ -35,5 +36,7 @@ private extension SettingsView {
 
 #Preview {
     SettingsView(viewModel: .mockData)
+        .environmentObject(ProfileViewModel())
         .environmentObject(Navigation())
+        .environmentObject(RootViewModel.mockData)
 }

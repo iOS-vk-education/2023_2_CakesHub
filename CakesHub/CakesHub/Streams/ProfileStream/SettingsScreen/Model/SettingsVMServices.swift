@@ -15,15 +15,18 @@ extension SettingsViewModel {
 
         var authService: AuthServiceProtocol
         var userService: UserServiceProtocol
+        var cakeService: CakeServiceProtocol
         var wsService: WebSockerManagerProtocol
 
         init(
             authService: AuthServiceProtocol = AuthService.shared,
             userService: UserServiceProtocol = UserService.shared,
+            cakeService: CakeServiceProtocol = CakeService.shared,
             wsService: WebSockerManagerProtocol = WebSockerManager.shared
         ) {
             self.authService = authService
             self.userService = userService
+            self.cakeService = cakeService
             self.wsService = wsService
         }
 

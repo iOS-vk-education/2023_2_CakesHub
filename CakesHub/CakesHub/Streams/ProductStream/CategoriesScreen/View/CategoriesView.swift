@@ -63,6 +63,6 @@ extension CategoriesView {
         .environmentObject(Navigation())
         .environmentObject(RootViewModel.mockData)
         .modelContainer(
-            Preview(SDCateoryModel.self).container
+            Preview(SDCategoryModel.self).container
         )
 }

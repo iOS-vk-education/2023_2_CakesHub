@@ -16,14 +16,14 @@ struct CategoryCardModel: Identifiable {
 
 // MARK: - Mapper
 
-extension [FBCateoryModel] {
+extension [FBCategoryModel] {
 
     var mapper: [CategoryCardModel] {
         self.map { $0.mapper }
     }
 }
 
-extension FBCateoryModel {
+extension FBCategoryModel {
 
     var mapper: CategoryCardModel {
         CategoryCardModel(
