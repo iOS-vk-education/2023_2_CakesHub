@@ -25,7 +25,8 @@ extension NotificationModel: Mockable {
         text: "Вас ожидает доставщик торта по номеру заказа #12342",
         date: Date().description,
         userID: "2",
-        sellerID: "1"
+        sellerID: "1", 
+        productID: "1"
     )
 }
 
@@ -38,7 +39,8 @@ private extension [NotificationModel] {
             text: "Вас ожидает доставщик торта по номеру заказа #\($0)",
             date: Date().description,
             userID: "2",
-            sellerID: "1"
+            sellerID: "1", 
+            productID: String($0 + 1)
         )
     }
 }

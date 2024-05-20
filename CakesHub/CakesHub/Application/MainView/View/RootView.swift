@@ -54,8 +54,7 @@ private extension RootView {
         if viewModel.isAuth {
             MainViewBlock
         } else {
-            // FIXME: Не забыть убрать моки
-            AuthView(viewModel: .mockData)
+            AuthView()
         }
     }
 
@@ -105,7 +104,53 @@ private extension RootView {
             Preview(
                 SDProductModel.self,
                 SDNotificationModel.self,
+                SDChatMessageModel.self,
                 SDCategoryModel.self
             ).container
         )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
