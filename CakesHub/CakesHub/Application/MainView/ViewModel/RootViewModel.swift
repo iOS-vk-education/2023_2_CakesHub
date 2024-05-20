@@ -88,6 +88,24 @@ extension RootViewModel: RootViewModelProtocol {
         }
     }
 
+    @MainActor
+    func pullToRefresh() async throws {
+        // Достаём данные из сети
+        let newFBProducts = try await services.cakeService.getCakesList()
+        productData.products = newFBProducts
+        filterCurrentUserProducts()
+
+        // Кэшируем данные
+        saveProductsInMemory(products: newFBProducts)
+
+        // Группируем данные по секциям
+        groupDataBySection(data: newFBProducts) { [weak self] sections in
+            guard let self else { return }
+            productData.sections = sections
+            isShimmering = false
+        }
+    }
+
     func fetchDataWithoutNetwork() {
         let sdProducts = fetchProductsFromMemory()
         let fbProducts = sdProducts.map { $0.mapper }

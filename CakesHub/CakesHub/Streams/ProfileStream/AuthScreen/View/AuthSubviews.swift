@@ -50,7 +50,7 @@ extension AuthView {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 120, height: 120)
-            .foregroundStyle(Constants.iconColor)
+            .foregroundStyle(Constants.logoColor)
     }
 
     func TitleView(title: String) -> some View {
@@ -136,6 +136,7 @@ extension AuthView {
     enum Constants {
         static let titleColor = CHMColor<TextPalette>.textRed.color
         static let textColor = CHMColor<TextPalette>.textPrimary.color
+        static let logoColor = CHMColor<IconPalette>.iconPrimary.color.gradient
         static let iconColor = CHMColor<IconPalette>.iconRed.color.gradient
         static let bgColor = CHMColor<BackgroundPalette>.bgMainColor.color
         static let nicknameTitle = String(localized: "Nickname")

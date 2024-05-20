@@ -16,6 +16,7 @@ import SwiftUI
 protocol CakeServiceProtocol {
     func getCakesList() async throws -> [FBProductModel]
     func createCake(cake: FBProductModel, completion: @escaping (Error?) -> Void)
+    func deleteUserProducts(sellerID: String) async throws
     func sendFeedback(productID: String, text feedbackText: String, count countFilledStar: Int, username: String) async throws -> FBProductModel
 }
 
@@ -156,6 +157,19 @@ extension CakeService: CakeServiceProtocol {
         ])
         
         return fbProduct
+    }
+    
+    /// Delete all user products
+    func deleteUserProducts(sellerID: String) async throws {
+        let query = firestore.collection(collection).whereField("sellerID", isEqualTo: sellerID)
+        let snapshot = try await query.getDocuments()
+        let batch = firestore.batch()
+
+        for document in snapshot.documents {
+            batch.deleteDocument(document.reference)
+        }
+
+        try await batch.commit()
     }
 }
 

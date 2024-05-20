@@ -113,7 +113,7 @@ extension NotificationDetailView {
         Section(Constants.notificationSectionTitle) {
             Group {
                 Text(Constants.orderDate + ": \(notification.date.toCorrectDate)")
-                    .style(14, .semibold, Constants.textWildColor)
+                    .style(14, .semibold, Constants.textPrimaryColor)
 
                 Text("ID: \(notification.id)")
                     .style(11, .semibold, Constants.textSecondaryColor)
@@ -124,6 +124,7 @@ extension NotificationDetailView {
                 if let message = notification.message {
                     Text(message)
                         .style(14, .regular, Constants.textDescription)
+                        .padding(.bottom, 3)
                 }
             }
             .listRowBackground(Constants.rowColor)
@@ -170,7 +171,6 @@ private extension NotificationDetailView {
 
     enum Constants {
         static let textPrimaryColor: Color = CHMColor<TextPalette>.textPrimary.color
-        static let textWildColor: Color = CHMColor<TextPalette>.textWild.color
         static let textSecondaryColor: Color = CHMColor<TextPalette>.textSecondary.color
         static let textDescription: Color = CHMColor<TextPalette>.textDescription.color
         static let bgColor: Color = CHMColor<BackgroundPalette>.bgMainColor.color
