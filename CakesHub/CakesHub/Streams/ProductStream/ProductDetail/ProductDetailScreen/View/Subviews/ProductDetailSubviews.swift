@@ -39,6 +39,9 @@ extension ProductDetailScreen {
             if userIsNotSeller {
                 BuyButton
                     .padding(.bottom, UIDevice.isSe ? 16 : .zero)
+            } else {
+                DeleteButton
+                    .padding(.bottom, UIDevice.isSe ? 16 : .zero)
             }
         }
         .overlay(alignment: .topLeading) {
@@ -215,6 +218,21 @@ extension ProductDetailScreen {
         .tint(Color.white)
     }
 
+    var DeleteButton: some View {
+        Button {
+            didTapDeleteButton()
+        } label: {
+            Text(Constants.deleteButtonTitle.uppercased())
+                .font(.system(size: 14, weight: .medium))
+                .frame(maxWidth: .infinity)
+        }
+        .padding(.vertical, 14)
+        .background(CHMColor<BackgroundPalette>.bgRed.color)
+        .clipShape(.rect(cornerRadius: 25))
+        .padding(.horizontal)
+        .tint(Color.white)
+    }
+
     var SheetView: some View {
         VStack {
             if let selectedPicker {
@@ -299,6 +317,7 @@ private extension ProductDetailScreen {
     enum Constants {
         static let similarBlockHeaderTitle = String(localized: "You can also like this")
         static let buyButtonTitle = String(localized: "Make an order")
+        static let deleteButtonTitle = String(localized: "Delete product")
     }
 }
 
