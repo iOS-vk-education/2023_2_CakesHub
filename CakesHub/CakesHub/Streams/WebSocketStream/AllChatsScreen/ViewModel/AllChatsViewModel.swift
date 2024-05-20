@@ -83,7 +83,6 @@ extension AllChatsViewModel {
         // Достаём данные из памяти устройства
         Task {
             chatCells = await fetchMessages()
-            if !uiProperties.showLoader { return }
             withAnimation {
                 uiProperties.showLoader = false
             }
@@ -97,7 +96,6 @@ extension AllChatsViewModel {
             saveMessages(messages: userMessages)
 
             chatCells = await assembleMessagesInfoCells(messages: userMessages)
-            if !uiProperties.showLoader { return }
             withAnimation {
                 uiProperties.showLoader = false
             }
@@ -106,12 +104,18 @@ extension AllChatsViewModel {
 
     /// Получение сообщения из Web Socket слоя
     func receiveMessage(output: NotificationCenter.Publisher.Output) {
-        guard
-            let wsMessage = output.object as? WSMessage, wsMessage.kind == .message,
-            let index = chatCells.firstIndex(where: { $0.user.id == wsMessage.userID })
-        else {
+        guard let wsMessage = output.object as? WSMessage, wsMessage.kind == .message else {
             return
         }
+
+        var index: Int?
+        if wsMessage.userID == currentUserID {
+            index = chatCells.firstIndex(where: { $0.user.id == wsMessage.receiverID })
+        } else {
+            index = chatCells.firstIndex(where: { $0.user.id == wsMessage.userID })
+        }
+        guard let index else { return }
+
         let newMessage = ChatCellModel.Message(
             id: wsMessage.id,
             time: wsMessage.dispatchDate,

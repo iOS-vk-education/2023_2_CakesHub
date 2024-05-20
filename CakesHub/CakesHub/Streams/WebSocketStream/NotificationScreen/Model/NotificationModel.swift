@@ -15,9 +15,25 @@ struct NotificationModel: Identifiable {
     var date: String
     var userID: String
     var sellerID: String
+    var productID: String
 }
 
 // MARK: - Mapper
+
+extension NotificationModel {
+
+    var mapper: FBNotification {
+        FBNotification(
+            id: id,
+            title: title,
+            date: date,
+            message: text,
+            productID: productID,
+            receiverID: userID,
+            creatorID: sellerID
+        )
+    }
+}
 
 extension FBNotification {
 
@@ -28,7 +44,8 @@ extension FBNotification {
             text: message,
             date: date.toCorrectDate,
             userID: receiverID,
-            sellerID: creatorID
+            sellerID: creatorID,
+            productID: productID
         )
     }
 }
@@ -42,7 +59,8 @@ extension WSNotification {
             text: message,
             date: date.toCorrectDate,
             userID: receiverID,
-            sellerID: userID
+            sellerID: userID,
+            productID: productID
         )
     }
 }

@@ -15,6 +15,7 @@ struct FBUserModel: FBModelable {
     var avatarImage : String?
     var headerImage : String?
     var phone       : String?
+    var address     : String?
 
     static let clear = FBUserModel(uid: .clear, nickname: .clear, email: .clear)
 }
@@ -31,7 +32,8 @@ extension FBUserModel {
             email: dictionary["email"] as? String ?? .clear,
             avatarImage: dictionary["avatarImage"] as? String,
             headerImage: dictionary["headerImage"] as? String,
-            phone: dictionary["phone"] as? String
+            phone: dictionary["phone"] as? String,
+            address: dictionary["address"] as? String
         )
     }
 }

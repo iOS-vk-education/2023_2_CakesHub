@@ -54,13 +54,14 @@ private extension CHMNewProductCard {
             CHMBadgeView(configuration: configuration.badgeViewConfiguration)
             .padding([.top, .leading], 8)
         }
-        .overlay(alignment: .bottomTrailing) {
-            CHMProductButton(
-                configuration: configuration.productButtonConfiguration,
-                didTapButton: didTapButton
-            )
-            .offset(x: 0, y: 18)
-        }
+        // TODO: Вернуть кнопку лайка
+//        .overlay(alignment: .bottomTrailing) {
+//            CHMProductButton(
+//                configuration: configuration.productButtonConfiguration,
+//                didTapButton: didTapButton
+//            )
+//            .offset(x: 0, y: 18)
+//        }
     }
 
     var FooterBlockView: some View {

@@ -19,11 +19,11 @@ extension CategoriesViewModel {
     }
 
     enum FBSection {
-        case men([FBCateoryModel])
-        case women([FBCateoryModel])
-        case kids([FBCateoryModel])
+        case men([FBCategoryModel])
+        case women([FBCategoryModel])
+        case kids([FBCategoryModel])
 
-        var items: [FBCateoryModel] {
+        var items: [FBCategoryModel] {
             switch self {
             case let .men(items):
                 return items
@@ -40,8 +40,8 @@ extension CategoriesViewModel.Section: Identifiable{
 
     var id: Int {
         switch self {
-        case .men: return 1
-        case .women: return 2
+        case .women: return 1
+        case .men: return 2
         case .kids: return 3
         }
     }

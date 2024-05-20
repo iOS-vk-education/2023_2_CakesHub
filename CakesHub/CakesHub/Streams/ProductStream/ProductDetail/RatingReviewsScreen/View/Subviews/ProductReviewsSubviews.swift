@@ -87,7 +87,7 @@ fileprivate struct ReviewCell: View {
     var body: some View {
         CHMCommentView(
             configuration: .basic(
-                imageKind: .url(.mockProductCard),
+                imageKind: .uiImage(.mockUser),
                 userName: comment.userName,
                 date: comment.date,
                 description: comment.description,

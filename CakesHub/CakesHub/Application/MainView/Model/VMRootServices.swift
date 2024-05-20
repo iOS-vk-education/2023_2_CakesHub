@@ -11,13 +11,16 @@ import Foundation
 extension RootViewModel {
 
     struct Services: ClearConfigurationProtocol {
+        let userService: UserServiceProtocol
         let cakeService: CakeServiceProtocol
         let wbManager: WebSockerManagerProtocol
 
         init(
+            userService: UserServiceProtocol = UserService.shared,
             cakeService: CakeServiceProtocol = CakeService.shared,
             wbManager: WebSockerManagerProtocol = WebSockerManager.shared
         ) {
+            self.userService = userService
             self.cakeService = cakeService
             self.wbManager = wbManager
         }

@@ -31,12 +31,32 @@
         }
       }
     },
+    "Already have account?" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Аккаунт уже создан?"
+          }
+        }
+      }
+    },
     "Are you sure you want to create a sale listing?" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Вы уверенны, что хотите создать объявление о продаже?"
+          }
+        }
+      }
+    },
+    "Avatar" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Аватарка"
           }
         }
       }
@@ -83,6 +103,26 @@
         }
       }
     },
+    "Change the profile header" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Замените вашу шапку профиля"
+          }
+        }
+      }
+    },
+    "Change your avatar" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Замените вашу аватарку"
+          }
+        }
+      }
+    },
     "Chats" : {
       "localizations" : {
         "ru" : {
@@ -123,6 +163,16 @@
         }
       }
     },
+    "Customer" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Покупатель"
+          }
+        }
+      }
+    },
     "Delete" : {
       "localizations" : {
         "ru" : {
@@ -143,12 +193,42 @@
         }
       }
     },
+    "Delivery address" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Адрес доставки"
+          }
+        }
+      }
+    },
+    "Describe your problem" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Опишите вашу проблему"
+          }
+        }
+      }
+    },
     "Discounted price" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Цена со скидкой"
+          }
+        }
+      }
+    },
+    "Do you really want to delete your account?" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вы действительно хотите удалить аккаунт?"
           }
         }
       }
@@ -173,12 +253,52 @@
         }
       }
     },
+    "Edit a nickname" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Редактировать имя"
+          }
+        }
+      }
+    },
+    "Editing a profile" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Редактировать профиль"
+          }
+        }
+      }
+    },
     "Email" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Email"
+          }
+        }
+      }
+    },
+    "Enter a description of the problem" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите описание проблемы"
+          }
+        }
+      }
+    },
+    "Enter your email address" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите адрес электронной почты"
           }
         }
       }
@@ -193,6 +313,16 @@
         }
       }
     },
+    "Fill in all the fields." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Заполните все поля."
+          }
+        }
+      }
+    },
     "Home" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -200,6 +330,19 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Дом"
+          }
+        }
+      }
+    },
+    "ID: %@" : {
+
+    },
+    "Invalid email format." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неверный формат email"
           }
         }
       }
@@ -307,6 +450,36 @@
         }
       }
     },
+    "New nickname" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новый никнейм"
+          }
+        }
+      }
+    },
+    "New password" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новый пароль"
+          }
+        }
+      }
+    },
+    "Nickname" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Имя"
+          }
+        }
+      }
+    },
     "No notifications!" : {
       "localizations" : {
         "ru" : {
@@ -338,6 +511,16 @@
         }
       }
     },
+    "Notification content" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Содержимое уведомления"
+          }
+        }
+      }
+    },
     "Notifications" : {
       "localizations" : {
         "ru" : {
@@ -358,6 +541,16 @@
         }
       }
     },
+    "Old password" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Старый пароль"
+          }
+        }
+      }
+    },
     "Open in map" : {
       "localizations" : {
         "ru" : {
@@ -374,6 +567,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Необязательно поле"
+          }
+        }
+      }
+    },
+    "Order" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Заказ"
+          }
+        }
+      }
+    },
+    "Order date" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дата заказа"
           }
         }
       }
@@ -448,6 +661,16 @@
         }
       }
     },
+    "Product" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продукт"
+          }
+        }
+      }
+    },
     "Product creation" : {
       "localizations" : {
         "ru" : {
@@ -469,12 +692,52 @@
         }
       }
     },
+    "Profile Header" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Шапка профиля"
+          }
+        }
+      }
+    },
     "Rating&Reviews" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Рейтинг и отзывы"
+          }
+        }
+      }
+    },
+    "ratings" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "рейтинг"
+          }
+        }
+      }
+    },
+    "Register" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Регистрация"
+          }
+        }
+      }
+    },
+    "Repeat Password" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Повторите пароль"
           }
         }
       }
@@ -496,6 +759,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Скидки"
+          }
+        }
+      }
+    },
+    "Save" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сохранить"
           }
         }
       }
@@ -541,12 +814,32 @@
         }
       }
     },
+    "Seller" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продавец"
+          }
+        }
+      }
+    },
     "Seller info" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Информация о продавце"
+          }
+        }
+      }
+    },
+    "Send" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отправить"
           }
         }
       }
@@ -597,6 +890,56 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Поддержка"
+          }
+        }
+      }
+    },
+    "The chat history is empty" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "История чатов пуста"
+          }
+        }
+      }
+    },
+    "The password format is incorrect." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неверный формат пароля"
+          }
+        }
+      }
+    },
+    "The password must consist only of Latin letters and numbers without spaces." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароль должен состоять только из латинских букв и цифр без пробелов."
+          }
+        }
+      }
+    },
+    "The passwords don't match." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароли не совпадают"
+          }
+        }
+      }
+    },
+    "User address not found" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Адрес пользователя не найден"
           }
         }
       }
@@ -659,6 +1002,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Написать отзыв"
+          }
+        }
+      }
+    },
+    "Yes" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Да"
           }
         }
       }

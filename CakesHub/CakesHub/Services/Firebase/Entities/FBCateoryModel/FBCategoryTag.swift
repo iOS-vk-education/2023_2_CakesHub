@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension FBCateoryModel {
+extension FBCategoryModel {
 
     enum Tag: String, CaseIterable {
         case men

@@ -16,8 +16,8 @@ protocol CategoriesViewModelProtocol {
     // MARK: Network
     func fetch() async throws -> [CategoriesViewModel.FBSection]
     // MARK: Memory CRUD
-    func save(categories: Set<FBCateoryModel>)
-    func fetch() -> [FBCateoryModel]
+    func save(categories: Set<FBCategoryModel>)
+    func fetch() -> [FBCategoryModel]
     // MARK: Lifecycle
     func fetchSections()
     func fetchSectionsFromMemory() -> [CategoriesViewModel.Section]
@@ -66,8 +66,8 @@ extension CategoriesViewModel {
                 // Получаем данный категорий из сети
                 let fbSections = try await fetch()
                 sections = [
-                    .men(fbSections[0].items.sorted(by: { $0.title < $1.title }).mapper),
-                    .women(fbSections[1].items.sorted(by: { $0.title < $1.title }).mapper),
+                    .women(fbSections[0].items.sorted(by: { $0.title < $1.title }).mapper),
+                    .men(fbSections[1].items.sorted(by: { $0.title < $1.title }).mapper),
                     .kids(fbSections[2].items.sorted(by: { $0.title < $1.title }).mapper)
                 ]
 
@@ -89,9 +89,9 @@ extension CategoriesViewModel {
     func fetchSectionsFromMemory() -> [Section] {
         let memoryCategories = fetch()
 
-        var menCategories: [FBCateoryModel] = []
-        var womenCategories: [FBCateoryModel] = []
-        var kidsCategories: [FBCateoryModel] = []
+        var menCategories: [FBCategoryModel] = []
+        var womenCategories: [FBCategoryModel] = []
+        var kidsCategories: [FBCategoryModel] = []
         for category in memoryCategories {
             if category.tags.contains(.men) {
                 menCategories.append(category)
@@ -105,8 +105,8 @@ extension CategoriesViewModel {
         }
 
         return [
-            .men(menCategories.sorted(by: { $0.title < $1.title }).mapper),
             .women(womenCategories.sorted(by: { $0.title < $1.title }).mapper),
+            .men(menCategories.sorted(by: { $0.title < $1.title }).mapper),
             .kids(kidsCategories.sorted(by: { $0.title < $1.title }).mapper)
         ]
     }
@@ -137,16 +137,16 @@ extension CategoriesViewModel {
 
 extension CategoriesViewModel {
 
-    func save(categories: Set<FBCateoryModel>) {
+    func save(categories: Set<FBCategoryModel>) {
         categories.forEach { category in
-            let sdModel = SDCateoryModel(fbModel: category)
+            let sdModel = SDCategoryModel(fbModel: category)
             modelContext.insert(sdModel)
         }
         try? modelContext.save()
     }
 
-    func fetch() -> [FBCateoryModel] {
-        let fetchDescriptor = FetchDescriptor<SDCateoryModel>()
+    func fetch() -> [FBCategoryModel] {
+        let fetchDescriptor = FetchDescriptor<SDCategoryModel>()
         let sdModels = (try? modelContext.fetch(fetchDescriptor)) ?? []
         return sdModels.map { $0.mapper }
     }
@@ -162,8 +162,8 @@ extension CategoriesViewModel {
         async let womenCategories = services.catigoryService.fetch(tags: [.women])
 
         let categories: [FBSection] = [
-            .men(try await menCategories),
             .women(try await womenCategories),
+            .men(try await menCategories),
             .kids(try await kidsCategories)
         ]
 

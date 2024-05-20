@@ -33,14 +33,15 @@ struct CHMProductDescriptionView: View {
         VStack(alignment: .leading) {
             TextBlock
                 .padding(.horizontal, configuration.innerHPadding)
-                .padding(.top, 15)
 
             StarsBlock
                 .padding(.horizontal, configuration.innerHPadding)
 
-            DescriptionBlock
-                .padding(.horizontal, configuration.innerHPadding)
-                .padding(.top, 16)
+            if !configuration.description.isEmpty {
+                DescriptionBlock
+                    .padding(.horizontal, configuration.innerHPadding)
+                    .padding(.top, 16)
+            }
         }
     }
 }
