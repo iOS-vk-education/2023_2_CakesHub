@@ -21,7 +21,7 @@ final class SDProductModel {
     var _weight            : String?
     var _seller            : SDUserModel?
     var _descriptionInfo   : String
-    var _similarProducts   : [SDProductModel]
+    var _similarProducts   : [String]
     var _establishmentDate : String
     var _reviewInfo        : SDProductReviewsModel
 
@@ -34,7 +34,7 @@ final class SDProductModel {
         discountedPrice: String? = nil,
         weight: String? = nil,
         description: String,
-        similarProducts: [SDProductModel],
+        similarProducts: [String],
         establishmentDate: String,
         reviewInfo: SDProductReviewsModel
     ) {
@@ -78,7 +78,7 @@ extension SDProductModel: SDModelable {
             discountedPrice: fbModel.discountedPrice,
             weight: fbModel.weight,
             description: fbModel.description,
-            similarProducts: fbModel.similarProducts.map { SDProductModel(fbModel: $0) },
+            similarProducts: fbModel.similarProducts,
             establishmentDate: fbModel.establishmentDate,
             reviewInfo: SDProductReviewsModel(fbModel: fbModel.reviewInfo)
         )
@@ -106,7 +106,7 @@ extension SDProductModel {
                 return fbSeller
             }(),
             description: _descriptionInfo,
-            similarProducts: _similarProducts.map { $0.mapper },
+            similarProducts: _similarProducts,
             establishmentDate: _establishmentDate,
             reviewInfo: _reviewInfo.mapper
         )

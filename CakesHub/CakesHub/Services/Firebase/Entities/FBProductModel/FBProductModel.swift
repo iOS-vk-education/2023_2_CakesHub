@@ -28,7 +28,8 @@ struct FBProductModel: FBModelable {
     /// Описание товара
     var description: String
     /// Схожие товары
-    var similarProducts: [FBProductModel]
+    var similarProducts: [String]
+    var similarProductsModels: [FBProductModel] = []
     /// Дата создания товара
     var establishmentDate: String
     /// Оценки товара
@@ -68,7 +69,7 @@ extension FBProductModel {
             user = FBUserModel(dictionary: sellerDict)
         }
         let description = dictionary["description"] as? String ?? .clear
-        let similarProducts = dictionary["similarProducts"] as? [FBProductModel] ?? []
+        let similarProducts = dictionary["similarProducts"] as? [String] ?? []
         let establishmentDate = dictionary["establishmentDate"] as? String ?? .clear
         var reviewInfo: FBProductReviewsModel?
         if let reviewInfoDict = dictionary["reviewInfo"] as? [String: Any] {
@@ -166,7 +167,7 @@ extension FBProductModel {
             description: description,
             reviewInfo: reviewInfo.mapper,
             establishmentDate: establishmentDate,
-            similarProducts: similarProducts.mapperToProductModel
+            similarProducts: []
         )
     }
 }
