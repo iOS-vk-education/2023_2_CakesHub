@@ -359,11 +359,14 @@ private extension RootViewModel {
             data.forEach { product in
                 switch self.determineSection(for: product) {
                 case .news:
-                    news.append(product.mapperToProductModel)
+                    let productModel = RootViewModel.getProductSimilarProducts(for: product, data: data)
+                    news.append(productModel)
                 case .sales:
-                    sales.append(product.mapperToProductModel)
+                    let productModel = RootViewModel.getProductSimilarProducts(for: product, data: data)
+                    sales.append(productModel)
                 case .all:
-                    all.append(product.mapperToProductModel)
+                    let productModel = RootViewModel.getProductSimilarProducts(for: product, data: data)
+                    all.append(productModel)
                 }
             }
 
@@ -391,5 +394,23 @@ private extension RootViewModel {
     func filterCurrentUserProducts() {
         let userProducts = productData.products.filter { $0.seller.uid == currentUser.uid }
         productData.currentUserProducts = userProducts
+    }
+}
+
+// MARK: - Public Functions
+
+extension RootViewModel {
+
+    static func getProductSimilarProducts(for product: FBProductModel, data: [FBProductModel]) -> ProductModel {
+        var productModel = product.mapperToProductModel
+        productModel.similarProducts = product.similarProducts.compactMap { similarProductID in
+            guard let similarProduct = data.first(where: {
+                $0.documentID == similarProductID
+            }) else {
+                return nil
+            }
+            return similarProduct.mapperToProductModel
+        }
+        return productModel
     }
 }
