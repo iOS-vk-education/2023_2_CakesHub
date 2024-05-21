@@ -78,6 +78,14 @@ extension ProductDetailScreen {
             nav.openPreviousScreen()
         }
     }
+    
+    /// Нажатие кнопки `удалить товар`
+    func didTapDeleteButton() {
+        viewModel.didTapDeleteButton() {
+            rootViewModel.deleteProduct(by: viewModel.currentProduct.id)
+            nav.openPreviousScreen()
+        }
+    }
 
     func openRatingReviews() {
         nav.addScreen(screen: ProductDetailCells.ratingReviews)

@@ -12,13 +12,16 @@ extension ProductDetailViewModel {
     
     struct VMServices: ClearConfigurationProtocol {
         let wsService: WebSockerManagerProtocol
+        let cakeService: CakeServiceProtocol
         let notificationService: NotificationServiceProtocol
 
         init(
             wsService: WebSockerManagerProtocol = WebSockerManager.shared,
+            cakeService: CakeServiceProtocol = CakeService.shared,
             notificationService: NotificationServiceProtocol = NotificationService.shared
         ) {
             self.wsService = wsService
+            self.cakeService = cakeService
             self.notificationService = notificationService
         }
 

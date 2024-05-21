@@ -275,7 +275,6 @@ extension RootViewModel {
             }
             productData.sections[sectionIndex] = .all(oldProducts)
         }
-
     }
 
     @MainActor
@@ -297,6 +296,40 @@ extension RootViewModel {
     @MainActor
     func updateUserName(newNickname: String) {
         currentUser.nickname = newNickname
+    }
+
+    @MainActor
+    func deleteProduct(by id: String) {
+        // Удаляем торт
+        productData.products = productData.products.filter { $0.documentID == id }
+
+        // Удаляём удалённый торт из секции
+        for index in 0..<productData.sections.count {
+            let currentSection = productData.sections[index]
+            if currentSection.products.contains(where: { $0.id == id }) {
+                switch currentSection {
+                case let .all(products):
+                    productData.sections[index] = .all(products.filter { $0.id != id })
+                case let .news(products):
+                    productData.sections[index] = .news(products.filter { $0.id != id })
+                case let .sales(products):
+                    productData.sections[index] = .sales(products.filter { $0.id != id })
+                }
+                break
+            }
+        }
+
+        // Удаляем торт из товаров пользователя
+        let userProducts = productData.currentUserProducts
+        productData.currentUserProducts = userProducts.filter({ $0.documentID != id })
+
+        // Удаляем торт из памяти устройства
+        do {
+            try context?.delete(model: SDProductModel.self, where: #Predicate { $0._id == id })
+            try context?.save()
+        } catch {
+            Logger.log(kind: .error, message: error.localizedDescription)
+        }
     }
 }
 

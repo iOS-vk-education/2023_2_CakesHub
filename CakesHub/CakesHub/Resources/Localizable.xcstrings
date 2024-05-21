@@ -193,6 +193,9 @@
         }
       }
     },
+    "Delete product" : {
+
+    },
     "Delivery address" : {
       "localizations" : {
         "ru" : {

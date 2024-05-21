@@ -17,6 +17,7 @@ protocol CakeServiceProtocol {
     func getCakesList() async throws -> [FBProductModel]
     func createCake(cake: FBProductModel, completion: @escaping (Error?) -> Void)
     func deleteUserProducts(sellerID: String) async throws
+    func deleteProduct(by id: String) async throws
     func sendFeedback(productID: String, text feedbackText: String, count countFilledStar: Int, username: String) async throws -> FBProductModel
 }
 
@@ -100,6 +101,11 @@ extension CakeService: CakeServiceProtocol {
                 completion: completion
             )
         }
+    }
+
+    /// Delete product by id
+    func deleteProduct(by id: String) async throws {
+        try await firestore.collection(collection).document(id).delete()
     }
 
     func sendFeedback(
