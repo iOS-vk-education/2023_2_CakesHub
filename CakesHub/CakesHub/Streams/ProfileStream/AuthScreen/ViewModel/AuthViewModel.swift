@@ -194,7 +194,7 @@ extension AuthViewModel {
 
 // MARK: - Inner Methods
 
-private extension AuthViewModel {
+extension AuthViewModel {
 
     func startWebSocketLink(userID: String) {
         services.wsService.connection { [weak self] error in

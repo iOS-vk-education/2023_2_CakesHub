@@ -30,3 +30,4 @@ extension AuthViewModel: Mockable {
     )
 }
 #endif
+
