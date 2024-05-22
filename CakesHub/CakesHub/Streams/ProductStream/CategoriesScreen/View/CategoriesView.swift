@@ -25,7 +25,7 @@ struct CategoriesView: View {
             .onAppear(perform: onAppear)
             .navigationDestination(for: ViewModel.Screens.self) { screen in
                 switch screen {
-                case var .sectionCakes(products):
+                case let .sectionCakes(products):
                     let productModels: [ProductModel] = products.map { product in
                         RootViewModel.getProductSimilarProducts(for: product, data: products)
                     }
