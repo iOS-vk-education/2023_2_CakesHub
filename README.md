@@ -8,8 +8,37 @@ CakesHub - маркетплейс, где пекарни, кондитерски
 * Пермяков Дмитрий [VK](https://vk.com/mightyk1ngrichard) | [GitHub](https://github.com/mightyK1ngRichard)
 * Шахбиева Милана [VK](https://vk.com/ms_shakhbieva) | [GitHub](https://github.com/zlayamilana)
 
-## 👀 Ментор:
-* Александра Курганова
+## 👀 Менторы:
+* Александра Курганова, Ульяна Гордеева
+
+## 📺 Стримы и Экраны
+- Product Sream:
+    - Главная
+    - Экран подробной информации
+    - Экран рейтинга и отзывов о товаре
+    - Экран создания отзыва
+    - Экран создания товара
+    - Экран категорий
+- WebSocket Stream:
+    - Экран всех пользователей с историей чата
+    - Сам экран чата
+    - Экран уведомлений
+    - Экран подробной информации уведомления
+- Profile Stream:
+    - Экран профиля пользователя
+    - Экран настроек
+    - Экран авторизации/аутенфикации
+    - Карта
+- Design System Stream;
+
+## 🎩 Фичи:
+- Payment with YooMoney
+- Local Push Notifications
+- Real Time Messaneger, Notifications
+- Offline mode
+- Multithreading
+- Two-color mode
+- Localization
 
 ## 📦 Стек:
 - Language: 
@@ -20,11 +49,20 @@ CakesHub - маркетплейс, где пекарни, кондитерски
     - SwiftUI
     - SwiftData
     - Firebase
+    - MapKit
 - Backend:
     - Swift + Vapor
-- Network layer:
+- Application layer:
     - HTTP
     - WebSocket
+- Storage:
+    - SwiftData
+    - Firebase
+    - FileManager
+    - UserDefaults
+- Multithreading:
+    - GCD
+    - Async/await
 
 ## 📱 Макет
 [Welcome](https://www.figma.com/file/WQRhdUGaMTuHVHW62bXymo/iOS-application?type=design&node-id=0%3A1&mode=design&t=8kBYl7uGbfSFDc1y-1)

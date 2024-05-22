@@ -194,7 +194,14 @@
       }
     },
     "Delete product" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Удалить товар"
+          }
+        }
+      }
     },
     "Delivery address" : {
       "localizations" : {
@@ -690,7 +697,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Профль"
+            "value" : "Профиль"
           }
         }
       }
